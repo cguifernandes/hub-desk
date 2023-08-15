@@ -14,8 +14,10 @@ type LayoutProps = {
 const Layout = ({ children }: LayoutProps) => {
   return (
     <html>
-      <Header />
-      <body>{children}</body>
+      <body>
+        <Header />
+        {children}
+      </body>
     </html>
   )
 }
