@@ -6,7 +6,7 @@ const button = tv({
   base: 'rounded-md px-6 py-2 text-white transition-colors',
   variants: {
     fill: {
-      empty: 'bg-transparent ring-2 ring-grey-400 hover:bg-grey-600',
+      empty: 'bg-transparent border-2 border-grey-400 hover:bg-grey-600',
       default: 'bg-sky-700 hover:bg-sky-800',
     },
   },
