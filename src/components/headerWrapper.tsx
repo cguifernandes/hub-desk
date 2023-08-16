@@ -4,7 +4,8 @@ import { motion, Variants } from 'framer-motion'
 import clsx from 'clsx'
 
 type MenuProps = {
-  className: string
+  className?: string
+  visibleNavBar?: boolean
 }
 
 const Icon = ({ className }: MenuProps) => {
@@ -64,7 +65,7 @@ const Icon = ({ className }: MenuProps) => {
   )
 }
 
-export const SideBar = ({ visibleNavBar }: { visibleNavBar: boolean }) => {
+export const SideBar = ({ visibleNavBar }: MenuProps) => {
   const visible: Variants = {
     visible: {
       translateX: '0px',
