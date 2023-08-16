@@ -5,7 +5,7 @@ import Text from '@/components/text'
 export default function Home() {
   return (
     <main className="mt-[10vh] ">
-      <div className="flex h-[90vh] items-center justify-center bg-gradient-to-b from-[#454545] to-[#333]">
+      <div className="to-grey-500 from-grey-550 flex h-[90vh] items-center justify-center bg-gradient-to-b">
         <div className="w-[90%] space-y-4 text-center sm:w-[80%] lg:w-[920px] xl:w-[1020px]">
           <Heading size="xlg">O que é o Hub Desk</Heading>
           <Text className="text-white/60">

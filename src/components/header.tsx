@@ -5,7 +5,7 @@ import NavBar from './headerWrapper'
 
 const Header = () => {
   return (
-    <header className="fixed top-0 z-50 flex h-[10vh] w-full justify-center bg-grey-400 backdrop-blur md:bg-grey-400/60">
+    <header className="bg-grey-500 md:bg-grey-500/60 fixed top-0 z-50 flex h-[10vh] w-full justify-center backdrop-blur">
       <div className="mx-6 flex w-full max-w-[1636px] items-center justify-between ">
         <Image className="w-[210px] sm:w-[250px]" alt="Logo" src={Logo} />
         <nav className="hidden md:inline md:space-x-4">
