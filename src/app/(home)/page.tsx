@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <main className="mt-[10vh] ">
       <div className="flex h-[90vh] items-center justify-center bg-gradient-to-b from-[#454545] to-[#333]">
-        <div className="w-[1020px] space-y-4 text-center">
+        <div className="w-[90%] space-y-4 text-center sm:w-[80%] lg:w-[920px] xl:w-[1020px]">
           <Heading size="xlg">O que é o Hub Desk</Heading>
           <Text className="text-white/60">
             Você já se sentiu frustrado por não conseguir encontrar um lugar
@@ -19,7 +19,7 @@ export default function Home() {
             encontrar um lugar para discutir suas ideias e opiniões. Junte-se a
             nossa comunidade hoje!
           </Text>
-          <Button text="Criar uma desk" className="!mt-8 w-[60%]" />
+          <Button text="Criar uma desk" className="!mt-8 w-full sm:w-[60%]" />
         </div>
       </div>
     </main>
