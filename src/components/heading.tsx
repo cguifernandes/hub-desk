@@ -1,7 +1,28 @@
-import clsx from 'clsx'
 import { ReactNode } from 'react'
+import { tv, VariantProps } from 'tailwind-variants'
 
-type HeadingProps = {
+const heading = tv({
+  base: 'text-white',
+  variants: {
+    size: {
+      sm: 'text-sm',
+      md: 'text-xl',
+      lg: 'text-2xl',
+      xlg: 'text-3xl',
+    },
+    align: {
+      center: 'text-center',
+      right: 'text-right',
+      left: 'text-left',
+    },
+  },
+  defaultVariants: {
+    size: 'sm',
+    align: 'left',
+  },
+})
+
+type HeadingProps = VariantProps<typeof heading> & {
   children: ReactNode
   size?: 'sm' | 'md' | 'lg' | 'xlg'
   className?: string
@@ -10,27 +31,13 @@ type HeadingProps = {
 
 const Heading = ({
   children,
-  size = 'md',
+  size,
   className,
-  align = 'left',
+  align,
   ...props
 }: HeadingProps) => {
   return (
-    <h1
-      className={clsx(
-        'font-montserrat text-white',
-        {
-          'text-xl': size === 'sm',
-          'text-xxl': size === 'md',
-          'text-2xl': size === 'lg',
-          'text-3xl': size === 'xlg',
-          'text-center': align === 'center',
-          'text-right': align === 'right',
-        },
-        className,
-      )}
-      {...props}
-    >
+    <h1 className={heading({ size, className, align })} {...props}>
       {children}
     </h1>
   )

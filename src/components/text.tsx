@@ -1,38 +1,40 @@
-import clsx from 'clsx'
 import { ReactNode } from 'react'
+import { tv, VariantProps } from 'tailwind-variants'
 
-type TextProps = {
+const text = tv({
+  base: 'text-white',
+  variants: {
+    size: {
+      sm: 'text-sm',
+      md: 'text-xl',
+      lg: 'text-2xl',
+      xlg: 'text-3xl',
+    },
+    align: {
+      center: 'text-center',
+      right: 'text-right',
+      left: 'text-left',
+    },
+  },
+  defaultVariants: {
+    size: 'sm',
+    align: 'left',
+  },
+})
+
+type TextProps = VariantProps<typeof text> & {
   children: ReactNode
   size?: 'sm' | 'md' | 'lg' | 'xlg'
   className?: string
   align?: 'left' | 'center' | 'right'
 }
 
-const Text = ({
-  children,
-  size = 'md',
-  className,
-  align = 'left',
-  ...props
-}: TextProps) => {
+// AJUSTAR PARA NOVA FORMA DE TIPAR
+const Text = ({ children, size, className, align, ...props }: TextProps) => {
   return (
-    <h1
-      className={clsx(
-        'text-white',
-        {
-          'text-xl': size === 'sm',
-          'text-xxl': size === 'md',
-          'text-2xl': size === 'lg',
-          'text-3xl': size === 'xlg',
-          'text-center': align === 'center',
-          'text-right': align === 'right',
-        },
-        className,
-      )}
-      {...props}
-    >
+    <p className={text({ size, className, align })} {...props}>
       {children}
-    </h1>
+    </p>
   )
 }
 
