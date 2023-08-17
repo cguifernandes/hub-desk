@@ -8,8 +8,10 @@ const Home = () => {
     <main className="mt-[10vh]">
       <div className="flex h-[90vh] items-center justify-center bg-gradient-to-b from-grey-550 to-grey-500">
         <div className="w-[90%] space-y-4 text-center sm:w-[80%] lg:w-[920px] xl:w-[1020px]">
-          <Heading size="xlg">O que é o Hub Desk</Heading>
-          <Text size="xlg" className="!text-base text-white/60">
+          <Heading align="center" size="xlg">
+            O que é o Hub Desk
+          </Heading>
+          <Text align="center" size="xlg" className="!text-base text-white/60">
             Você já se sentiu frustrado por não conseguir encontrar um lugar
             para discutir ideias e opiniões com outras pessoas que compartilham
             seus interesses? Ou talvez você já tenha tentado participar de
@@ -23,7 +25,19 @@ const Home = () => {
           <Button text="Criar uma desk" className="!mt-8 w-full sm:w-[60%]" />
         </div>
       </div>
-      <Topics />
+      <div className="my-10 space-y-6">
+        <Heading align="center" size="xlg">
+          Tópicos em destaque
+        </Heading>
+        <div className="mx-5 flex flex-wrap justify-center gap-10 md:mx-10">
+          <Topics text="Animes" />
+          <Topics text="Filmes" />
+          <Topics text="Desenhos" />
+          <Topics text="Sites" />
+          <Topics text="Séries" />
+          <Topics text="Outros" />
+        </div>
+      </div>
     </main>
   )
 }

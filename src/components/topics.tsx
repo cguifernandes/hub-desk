@@ -1,21 +1,27 @@
 import { ArrowUpRightIcon } from 'lucide-react'
-import Heading from './heading'
 import Text from './text'
+import clsx from 'clsx'
 
-const Topics = () => {
+type TopicsProps = {
+  text: string
+  className?: string
+}
+
+const Topics = ({ className, text }: TopicsProps) => {
   return (
-    <div className="my-10">
-      <Heading align="center" size="lg">
-        Tópicos em destaque
-      </Heading>
-      <div className="relative flex h-[220px] w-[420px] cursor-pointer items-center justify-center rounded-md bg-sky-700 transition-colors hover:bg-sky-800">
-        <Text size="xlg" align="center" className="font-montserrat">
-          Animes
-        </Text>
-        <span className="absolute bottom-6 right-6 flex items-center text-white">
-          Ver mais <ArrowUpRightIcon size={24} className="mx-1" />
-        </span>
-      </div>
+    <div
+      className={clsx(
+        'relative flex h-[220px] cursor-pointer items-center justify-center rounded-md shadow-lg',
+        'flex-[50%] bg-sky-700 transition-colors hover:bg-sky-800 sm:flex-[33.33%] lg:flex-[20%]',
+        className,
+      )}
+    >
+      <Text size="lg" align="center" className="font-montserrat">
+        {text}
+      </Text>
+      <span className="absolute bottom-6 right-6 flex items-center text-sm text-white">
+        Ver mais <ArrowUpRightIcon size={20} className="mx-1" />
+      </span>
     </div>
   )
 }
