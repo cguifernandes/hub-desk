@@ -5,6 +5,7 @@ const text = tv({
   base: 'text-white',
   variants: {
     size: {
+      base: 'text-base',
       sm: 'text-sm',
       md: 'text-xl',
       lg: 'text-2xl',
@@ -17,8 +18,7 @@ const text = tv({
     },
   },
   defaultVariants: {
-    size: 'sm',
-    align: 'left',
+    size: 'base',
   },
 })
 

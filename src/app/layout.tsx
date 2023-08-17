@@ -3,6 +3,7 @@ import '@/styles/global.css'
 import type { Metadata } from 'next'
 import Header from '@/components/header'
 import { Poppins, Montserrat } from 'next/font/google'
+import Footer from '@/components/footer'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -29,6 +30,7 @@ const Layout = ({ children }: LayoutProps) => {
       <body>
         <Header />
         {children}
+        <Footer />
       </body>
     </html>
   )

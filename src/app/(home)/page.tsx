@@ -6,12 +6,12 @@ import Topics from '@/components/topics'
 const Home = () => {
   return (
     <main className="mt-[10vh]">
-      <div className="flex h-[90vh] items-center justify-center bg-gradient-to-b from-grey-550 to-grey-500">
+      <section className="flex h-[90vh] items-center justify-center bg-gradient-to-b from-grey-550 to-grey-500">
         <div className="w-[90%] space-y-4 text-center sm:w-[80%] lg:w-[920px] xl:w-[1020px]">
-          <Heading align="center" size="xlg">
+          <Heading className="font-semibold" align="center" size="lg">
             O que é o Hub Desk
           </Heading>
-          <Text align="center" size="xlg" className="!text-base text-white/60">
+          <Text align="center" className="text-base text-white/60">
             Você já se sentiu frustrado por não conseguir encontrar um lugar
             para discutir ideias e opiniões com outras pessoas que compartilham
             seus interesses? Ou talvez você já tenha tentado participar de
@@ -24,9 +24,9 @@ const Home = () => {
           </Text>
           <Button text="Criar uma desk" className="!mt-8 w-full sm:w-[60%]" />
         </div>
-      </div>
-      <div className="my-10 space-y-6">
-        <Heading align="center" size="xlg">
+      </section>
+      <section className="my-14 space-y-6">
+        <Heading className="font-semibold" align="center" size="lg">
           Tópicos em destaque
         </Heading>
         <div className="mx-5 flex flex-wrap justify-center gap-10 md:mx-10">
@@ -37,7 +37,7 @@ const Home = () => {
           <Topics text="Séries" />
           <Topics text="Outros" />
         </div>
-      </div>
+      </section>
     </main>
   )
 }

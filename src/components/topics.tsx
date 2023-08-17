@@ -16,7 +16,7 @@ const Topics = ({ className, text }: TopicsProps) => {
         className,
       )}
     >
-      <Text size="lg" align="center" className="font-montserrat">
+      <Text align="center" className="font-montserrat !text-xl">
         {text}
       </Text>
       <span className="absolute bottom-6 right-6 flex items-center text-sm text-white">

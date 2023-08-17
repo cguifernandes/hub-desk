@@ -16,10 +16,6 @@ const heading = tv({
       left: 'text-left',
     },
   },
-  defaultVariants: {
-    size: 'sm',
-    align: 'left',
-  },
 })
 
 type HeadingProps = VariantProps<typeof heading> & {
