@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer
       className={clsx(
-        'flex h-auto flex-col items-center justify-center gap-2 border-t-2 border-t-grey-400',
+        'flex h-auto flex-col items-center justify-center gap-2 ',
         'px-[60px] py-6 text-center md:h-[10vh] md:flex-row md:justify-between',
       )}
     >
