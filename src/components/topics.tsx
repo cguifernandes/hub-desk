@@ -9,7 +9,7 @@ const Topics = () => {
         Tópicos em destaque
       </Heading>
       <div className="relative flex h-[220px] w-[420px] cursor-pointer items-center justify-center rounded-md bg-sky-700 transition-colors hover:bg-sky-800">
-        <Text className="font-montserrat" size="lg">
+        <Text size="xlg" align="center" className="font-montserrat">
           Animes
         </Text>
         <span className="absolute bottom-6 right-6 flex items-center text-white">

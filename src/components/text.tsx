@@ -29,7 +29,6 @@ type TextProps = VariantProps<typeof text> & {
   align?: 'left' | 'center' | 'right'
 }
 
-// AJUSTAR PARA NOVA FORMA DE TIPAR
 const Text = ({ children, size, className, align, ...props }: TextProps) => {
   return (
     <p className={text({ size, className, align })} {...props}>
