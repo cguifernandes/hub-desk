@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import Header from '@/components/header'
 import { Poppins, Montserrat } from 'next/font/google'
 import Footer from '@/components/footer'
+import CookiesMessage from '@/components/messages/cookies'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -30,6 +31,7 @@ const Layout = ({ children }: LayoutProps) => {
       <body>
         <Header />
         {children}
+        <CookiesMessage />
         <Footer />
       </body>
     </html>
