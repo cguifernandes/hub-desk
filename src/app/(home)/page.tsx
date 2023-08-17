@@ -25,7 +25,7 @@ const Home = () => {
           <Button text="Criar uma desk" className="!mt-8 w-full sm:w-[60%]" />
         </div>
       </section>
-      <section className="my-14 space-y-6">
+      <section className="space-y-6 bg-gradient-to-t from-grey-550 to-grey-500 py-14">
         <Heading className="font-semibold" align="center" size="lg">
           Tópicos em destaque
         </Heading>

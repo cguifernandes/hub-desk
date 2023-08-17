@@ -1,8 +1,14 @@
+import clsx from 'clsx'
 import Text from './text'
 
 const Footer = () => {
   return (
-    <footer className="flex h-auto flex-col items-center justify-center gap-2 border-t-2 border-t-grey-400 px-[60px] py-6 text-center md:h-[10vh] md:flex-row md:justify-between">
+    <footer
+      className={clsx(
+        'flex h-auto flex-col items-center justify-center gap-2 border-t-2 border-t-grey-400',
+        'px-[60px] py-6 text-center md:h-[10vh] md:flex-row md:justify-between',
+      )}
+    >
       <div>
         {/*  TODO: Adicionar páginas */}
         <Text size="md">Hub Desk 2023 ©</Text>

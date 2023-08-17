@@ -83,7 +83,7 @@ export const SideBar = ({ visibleNavBar }: MenuProps) => {
       animate={!visibleNavBar ? 'visible' : 'hidden'}
       variants={visible}
       className={clsx(
-        'fixed right-0 top-[10vh] z-50 flex h-[90vh] w-[280px] flex-col items-center bg-grey-400/60',
+        'fixed right-0 top-[10vh] z-50 flex h-[90vh] w-[280px] flex-col items-center bg-grey-600/60',
         'justify-around text-white backdrop-blur md:hidden',
       )}
     ></motion.aside>
