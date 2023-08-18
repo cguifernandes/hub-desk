@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 import { ButtonHTMLAttributes } from 'react'
 import { tv, VariantProps } from 'tailwind-variants'
 
@@ -7,20 +8,37 @@ const button = tv({
   variants: {
     fill: {
       empty: 'bg-transparent border-2 border-grey-400 hover:bg-grey-700',
-      default: 'bg-sky-700 hover:bg-sky-800',
+      base: 'bg-sky-700 hover:bg-sky-800',
     },
   },
   defaultVariants: {
-    fill: 'default',
+    fill: 'base',
   },
 })
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof button> & {
     text: string
+    href?: string
   }
 
-const Button = ({ text, className, fill, ...props }: ButtonProps) => {
+const Button = ({ text, className, fill, href, ...props }: ButtonProps) => {
+  if (href) {
+    return (
+      <>
+        <Link
+          className={button({
+            fill,
+            className: `${className} flex items-center justify-center`,
+          })}
+          href={href}
+        >
+          <button {...props}>{text}</button>
+        </Link>
+      </>
+    )
+  }
+
   return (
     <button {...props} className={button({ fill, className })}>
       {text}
