@@ -14,11 +14,11 @@ export const metadata: Metadata = {
 
 const SignIn = () => {
   return (
-    <div className="w-[600px] rounded-md bg-grey-600 p-10 shadow-lg">
+    <div className="w-full max-w-[550px] rounded-md bg-grey-600 p-10 shadow-lg">
       <header className="flex items-center justify-between">
         <div>
           <Heading className="font-montserrat text-3xl">Login</Heading>
-          <Text className="text-white/50">
+          <Text size="sm" className="text-white/50">
             Ainda não tem uma conta?{' '}
             <a
               href="sign-up"
@@ -34,7 +34,7 @@ const SignIn = () => {
           <div
             className={clsx(
               'absolute right-0 top-[50%] flex w-[60px] justify-center',
-              ' h-[60px] -translate-y-[50%] items-center rounded-r-md bg-sky-700',
+              'h-full -translate-y-[50%] items-center rounded-r-md bg-sky-700',
             )}
           >
             <Mail color="#fff" strokeWidth={1.25} size={28} />
@@ -44,7 +44,7 @@ const SignIn = () => {
           <div
             className={clsx(
               'absolute right-0 top-[50%] flex w-[60px] justify-center bg-sky-700',
-              ' h-[60px] -translate-y-[50%] items-center rounded-r-md',
+              'h-full -translate-y-[50%] items-center rounded-r-md',
             )}
           >
             <Eye color="#fff" strokeWidth={1.25} size={28} />
@@ -53,17 +53,17 @@ const SignIn = () => {
         <Form.Button className="w-full" text="Logar" />
       </Form.Root>
       <div className="h-[2px] w-full bg-grey-400" />
-      <div className="flex justify-around pt-12">
-        <button className="flex h-16 w-24 items-center justify-center rounded-md bg-black transition-colors hover:bg-[#202020]">
+      <div className="grid grid-cols-2 grid-rows-2 justify-between justify-items-center gap-5 pt-12 sm:grid-cols-4 sm:grid-rows-1">
+        <button className="flex h-16 w-full items-center justify-center rounded-md bg-black transition-colors hover:bg-[#202020] sm:w-24">
           <Github fill="#fff" strokeWidth={0.5} color="#fff" size={28} />
         </button>
-        <button className="flex h-16 w-24 items-center justify-center rounded-md bg-[#176DF0] transition-colors hover:bg-[#176ef0ab]">
+        <button className="flex h-16 w-full items-center justify-center rounded-md bg-[#176DF0] transition-colors hover:bg-[#176ef0ab] sm:w-24">
           <Facebook fill="#fff" strokeWidth={0.5} color="#fff" size={28} />
         </button>
-        <button className="flex h-16 w-24 items-center justify-center rounded-md bg-[#0e76a8] transition-colors hover:bg-[#0e77a8c9]">
+        <button className="flex h-16 w-full items-center justify-center rounded-md bg-[#0e76a8] transition-colors hover:bg-[#0e77a8c9] sm:w-24">
           <Image src={Linkedin} alt="Google logo" width={28} />
         </button>
-        <button className="flex h-16 w-24 items-center justify-center rounded-md bg-white transition-colors hover:bg-[#ddd]">
+        <button className="flex h-16 w-full items-center justify-center rounded-md bg-white transition-colors hover:bg-[#ddd] sm:w-24">
           <Image src={Google} alt="Google logo" width={28} />
         </button>
       </div>

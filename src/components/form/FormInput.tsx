@@ -12,7 +12,7 @@ const FormInput = ({ className, children, ...props }: InputProps) => {
       <div className="relative flex justify-between">
         <input
           className={clsx(
-            'w-[calc(520px_-_60px)] rounded-l-md border-2 border-transparent bg-grey-400/30 p-4 ',
+            'w-[calc(100%_-_60px)] rounded-l-md border-2 border-transparent bg-grey-400/30 p-4 py-3',
             'text-white placeholder-white/50 transition-colors focus:border-sky-700',
             className,
           )}
