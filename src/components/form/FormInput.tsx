@@ -12,13 +12,20 @@ const FormInput = ({ className, children, ...props }: InputProps) => {
       <div className="relative flex justify-between">
         <input
           className={clsx(
-            'w-[calc(100%_-_55px)] rounded-l-md border-2 border-transparent bg-grey-400/30 p-4 py-3',
+            'w-[calc(100%_-_60px)] rounded-l-md border-2 border-transparent bg-grey-400/30 p-4 py-3',
             'text-white placeholder-white/50 transition-colors focus:border-sky-700',
             className,
           )}
           {...props}
         />
-        {children}
+        <div
+          className={clsx(
+            'absolute right-0 top-[50%] flex w-[60px] justify-center bg-sky-700',
+            'h-full -translate-y-[50%] items-center rounded-r-md',
+          )}
+        >
+          {children}
+        </div>
       </div>
     )
   }

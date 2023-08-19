@@ -12,12 +12,14 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <main
       style={{ backgroundImage: `url(${Waves.src})` }}
-      className="min-h-screen bg-cover p-5 pt-14"
+      className="min-h-screen bg-cover p-5 pt-8 sm:pt-14"
     >
       <Link href={'/'}>
         <Image className="m-auto" width={290} alt="Logo" src={Logo} />
       </Link>
-      <div className="my-14 flex items-center justify-center">{children}</div>
+      <div className="mt-8 flex items-center justify-center sm:mt-14">
+        {children}
+      </div>
     </main>
   )
 }
