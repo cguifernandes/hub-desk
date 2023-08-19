@@ -10,19 +10,14 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <main>
-      <Link
-        className="absolute left-[50%] flex h-[10vh] translate-x-[-50%] items-center"
-        href={'/'}
-      >
-        <Image className="w-[280px]" alt="Logo" src={Logo} />
+    <main
+      style={{ backgroundImage: `url(${Waves.src})` }}
+      className="min-h-screen bg-cover p-5 pt-14"
+    >
+      <Link href={'/'}>
+        <Image className="m-auto" width={290} alt="Logo" src={Logo} />
       </Link>
-      <div
-        className="flex h-screen items-center justify-center bg-cover px-5 pt-[10vh]"
-        style={{ backgroundImage: `url(${Waves.src})` }}
-      >
-        {children}
-      </div>
+      <div className="my-14 flex items-center justify-center">{children}</div>
     </main>
   )
 }
