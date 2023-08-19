@@ -1,6 +1,5 @@
 import { ReactNode } from 'react'
 import '@/styles/global.css'
-import type { Metadata } from 'next'
 import { Poppins, Montserrat } from 'next/font/google'
 
 const poppins = Poppins({
@@ -13,10 +12,6 @@ const montserrat = Montserrat({
   weight: '500',
   variable: '--font-montserrat',
 })
-
-export const metadata: Metadata = {
-  title: 'Home | Hub Desk',
-}
 
 type LayoutProps = {
   children: ReactNode

@@ -18,7 +18,7 @@ const Layout = ({ children }: LayoutProps) => {
         <Image className="w-[280px]" alt="Logo" src={Logo} />
       </Link>
       <div
-        className="h-screen pt-[10vh]"
+        className="flex h-screen items-center justify-center bg-cover pt-[10vh]"
         style={{ backgroundImage: `url(${Waves.src})` }}
       >
         {children}

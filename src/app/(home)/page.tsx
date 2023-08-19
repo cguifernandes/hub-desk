@@ -2,6 +2,11 @@ import Button from '@/components/button'
 import Heading from '@/components/heading'
 import Text from '@/components/text'
 import Topics from '@/components/topics'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Home | Hub Desk',
+}
 
 const Home = () => {
   return (

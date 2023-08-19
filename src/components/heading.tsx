@@ -20,9 +20,7 @@ const heading = tv({
 
 type HeadingProps = VariantProps<typeof heading> & {
   children: ReactNode
-  size?: 'sm' | 'md' | 'lg' | 'xlg'
   className?: string
-  align?: 'left' | 'center' | 'right'
 }
 
 const Heading = ({
