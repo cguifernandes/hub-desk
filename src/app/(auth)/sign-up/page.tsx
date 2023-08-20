@@ -1,11 +1,11 @@
 import Heading from '@/components/heading'
 import Text from '@/components/text'
 import { Metadata } from 'next'
-import { Form } from '@/components/form'
-import { Eye, Facebook, Github, Mail, UserCircle2 } from 'lucide-react'
+import { Facebook, Github } from 'lucide-react'
 import Google from '../../../../public/googleLogo.svg'
 import Linkedin from '../../../../public/linkedinLogo.svg'
 import Image from 'next/image'
+import FormAuth from '@/components/formAuth'
 
 export const metadata: Metadata = {
   title: 'Cadastrar | Hub Desk',
@@ -28,18 +28,7 @@ const SignUp = () => {
           </Text>
         </div>
       </header>
-      <Form.Root className="space-y-8 py-12">
-        <Form.Input className="relative" placeholder="E-mail">
-          <Mail color="#fff" strokeWidth={1.25} size={28} />
-        </Form.Input>
-        <Form.Input placeholder="User">
-          <UserCircle2 color="#fff" strokeWidth={1.25} size={28} />
-        </Form.Input>
-        <Form.Input placeholder="Senha">
-          <Eye color="#fff" strokeWidth={1.25} size={28} />
-        </Form.Input>
-        <Form.Button className="w-full" text="Cadastrar" />
-      </Form.Root>
+      <FormAuth />
       <div className="h-[2px] w-full bg-grey-400" />
       <div className="grid grid-cols-2 grid-rows-2 justify-between justify-items-center gap-5 pt-12 sm:grid-cols-4 sm:grid-rows-1">
         <button className="flex h-16 w-full items-center justify-center rounded-md bg-black transition-colors hover:bg-[#202020] sm:w-24">
