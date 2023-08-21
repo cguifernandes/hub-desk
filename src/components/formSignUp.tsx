@@ -38,7 +38,7 @@ const schemaAuth = z.object({
 
 type AuthFormProps = z.infer<typeof schemaAuth>
 
-const FormAuth = () => {
+const FormSignUp = () => {
   const [visiblePassword, setVisiblePassword] = useState(false)
 
   const {
@@ -105,4 +105,4 @@ const FormAuth = () => {
   )
 }
 
-export default FormAuth
+export default FormSignUp
