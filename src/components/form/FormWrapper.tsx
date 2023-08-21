@@ -1,11 +1,13 @@
-'use client'
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Check } from 'lucide-react'
 import Link from 'next/link'
-import { ChangeEvent, useState } from 'react'
 
-const FormWrapper = () => {
-  const [checkbox, setCheckbox] = useState(false)
+type FormWrapper = {
+  register: any
+  name: string
+}
 
+const FormWrapper = ({ name, register }: FormWrapper) => {
   return (
     <div className="flex flex-wrap items-center justify-between gap-y-4">
       <label
@@ -13,11 +15,9 @@ const FormWrapper = () => {
         className="relative mr-6 flex cursor-pointer items-center justify-center"
       >
         <input
+          {...register(name)}
           type="checkbox"
           id="checkbox"
-          onChange={(event: ChangeEvent<HTMLInputElement>) =>
-            setCheckbox(event.target.checked)
-          }
           className="h-6 w-6 appearance-none bg-white"
         />
         <Check

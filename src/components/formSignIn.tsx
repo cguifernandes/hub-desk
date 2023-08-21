@@ -84,7 +84,7 @@ const FormSignIn = () => {
         )}
       </Form.Input>
       <Form.Button type="submit" className="w-full" text="Cadastrar" />
-      <Form.Wrapper />
+      <Form.Wrapper name="rememberUser" register={register} />
     </Form.Root>
   )
 }
