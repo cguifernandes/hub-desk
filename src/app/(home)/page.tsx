@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 const Home = () => {
   return (
-    <main className="mt-[10vh]">
+    <main className="mt-24">
       <section className="flex h-[90vh] items-center justify-center bg-gradient-to-b from-grey-550 to-grey-500">
         <div className="w-[90%] space-y-4 text-center sm:w-[80%] lg:w-[920px] xl:w-[1020px]">
           <Heading className="font-semibold" align="center" size="lg">

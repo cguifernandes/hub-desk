@@ -6,7 +6,7 @@ const Footer = () => {
     <footer
       className={clsx(
         'flex h-auto flex-col items-center justify-center gap-2 ',
-        'px-[60px] py-6 text-center md:h-[10vh] md:flex-row md:justify-between',
+        'px-[60px] py-6 text-center md:h-24 md:flex-row md:justify-between',
       )}
     >
       <div>

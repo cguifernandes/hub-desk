@@ -46,7 +46,7 @@ const FormSignUp = () => {
     register,
     formState: { errors },
   } = useForm<AuthFormProps>({
-    reValidateMode: 'onBlur',
+    reValidateMode: 'onChange',
     resolver: zodResolver(schemaAuth),
   })
 
