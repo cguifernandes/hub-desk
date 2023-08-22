@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
-import Header from '@/components/header'
-import Footer from '@/components/footer'
-import CookiesMessage from '@/components/messages/cookies'
+import Header from '@/components/Layout/header'
+import Footer from '@/components/Layout/footer'
+import CookiesMessage from '@/components/Layout/cookies'
 
 type LayoutProps = {
   children: ReactNode

@@ -31,7 +31,7 @@ const Button = ({
   loading,
   ...props
 }: ButtonProps) => {
-  if (loading) {
+  if (!loading) {
     return <p>oi</p>
   }
 

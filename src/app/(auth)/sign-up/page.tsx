@@ -5,7 +5,7 @@ import { Facebook, Github } from 'lucide-react'
 import Google from '../../../../public/googleLogo.svg'
 import Linkedin from '../../../../public/linkedinLogo.svg'
 import Image from 'next/image'
-import FormSignUp from '@/components/formSignUp'
+import FormSignUp from '@/components/Form/Auth/formSignUp'
 
 export const metadata: Metadata = {
   title: 'Cadastrar | Hub Desk',
