@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes } from 'react'
 import Button from '../button'
 import { VariantProps, tv } from 'tailwind-variants'
+import clsx from 'clsx'
 
 const button = tv({
   base: 'rounded-md px-6 py-2 text-white transition-colors',
@@ -34,7 +35,7 @@ const FormButton = ({
       loading={loading}
       text={text}
       {...props}
-      className={className}
+      className={clsx('h-12', className)}
       fill={fill}
     />
   )

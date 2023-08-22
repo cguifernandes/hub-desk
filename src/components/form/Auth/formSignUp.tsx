@@ -62,14 +62,13 @@ const FormSignUp = () => {
         method: 'POST',
         body: JSON.stringify(data),
       })
-
-      setEmail('')
-      setPassword('')
-      setName('')
     } catch (err) {
       console.log(err)
     } finally {
       setIsLoading(false)
+      setEmail('')
+      setPassword('')
+      setName('')
     }
   }
 
