@@ -16,6 +16,7 @@ model Clients {
   password    String
   name        String
   desks       Desk[]
+  comments    Comment[]
 }
 
 model Desk {
@@ -28,4 +29,15 @@ model Desk {
   imageURL    String
   color       String?
   description String
+  comments    Comment[]
+}
+
+model Comment {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  text        String
+  createdAt   DateTime    @default(now())
+  author      Clients     @relation(fields: [authorId], references: [id])
+  authorId    String      @db.ObjectId
+  desk        Desk        @relation(fields: [deskId], references: [id])
+  deskId      String      @db.ObjectId
 }

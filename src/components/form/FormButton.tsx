@@ -19,10 +19,25 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof button> & {
     text: string
     href?: string
+    loading: boolean
   }
 
-const FormButton = ({ text, className, fill, ...props }: ButtonProps) => {
-  return <Button text={text} {...props} className={className} fill={fill} />
+const FormButton = ({
+  text,
+  className,
+  fill,
+  loading,
+  ...props
+}: ButtonProps) => {
+  return (
+    <Button
+      loading={loading}
+      text={text}
+      {...props}
+      className={className}
+      fill={fill}
+    />
+  )
 }
 
 export default FormButton

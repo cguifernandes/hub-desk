@@ -2,12 +2,12 @@
 import { Form } from '@/components/form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOffIcon, Mail, UserCircle2 } from 'lucide-react'
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const schemaAuth = z.object({
-  user: z
+  name: z
     .string()
     .nonempty('O campo "User" é obrigatório.')
     .toLowerCase()
@@ -40,6 +40,10 @@ type AuthFormProps = z.infer<typeof schemaAuth>
 
 const FormSignUp = () => {
   const [visiblePassword, setVisiblePassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [email, setEmail] = useState(String)
+  const [password, setPassword] = useState(String)
+  const [name, setName] = useState(String)
 
   const {
     handleSubmit,
@@ -50,8 +54,23 @@ const FormSignUp = () => {
     resolver: zodResolver(schemaAuth),
   })
 
-  const handlerFormSubmit = (data: AuthFormProps) => {
-    console.log(data)
+  const handlerFormSubmit = async (data: AuthFormProps) => {
+    try {
+      setIsLoading(true)
+
+      await fetch('/api/users', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      })
+
+      setEmail('')
+      setPassword('')
+      setName('')
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -64,14 +83,18 @@ const FormSignUp = () => {
         register={register}
         name="email"
         placeholder="E-mail"
+        onChange={(e) => setEmail(e.target.value)}
+        value={email}
       >
         <Mail color="#fff" strokeWidth={1.25} size={28} />
       </Form.Input>
       <Form.Input
-        error={errors.user}
+        error={errors.name}
         register={register}
-        name="user"
-        placeholder="User"
+        name="name"
+        placeholder="Nome"
+        onChange={(e) => setName(e.target.value)}
+        value={name}
       >
         <UserCircle2 color="#fff" strokeWidth={1.25} size={28} />
       </Form.Input>
@@ -81,6 +104,8 @@ const FormSignUp = () => {
         register={register}
         name="password"
         placeholder="Senha"
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}
       >
         {!visiblePassword ? (
           <Eye
@@ -100,7 +125,12 @@ const FormSignUp = () => {
           />
         )}
       </Form.Input>
-      <Form.Button type="submit" className="w-full" text="Cadastrar" />
+      <Form.Button
+        loading={isLoading}
+        type="submit"
+        className="w-full"
+        text="Cadastrar"
+      />
     </Form.Root>
   )
 }

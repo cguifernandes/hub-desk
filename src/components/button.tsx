@@ -20,9 +20,21 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof button> & {
     text: string
     href?: string
+    loading?: boolean
   }
 
-const Button = ({ text, className, fill, href, ...props }: ButtonProps) => {
+const Button = ({
+  text,
+  className,
+  fill,
+  href,
+  loading,
+  ...props
+}: ButtonProps) => {
+  if (loading) {
+    return <p>oi</p>
+  }
+
   if (href) {
     return (
       <>
