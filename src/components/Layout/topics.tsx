@@ -1,5 +1,5 @@
 import { ArrowUpRightIcon } from 'lucide-react'
-import Text from './text'
+import Text from '@/components/text'
 import clsx from 'clsx'
 
 type TopicsProps = {

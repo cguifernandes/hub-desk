@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Logo from '../../public/hubDesk.svg'
-import Button from './button'
+import Button from '../button'
 import NavBar from './headerWrapper'
 
 const Header = () => {

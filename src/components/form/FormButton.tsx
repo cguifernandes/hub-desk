@@ -19,7 +19,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof button> & {
     text: string
     href?: string
-    loading: boolean
+    loading?: boolean
   }
 
 const FormButton = ({

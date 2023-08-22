@@ -1,13 +1,22 @@
 'use client'
-import { Form } from '@/components/form'
+import { Form } from '@/components/Form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Eye, EyeOffIcon, Mail } from 'lucide-react'
+import { Eye, EyeOffIcon, Mail, UserCircle2 } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 
 const schemaAuth = z.object({
-  rememberUser: z.boolean(),
+  name: z
+    .string()
+    .nonempty('O campo "User" é obrigatório.')
+    .toLowerCase()
+    .max(16, 'O user deve ter no máximo 16 caracteres')
+    .refine(
+      (user) =>
+        /^[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]/.test(user.charAt(0)) === false,
+      'O user não deve começar com um caractere especial.',
+    ),
   email: z
     .string()
     .email('O e-mail precisa ser válido.')
@@ -29,20 +38,39 @@ const schemaAuth = z.object({
 
 type AuthFormProps = z.infer<typeof schemaAuth>
 
-const FormSignIn = () => {
+const FormSignUp = () => {
   const [visiblePassword, setVisiblePassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [email, setEmail] = useState(String)
+  const [password, setPassword] = useState(String)
+  const [name, setName] = useState(String)
 
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm<AuthFormProps>({
-    reValidateMode: 'onBlur',
+    reValidateMode: 'onChange',
     resolver: zodResolver(schemaAuth),
   })
 
-  const handlerFormSubmit = (data: AuthFormProps) => {
-    console.log(data)
+  const handlerFormSubmit = async (data: AuthFormProps) => {
+    try {
+      setIsLoading(true)
+
+      await fetch('/api/users', {
+        method: 'POST',
+        body: JSON.stringify(data),
+      })
+
+      setEmail('')
+      setPassword('')
+      setName('')
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -55,8 +83,20 @@ const FormSignIn = () => {
         register={register}
         name="email"
         placeholder="E-mail"
+        onChange={(e) => setEmail(e.target.value)}
+        value={email}
       >
         <Mail color="#fff" strokeWidth={1.25} size={28} />
+      </Form.Input>
+      <Form.Input
+        error={errors.name}
+        register={register}
+        name="name"
+        placeholder="Nome"
+        onChange={(e) => setName(e.target.value)}
+        value={name}
+      >
+        <UserCircle2 color="#fff" strokeWidth={1.25} size={28} />
       </Form.Input>
       <Form.Input
         type={visiblePassword ? 'text' : 'password'}
@@ -64,6 +104,8 @@ const FormSignIn = () => {
         register={register}
         name="password"
         placeholder="Senha"
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}
       >
         {!visiblePassword ? (
           <Eye
@@ -83,10 +125,14 @@ const FormSignIn = () => {
           />
         )}
       </Form.Input>
-      <Form.Button type="submit" className="w-full" text="Cadastrar" />
-      <Form.Wrapper name="rememberUser" register={register} />
+      <Form.Button
+        loading={isLoading}
+        type="submit"
+        className="w-full"
+        text="Cadastrar"
+      />
     </Form.Root>
   )
 }
 
-export default FormSignIn
+export default FormSignUp
