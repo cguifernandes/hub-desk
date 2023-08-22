@@ -15,12 +15,14 @@ model Clients {
   email       String      @unique
   password    String
   name        String
-  desks       Json[]
+  desks       Desk[]
 }
 
 model Desk {
   id          String      @id @default(auto()) @map("_id") @db.ObjectId 
   createdAt   DateTime    @default(now())
+  author      Clients     @relation(fields: [authorId], references: [id])
+  authorId    String      @db.ObjectId 
   category    String
   title       String
   imageURL    String
