@@ -2,7 +2,6 @@
 import { useState } from 'react'
 import { motion, Variants } from 'framer-motion'
 import clsx from 'clsx'
-import Text from '../text'
 import Button from '../button'
 
 type MenuProps = {
