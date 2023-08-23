@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable camelcase */
 'use client'
 import { X } from 'lucide-react'
 import Button from '@/components/button'
@@ -6,12 +8,21 @@ import clsx from 'clsx'
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import useConnection from '@/hooks/useConnection'
-import { destroyCookie } from 'nookies'
+import { destroyCookie, setCookie } from 'nookies'
 
-/* eslint-disable react/no-unescaped-entities */
 const CookiesMessage = () => {
   const [visible, setVisible] = useState(true)
-  const { isConnected } = useConnection()
+  const { agree_cookies } = useConnection()
+
+  const agreeCookies = () => {
+    setVisible(false)
+    setCookie(null, 'agree_cookies', 'true', {
+      path: '/',
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+      SameSite: 'None',
+      Secure: true,
+    })
+  }
 
   const disagreeCookies = () => {
     setVisible(false)
@@ -22,7 +33,7 @@ const CookiesMessage = () => {
 
   return (
     <>
-      {isConnected && (
+      {agree_cookies && (
         <>
           {visible && (
             <motion.div
@@ -49,7 +60,7 @@ const CookiesMessage = () => {
               </Text>
               <div className="flex w-full flex-col justify-between gap-y-8 md:flex-row">
                 <Button
-                  onClick={() => setVisible(false)}
+                  onClick={agreeCookies}
                   text="Aceitar todos"
                   className="w-52 text-sm"
                 />
