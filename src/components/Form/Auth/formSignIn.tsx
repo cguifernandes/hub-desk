@@ -112,7 +112,7 @@ const FormSignIn = () => {
         loading={isLoading}
         type="submit"
         className="w-full"
-        text="Cadastrar"
+        text="Logar"
       />
       <Form.Wrapper name="rememberUser" register={register} />
     </Form.Root>

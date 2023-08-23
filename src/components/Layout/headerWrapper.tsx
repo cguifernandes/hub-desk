@@ -2,6 +2,8 @@
 import { useState } from 'react'
 import { motion, Variants } from 'framer-motion'
 import clsx from 'clsx'
+import Text from '../text'
+import Button from '../button'
 
 type MenuProps = {
   className?: string
@@ -86,7 +88,30 @@ export const SideBar = ({ visibleNavBar }: MenuProps) => {
         'fixed right-0 top-[10vh] z-50 flex h-[90vh] w-[280px] flex-col items-center bg-grey-600/60',
         'justify-around text-white backdrop-blur md:hidden',
       )}
-    ></motion.aside>
+    >
+      <a href="/" className="text-xl transition-colors hover:text-grey-100">
+        Animes
+      </a>
+      <a href="/" className="text-xl transition-colors hover:text-grey-100">
+        Filmes
+      </a>
+      <a href="/" className="text-xl transition-colors hover:text-grey-100">
+        Desenhos
+      </a>
+      <a href="/" className="text-xl transition-colors hover:text-grey-100">
+        Sites
+      </a>
+      <a href="/" className="text-xl transition-colors hover:text-grey-100">
+        Séries
+      </a>
+      <a href="/" className="text-xl transition-colors hover:text-grey-100">
+        Outros
+      </a>
+      <div className="flex w-full flex-col items-center gap-y-4">
+        <Button href="/sign-in" fill="empty" text="Login" className="w-8/12" />
+        <Button href="/sign-up" text="Registrar" className="w-8/12" />
+      </div>
+    </motion.aside>
   )
 }
 
