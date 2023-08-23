@@ -14,19 +14,17 @@ export const metadata: Metadata = {
 const SignIn = () => {
   return (
     <div className="w-full max-w-[550px] rounded-md bg-grey-600 p-10 shadow-lg">
-      <header className="flex items-center justify-between">
-        <div>
-          <Heading className="font-montserrat text-3xl">Login</Heading>
-          <Text size="sm" className="text-white/50">
-            Ainda não tem uma conta?{' '}
-            <a
-              href="sign-up"
-              className="text-sky-600 transition-colors hover:text-sky-700"
-            >
-              Criar uma conta.
-            </a>
-          </Text>
-        </div>
+      <header className="flex flex-col gap-y-1">
+        <Heading className="font-montserrat text-3xl">Login</Heading>
+        <Text size="sm" className="text-white/50">
+          Ainda não tem uma conta?{' '}
+          <a
+            href="sign-up"
+            className="text-sky-600 transition-colors hover:text-sky-700"
+          >
+            Criar uma conta.
+          </a>
+        </Text>
       </header>
       <FormSignIn />
       <div className="h-[2px] w-full bg-grey-400" />
