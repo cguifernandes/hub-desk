@@ -5,6 +5,8 @@ import { Eye, EyeOffIcon, Mail, UserCircle2 } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { useRouter } from 'next/navigation'
+import { ErrorToast } from '@/utils/toast'
 
 const schemaAuth = z.object({
   name: z
@@ -44,6 +46,7 @@ const FormSignUp = () => {
   const [email, setEmail] = useState(String)
   const [password, setPassword] = useState(String)
   const [name, setName] = useState(String)
+  const { push } = useRouter()
 
   const {
     handleSubmit,
@@ -56,19 +59,32 @@ const FormSignUp = () => {
 
   const handlerFormSubmit = async (data: AuthFormProps) => {
     try {
-      setIsLoading(true)
+      const clients = await fetch('/api/clients')
+      const users = await clients.json()
 
-      await fetch('/api/users', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      })
+      const emails = users.some(
+        (user: AuthFormProps) => user.email === data.email,
+      )
+
+      if (emails) {
+        ErrorToast('Este e-mail já está sendo usado!')
+      } else {
+        setIsLoading(true)
+
+        await fetch('/api/clients', {
+          method: 'POST',
+          body: JSON.stringify(data),
+        })
+
+        setIsLoading(false)
+        setEmail('')
+        setPassword('')
+        setName('')
+        push('/')
+      }
     } catch (err) {
-      console.log(err)
-    } finally {
+      console.error('Erro ao processar formulário:', err)
       setIsLoading(false)
-      setEmail('')
-      setPassword('')
-      setName('')
     }
   }
 

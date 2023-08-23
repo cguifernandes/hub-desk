@@ -17,10 +17,10 @@ export async function POST(request: NextRequest) {
   try {
     const body: Users = await request.json()
     const { name, email, password } = body
-
+    const users = await prisma.clients.findMany()
     const hash = await bcrypt.hash(password, 10)
 
-    const person = await prisma.clients.create({
+    const user = await prisma.clients.create({
       data: {
         email,
         name,
@@ -28,7 +28,11 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    return NextResponse.json({ person })
+    if (users.map((user) => user.email).includes(email)) {
+      return NextResponse.json({ error: 'Esse e-mail já está registrado!' })
+    }
+
+    return NextResponse.json({ user })
   } catch (error) {
     throw new Error(JSON.stringify(error))
   }

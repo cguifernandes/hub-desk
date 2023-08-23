@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import '@/styles/global.css'
 import { Poppins, Montserrat } from 'next/font/google'
+import { Toaster } from 'react-hot-toast'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -20,7 +21,10 @@ type LayoutProps = {
 const Layout = ({ children }: LayoutProps) => {
   return (
     <html className={`${montserrat.variable} ${poppins.variable}`}>
-      <body>{children}</body>
+      <body>
+        <Toaster />
+        {children}
+      </body>
     </html>
   )
 }
