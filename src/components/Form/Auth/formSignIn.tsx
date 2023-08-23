@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation'
 import { api } from '@/utils/api'
 import { ErrorToast, SuccessToast } from '@/utils/toast'
 import { ResponseProps } from '@/utils/type'
+import { setCookie } from 'nookies'
 
 const FormSignIn = () => {
   const [visiblePassword, setVisiblePassword] = useState(false)
@@ -41,6 +42,22 @@ const FormSignIn = () => {
         setEmail('')
         setPassword('')
         push('/')
+
+        if (user.rememberUser) {
+          setCookie(null, 'user_session', data.id, {
+            path: '/',
+            maxAge: 30 * 24 * 60 * 60 * 1000,
+            SameSite: 'None',
+            Secure: true,
+          })
+        } else {
+          setCookie(null, 'user_session', data.id, {
+            path: '/',
+            maxAge: undefined,
+            SameSite: 'Lax',
+            Secure: true,
+          })
+        }
       }
     } catch (err) {
       console.error('Erro ao processar formulário:', err)

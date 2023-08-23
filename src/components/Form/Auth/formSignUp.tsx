@@ -9,6 +9,7 @@ import { ErrorToast, SuccessToast } from '@/utils/toast'
 import { SignUpProps, schemaSignUp } from '@/utils/Zod/sign-up'
 import { api } from '@/utils/api'
 import { ResponseProps } from '@/utils/type'
+import { setCookie } from 'nookies'
 
 const FormSignUp = () => {
   const [visiblePassword, setVisiblePassword] = useState(false)
@@ -47,6 +48,12 @@ const FormSignUp = () => {
         setEmail('')
         setPassword('')
         push('/')
+        setCookie(null, 'user_session', data.id, {
+          path: '/',
+          maxAge: 30 * 24 * 60 * 60 * 1000,
+          SameSite: 'None',
+          Secure: true,
+        })
       }
     } catch (err) {
       console.error('Erro ao processar formulário:', err)
