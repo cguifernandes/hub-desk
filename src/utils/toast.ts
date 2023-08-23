@@ -21,13 +21,13 @@ export const SuccessToast = (message: string) => {
     duration: 6000,
     position: 'top-right',
     iconTheme: {
-      primary: '#0369a1',
+      primary: 'green',
       secondary: '#fff',
     },
     style: {
       padding: '16px',
       maxWidth: '100%',
-      border: '1px solid #0369a1',
+      border: '1px solid green',
     },
   })
 }

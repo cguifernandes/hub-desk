@@ -34,10 +34,11 @@ const Button = ({
   if (loading) {
     return (
       <button
+        disabled
         {...props}
         className={button({
           fill,
-          className: `${className} flex items-center justify-center`,
+          className: `${className} flex cursor-not-allowed items-center justify-center`,
         })}
       >
         <svg

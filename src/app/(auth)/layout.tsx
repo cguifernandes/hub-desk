@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
-import Waves from '../../../public/wavesBG.png'
 import Back from '@/components/back'
+import Waves from '../../../public/scene.svg'
 
 type LayoutProps = {
   children: ReactNode

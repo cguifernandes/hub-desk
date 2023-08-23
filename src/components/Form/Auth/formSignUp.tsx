@@ -30,11 +30,7 @@ const FormSignUp = () => {
       const clients = await fetch('/api/clients')
       const users = await clients.json()
 
-      const emails = users.some(
-        (user: SignUpProps) => user.email === data.email,
-      )
-
-      if (emails) {
+      if (users.some((user: SignUpProps) => user.email === data.email)) {
         ErrorToast('Este e-mail já está sendo usado!')
       } else {
         setIsLoading(true)
