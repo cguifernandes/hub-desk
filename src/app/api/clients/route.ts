@@ -17,22 +17,25 @@ export async function POST(request: NextRequest) {
   try {
     const body: Users = await request.json()
     const { name, email, password } = body
-    const users = await prisma.clients.findMany()
     const hash = await bcrypt.hash(password, 10)
 
-    const user = await prisma.clients.create({
-      data: {
-        email,
-        name,
-        password: hash,
-      },
+    const user = await prisma.clients.findUnique({
+      where: { email },
     })
 
-    if (users.map((user) => user.email).includes(email)) {
-      return NextResponse.json({ error: 'Esse e-mail já está registrado!' })
-    }
+    if (user) {
+      return NextResponse.json({ error: 'Este email já está em uso.' })
+    } else {
+      await prisma.clients.create({
+        data: {
+          email,
+          name,
+          password: hash,
+        },
+      })
 
-    return NextResponse.json({ user })
+      return NextResponse.json({ success: 'A conta foi criada com sucesso.' })
+    }
   } catch (error) {
     throw new Error(JSON.stringify(error))
   }

@@ -2,7 +2,7 @@ import toast from 'react-hot-toast'
 
 export const ErrorToast = (message: string) => {
   return toast.error(message, {
-    duration: 6000,
+    duration: 2500,
     position: 'top-right',
     iconTheme: {
       primary: 'red',
@@ -18,7 +18,7 @@ export const ErrorToast = (message: string) => {
 
 export const SuccessToast = (message: string) => {
   return toast.success(message, {
-    duration: 6000,
+    duration: 2500,
     position: 'top-right',
     iconTheme: {
       primary: 'green',

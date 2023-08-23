@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
     const match = await bcrypt.compare(password, user.password)
 
     if (match) {
-      return NextResponse.json({ success: 'Autenticação bem-sucedida' })
+      return NextResponse.json({ success: 'Autenticação bem-sucedida.' })
     } else {
       return NextResponse.json({ error: 'Senha incorreta.' })
     }

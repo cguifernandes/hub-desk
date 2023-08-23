@@ -5,8 +5,10 @@ import { Eye, EyeOffIcon, Mail, UserCircle2 } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
-import { ErrorToast } from '@/utils/toast'
+import { ErrorToast, SuccessToast } from '@/utils/toast'
 import { SignUpProps, schemaSignUp } from '@/utils/Zod/sign-up'
+import { api } from '@/utils/api'
+import { ResponseProps } from '@/utils/type'
 
 const FormSignUp = () => {
   const [visiblePassword, setVisiblePassword] = useState(false)
@@ -25,29 +27,30 @@ const FormSignUp = () => {
     resolver: zodResolver(schemaSignUp),
   })
 
-  const handlerFormSubmit = async (data: SignUpProps) => {
+  const handlerFormSubmit = async (user: SignUpProps) => {
     try {
-      const clients = await fetch('/api/clients')
-      const users = await clients.json()
+      setIsLoading(true)
+      const { data }: { data: ResponseProps } = await api.post(
+        '/clients',
+        JSON.stringify({
+          password: user.password,
+          email: user.email,
+          name: user.name,
+        }),
+      )
 
-      if (users.some((user: SignUpProps) => user.email === data.email)) {
-        ErrorToast('Este e-mail já está sendo usado!')
+      if (data.error) {
+        ErrorToast(data.error)
       } else {
-        setIsLoading(true)
-
-        await fetch('/api/clients', {
-          method: 'POST',
-          body: JSON.stringify(data),
-        })
-
-        setIsLoading(false)
+        SuccessToast(data.success)
+        setName('')
         setEmail('')
         setPassword('')
-        setName('')
         push('/')
       }
     } catch (err) {
       console.error('Erro ao processar formulário:', err)
+    } finally {
       setIsLoading(false)
     }
   }
