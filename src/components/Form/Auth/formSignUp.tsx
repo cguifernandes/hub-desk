@@ -4,41 +4,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOffIcon, Mail, UserCircle2 } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
 import { useRouter } from 'next/navigation'
 import { ErrorToast } from '@/utils/toast'
-
-const schemaAuth = z.object({
-  name: z
-    .string()
-    .nonempty('O campo "User" é obrigatório.')
-    .toLowerCase()
-    .max(16, 'O user deve ter no máximo 16 caracteres')
-    .refine(
-      (user) =>
-        /^[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]/.test(user.charAt(0)) === false,
-      'O user não deve começar com um caractere especial.',
-    ),
-  email: z
-    .string()
-    .email('O e-mail precisa ser válido.')
-    .nonempty('O campo "E-mail" é obrigatório.'),
-  password: z
-    .string()
-    .min(6, 'A senha precisa ter 6 caracteres.')
-    .max(12, 'A senha deve ter no máximo 12 caracteres.')
-    .nonempty('O campo "Senha" é obrigatório.')
-    .refine(
-      (password) => /[A-Z]/.test(password),
-      'A senha deve ter uma letra maiúscula.',
-    )
-    .refine(
-      (password) => /[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]/.test(password),
-      'A senha deve incluir pelo menos um caractere especial.',
-    ),
-})
-
-type AuthFormProps = z.infer<typeof schemaAuth>
+import { SignUpProps, schemaSignUp } from '@/utils/Zod/sign-up'
 
 const FormSignUp = () => {
   const [visiblePassword, setVisiblePassword] = useState(false)
@@ -52,18 +20,18 @@ const FormSignUp = () => {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<AuthFormProps>({
+  } = useForm<SignUpProps>({
     reValidateMode: 'onChange',
-    resolver: zodResolver(schemaAuth),
+    resolver: zodResolver(schemaSignUp),
   })
 
-  const handlerFormSubmit = async (data: AuthFormProps) => {
+  const handlerFormSubmit = async (data: SignUpProps) => {
     try {
       const clients = await fetch('/api/clients')
       const users = await clients.json()
 
       const emails = users.some(
-        (user: AuthFormProps) => user.email === data.email,
+        (user: SignUpProps) => user.email === data.email,
       )
 
       if (emails) {

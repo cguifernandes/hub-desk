@@ -1,33 +1,10 @@
 'use client'
 import { Form } from '@/components/Form'
+import { SignInProps, schemaSignIn } from '@/utils/Zod/sign-in'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOffIcon, Mail } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-
-const schemaAuth = z.object({
-  rememberUser: z.boolean(),
-  email: z
-    .string()
-    .email('O e-mail precisa ser válido.')
-    .nonempty('O campo "E-mail" é obrigatório.'),
-  password: z
-    .string()
-    .min(6, 'A senha precisa ter 6 caracteres.')
-    .max(12, 'A senha deve ter no máximo 12 caracteres.')
-    .nonempty('O campo "Senha" é obrigatório.')
-    .refine(
-      (password) => /[A-Z]/.test(password),
-      'A senha deve ter uma letra maiúscula.',
-    )
-    .refine(
-      (password) => /[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]/.test(password),
-      'A senha deve incluir pelo menos um caractere especial.',
-    ),
-})
-
-type AuthFormProps = z.infer<typeof schemaAuth>
 
 const FormSignIn = () => {
   const [visiblePassword, setVisiblePassword] = useState(false)
@@ -36,12 +13,12 @@ const FormSignIn = () => {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<AuthFormProps>({
+  } = useForm<SignInProps>({
     reValidateMode: 'onBlur',
-    resolver: zodResolver(schemaAuth),
+    resolver: zodResolver(schemaSignIn),
   })
 
-  const handlerFormSubmit = (data: AuthFormProps) => {
+  const handlerFormSubmit = (data: SignInProps) => {
     console.log(data)
   }
 
