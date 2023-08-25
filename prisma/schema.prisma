@@ -15,6 +15,7 @@ model Clients {
   email       String      @unique
   password    String
   name        String
+  pfp         String
   desks       Desk[]
   comments    Comment[]
 }

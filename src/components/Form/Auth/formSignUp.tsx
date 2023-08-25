@@ -50,7 +50,7 @@ const FormSignUp = () => {
         push('/')
         setCookie(null, 'user_session', data.id, {
           path: '/',
-          maxAge: 30 * 24 * 60 * 60 * 1000,
+          maxAge: undefined,
           SameSite: 'None',
           Secure: true,
         })

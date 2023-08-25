@@ -3,7 +3,7 @@ import { parseCookies } from 'nookies'
 import { useEffect, useState } from 'react'
 
 const useConnection = () => {
-  const { user_session, agree_cookies } = parseCookies()
+  const { user_session } = parseCookies()
   const [cookies, setCookies] = useState({})
   const isConnected = !!user_session
 
@@ -13,7 +13,7 @@ const useConnection = () => {
     }
   }, [user_session])
 
-  return { cookies, isConnected, agree_cookies }
+  return { cookies, isConnected, user_session }
 }
 
 export default useConnection
