@@ -76,7 +76,7 @@ const FormSignIn = () => {
   }
 
   if (isConnected) {
-    push('/')
+    push('/auth/redirect')
   }
 
   return (
