@@ -107,8 +107,13 @@ export const SideBar = ({ visibleNavBar }: MenuProps) => {
         Outros
       </a>
       <div className="flex w-full flex-col items-center gap-y-4">
-        <Button href="/sign-in" fill="empty" text="Login" className="w-8/12" />
-        <Button href="/sign-up" text="Registrar" className="w-8/12" />
+        <Button
+          href="auth/sign-in"
+          fill="empty"
+          text="Login"
+          className="w-8/12"
+        />
+        <Button href="auth/sign-up" text="Registrar" className="w-8/12" />
       </div>
     </motion.aside>
   )

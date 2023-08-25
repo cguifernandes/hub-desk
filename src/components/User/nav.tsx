@@ -7,6 +7,7 @@ import Button from '../button'
 import { useEffect, useState } from 'react'
 import { ResponseProps, ClientsProps } from '@/utils/type'
 import { api } from '@/utils/api'
+import Skeleton from '../skeleton'
 
 const Nav = () => {
   const { user_session, isConnected } = useConnection()
@@ -36,7 +37,9 @@ const Nav = () => {
 
   return (
     <nav className="hidden md:flex md:gap-x-4">
-      {client.length > 0 ? (
+      {isLoading ? (
+        <Skeleton height={36} width={36} className="rounded-full" />
+      ) : client.length > 0 ? (
         client.map((client) => {
           return (
             <button key={client.id}>
@@ -50,8 +53,13 @@ const Nav = () => {
         })
       ) : (
         <>
-          <Button href="/sign-in" fill="empty" text="Login" className="w-40" />
-          <Button href="/sign-up" text="Registrar" className="w-40" />
+          <Button
+            href="auth/sign-in"
+            fill="empty"
+            text="Login"
+            className="w-40"
+          />
+          <Button href="auth/sign-up" text="Registrar" className="w-40" />
         </>
       )}
     </nav>
