@@ -38,7 +38,7 @@ const Nav = () => {
   return (
     <nav className="hidden md:flex md:gap-x-4">
       {isLoading ? (
-        <Skeleton height={36} width={36} className="rounded-full" />
+        <Skeleton height={36} width={36} className="!rounded-full" />
       ) : client.length > 0 ? (
         client.map((client) => {
           return (
@@ -46,7 +46,7 @@ const Nav = () => {
               <img
                 alt={client.name}
                 src={client.pfp}
-                className="h-9 w-9 !rounded-full"
+                className="h-9 w-9 rounded-full"
               />
             </button>
           )
