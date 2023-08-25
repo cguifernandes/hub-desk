@@ -46,7 +46,7 @@ const Nav = () => {
               <img
                 alt={client.name}
                 src={client.pfp}
-                className="h-9 w-9 rounded-full"
+                className="h-9 w-9 !rounded-full"
               />
             </button>
           )
