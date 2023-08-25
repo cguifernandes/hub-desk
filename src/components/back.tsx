@@ -3,8 +3,14 @@ import Image from 'next/image'
 import Logo from '../../public/hubDesk.svg'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
+import Skeleton from './skeleton'
 
-const Back = () => {
+type BackProps = {
+  href?: string
+  className?: string
+}
+
+const Back = ({ href, className }: BackProps) => {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -12,18 +18,18 @@ const Back = () => {
   }, [])
 
   if (!mounted) {
+    return <Skeleton height={58} width={290} />
+  }
+
+  if (href) {
     return (
-      <div className="m-auto h-[58px] w-[290px]  animate-pulse">
-        <div className="h-full w-full rounded-md bg-grey-800" />
-      </div>
+      <Link href={href}>
+        <Image className="m-auto" width={290} alt="Logo" src={Logo} />
+      </Link>
     )
   }
 
-  return (
-    <Link href={'/'}>
-      <Image className="m-auto" width={290} alt="Logo" src={Logo} />
-    </Link>
-  )
+  return <Image className={className} width={290} alt="Logo" src={Logo} />
 }
 
 export default Back

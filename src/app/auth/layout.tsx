@@ -12,7 +12,7 @@ const Layout = ({ children }: LayoutProps) => {
       style={{ backgroundImage: `url(${Waves.src})` }}
       className="min-h-screen bg-cover p-5 pt-8 sm:pt-14"
     >
-      <Back />
+      <Back href="/" />
       <div className="mt-8 flex items-center justify-center sm:mt-14">
         {children}
       </div>
