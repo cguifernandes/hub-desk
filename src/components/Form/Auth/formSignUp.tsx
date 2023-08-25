@@ -10,6 +10,7 @@ import { SignUpProps, schemaSignUp } from '@/utils/Zod/sign-up'
 import { api } from '@/utils/api'
 import { ResponseProps } from '@/utils/type'
 import { setCookie } from 'nookies'
+import useConnection from '@/hooks/useConnection'
 
 const FormSignUp = () => {
   const [visiblePassword, setVisiblePassword] = useState(false)
@@ -18,6 +19,7 @@ const FormSignUp = () => {
   const [password, setPassword] = useState(String)
   const [name, setName] = useState(String)
   const { push } = useRouter()
+  const { isConnected } = useConnection()
 
   const {
     handleSubmit,
@@ -60,6 +62,10 @@ const FormSignUp = () => {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  if (isConnected) {
+    push('/')
   }
 
   return (

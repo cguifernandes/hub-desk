@@ -10,6 +10,7 @@ import { api } from '@/utils/api'
 import { ErrorToast, SuccessToast } from '@/utils/toast'
 import { ResponseProps } from '@/utils/type'
 import { setCookie } from 'nookies'
+import useConnection from '@/hooks/useConnection'
 
 const FormSignIn = () => {
   const [visiblePassword, setVisiblePassword] = useState(false)
@@ -17,6 +18,7 @@ const FormSignIn = () => {
   const [email, setEmail] = useState(String)
   const [password, setPassword] = useState(String)
   const { push } = useRouter()
+  const { isConnected } = useConnection()
 
   const {
     handleSubmit,
@@ -71,6 +73,10 @@ const FormSignIn = () => {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  if (isConnected) {
+    push('/')
   }
 
   return (
