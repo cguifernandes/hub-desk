@@ -27,7 +27,11 @@ const Home = () => {
             encontrar um lugar para discutir suas ideias e opiniões. Junte-se a
             nossa comunidade hoje!
           </Text>
-          <Button text="Criar uma desk" className="!mt-8 w-full sm:w-[60%]" />
+          <Button
+            href="/desk"
+            text="Criar uma desk"
+            className="m-auto !mt-8 w-full sm:w-[60%]"
+          />
         </div>
       </section>
       <section className="space-y-6 bg-gradient-to-t from-grey-550 to-grey-500 py-14">

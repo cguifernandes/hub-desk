@@ -65,7 +65,7 @@ const FormSignUp = () => {
   }
 
   if (isConnected) {
-    push('/auth/redirect')
+    push('/')
   }
 
   return (

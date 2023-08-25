@@ -8,11 +8,16 @@ import { useEffect, useState } from 'react'
 import { ResponseProps, ClientsProps } from '@/utils/type'
 import { api } from '@/utils/api'
 import Skeleton from '../skeleton'
+import { destroyCookie } from 'nookies'
 
 const Nav = () => {
   const { user_session, isConnected } = useConnection()
   const [client, setClient] = useState<ClientsProps[]>([])
   const [isLoading, setIsLoading] = useState(false)
+
+  const handlerDestroyCookies = () => {
+    destroyCookie(null, 'user_session')
+  }
 
   useEffect(() => {
     const getClient = async () => {
@@ -42,7 +47,7 @@ const Nav = () => {
       ) : client.length > 0 ? (
         client.map((client) => {
           return (
-            <button key={client.id}>
+            <button onClick={() => handlerDestroyCookies()} key={client.id}>
               <img
                 alt={client.name}
                 src={client.pfp}
