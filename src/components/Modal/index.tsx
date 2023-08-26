@@ -1,11 +1,11 @@
 import ModalChildren from './ModalChildren'
 import ModalOverlay from './ModalOverlay'
 import ModalRoot from './ModalRoot'
-import ModalTitle from './ModalTitle'
+import ModalHeader from './ModalHeader'
 
 export const Modal = {
   Overlay: ModalOverlay,
-  Title: ModalTitle,
+  Header: ModalHeader,
   Children: ModalChildren,
   Root: ModalRoot,
 }

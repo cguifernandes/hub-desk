@@ -5,6 +5,7 @@ const heading = tv({
   base: 'text-white',
   variants: {
     size: {
+      base: 'text-base',
       sm: 'text-sm',
       md: 'text-xl',
       lg: 'text-2xl',
@@ -15,6 +16,9 @@ const heading = tv({
       right: 'text-right',
       left: 'text-left',
     },
+  },
+  defaultVariants: {
+    size: 'base',
   },
 })
 

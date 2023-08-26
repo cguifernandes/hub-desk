@@ -1,3 +1,4 @@
+import Line from '@/components/line'
 import Skeleton from '@/components/skeleton'
 
 const Loading = () => {
@@ -13,7 +14,7 @@ const Loading = () => {
         <Skeleton height={48} />
         <Skeleton height={24} />
       </div>
-      <div className="h-[2px] w-full bg-grey-400" />
+      <Line />
       <div className="grid grid-cols-2 grid-rows-2 justify-between justify-items-center gap-5 pt-12 sm:grid-cols-4 sm:grid-rows-1">
         <Skeleton width={96} height={64} />
         <Skeleton width={96} height={64} />

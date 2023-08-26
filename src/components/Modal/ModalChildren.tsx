@@ -1,14 +1,22 @@
+'use client'
 import { ReactNode } from 'react'
+import { motion } from 'framer-motion'
 
 type ModalChildren = {
   children: ReactNode
+  className: string
 }
 
-const ModalChildren = ({ children }: ModalChildren) => {
+const ModalChildren = ({ children, className }: ModalChildren) => {
   return (
-    <div className="z-20 h-36 w-32 rounded-md bg-grey-600 p-10 shadow-lg">
+    <motion.div
+      initial={{ opacity: 0, translateY: 20 }}
+      animate={{ opacity: 1, translateY: 0 }}
+      transition={{ type: 'keyframes' }}
+      className={className}
+    >
       {children}
-    </div>
+    </motion.div>
   )
 }
 

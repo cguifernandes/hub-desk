@@ -6,6 +6,7 @@ import Google from '../../../../public/googleLogo.svg'
 import Linkedin from '../../../../public/linkedinLogo.svg'
 import Image from 'next/image'
 import FormSignUp from '@/components/Form/Auth/formSignUp'
+import Line from '@/components/line'
 
 export const metadata: Metadata = {
   title: 'Cadastrar | Hub Desk',
@@ -27,7 +28,7 @@ const SignUp = () => {
         </Text>
       </header>
       <FormSignUp />
-      <div className="h-[2px] w-full bg-grey-400" />
+      <Line />
       <div className="grid grid-cols-2 grid-rows-2 justify-between justify-items-center gap-5 pt-12 sm:grid-cols-4 sm:grid-rows-1">
         <button className="flex h-16 w-full items-center justify-center rounded-md bg-black transition-colors hover:bg-[#202020] sm:w-24">
           <Github fill="#fff" strokeWidth={0.5} color="#fff" size={28} />

@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 import { ResponseProps, ClientsProps } from '@/utils/type'
 import { api } from '@/utils/api'
 import Skeleton from '../skeleton'
-import ModalUser from './modal'
+import ModalBar from './modal'
 
 const Nav = () => {
   const { user_session, isConnected } = useConnection()
@@ -37,13 +37,13 @@ const Nav = () => {
   }, [])
 
   return (
-    <nav className="hidden md:flex md:gap-x-4">
+    <>
       {isLoading ? (
         <Skeleton height={36} width={36} className="!rounded-full" />
       ) : client.length > 0 ? (
         client.map((client) => {
           return (
-            <ModalUser
+            <ModalBar
               email={client.email}
               password={client.password}
               id={client.id}
@@ -54,7 +54,7 @@ const Nav = () => {
           )
         })
       ) : (
-        <>
+        <div>
           <Button
             href="auth/sign-in"
             fill="empty"
@@ -62,9 +62,9 @@ const Nav = () => {
             className="w-40"
           />
           <Button href="auth/sign-up" text="Registrar" className="w-40" />
-        </>
+        </div>
       )}
-    </nav>
+    </>
   )
 }
 
