@@ -6,8 +6,7 @@ module.exports = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'i.im.ge',
-        port: '',
+        hostname: 'uploaddeimagens.com.br',
       },
     ],
   },

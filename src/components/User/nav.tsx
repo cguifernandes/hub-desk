@@ -8,16 +8,12 @@ import { useEffect, useState } from 'react'
 import { ResponseProps, ClientsProps } from '@/utils/type'
 import { api } from '@/utils/api'
 import Skeleton from '../skeleton'
-import { destroyCookie } from 'nookies'
+import ModalUser from './modal'
 
 const Nav = () => {
   const { user_session, isConnected } = useConnection()
   const [client, setClient] = useState<ClientsProps[]>([])
   const [isLoading, setIsLoading] = useState(false)
-
-  const handlerDestroyCookies = () => {
-    destroyCookie(null, 'user_session')
-  }
 
   useEffect(() => {
     const getClient = async () => {
@@ -47,13 +43,14 @@ const Nav = () => {
       ) : client.length > 0 ? (
         client.map((client) => {
           return (
-            <button onClick={() => handlerDestroyCookies()} key={client.id}>
-              <img
-                alt={client.name}
-                src={client.pfp}
-                className="h-9 w-9 rounded-full"
-              />
-            </button>
+            <ModalUser
+              email={client.email}
+              password={client.password}
+              id={client.id}
+              name={client.name}
+              pfp={client.pfp}
+              key={client.id}
+            />
           )
         })
       ) : (
