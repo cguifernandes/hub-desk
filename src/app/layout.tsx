@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import '@/styles/global.css'
+import './global.css'
 import { Poppins, Montserrat } from 'next/font/google'
 import { Toaster } from 'react-hot-toast'
 

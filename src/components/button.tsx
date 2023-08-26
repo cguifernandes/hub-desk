@@ -5,7 +5,7 @@ import { tv, VariantProps } from 'tailwind-variants'
 import Loading from './loading'
 
 const button = tv({
-  base: 'rounded-md px-6 py-2 text-white transition-colors',
+  base: 'rounded-md px-6 py-3 text-white transition-colors',
   variants: {
     fill: {
       empty: 'bg-transparent border-2 border-grey-400 hover:bg-grey-700',

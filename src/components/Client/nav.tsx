@@ -3,67 +3,51 @@
 /* eslint-disable camelcase */
 'use client'
 import useConnection from '@/hooks/useConnection'
-import Button from '../button'
-import { useEffect, useState } from 'react'
-import { ResponseProps, ClientsProps } from '@/utils/type'
-import { api } from '@/utils/api'
-import Skeleton from '../skeleton'
+import { useState } from 'react'
 import ModalBar from './modal'
+import Image from 'next/image'
+import Skeleton from '../skeleton'
 
 const Nav = () => {
-  const { user_session, isConnected } = useConnection()
-  const [client, setClient] = useState<ClientsProps[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const [visibleModal, setVisibleModal] = useState(false)
+  const { isLoading, client, isConnected } = useConnection()
 
-  useEffect(() => {
-    const getClient = async () => {
-      if (isConnected) {
-        try {
-          setIsLoading(true)
-          const { data }: { data: ResponseProps } = await api.get(
-            `/clients?id=${user_session}`,
-          )
-
-          setClient(data.clients)
-        } catch (err) {
-          console.log(err)
-        } finally {
-          setIsLoading(false)
-        }
-      }
-    }
-
-    getClient()
-  }, [])
+  if (isLoading) {
+    return <Skeleton height={38} width={38} className="!rounded-full" />
+  }
 
   return (
     <>
-      {isLoading ? (
-        <Skeleton height={36} width={36} className="!rounded-full" />
-      ) : client.length > 0 ? (
+      {isConnected ? (
         client.map((client) => {
           return (
-            <ModalBar
-              email={client.email}
-              password={client.password}
-              id={client.id}
-              name={client.name}
-              pfp={client.pfp}
+            <button
+              onClick={() => setVisibleModal(!visibleModal)}
+              className="h-9 w-9"
               key={client.id}
-            />
+            >
+              <Image
+                alt={client.name}
+                src={client.pfp}
+                width={36}
+                height={36}
+                quality={100}
+                className="rounded-full"
+              />
+            </button>
           )
         })
       ) : (
-        <div>
-          <Button
-            href="auth/sign-in"
-            fill="empty"
-            text="Login"
-            className="w-40"
-          />
-          <Button href="auth/sign-up" text="Registrar" className="w-40" />
-        </div>
+        <button
+          onClick={() => setVisibleModal(true)}
+          className="h-6 w-8 space-y-2"
+        >
+          <div className="h-[2px] w-8 bg-white" />
+          <div className="h-[2px] w-8 bg-white" />
+          <div className="h-[2px] w-8 bg-white" />
+        </button>
       )}
+      {visibleModal && <ModalBar setVisibleModal={setVisibleModal} />}
     </>
   )
 }
