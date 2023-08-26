@@ -1,5 +1,5 @@
-import Heading from '@/components/heading'
-import Text from '@/components/text'
+import Heading from '@/components/Typography/heading'
+import Text from '@/components/Typography/text'
 import { Metadata } from 'next'
 import { Facebook, Github } from 'lucide-react'
 import Google from '../../../../public/googleLogo.svg'

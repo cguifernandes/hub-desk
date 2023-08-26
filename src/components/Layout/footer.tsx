@@ -1,5 +1,5 @@
 import clsx from 'clsx'
-import Text from '@/components/text'
+import Text from '@/components/Typography/text'
 
 const Footer = () => {
   return (
