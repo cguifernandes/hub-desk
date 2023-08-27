@@ -5,7 +5,6 @@
 import useConnection from '@/hooks/useConnection'
 import { useState } from 'react'
 import ModalBar from './modal'
-import Image from 'next/image'
 import Skeleton from '../skeleton'
 
 const Nav = () => {
@@ -26,13 +25,10 @@ const Nav = () => {
               className="h-9 w-9"
               key={client.id}
             >
-              <Image
+              <img
                 alt={client.name}
                 src={client.pfp}
-                width={36}
-                height={36}
-                quality={100}
-                className="rounded-full"
+                className="h-10 w-10 overflow-clip rounded-full object-cover object-center align-top"
               />
             </button>
           )

@@ -1,6 +1,6 @@
+/* eslint-disable @next/next/no-img-element */
 'use client'
 import { Modal } from '@/components/Modal'
-import Image from 'next/image'
 import { Dispatch, SetStateAction } from 'react'
 import Heading from '../Typography/heading'
 import Topics from '../topics'
@@ -31,7 +31,7 @@ const ModalBar = ({ setVisibleModal }: ModalBarProps) => {
           <Modal.Header>
             {isConnected ? (
               isLoading ? (
-                <Skeleton className="w-full" height={140} />
+                <Skeleton className="w-full" height={172} />
               ) : (
                 client.map((client) => {
                   return (
@@ -39,13 +39,10 @@ const ModalBar = ({ setVisibleModal }: ModalBarProps) => {
                       key={client.id}
                       className="flex flex-col items-center justify-between gap-y-8"
                     >
-                      <Image
+                      <img
                         alt={client.name}
                         src={client.pfp}
-                        width={80}
-                        height={80}
-                        quality={100}
-                        className="rounded-full"
+                        className="h-28 w-28 overflow-clip rounded-full object-cover object-center align-top"
                       />
                       <Heading
                         size="md"
@@ -92,6 +89,11 @@ const ModalBar = ({ setVisibleModal }: ModalBarProps) => {
             >
               <Settings />
             </Button>
+            <Button
+              className="flex w-full justify-between py-3"
+              text="Desks"
+              fill="empty"
+            />
             <Button
               className="flex w-full justify-between py-3"
               text="Sair"
