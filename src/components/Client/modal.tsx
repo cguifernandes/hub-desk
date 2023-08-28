@@ -73,12 +73,12 @@ const ModalBar = ({ setVisibleModal }: ModalBarProps) => {
           </Modal.Header>
           <Line className="my-8" />
           <div className="grid grid-cols-1 grid-rows-3 gap-5 sm:grid-cols-2">
-            <Topics size="base" component="button" text="Animes" />
-            <Topics size="base" component="button" text="Filmes" />
-            <Topics size="base" component="button" text="Desenhos" />
-            <Topics size="base" component="button" text="Sites" />
-            <Topics size="base" component="button" text="Séries" />
-            <Topics size="base" component="button" text="Outros" />
+            <Topics component="button" text="Animes" />
+            <Topics component="button" text="Filmes" />
+            <Topics component="button" text="Desenhos" />
+            <Topics component="button" text="Sites" />
+            <Topics component="button" text="Séries" />
+            <Topics component="button" text="Outros" />
           </div>
           <Line className="my-8" />
           <div className="flex flex-col gap-y-5">

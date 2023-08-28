@@ -2,7 +2,7 @@
 import { Form } from '@/components/Form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOffIcon, Mail, UserCircle2 } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { ErrorToast, SuccessToast } from '@/utils/toast'
@@ -20,6 +20,12 @@ const FormSignUp = () => {
   const [name, setName] = useState(String)
   const { push } = useRouter()
   const { isConnected } = useConnection()
+
+  useEffect(() => {
+    if (isConnected) {
+      push('/auth/redirect')
+    }
+  }, [isConnected, push])
 
   const {
     handleSubmit,

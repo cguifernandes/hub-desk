@@ -3,7 +3,7 @@ import { Form } from '@/components/Form'
 import { SignInProps, schemaSignIn } from '@/utils/Zod/sign-in'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Eye, EyeOffIcon, Mail } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { api } from '@/utils/api'
@@ -19,6 +19,12 @@ const FormSignIn = () => {
   const [password, setPassword] = useState(String)
   const { push } = useRouter()
   const { isConnected } = useConnection()
+
+  useEffect(() => {
+    if (isConnected) {
+      push('/auth/redirect')
+    }
+  }, [isConnected, push])
 
   const {
     handleSubmit,
@@ -73,10 +79,6 @@ const FormSignIn = () => {
     } finally {
       setIsLoading(false)
     }
-  }
-
-  if (isConnected) {
-    push('/')
   }
 
   return (

@@ -9,14 +9,14 @@ type ModalChildren = {
 
 const ModalChildren = ({ children, className }: ModalChildren) => {
   return (
-    <motion.div
+    <motion.aside
       initial={{ opacity: 0, translateY: 20 }}
       animate={{ opacity: 1, translateY: 0 }}
       transition={{ type: 'keyframes' }}
       className={className}
     >
       {children}
-    </motion.div>
+    </motion.aside>
   )
 }
 

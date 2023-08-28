@@ -1,7 +1,6 @@
 import { ExternalLink } from 'lucide-react'
 import { tv, VariantProps } from 'tailwind-variants'
 import { ButtonHTMLAttributes } from 'react'
-import Heading from './Typography/heading'
 
 const topics = tv({
   base: 'rounded-md bg-sky-700 transition-colors hover:bg-sky-800 ',
@@ -23,15 +22,12 @@ type TopicsProps = ButtonHTMLAttributes<HTMLButtonElement> &
   VariantProps<typeof topics> & {
     text: string
     className?: string
-    size?: 'sm' | 'md' | 'lg' | 'xlg' | 'base'
   }
 
-const Topics = ({ className, text, component, size = 'md' }: TopicsProps) => {
+const Topics = ({ className, text, component }: TopicsProps) => {
   return (
     <button className={topics({ component, className })}>
-      <Heading size={size} align="center" className="font-montserrat">
-        {text}
-      </Heading>
+      <span className="font-montserrat text-white">{text}</span>
       {component === 'button' ? (
         <ExternalLink color="#fff" />
       ) : (

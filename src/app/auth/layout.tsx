@@ -1,6 +1,11 @@
 import { ReactNode } from 'react'
 import Back from '@/components/back'
 import Waves from '../../../public/scene.svg'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Auth | Hub Desk',
+}
 
 type LayoutProps = {
   children: ReactNode
