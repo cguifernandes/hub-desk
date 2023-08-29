@@ -1,6 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable camelcase */
 'use client'
 import useConnection from '@/hooks/useConnection'
 import { useEffect, useState } from 'react'
@@ -11,7 +9,7 @@ import Button from '../button'
 const Nav = () => {
   const [visibleModal, setVisibleModal] = useState(false)
   const [mounted, setMounted] = useState(true)
-  const { client, isConnected } = useConnection()
+  const { client, isConnected, isLoading } = useConnection()
 
   useEffect(() => {
     setMounted(false)
@@ -23,7 +21,9 @@ const Nav = () => {
 
   return (
     <>
-      {isConnected ? (
+      {isLoading ? (
+        <Skeleton height={38} width={38} className="!rounded-full" />
+      ) : isConnected ? (
         client.map((client) => {
           return (
             <button
