@@ -11,7 +11,7 @@ import Button from '../button'
 const Nav = () => {
   const [visibleModal, setVisibleModal] = useState(false)
   const [mounted, setMounted] = useState(true)
-  const { client } = useConnection()
+  const { client, isConnected } = useConnection()
 
   useEffect(() => {
     setMounted(false)
@@ -23,7 +23,7 @@ const Nav = () => {
 
   return (
     <>
-      {client ? (
+      {isConnected ? (
         client.map((client) => {
           return (
             <button
