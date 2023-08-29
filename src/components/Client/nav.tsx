@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import useConnection from '@/hooks/useConnection'
 import { useEffect, useState } from 'react'
