@@ -24,7 +24,7 @@ const text = tv({
 
 type TextProps = VariantProps<typeof text> & {
   children: ReactNode
-  size?: 'sm' | 'md' | 'lg' | 'xlg'
+  size?: 'sm' | 'md' | 'lg' | 'xlg' | 'base'
   className?: string
   align?: 'left' | 'center' | 'right'
 }

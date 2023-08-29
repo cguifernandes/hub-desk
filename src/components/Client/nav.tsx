@@ -3,21 +3,27 @@
 /* eslint-disable camelcase */
 'use client'
 import useConnection from '@/hooks/useConnection'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ModalBar from './modal'
 import Skeleton from '../skeleton'
+import Button from '../button'
 
 const Nav = () => {
   const [visibleModal, setVisibleModal] = useState(false)
-  const { isLoading, client, isConnected } = useConnection()
+  const [mounted, setMounted] = useState(true)
+  const { client } = useConnection()
 
-  if (isLoading) {
-    return <Skeleton height={38} width={38} className="!rounded-full" />
+  useEffect(() => {
+    setMounted(false)
+  }, [])
+
+  if (mounted) {
+    return <Skeleton height={52} width={372} />
   }
 
   return (
     <>
-      {isConnected ? (
+      {client != null ? (
         client.map((client) => {
           return (
             <button
@@ -34,14 +40,25 @@ const Nav = () => {
           )
         })
       ) : (
-        <button
-          onClick={() => setVisibleModal(true)}
-          className="h-6 w-8 space-y-2"
-        >
-          <div className="h-[2px] w-8 bg-white" />
-          <div className="h-[2px] w-8 bg-white" />
-          <div className="h-[2px] w-8 bg-white" />
-        </button>
+        <>
+          <nav className="hidden gap-x-5 md:flex">
+            <Button
+              href="auth/sign-in"
+              fill="empty"
+              text="Login"
+              className="w-44"
+            />
+            <Button href="auth/sign-up" text="Registrar" className="w-44" />
+          </nav>
+          <button
+            onClick={() => setVisibleModal(true)}
+            className="inline h-6 w-8 space-y-2 md:hidden"
+          >
+            <div className="h-[2px] w-8 bg-white" />
+            <div className="h-[2px] w-8 bg-white" />
+            <div className="h-[2px] w-8 bg-white" />
+          </button>
+        </>
       )}
       {visibleModal && <ModalBar setVisibleModal={setVisibleModal} />}
     </>

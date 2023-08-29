@@ -39,12 +39,12 @@ const Home = () => {
           Tópicos em destaque
         </Heading>
         <div className="mx-5 flex flex-wrap justify-center gap-10 md:mx-10">
-          <Topics text="Animes" />
-          <Topics text="Filmes" />
-          <Topics text="Desenhos" />
-          <Topics text="Sites" />
-          <Topics text="Séries" />
-          <Topics text="Outros" />
+          <Topics size="md" text="Animes" />
+          <Topics size="md" text="Filmes" />
+          <Topics size="md" text="Desenhos" />
+          <Topics size="md" text="Sites" />
+          <Topics size="md" text="Séries" />
+          <Topics size="md" text="Outros" />
         </div>
       </section>
     </main>
