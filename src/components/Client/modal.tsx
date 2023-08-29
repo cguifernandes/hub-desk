@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction } from 'react'
 import Heading from '../Typography/heading'
 import Topics from '../topics'
 import Button from '../button'
-import { LogOut, Settings } from 'lucide-react'
+import { Home, LogOut, Settings } from 'lucide-react'
 import Line from '../line'
 import useConnection from '@/hooks/useConnection'
 import clsx from 'clsx'
@@ -80,28 +80,34 @@ const ModalBar = ({ setVisibleModal }: ModalBarProps) => {
             <Topics component="button" text="Séries" />
             <Topics component="button" text="Outros" />
           </div>
-          <Line className="my-8" />
-          <div className="flex flex-col gap-y-5">
-            <Button
-              className="flex w-full justify-between py-3"
-              text="Configurações"
-              fill="empty"
-            >
-              <Settings />
-            </Button>
-            <Button
-              className="flex w-full justify-between py-3"
-              text="Desks"
-              fill="empty"
-            />
-            <Button
-              className="flex w-full justify-between py-3"
-              text="Sair"
-              fill="empty"
-            >
-              <LogOut />
-            </Button>
-          </div>
+          {isConnected && (
+            <>
+              <Line className="my-8" />
+              <div className="flex flex-col gap-y-5">
+                <Button
+                  className="flex w-full justify-between py-3"
+                  text="Configurações"
+                  fill="empty"
+                >
+                  <Settings />
+                </Button>
+                <Button
+                  className="flex w-full justify-between py-3"
+                  text="Desks"
+                  fill="empty"
+                >
+                  <Home />
+                </Button>
+                <Button
+                  className="flex w-full justify-between py-3"
+                  text="Sair"
+                  fill="empty"
+                >
+                  <LogOut />
+                </Button>
+              </div>
+            </>
+          )}
         </Modal.Children>
       </Modal.Root>
     </>

@@ -18,7 +18,7 @@ const Nav = () => {
   }, [])
 
   if (mounted) {
-    return <Skeleton height={52} width={372} />
+    return <Skeleton height={42} width={272} />
   }
 
   return (
