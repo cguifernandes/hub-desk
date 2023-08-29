@@ -23,7 +23,7 @@ const Nav = () => {
 
   return (
     <>
-      {client != null ? (
+      {client ? (
         client.map((client) => {
           return (
             <button
