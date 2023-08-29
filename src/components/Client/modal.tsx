@@ -93,7 +93,7 @@ const ModalBar = ({ setVisibleModal }: ModalBarProps) => {
                 </Button>
                 <Button
                   className="flex w-full justify-between py-3"
-                  text="Meu painel"
+                  text="Painel"
                   fill="empty"
                 >
                   <Home />
