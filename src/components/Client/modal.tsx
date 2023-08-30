@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 import { Modal } from '@/components/Modal'
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import Heading from '../Typography/heading'
 import Topics from '../topics'
 import Button from '../button'
@@ -11,20 +11,15 @@ import useConnection from '@/hooks/useConnection'
 import clsx from 'clsx'
 import Skeleton from '../skeleton'
 import { destroyCookie } from 'nookies'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 type ModalBarProps = {
   setVisibleModal: Dispatch<SetStateAction<boolean>>
 }
 
 const ModalBar = ({ setVisibleModal }: ModalBarProps) => {
-  const [mounted, setMounted] = useState(true)
   const { push } = useRouter()
   const { client, isConnected, isLoading } = useConnection()
-
-  useEffect(() => {
-    setMounted(false)
-  }, [])
 
   const handlerLogout = () => {
     destroyCookie(null, 'user_session')

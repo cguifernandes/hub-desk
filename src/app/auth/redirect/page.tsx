@@ -23,7 +23,7 @@ const Redirect = () => {
         <div className="space-y-6">
           <div className="space-y-1 text-center">
             <Heading size="xlg" className="text-white">
-              O Login fui um sucesso!
+              A autenticação foi um sucesso!
             </Heading>
             <Text className="text-white/50">Você será redirecionado.</Text>
           </div>
