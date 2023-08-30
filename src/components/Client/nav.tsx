@@ -2,46 +2,36 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import useConnection from '@/hooks/useConnection'
-import { useLayoutEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ModalBar from './modal'
 import Skeleton from '../skeleton'
 import Button from '../button'
-import Heading from '../Typography/heading'
-import Loading from '../loading'
 
 const Nav = () => {
   const [visibleModal, setVisibleModal] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const { client, isConnected, isLoading } = useConnection()
+  const { client, isConnected } = useConnection()
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     setMounted(true)
   }, [])
 
-  if (!mounted) {
-    return (
-      <Heading className="flex items-center gap-x-4">
-        Loading <Loading className="h-6 w-6" />
-      </Heading>
-    )
-  }
-
   return (
     <>
-      {isLoading ? (
-        <Skeleton height={38} width={38} className="!rounded-full" />
+      {!mounted ? (
+        <Skeleton height={44} width={44} className="!rounded-full" />
       ) : isConnected ? (
         client.map((client) => {
           return (
             <button
               onClick={() => setVisibleModal(!visibleModal)}
-              className="h-9 w-9"
+              className="h-11 w-11"
               key={client.id}
             >
               <img
                 alt={client.name}
                 src={client.pfp}
-                className="h-10 w-10 overflow-clip rounded-full object-cover object-center align-top"
+                className="h-11 w-11 overflow-clip rounded-full object-cover object-center align-top"
               />
             </button>
           )
