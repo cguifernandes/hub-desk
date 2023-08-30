@@ -9,9 +9,10 @@ import clsx from 'clsx'
 type BackProps = {
   isHeader?: boolean
   className?: string
+  href?: string
 }
 
-const Back = ({ isHeader = false, className }: BackProps) => {
+const Back = ({ isHeader = false, className, href }: BackProps) => {
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -22,15 +23,26 @@ const Back = ({ isHeader = false, className }: BackProps) => {
     return <Skeleton margin={isHeader ? 0 : 'auto'} height={58} width={290} />
   }
 
+  if (href) {
+    return (
+      <Link href={href}>
+        <Image
+          className={clsx(isHeader ? 'm-0' : 'm-auto', className)}
+          width={290}
+          alt="Logo"
+          src={Logo}
+        />
+      </Link>
+    )
+  }
+
   return (
-    <Link href={'/'}>
-      <Image
-        className={clsx(isHeader ? 'm-0' : 'm-auto', className)}
-        width={290}
-        alt="Logo"
-        src={Logo}
-      />
-    </Link>
+    <Image
+      className={clsx(isHeader ? 'm-0' : 'm-auto', className)}
+      width={290}
+      alt="Logo"
+      src={Logo}
+    />
   )
 }
 

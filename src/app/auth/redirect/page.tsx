@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Player } from '@lottiefiles/react-lottie-player'
 import { useEffect } from 'react'
 import SucessAnimation from '../../../../public/success.json'
+import Back from '@/components/back'
 
 const Redirect = () => {
   const { push } = useRouter()
@@ -16,15 +17,25 @@ const Redirect = () => {
   }, [push])
 
   return (
-    <div className="space-y-6">
-      <div className="space-y-1 text-center">
-        <Heading size="xlg" className="text-white">
-          O Login fui um sucesso!
-        </Heading>
-        <Text className="text-white/50">Você será redirecionado.</Text>
+    <>
+      <Back />
+      <div className="mt-8 flex items-center justify-center sm:mt-14">
+        <div className="space-y-6">
+          <div className="space-y-1 text-center">
+            <Heading size="xlg" className="text-white">
+              O Login fui um sucesso!
+            </Heading>
+            <Text className="text-white/50">Você será redirecionado.</Text>
+          </div>
+          <Player
+            src={SucessAnimation}
+            autoplay
+            keepLastFrame
+            className="w-60"
+          />
+        </div>
       </div>
-      <Player src={SucessAnimation} autoplay keepLastFrame className="w-60" />
-    </div>
+    </>
   )
 }
 

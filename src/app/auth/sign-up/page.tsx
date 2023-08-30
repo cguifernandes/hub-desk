@@ -7,6 +7,7 @@ import Linkedin from '../../../../public/linkedinLogo.svg'
 import Image from 'next/image'
 import FormSignUp from '@/components/Form/Auth/formSignUp'
 import Line from '@/components/line'
+import Back from '@/components/back'
 
 export const metadata: Metadata = {
   title: 'Cadastrar | Hub Desk',
@@ -14,36 +15,41 @@ export const metadata: Metadata = {
 
 const SignUp = () => {
   return (
-    <div className="w-full max-w-[550px] rounded-md bg-grey-600 p-10 shadow-lg">
-      <header className="flex flex-col gap-y-1">
-        <Heading className="font-montserrat text-3xl">Registrar</Heading>
-        <Text size="sm" className="text-white/50">
-          Já possui uma conta?{' '}
-          <a
-            href="sign-in"
-            className="text-sky-600 transition-colors hover:text-sky-700"
-          >
-            Logar.
-          </a>
-        </Text>
-      </header>
-      <FormSignUp />
-      <Line />
-      <div className="grid grid-cols-2 grid-rows-2 justify-between justify-items-center gap-5 pt-12 sm:grid-cols-4 sm:grid-rows-1">
-        <button className="flex h-16 w-full items-center justify-center rounded-md bg-black transition-colors hover:bg-[#202020] sm:w-24">
-          <Github fill="#fff" strokeWidth={0.5} color="#fff" size={28} />
-        </button>
-        <button className="flex h-16 w-full items-center justify-center rounded-md bg-[#176DF0] transition-colors hover:bg-[#176ef0ab] sm:w-24">
-          <Facebook fill="#fff" strokeWidth={0.5} color="#fff" size={28} />
-        </button>
-        <button className="flex h-16 w-full items-center justify-center rounded-md bg-[#0e76a8] transition-colors hover:bg-[#0e77a8c9] sm:w-24">
-          <Image src={Linkedin} alt="Google logo" width={28} />
-        </button>
-        <button className="flex h-16 w-full items-center justify-center rounded-md bg-white transition-colors hover:bg-[#ddd] sm:w-24">
-          <Image src={Google} alt="Google logo" width={28} />
-        </button>
+    <>
+      <Back href="/" />
+      <div className="mt-8 flex items-center justify-center sm:mt-14">
+        <div className="w-full max-w-[550px] rounded-md bg-grey-600 p-10 shadow-lg">
+          <header className="flex flex-col gap-y-1">
+            <Heading className="font-montserrat text-3xl">Registrar</Heading>
+            <Text size="sm" className="text-white/50">
+              Já possui uma conta?{' '}
+              <a
+                href="sign-in"
+                className="text-sky-600 transition-colors hover:text-sky-700"
+              >
+                Logar.
+              </a>
+            </Text>
+          </header>
+          <FormSignUp />
+          <Line />
+          <div className="grid grid-cols-2 grid-rows-2 justify-between justify-items-center gap-5 pt-12 sm:grid-cols-4 sm:grid-rows-1">
+            <button className="flex h-16 w-full items-center justify-center rounded-md bg-black transition-colors hover:bg-[#202020] sm:w-24">
+              <Github fill="#fff" strokeWidth={0.5} color="#fff" size={28} />
+            </button>
+            <button className="flex h-16 w-full items-center justify-center rounded-md bg-[#176DF0] transition-colors hover:bg-[#176ef0ab] sm:w-24">
+              <Facebook fill="#fff" strokeWidth={0.5} color="#fff" size={28} />
+            </button>
+            <button className="flex h-16 w-full items-center justify-center rounded-md bg-[#0e76a8] transition-colors hover:bg-[#0e77a8c9] sm:w-24">
+              <Image src={Linkedin} alt="Google logo" width={28} />
+            </button>
+            <button className="flex h-16 w-full items-center justify-center rounded-md bg-white transition-colors hover:bg-[#ddd] sm:w-24">
+              <Image src={Google} alt="Google logo" width={28} />
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
