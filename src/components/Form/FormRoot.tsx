@@ -2,7 +2,7 @@
 import { FormEventHandler, ReactNode } from 'react'
 
 type FormRootProps = {
-  className: string
+  className?: string
   children: ReactNode
   handleSubmit: FormEventHandler<HTMLFormElement> | undefined
 }

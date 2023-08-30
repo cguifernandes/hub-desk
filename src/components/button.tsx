@@ -53,7 +53,7 @@ const Button = ({
           className: `${className} flex cursor-not-allowed items-center justify-center`,
         })}
       >
-        <Loading />
+        <Loading className="h-8 w-8" />
       </button>
     )
   }

@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 import { Modal } from '@/components/Modal'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import Heading from '../Typography/heading'
 import Topics from '../topics'
 import Button from '../button'
@@ -10,13 +10,26 @@ import Line from '../line'
 import useConnection from '@/hooks/useConnection'
 import clsx from 'clsx'
 import Skeleton from '../skeleton'
+import { destroyCookie } from 'nookies'
+import { useRouter } from 'next/router'
 
 type ModalBarProps = {
   setVisibleModal: Dispatch<SetStateAction<boolean>>
 }
 
 const ModalBar = ({ setVisibleModal }: ModalBarProps) => {
-  const { isConnected, client, isLoading } = useConnection()
+  const [mounted, setMounted] = useState(true)
+  const { push } = useRouter()
+  const { client, isConnected, isLoading } = useConnection()
+
+  useEffect(() => {
+    setMounted(false)
+  }, [])
+
+  const handlerLogout = () => {
+    destroyCookie(null, 'user_session')
+    push('/auth/redirect')
+  }
 
   return (
     <>
@@ -99,6 +112,7 @@ const ModalBar = ({ setVisibleModal }: ModalBarProps) => {
                   <Home />
                 </Button>
                 <Button
+                  onClick={handlerLogout}
                   className="flex w-full justify-between py-3"
                   text="Sair"
                   fill="empty"

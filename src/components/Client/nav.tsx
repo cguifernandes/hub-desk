@@ -2,22 +2,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import useConnection from '@/hooks/useConnection'
-import { useEffect, useState } from 'react'
+import { useLayoutEffect, useState } from 'react'
 import ModalBar from './modal'
 import Skeleton from '../skeleton'
 import Button from '../button'
+import Heading from '../Typography/heading'
+import Loading from '../loading'
 
 const Nav = () => {
   const [visibleModal, setVisibleModal] = useState(false)
-  const [mounted, setMounted] = useState(true)
+  const [mounted, setMounted] = useState(false)
   const { client, isConnected, isLoading } = useConnection()
 
-  useEffect(() => {
-    setMounted(false)
+  useLayoutEffect(() => {
+    setMounted(true)
   }, [])
 
-  if (mounted) {
-    return <Skeleton height={42} width={272} />
+  if (!mounted) {
+    return (
+      <Heading className="flex items-center gap-x-4">
+        Loading <Loading className="h-6 w-6" />
+      </Heading>
+    )
   }
 
   return (

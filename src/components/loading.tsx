@@ -1,8 +1,17 @@
-const Loading = () => {
+import clsx from 'clsx'
+
+type LoadingProps = {
+  className?: string
+}
+
+const Loading = ({ className }: LoadingProps) => {
   return (
     <svg
       aria-hidden="true"
-      className="mr-2 h-8 w-8 animate-spin fill-white text-gray-200 dark:text-white/40"
+      className={clsx(
+        'mr-2 animate-spin fill-white text-gray-200 dark:text-white/40',
+        className,
+      )}
       viewBox="0 0 100 101"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

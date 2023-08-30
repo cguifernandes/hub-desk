@@ -30,6 +30,8 @@ model Desk {
   imageURL    String
   color       String?
   description String
+  repo        String
+  website     String
   comments    Comment[]
 }
 
