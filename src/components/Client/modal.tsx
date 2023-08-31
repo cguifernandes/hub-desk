@@ -32,7 +32,7 @@ const ModalBar = ({ setVisibleModal }: ModalBarProps) => {
         <Modal.Overlay onClick={() => setVisibleModal(false)} />
         <Modal.Children
           className={clsx(
-            'z-20 m-5 mt-28 max-h-[calc(90%_-_92px)] w-[380px] overflow-y-auto md:m-10',
+            'z-20 m-8 mt-28 max-h-[calc(90%_-_92px)] w-[380px] overflow-y-auto md:m-10',
             'rounded-md bg-grey-600 p-10 shadow-lg sm:w-[450px]',
           )}
         >
