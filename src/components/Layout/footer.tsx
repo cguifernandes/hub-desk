@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import Text from '@/components/Typography/text'
+import Link from 'next/link'
 
 const Footer = () => {
   return (
@@ -16,19 +17,21 @@ const Footer = () => {
       <div>
         <Text>
           Desenvolvido por{' '}
-          <a
+          <Link
+            target="_blank"
             className="transition-colors hover:text-grey-200"
             href="https://portfolio-enzosylvestrin.vercel.app"
           >
             Enzo Sylvestrin
-          </a>{' '}
+          </Link>{' '}
           e{' '}
-          <a
+          <Link
+            target="_blank"
             className="transition-colors hover:text-grey-200"
             href="https://guifernandes.vercel.app"
           >
             Guilherme Fernandes
-          </a>
+          </Link>
         </Text>
       </div>
     </footer>
