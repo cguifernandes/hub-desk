@@ -15,9 +15,10 @@ import { useRouter } from 'next/navigation'
 
 type ModalBarProps = {
   setVisibleModal: Dispatch<SetStateAction<boolean>>
+  visibleModal: boolean
 }
 
-const ModalBar = ({ setVisibleModal }: ModalBarProps) => {
+const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
   const { push } = useRouter()
   const { client, isConnected, isLoading } = useConnection()
 
@@ -28,9 +29,13 @@ const ModalBar = ({ setVisibleModal }: ModalBarProps) => {
 
   return (
     <>
-      <Modal.Root>
-        <Modal.Overlay onClick={() => setVisibleModal(false)} />
+      <Modal.Root visibleModal={visibleModal}>
+        <Modal.Overlay
+          visibleModal={visibleModal}
+          onClick={() => setVisibleModal(false)}
+        />
         <Modal.Children
+          visibleModal={visibleModal}
           className={clsx(
             'z-20 m-8 mt-28 max-h-[calc(90%_-_92px)] w-[380px] overflow-y-auto md:m-10',
             'rounded-md bg-grey-600 p-10 shadow-lg sm:w-[450px]',

@@ -48,7 +48,7 @@ const Nav = ({ children }: { children: ReactNode }) => {
           </button>
         </>
       )}
-      {visibleModal && <ModalBar setVisibleModal={setVisibleModal} />}
+      <ModalBar visibleModal={visibleModal} setVisibleModal={setVisibleModal} />
     </>
   )
 }
