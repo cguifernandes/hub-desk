@@ -2,15 +2,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import useConnection from '@/hooks/useConnection'
-import { useEffect, useState } from 'react'
+import { ReactNode, useEffect, useState } from 'react'
 import ModalBar from './modal'
 import Skeleton from '../skeleton'
 import Button from '../button'
 
-const Nav = () => {
+const Nav = ({ children }: { children: ReactNode }) => {
   const [visibleModal, setVisibleModal] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const { client, isConnected } = useConnection()
+  const { isConnected } = useConnection()
 
   useEffect(() => {
     setMounted(true)
@@ -21,21 +21,12 @@ const Nav = () => {
       {!mounted ? (
         <Skeleton height={44} width={44} className="!rounded-full" />
       ) : isConnected ? (
-        client.map((client) => {
-          return (
-            <button
-              onClick={() => setVisibleModal(!visibleModal)}
-              className="h-11 w-11"
-              key={client.id}
-            >
-              <img
-                alt={client.name}
-                src={client.pfp}
-                className="h-11 w-11 overflow-clip rounded-full object-cover object-center align-top"
-              />
-            </button>
-          )
-        })
+        <button
+          onClick={() => setVisibleModal(!visibleModal)}
+          className="h-11 w-11"
+        >
+          {children}
+        </button>
       ) : (
         <>
           <nav className="hidden gap-x-5 md:flex">
