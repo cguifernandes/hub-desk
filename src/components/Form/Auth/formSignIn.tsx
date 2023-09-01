@@ -38,15 +38,12 @@ const FormSignIn = () => {
   const handlerFormSubmit = async (user: SignInProps) => {
     try {
       setIsLoading(true)
-
-      const userResponse = JSON.stringify({
-        password: user.password,
-        email: user.email,
-      })
-
       const { data }: { data: ResponseProps } = await api.post(
         '/clients/verification',
-        userResponse,
+        JSON.stringify({
+          password: user.password,
+          email: user.email,
+        }),
         { headers: { 'Content-Type': 'application/json' } },
       )
 
