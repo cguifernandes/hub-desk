@@ -1,6 +1,9 @@
+/* eslint-disable jsx-a11y/alt-text */
+'use client'
 import { Form } from '@/components/Form'
 import { DeskProps, schemaDesk } from '@/utils/Zod/desk'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { ChevronDown, Image, Subtitles } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 
 const FormDesk = () => {
@@ -18,8 +21,41 @@ const FormDesk = () => {
   }
 
   return (
-    <Form.Root handleSubmit={handleSubmit(handlerFormSubmit)}>
-      <p>oi</p>
+    <Form.Root
+      className="flex-[0.40] space-y-8"
+      handleSubmit={handleSubmit(handlerFormSubmit)}
+    >
+      <Form.Input
+        error={errors.title}
+        register={register}
+        name="title"
+        placeholder="Título*"
+      >
+        <Subtitles color="#fff" strokeWidth={1.5} size={30} />
+      </Form.Input>
+      <Form.Input
+        error={errors.category}
+        register={register}
+        name="category"
+        placeholder="Categoria*"
+      >
+        <ChevronDown color="#fff" strokeWidth={1.5} size={30} />
+      </Form.Input>
+      <Form.Input
+        error={errors.image}
+        register={register}
+        name="image"
+        placeholder="Imagem*"
+      >
+        <Image color="#fff" strokeWidth={1.5} size={30} />
+      </Form.Input>
+      <Form.Textarea
+        error={errors.description}
+        name="description"
+        register={register}
+        placeholder="Descrição*"
+      />
+      <Form.Button type="submit" text="Criar uma desk" className="w-full" />
     </Form.Root>
   )
 }

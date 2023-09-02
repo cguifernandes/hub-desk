@@ -87,7 +87,7 @@ const FormSignUp = () => {
         onChange={(e) => setEmail(e.target.value)}
         value={email}
       >
-        <Mail color="#fff" strokeWidth={1.25} size={28} />
+        <Mail color="#fff" strokeWidth={1.5} size={30} />
       </Form.Input>
       <Form.Input
         error={errors.name}
@@ -97,7 +97,7 @@ const FormSignUp = () => {
         onChange={(e) => setName(e.target.value)}
         value={name}
       >
-        <UserCircle2 color="#fff" strokeWidth={1.25} size={28} />
+        <UserCircle2 color="#fff" strokeWidth={1.5} size={30} />
       </Form.Input>
       <Form.Input
         type={visiblePassword ? 'text' : 'password'}
@@ -112,16 +112,16 @@ const FormSignUp = () => {
           <Eye
             onClick={() => setVisiblePassword(true)}
             color="#fff"
-            strokeWidth={1.25}
-            size={28}
+            strokeWidth={1.5}
+            size={30}
             className="z-40 cursor-pointer"
           />
         ) : (
           <EyeOffIcon
             onClick={() => setVisiblePassword(false)}
             color="#fff"
-            strokeWidth={1.25}
-            size={28}
+            strokeWidth={1.5}
+            size={30}
             className="z-40 cursor-pointer"
           />
         )}

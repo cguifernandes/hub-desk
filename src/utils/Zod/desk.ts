@@ -9,14 +9,26 @@ export const schemaDesk = z.object({
     'Séries',
     'Outros',
   ]),
-  title: z.string().max(24, 'Número máximo de caracteres foi excedido.'),
-  image: z.string(),
-  color: z.string().startsWith('#'),
-  describre: z.string().max(124, 'Número máximo de caracteres foi excedido.'),
-  repo: z.string().regex(/^https:\/\/github\.com\/.*\/.*/, 'URL inválida'),
+  title: z
+    .string()
+    .max(24, 'Número máximo de caracteres foi excedido.')
+    .nonempty('O campo "Título" é obrigatório.'),
+  image: z.string().nonempty('O campo "Imagem" é obrigatório.'),
+  description: z
+    .string()
+    .max(124, 'Número máximo de caracteres foi excedido.')
+    .nonempty('O campo "Descrição" é obrigatório.'),
+  repo: z
+    .string()
+    .regex(/^https:\/\/github\.com\/.*\/.*/, 'URL inválida')
+    .optional(),
   website: z
     .string()
-    .refine((website) => website.startsWith('https://xvideos'), 'URL inválida'),
+    .optional()
+    .refine(
+      (website) => website?.startsWith('https://xvideos'),
+      'URL inválida',
+    ),
 })
 
 export type DeskProps = z.infer<typeof schemaDesk>

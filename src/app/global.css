@@ -10,7 +10,7 @@ html {
   background-color: #333;
 }
 
-input {
+input, textarea {
   outline: 0;
 }
 
