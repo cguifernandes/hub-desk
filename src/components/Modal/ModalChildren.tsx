@@ -16,11 +16,9 @@ const ModalChildren = ({
   const animationModal: Variants = {
     visible: {
       opacity: 1,
-      translateY: 65,
     },
     hidden: {
       opacity: 0,
-      translateY: 45,
     },
   }
 
