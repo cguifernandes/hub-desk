@@ -1,33 +1,19 @@
 'use client'
 import { ReactNode } from 'react'
-import { Variants, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 type ModalChildren = {
   children: ReactNode
   className: string
-  visibleModal: boolean
 }
 
-const ModalChildren = ({
-  children,
-  className,
-  visibleModal,
-}: ModalChildren) => {
-  const animationModal: Variants = {
-    visible: {
-      opacity: 1,
-    },
-    hidden: {
-      opacity: 0,
-    },
-  }
-
+const ModalChildren = ({ children, className }: ModalChildren) => {
   return (
     <motion.aside
-      animate={visibleModal ? 'visible' : 'hidden'}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
       transition={{ type: 'keyframes' }}
       className={className}
-      variants={animationModal}
     >
       {children}
     </motion.aside>
