@@ -41,14 +41,9 @@ const FormDesk = () => {
       >
         <ChevronDown color="#fff" strokeWidth={1.5} size={30} />
       </Form.Input>
-      <Form.Input
-        error={errors.image}
-        register={register}
-        name="image"
-        placeholder="Imagem*"
-      >
+      <Form.Image register={register} name="image">
         <Image color="#fff" strokeWidth={1.5} size={30} />
-      </Form.Input>
+      </Form.Image>
       <Form.Textarea
         error={errors.description}
         name="description"
