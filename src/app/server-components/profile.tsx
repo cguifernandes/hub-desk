@@ -6,17 +6,23 @@ import { cookies } from 'next/headers'
 export async function getStaticProps() {
   const user_session = cookies().get('user_session')?.value
 
+  if (!user_session) return
+
   const url =
     process?.env.NODE_ENV === 'development'
       ? 'http://localhost:3000'
       : 'https://hub-desk.vercel.app'
   const response = await fetch(`${url}/api/clients?id=${user_session}`)
 
-  return (await response.json()) as ResponseProps
+  return (await response.json()) as ResponseProps | undefined
 }
 
 export const PFP = async () => {
-  const { clients } = await getStaticProps()
+  const data = await getStaticProps()
+
+  if (!data) return
+
+  const { clients } = data
 
   return (
     <>
@@ -31,31 +37,3 @@ export const PFP = async () => {
     </>
   )
 }
-
-// export const Profile = async () => {
-//   const { clients } = await getStaticProps()
-
-//   return (
-//     <>
-//       {clients.map((client) => (
-//         <div
-//           key={client.id}
-//           className="flex flex-col items-center justify-between gap-y-8"
-//         >
-//           <img
-//             alt={client.name}
-//             src={client.pfp}
-//             className="h-28 w-28 overflow-clip rounded-full object-cover object-center align-top"
-//           />
-//           <Heading
-//             size="md"
-//             className="w-full overflow-hidden text-ellipsis whitespace-nowrap"
-//             align="center"
-//           >
-//             {client.name}
-//           </Heading>
-//         </div>
-//       ))}
-//     </>
-//   )
-// }
