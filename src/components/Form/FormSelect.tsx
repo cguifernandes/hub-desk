@@ -34,12 +34,24 @@ const FormSelect = ({ children, className, setValue }: SelectProps) => {
   const [visibleDropDown, setVisibleDropDown] = useState(false)
   const [selectedDropDown, setSelectedDropDown] = useState('')
   const categories = [
-    { name: 'Animes', icon: <Monitor /> },
-    { name: 'Filmes', icon: <Clapperboard /> },
-    { name: 'Séries', icon: <Popcorn /> },
-    { name: 'Desenhos', icon: <Brush /> },
-    { name: 'Sites', icon: <Globe /> },
-    { name: 'Outros', icon: <Plus /> },
+    {
+      name: 'Animes',
+      icon: <Monitor color="#fff" strokeWidth={1.5} size={30} />,
+    },
+    {
+      name: 'Filmes',
+      icon: <Clapperboard color="#fff" strokeWidth={1.5} size={30} />,
+    },
+    {
+      name: 'Séries',
+      icon: <Popcorn color="#fff" strokeWidth={1.5} size={30} />,
+    },
+    {
+      name: 'Desenhos',
+      icon: <Brush color="#fff" strokeWidth={1.5} size={30} />,
+    },
+    { name: 'Sites', icon: <Globe color="#fff" strokeWidth={1.5} size={30} /> },
+    { name: 'Outros', icon: <Plus color="#fff" strokeWidth={1.5} size={30} /> },
   ]
 
   return (
