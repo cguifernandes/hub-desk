@@ -11,11 +11,9 @@ const Skeleton = ({ height, width, className, margin }: SkeletonProps) => {
   return (
     <div
       style={{ width, height, margin }}
-      className={clsx('w-full animate-pulse')}
+      className={clsx('animate-pulse', className)}
     >
-      <div
-        className={clsx('h-full w-full rounded-md bg-grey-400', className)}
-      />
+      <div className={clsx('h-full w-full rounded-md bg-grey-400')} />
     </div>
   )
 }
