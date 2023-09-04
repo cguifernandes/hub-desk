@@ -8,6 +8,7 @@ import {
   Merge,
   UseFormSetValue,
 } from 'react-hook-form'
+import InputWrapper from './inputWrapper'
 
 type ImageProps = InputHTMLAttributes<HTMLInputElement> & {
   className?: string
@@ -45,7 +46,7 @@ const FormImage = ({ className, children, error, setValue }: ImageProps) => {
 
   return (
     <>
-      <div className="relative flex w-full justify-between rounded-l-md bg-grey-400/30 p-4">
+      <div className="relative flex h-[60px] w-full justify-between rounded-l-md bg-grey-400/30 p-4">
         <input
           placeholder="Imagem"
           className="hidden"
@@ -60,15 +61,7 @@ const FormImage = ({ className, children, error, setValue }: ImageProps) => {
               : selectedFile?.name} */}
             Selecione uma imagem*
           </span>
-          <div
-            className={clsx(
-              'absolute right-0 top-[50%] flex w-[60px] justify-center bg-sky-700',
-              'h-full -translate-y-[50%] items-center rounded-r-md',
-              className,
-            )}
-          >
-            {children}
-          </div>
+          <InputWrapper>{children}</InputWrapper>
         </label>
       </div>
       {error && (

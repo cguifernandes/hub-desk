@@ -3,7 +3,7 @@
 import { Form } from '@/components/Form'
 import { DeskProps, schemaDesk } from '@/utils/Zod/desk'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ChevronDown, Image, Subtitles } from 'lucide-react'
+import { ChevronDown, Subtitles } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 
 const FormDesk = () => {
@@ -34,17 +34,13 @@ const FormDesk = () => {
       >
         <Subtitles color="#fff" strokeWidth={1.5} size={30} />
       </Form.Input>
-      <Form.Input
+      <Form.Select
         error={errors.category}
-        register={register}
-        name="category"
+        setValue={setValue}
         placeholder="Categoria*"
       >
         <ChevronDown color="#fff" strokeWidth={1.5} size={30} />
-      </Form.Input>
-      <Form.Image setValue={setValue} name="image" error={errors.image}>
-        <Image color="#fff" strokeWidth={1.5} size={30} />
-      </Form.Image>
+      </Form.Select>
       <Form.Textarea
         error={errors.description}
         name="description"

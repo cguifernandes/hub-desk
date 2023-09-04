@@ -13,7 +13,6 @@ export const schemaDesk = z.object({
     .string()
     .max(24, 'Número máximo de caracteres foi excedido.')
     .nonempty('O campo "Título" é obrigatório.'),
-  image: z.string().url(),
   description: z
     .string()
     .max(124, 'Número máximo de caracteres foi excedido.')

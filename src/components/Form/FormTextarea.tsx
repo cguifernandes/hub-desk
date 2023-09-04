@@ -2,6 +2,7 @@
 import clsx from 'clsx'
 import { TextareaHTMLAttributes } from 'react'
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
+import InputWrapper from './inputWrapper'
 
 type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   className?: string
@@ -31,12 +32,7 @@ const FormTextarea = ({
           style={error && { borderColor: 'rgb(239 68 68)' }}
           maxLength={150}
         />
-        <div
-          className={clsx(
-            'absolute right-0 top-[50%] flex w-[60px] justify-center bg-sky-700',
-            'h-full -translate-y-[50%] items-center rounded-r-md',
-          )}
-        />
+        <InputWrapper />
       </div>
       {error && (
         <span className="text-red-500">{error.message?.toString()}</span>
