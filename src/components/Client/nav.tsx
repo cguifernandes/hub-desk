@@ -18,7 +18,7 @@ const Nav = ({ children }: { children: ReactNode }) => {
 
   return (
     <>
-      {mounted ? (
+      {!mounted ? (
         <Skeleton height={44} width={44} isRoundedFull />
       ) : isConnected ? (
         <button
