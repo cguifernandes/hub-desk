@@ -71,7 +71,7 @@ const FormSelect = ({ children, className, setValue }: SelectProps) => {
           initial={{ translateY: -20 }}
           animate={{ translateY: 0 }}
           transition={{ type: 'keyframes', duration: 0.3 }}
-          className="bg-grey-650 absolute top-20 z-20 w-full select-none rounded-md shadow-lg"
+          className="absolute top-20 z-20 w-full select-none rounded-md bg-grey-650 shadow-lg"
         >
           <ul className="flex flex-col text-white">
             {categories.map((categories) => (
