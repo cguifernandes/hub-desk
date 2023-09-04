@@ -2,14 +2,14 @@
 'use client'
 import clsx from 'clsx'
 import { InputHTMLAttributes, ReactNode } from 'react'
-import { FieldError } from 'react-hook-form'
+import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   className?: string
   children?: ReactNode
   register: any
   name: string
-  error: FieldError | undefined
+  error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
 }
 
 const FormInput = ({
@@ -43,7 +43,9 @@ const FormInput = ({
             {children}
           </div>
         </div>
-        {error && <span className="text-red-500">{error.message}</span>}
+        {error && (
+          <span className="text-red-500">{error.message?.toString()}</span>
+        )}
       </>
     )
   }

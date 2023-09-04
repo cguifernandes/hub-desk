@@ -10,6 +10,7 @@ const FormDesk = () => {
   const {
     handleSubmit,
     register,
+    setValue,
     formState: { errors },
   } = useForm<DeskProps>({
     reValidateMode: 'onBlur',
@@ -41,7 +42,7 @@ const FormDesk = () => {
       >
         <ChevronDown color="#fff" strokeWidth={1.5} size={30} />
       </Form.Input>
-      <Form.Image register={register} name="image">
+      <Form.Image setValue={setValue} name="image" error={errors.image}>
         <Image color="#fff" strokeWidth={1.5} size={30} />
       </Form.Image>
       <Form.Textarea

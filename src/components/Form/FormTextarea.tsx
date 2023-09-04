@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import clsx from 'clsx'
 import { TextareaHTMLAttributes } from 'react'
-import { FieldError } from 'react-hook-form'
+import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 
 type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   className?: string
   register: any
   name: string
-  error: FieldError | undefined
+  error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
 }
 
 const FormTextarea = ({
@@ -38,7 +38,9 @@ const FormTextarea = ({
           )}
         />
       </div>
-      {error && <span className="text-red-500">{error.message}</span>}
+      {error && (
+        <span className="text-red-500">{error.message?.toString()}</span>
+      )}
     </>
   )
 }
