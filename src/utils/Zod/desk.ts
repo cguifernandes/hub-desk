@@ -3,11 +3,12 @@ import { z } from 'zod'
 export const schemaDesk = z.object({
   category: z.enum([
     'Animes',
-    'Filmes',
     'Desenhos',
-    'Sites',
-    'Séries',
+    'Filmes',
+    'Jogos',
     'Outros',
+    'Séries',
+    'Sites',
   ]),
   title: z
     .string()

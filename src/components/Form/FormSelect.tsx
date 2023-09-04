@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import {
   Brush,
   Clapperboard,
+  Gamepad2,
   Globe,
   Monitor,
   Plus,
@@ -24,7 +25,14 @@ type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
   children?: ReactNode
   setValue: UseFormSetValue<{
     title: string
-    category: 'Animes' | 'Filmes' | 'Séries' | 'Desenhos' | 'Sites' | 'Outros'
+    category:
+      | 'Animes'
+      | 'Filmes'
+      | 'Séries'
+      | 'Desenhos'
+      | 'Sites'
+      | 'Outros'
+      | 'Jogos'
     description: string
   }>
   error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
@@ -39,19 +47,20 @@ const FormSelect = ({ children, className, setValue }: SelectProps) => {
       icon: <Monitor color="#fff" strokeWidth={1.5} />,
     },
     {
+      name: 'Desenhos',
+      icon: <Brush color="#fff" strokeWidth={1.5} />,
+    },
+    {
       name: 'Filmes',
       icon: <Clapperboard color="#fff" strokeWidth={1.5} />,
     },
+    { name: 'Jogos', icon: <Gamepad2 color="#fff" strokeWidth={1.5} /> },
+    { name: 'Outros', icon: <Plus color="#fff" strokeWidth={1.5} /> },
     {
       name: 'Séries',
       icon: <Popcorn color="#fff" strokeWidth={1.5} />,
     },
-    {
-      name: 'Desenhos',
-      icon: <Brush color="#fff" strokeWidth={1.5} />,
-    },
     { name: 'Sites', icon: <Globe color="#fff" strokeWidth={1.5} /> },
-    { name: 'Outros', icon: <Plus color="#fff" strokeWidth={1.5} /> },
   ]
 
   return (
@@ -99,7 +108,8 @@ const FormSelect = ({ children, className, setValue }: SelectProps) => {
                       | 'Séries'
                       | 'Desenhos'
                       | 'Sites'
-                      | 'Outros',
+                      | 'Outros'
+                      | 'Jogos',
                   )
                 }}
                 className="group relative flex cursor-pointer justify-between"

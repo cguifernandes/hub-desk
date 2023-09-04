@@ -3,6 +3,7 @@ import Heading from '@/components/Typography/heading'
 import Text from '@/components/Typography/text'
 import Topics from '@/components/topics'
 import { Metadata } from 'next'
+import { categories } from '@/utils/const'
 
 export const metadata: Metadata = {
   title: 'Home | Hub Desk',
@@ -39,12 +40,9 @@ const Home = () => {
           Tópicos em destaque
         </Heading>
         <div className="mx-5 flex flex-wrap justify-center gap-10 md:mx-10">
-          <Topics size="md" text="Animes" />
-          <Topics size="md" text="Filmes" />
-          <Topics size="md" text="Desenhos" />
-          <Topics size="md" text="Sites" />
-          <Topics size="md" text="Séries" />
-          <Topics size="md" text="Outros" />
+          {categories.map((categories) => (
+            <Topics key={categories.id} size="md" text={categories.name} />
+          ))}
         </div>
       </section>
     </main>
