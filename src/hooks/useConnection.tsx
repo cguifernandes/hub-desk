@@ -17,7 +17,7 @@ const useConnection = () => {
         try {
           setIsLoading(true)
           const { data }: { data: ResponseProps } = await api.get(
-            `/clients?id=${user_session}`,
+            `/auth?id=${user_session}`,
           )
 
           setClient(data.clients)

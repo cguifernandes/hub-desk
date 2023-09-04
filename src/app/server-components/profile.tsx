@@ -3,30 +3,29 @@
 import { ResponseProps } from '@/utils/type'
 import { cookies } from 'next/headers'
 
-export async function getStaticProps() {
-  const user_session = cookies().get('user_session')?.value
-
+export async function getStaticProps({
+  user_session,
+}: {
+  user_session: string | undefined
+}) {
   if (!user_session) return
 
   const url =
     process?.env.NODE_ENV === 'development'
       ? 'http://localhost:3000'
       : 'https://hub-desk.vercel.app'
-  const response = await fetch(`${url}/api/clients?id=${user_session}`)
+  const response = await fetch(`${url}/api/auth?id=${user_session}`)
 
   return (await response.json()) as ResponseProps | undefined
 }
 
 export const PFP = async () => {
-  const data = await getStaticProps()
-
-  if (!data) return
-
-  const { clients } = data
+  const user_session = cookies().get('user_session')?.value
+  const data = await getStaticProps({ user_session })
 
   return (
     <>
-      {clients.map((client) => (
+      {data?.clients.map((client) => (
         <img
           key={client.id}
           alt={client.name}
@@ -37,3 +36,5 @@ export const PFP = async () => {
     </>
   )
 }
+
+export const revalidate = 5
