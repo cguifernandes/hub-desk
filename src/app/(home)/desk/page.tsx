@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const Desk = () => {
   return (
-    <main className="pt-24">
+    <main className="mt-24">
       <section className="bg-gradient-to-b from-grey-550 to-grey-500">
         <div className="flex flex-col items-center py-16">
           <Heading size="md">
