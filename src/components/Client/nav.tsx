@@ -18,8 +18,8 @@ const Nav = ({ children }: { children: ReactNode }) => {
 
   return (
     <>
-      {!mounted ? (
-        <Skeleton height={44} width={44} className="!rounded-full" />
+      {mounted ? (
+        <Skeleton height={44} width={44} isRoundedFull />
       ) : isConnected ? (
         <button
           onClick={() => setVisibleModal(!visibleModal)}
