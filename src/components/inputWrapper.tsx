@@ -13,7 +13,7 @@ const InputWrapper = ({ children, onClick, className }: InputWrapperProps) => {
       onClick={onClick}
       className={clsx(
         'absolute right-0 top-[50%] flex w-[60px] justify-center bg-sky-700',
-        'h-full -translate-y-[50%] cursor-pointer items-center rounded-r-md',
+        'h-full -translate-y-[50%] items-center rounded-r-md',
         className,
       )}
     >

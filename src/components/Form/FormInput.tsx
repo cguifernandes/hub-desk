@@ -2,7 +2,7 @@
 import clsx from 'clsx'
 import { InputHTMLAttributes, ReactNode } from 'react'
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
-import InputWrapper from './inputWrapper'
+import InputWrapper from '@/components/inputWrapper'
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   className?: string

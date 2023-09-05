@@ -8,7 +8,7 @@ import {
   Merge,
   UseFormSetValue,
 } from 'react-hook-form'
-import InputWrapper from './inputWrapper'
+import InputWrapper from '@/components/inputWrapper'
 
 type ImageProps = InputHTMLAttributes<HTMLInputElement> & {
   className?: string

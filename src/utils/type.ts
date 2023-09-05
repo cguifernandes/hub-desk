@@ -6,9 +6,38 @@ export type ClientsProps = {
   pfp: string
 }
 
+export type Comment = {
+  id: string
+  text: string
+  createdAt: Date
+  authorId: string
+  deskId: string
+}
+
+export type RDeskProps = {
+  id: string
+  createdAt: Date
+  authorId: string
+  category:
+    | 'Animes'
+    | 'Desenhos'
+    | 'Filmes'
+    | 'Jogos'
+    | 'Outros'
+    | 'Séries'
+    | 'Sites'
+  title: string
+  imageURL: string
+  description: string
+  repo: string
+  website: string
+  comments: Comment[]
+}
+
 export type ResponseProps = {
   error: string
   success: string
   id: string
   clients: ClientsProps[]
+  data: RDeskProps[]
 }

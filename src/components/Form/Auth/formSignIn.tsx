@@ -31,7 +31,7 @@ const FormSignIn = () => {
     register,
     formState: { errors },
   } = useForm<SignInProps>({
-    reValidateMode: 'onBlur',
+    reValidateMode: 'onSubmit',
     resolver: zodResolver(schemaSignIn),
   })
 

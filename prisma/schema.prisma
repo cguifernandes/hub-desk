@@ -28,10 +28,9 @@ model Desk {
   category    String
   title       String
   imageURL    String
-  color       String?
-  description String
-  repo        String
-  website     String
+  description String?
+  repo        String?
+  website     String?
   comments    Comment[]
 }
 
