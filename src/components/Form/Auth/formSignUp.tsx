@@ -72,7 +72,7 @@ const FormSignUp = () => {
   return (
     <Form.Root
       handleSubmit={handleSubmit(handlerFormSubmit)}
-      className="space-y-8 py-12"
+      className="space-y-8 pt-12"
     >
       <Form.Input
         error={errors.email}
