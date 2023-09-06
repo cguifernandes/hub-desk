@@ -11,11 +11,13 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { ChevronDown, Github, Globe, Subtitles } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { motion } from 'framer-motion'
 
 const FormDesk = () => {
   const [selectedDropDown, setSelectedDropDown] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const { user_session } = useConnection()
+  const isVisibleRepoWebsite = selectedDropDown === 'Sites'
   const {
     handleSubmit,
     register,
@@ -26,6 +28,10 @@ const FormDesk = () => {
     reValidateMode: 'onSubmit',
     resolver: zodResolver(schemaDesk),
   })
+
+  const animationVisibleRepoWebsite = isVisibleRepoWebsite
+    ? { opacity: 1 }
+    : { opacity: 0, display: 'none' }
 
   const handlerFormSubmit = async (desk: DeskProps) => {
     try {
@@ -77,26 +83,24 @@ const FormDesk = () => {
         register={register}
         placeholder="Descrição*"
       />
-      {selectedDropDown === 'Sites' && (
-        <>
-          <Form.Input
-            error={errors.repo}
-            register={register}
-            name="repo"
-            placeholder="Repositório"
-          >
-            <Github color="#fff" strokeWidth={1.5} size={30} />
-          </Form.Input>
-          <Form.Input
-            error={errors.website}
-            register={register}
-            name="website"
-            placeholder="Site"
-          >
-            <Globe color="#fff" strokeWidth={1.5} size={30} />
-          </Form.Input>
-        </>
-      )}
+      <motion.div className="space-y-8" animate={animationVisibleRepoWebsite}>
+        <Form.Input
+          error={errors.repo}
+          register={register}
+          name="repo"
+          placeholder="Repositório"
+        >
+          <Github color="#fff" strokeWidth={1.5} size={30} />
+        </Form.Input>
+        <Form.Input
+          error={errors.website}
+          register={register}
+          name="website"
+          placeholder="Site"
+        >
+          <Globe color="#fff" strokeWidth={1.5} size={30} />
+        </Form.Input>
+      </motion.div>
       <Form.Button
         loading={isLoading}
         type="submit"

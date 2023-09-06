@@ -3,7 +3,7 @@ import Heading from '@/components/Typography/heading'
 import Text from '@/components/Typography/text'
 import Topics from '@/components/topics'
 import { Metadata } from 'next'
-import { categories } from '@/utils/const'
+import { categories } from '@/utils/constant'
 
 export const metadata: Metadata = {
   title: 'Home | Hub Desk',
