@@ -12,7 +12,7 @@ export const schemaDesk = z.object({
   ]),
   title: z
     .string()
-    .max(24, 'Número máximo de caracteres foi excedido.')
+    .max(48, 'Número máximo de caracteres foi excedido.')
     .nonempty('O campo "Título" é obrigatório.')
     .trim(),
   description: z

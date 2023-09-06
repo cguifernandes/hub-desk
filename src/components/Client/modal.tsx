@@ -85,7 +85,10 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
           </Modal.Header>
           <Line className="my-8" />
           <div className="grid grid-cols-1 grid-rows-3 gap-5 sm:grid-cols-2">
-            <Topics component="button" text="Animes" />
+            <Topics
+              component="button"
+              text="Animes MUDAR PARA IGUAL DO IPHONE"
+            />
             <Topics component="button" text="Filmes" />
             <Topics component="button" text="Desenhos" />
             <Topics component="button" text="Sites" />
