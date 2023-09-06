@@ -7,3 +7,15 @@ export const categories = [
   { name: 'Outros', id: '6' },
   { name: 'Sites', id: '7' },
 ]
+
+export const ROUTES = {
+  private: {
+    desk: { name: '/desk' },
+  },
+  public: {
+    home: '/',
+    signIn: '/auth/sign-in',
+    signUp: '/auth/sign-up',
+    redirect: '/auth/redirect',
+  },
+}
