@@ -18,9 +18,7 @@ const Desk = () => {
           </Heading>
           <Text className="text-white/50">Campos com “*” são obrigatórios</Text>
         </div>
-        <div className="flex w-full items-center justify-around py-12">
-          <FormDesk />
-        </div>
+        <FormDesk />
       </section>
     </main>
   )
