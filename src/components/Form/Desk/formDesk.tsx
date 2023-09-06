@@ -14,13 +14,12 @@ import { useForm } from 'react-hook-form'
 
 const FormDesk = () => {
   const [selectedDropDown, setSelectedDropDown] = useState('')
-  const [repo, setRepo] = useState('')
-  const [website, setWebsite] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const { user_session } = useConnection()
   const {
     handleSubmit,
     register,
+    reset,
     setValue,
     formState: { errors },
   } = useForm<DeskProps>({
@@ -41,8 +40,8 @@ const FormDesk = () => {
         ErrorToast(data.error)
       } else {
         SuccessToast(data.success)
+        reset()
       }
-      console.log(desk)
     } catch (err) {
       console.error('Erro ao processar formulário:', err)
     } finally {
@@ -52,7 +51,7 @@ const FormDesk = () => {
 
   return (
     <Form.Root
-      className="flex-[0.40] space-y-8"
+      className="w-11/12 space-y-8 sm:w-8/12 lg:w-5/12"
       handleSubmit={handleSubmit(handlerFormSubmit)}
     >
       <Form.Input
@@ -83,8 +82,6 @@ const FormDesk = () => {
           <Form.Input
             error={errors.repo}
             register={register}
-            onChange={(e) => setRepo(e.target.value)}
-            value={repo}
             name="repo"
             placeholder="Repositório"
           >
@@ -95,8 +92,6 @@ const FormDesk = () => {
             register={register}
             name="website"
             placeholder="Site"
-            onChange={(e) => setWebsite(e.target.value)}
-            value={website}
           >
             <Globe color="#fff" strokeWidth={1.5} size={30} />
           </Form.Input>

@@ -10,19 +10,16 @@ export const metadata: Metadata = {
 const Desk = () => {
   return (
     <main className="mt-24">
-      <section className="bg-gradient-to-b from-grey-550 to-grey-500">
-        <div className="flex flex-col items-center py-16">
+      <section className="flex min-h-[calc(100vh_-_192px)] flex-col items-center bg-gradient-to-b from-grey-550 to-grey-500">
+        <div className="w-[90%] py-16 text-center sm:w-[80%] lg:w-[920px] xl:w-[1020px]">
           <Heading size="md">
             Crie uma desk para que você possa discutir sua opinião com a
             comunidade.
           </Heading>
           <Text className="text-white/50">Campos com “*” são obrigatórios</Text>
         </div>
-        <div className="flex items-center justify-around py-12">
+        <div className="flex w-full items-center justify-around py-12">
           <FormDesk />
-          <div className="flex flex-[0.40] justify-center">
-            <div className="h-[700px] w-[500px] border border-white"></div>
-          </div>
         </div>
       </section>
     </main>

@@ -32,6 +32,7 @@ type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
   selectedDropDown: string
   setSelectedDropDown: Dispatch<SetStateAction<string>>
   setValue: UseFormSetValue<{
+    title: string
     category:
       | 'Animes'
       | 'Desenhos'
@@ -40,10 +41,9 @@ type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
       | 'Outros'
       | 'Séries'
       | 'Sites'
-    title: string
     description: string
-    repo?: string | undefined
-    website?: string | undefined
+    repo: string
+    website: string
   }>
   error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
 }

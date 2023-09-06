@@ -5,7 +5,7 @@ import { Eye, EyeOffIcon, Mail, UserCircle2 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
-import { ErrorToast, SuccessToast } from '@/utils/toast'
+import { ErrorToast } from '@/utils/toast'
 import { SignUpProps, schemaSignUp } from '@/utils/Zod/sign-up'
 import { api } from '@/utils/api'
 import { ResponseProps } from '@/utils/type'
@@ -51,7 +51,6 @@ const FormSignUp = () => {
       if (data.error) {
         ErrorToast(data.error)
       } else {
-        SuccessToast(data.success)
         setName('')
         setEmail('')
         setPassword('')

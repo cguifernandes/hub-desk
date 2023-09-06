@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { api } from '@/utils/api'
-import { ErrorToast, SuccessToast } from '@/utils/toast'
+import { ErrorToast } from '@/utils/toast'
 import { ResponseProps } from '@/utils/type'
 import { setCookie } from 'nookies'
 import useConnection from '@/hooks/useConnection'
@@ -50,7 +50,6 @@ const FormSignIn = () => {
       if (data.error) {
         ErrorToast(data.error)
       } else {
-        SuccessToast(data.success)
         setEmail('')
         setPassword('')
         push('/')

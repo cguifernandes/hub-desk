@@ -12,7 +12,6 @@ import InputWrapper from '@/components/inputWrapper'
 type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   className?: string
   register: UseFormRegister<{
-    title: string
     category:
       | 'Animes'
       | 'Desenhos'
@@ -21,9 +20,10 @@ type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
       | 'Outros'
       | 'Séries'
       | 'Sites'
+    title: string
     description: string
-    repo?: string | undefined
-    website?: string | undefined
+    repo: string
+    website: string
   }>
   name: string
   error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
