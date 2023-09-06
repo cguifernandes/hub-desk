@@ -3,23 +3,17 @@ import Skeleton from '@/components/skeleton'
 const Loading = () => {
   return (
     <main className="pt-24">
-      <section className="bg-gradient-to-b from-grey-550 to-grey-500">
-        <div className="flex items-center justify-center">
-          <div className="flex w-full max-w-[800px] flex-col items-center gap-y-1 py-16">
-            <Skeleton className="w-10/12" height={28} />
-            <Skeleton className="w-4/12" height={28} />
-          </div>
+      <section className="flex min-h-[calc(100vh_-_192px)] flex-col items-center bg-gradient-to-b from-grey-550 to-grey-500">
+        <div className="w-[90%] space-y-2 py-16 text-center sm:w-[80%] lg:w-[920px] xl:w-[1020px]">
+          <Skeleton className="m-auto w-10/12" height={28} />
+          <Skeleton className="m-auto w-4/12" height={24} />
         </div>
-        <div className="flex items-center justify-around py-12">
-          <div className="flex-[0.40] space-y-8">
-            <Skeleton height={60} className="w-full" />
+        <div className="flex w-full items-center justify-around py-12">
+          <div className="w-11/12 space-y-8 sm:w-8/12 lg:w-5/12">
             <Skeleton height={60} className="w-full" />
             <Skeleton height={60} className="w-full" />
             <Skeleton height={192} className="w-full" />
             <Skeleton height={48} className="w-full" />
-          </div>
-          <div className="flex flex-[0.40] justify-center">
-            <div className="h-[700px] w-[500px] border border-white"></div>
           </div>
         </div>
       </section>
