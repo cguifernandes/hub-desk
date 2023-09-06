@@ -15,9 +15,6 @@ import useConnection from '@/hooks/useConnection'
 const FormSignUp = () => {
   const [visiblePassword, setVisiblePassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [email, setEmail] = useState(String)
-  const [password, setPassword] = useState(String)
-  const [name, setName] = useState(String)
   const { push } = useRouter()
   const { isConnected } = useConnection()
 
@@ -30,6 +27,7 @@ const FormSignUp = () => {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm<SignUpProps>({
     reValidateMode: 'onSubmit',
@@ -51,9 +49,7 @@ const FormSignUp = () => {
       if (data.error) {
         ErrorToast(data.error)
       } else {
-        setName('')
-        setEmail('')
-        setPassword('')
+        reset()
         push('/')
         setCookie(null, 'user_session', data.id, {
           path: '/',
@@ -83,8 +79,6 @@ const FormSignUp = () => {
         register={register}
         name="email"
         placeholder="E-mail"
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
       >
         <Mail color="#fff" strokeWidth={1.5} size={30} />
       </Form.Input>
@@ -93,8 +87,6 @@ const FormSignUp = () => {
         register={register}
         name="name"
         placeholder="Nome"
-        onChange={(e) => setName(e.target.value)}
-        value={name}
       >
         <UserCircle2 color="#fff" strokeWidth={1.5} size={30} />
       </Form.Input>
@@ -104,8 +96,6 @@ const FormSignUp = () => {
         register={register}
         name="password"
         placeholder="Senha"
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
       >
         {!visiblePassword ? (
           <Eye

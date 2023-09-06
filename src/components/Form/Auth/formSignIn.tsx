@@ -15,8 +15,6 @@ import useConnection from '@/hooks/useConnection'
 const FormSignIn = () => {
   const [visiblePassword, setVisiblePassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [email, setEmail] = useState(String)
-  const [password, setPassword] = useState(String)
   const { push } = useRouter()
   const { isConnected } = useConnection()
 
@@ -29,6 +27,7 @@ const FormSignIn = () => {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm<SignInProps>({
     reValidateMode: 'onSubmit',
@@ -50,8 +49,7 @@ const FormSignIn = () => {
       if (data.error) {
         ErrorToast(data.error)
       } else {
-        setEmail('')
-        setPassword('')
+        reset()
         push('/')
 
         if (user.rememberUser) {
@@ -87,8 +85,6 @@ const FormSignIn = () => {
         register={register}
         name="email"
         placeholder="E-mail"
-        onChange={(e) => setEmail(e.target.value)}
-        value={email}
       >
         <Mail color="#fff" strokeWidth={1.5} size={30} />
       </Form.Input>
@@ -98,8 +94,6 @@ const FormSignIn = () => {
         register={register}
         name="password"
         placeholder="Senha"
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
       >
         {!visiblePassword ? (
           <Eye
