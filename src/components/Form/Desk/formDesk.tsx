@@ -47,6 +47,7 @@ const FormDesk = () => {
       } else {
         SuccessToast(data.success)
         reset()
+        setSelectedDropDown('')
       }
     } catch (err) {
       console.error('Erro ao processar formulário:', err)
