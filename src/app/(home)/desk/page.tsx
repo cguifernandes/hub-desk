@@ -2,7 +2,6 @@ import FormDesk from '@/components/Form/Desk/formDesk'
 import Heading from '@/components/Typography/heading'
 import Text from '@/components/Typography/text'
 import { Metadata } from 'next'
-import Loading from './loading'
 
 export const metadata: Metadata = {
   title: 'Criar uma desk | Hub Desk',
@@ -10,21 +9,20 @@ export const metadata: Metadata = {
 
 const Desk = () => {
   return (
-    <Loading />
-    // <main className="mt-24">
-    //   <section className="flex min-h-[calc(100vh_-_192px)] flex-col items-center bg-gradient-to-b from-grey-550 to-grey-500">
-    //     <div className="w-[90%] py-16 text-center sm:w-[80%] lg:w-[920px] xl:w-[1020px]">
-    //       <Heading size="md">
-    //         Crie uma desk para que você possa discutir sua opinião com a
-    //         comunidade.
-    //       </Heading>
-    //       <Text className="text-white/50">Campos com “*” são obrigatórios</Text>
-    //     </div>
-    //     <div className="flex w-full items-center justify-around py-12">
-    //       <FormDesk />
-    //     </div>
-    //   </section>
-    // </main>
+    <main className="mt-24">
+      <section className="flex min-h-[calc(100vh_-_192px)] flex-col items-center bg-gradient-to-b from-grey-550 to-grey-500">
+        <div className="w-[90%] py-16 text-center sm:w-[80%] lg:w-[920px] xl:w-[1020px]">
+          <Heading size="md">
+            Crie uma desk para que você possa discutir sua opinião com a
+            comunidade.
+          </Heading>
+          <Text className="text-white/50">Campos com “*” são obrigatórios</Text>
+        </div>
+        <div className="flex w-full items-center justify-around py-12">
+          <FormDesk />
+        </div>
+      </section>
+    </main>
   )
 }
 
