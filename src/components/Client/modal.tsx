@@ -85,10 +85,7 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
           </Modal.Header>
           <Line className="my-8" />
           <div className="grid grid-cols-1 grid-rows-3 gap-5 sm:grid-cols-2">
-            <Topics
-              component="button"
-              text="Animes MUDAR PARA IGUAL DO IPHONE"
-            />
+            <Topics component="button" text="Animes" />
             <Topics component="button" text="Filmes" />
             <Topics component="button" text="Desenhos" />
             <Topics component="button" text="Sites" />
@@ -99,25 +96,17 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
             <>
               <Line className="my-8" />
               <div className="flex flex-col gap-y-5">
-                <Button
-                  className="flex w-full justify-between py-3"
-                  text="Configurações"
-                  fill="empty"
-                >
+                <Button text="Configurações" fill="empty" isModalButton>
                   <Settings />
                 </Button>
-                <Button
-                  className="flex w-full justify-between py-3"
-                  text="Painel"
-                  fill="empty"
-                >
+                <Button text="Painel" fill="empty" isModalButton>
                   <Home />
                 </Button>
                 <Button
                   onClick={handlerLogout}
-                  className="flex w-full justify-between py-3"
                   text="Sair"
                   fill="empty"
+                  isModalButton
                 >
                   <LogOut />
                 </Button>

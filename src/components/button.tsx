@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { ButtonHTMLAttributes, ReactNode } from 'react'
 import { tv, VariantProps } from 'tailwind-variants'
 import Loading from './loading'
+import { ChevronRight } from 'lucide-react'
 
 const button = tv({
   base: 'rounded-md px-6 py-3 text-white transition-colors',
@@ -23,6 +24,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
     href?: string
     loading?: boolean
     children?: ReactNode
+    isModalButton?: boolean
   }
 
 const Button = ({
@@ -32,8 +34,28 @@ const Button = ({
   href,
   loading,
   children,
+  isModalButton,
   ...props
 }: ButtonProps) => {
+  if (isModalButton) {
+    return (
+      <button
+        {...props}
+        className={button({
+          fill,
+          className: `flex w-full items-center justify-between !px-4 py-3`,
+        })}
+      >
+        <div className="flex items-center gap-x-3">
+          {children}
+          <div className="h-[24px] w-[2px] bg-grey-400" />
+          <span>{text}</span>
+        </div>
+        <ChevronRight color="#fff" />
+      </button>
+    )
+  }
+
   if (children) {
     return (
       <button {...props} className={button({ fill, className })}>
