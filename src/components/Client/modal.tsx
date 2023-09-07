@@ -99,7 +99,12 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
                 <Button text="Configurações" fill="empty" isModalButton>
                   <Settings />
                 </Button>
-                <Button text="Painel" fill="empty" isModalButton>
+                <Button
+                  href="/dashboard"
+                  text="Desks"
+                  fill="empty"
+                  isModalButton
+                >
                   <Home />
                 </Button>
                 <Button

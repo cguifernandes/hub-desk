@@ -38,6 +38,26 @@ const Button = ({
   ...props
 }: ButtonProps) => {
   if (isModalButton) {
+    if (href) {
+      return (
+        <Link href={href}>
+          <button
+            {...props}
+            className={button({
+              fill,
+              className: `flex w-full items-center justify-between !px-4 py-3`,
+            })}
+          >
+            <div className="flex items-center gap-x-3">
+              {children}
+              <div className="h-[24px] w-[2px] bg-grey-400" />
+              <span>{text}</span>
+            </div>
+            <ChevronRight color="#fff" />
+          </button>
+        </Link>
+      )
+    }
     return (
       <button
         {...props}
