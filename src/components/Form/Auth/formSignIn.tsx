@@ -11,6 +11,7 @@ import { ErrorToast } from '@/utils/toast'
 import { ResponseProps } from '@/utils/type'
 import { setCookie } from 'nookies'
 import useConnection from '@/hooks/useConnection'
+import { ROUTES } from '@/utils/constant'
 
 const FormSignIn = () => {
   const [visiblePassword, setVisiblePassword] = useState(false)
@@ -20,7 +21,7 @@ const FormSignIn = () => {
 
   useEffect(() => {
     if (isConnected) {
-      push('/auth/redirect')
+      push(ROUTES.public.redirect)
     }
   }, [isConnected, push])
 
@@ -50,7 +51,7 @@ const FormSignIn = () => {
         ErrorToast(data.error)
       } else {
         reset()
-        push('/')
+        push(ROUTES.public.home)
 
         if (user.rememberUser) {
           setCookie(null, 'user_session', data.id, {

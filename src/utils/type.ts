@@ -15,9 +15,9 @@ export type Comment = {
 }
 
 export type RDeskProps = {
-  id: string
+  id?: string
   createdAt: Date
-  authorId: string
+  authorId?: string
   category:
     | 'Animes'
     | 'Desenhos'
@@ -31,7 +31,8 @@ export type RDeskProps = {
   description: string
   repo: string
   website: string
-  comments: Comment[]
+  comments?: Comment[]
+  name?: string[]
 }
 
 export type ResponseProps = {

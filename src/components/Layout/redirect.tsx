@@ -13,7 +13,7 @@ const RedirectWrapper = ({ subtext, text }: RedirectProps) => {
     <div className="mt-8 flex items-center justify-center px-10 sm:mt-14">
       <div className="space-y-6">
         <div className="space-y-1 text-center">
-          <Heading size="xlg" className="text-white">
+          <Heading size="lg" className="text-white">
             {text}
           </Heading>
           <Text className="text-white/50">{subtext}</Text>

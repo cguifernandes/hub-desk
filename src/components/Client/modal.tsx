@@ -12,6 +12,7 @@ import clsx from 'clsx'
 import Skeleton from '../skeleton'
 import { destroyCookie } from 'nookies'
 import { useRouter } from 'next/navigation'
+import { ROUTES } from '@/utils/constant'
 
 type ModalBarProps = {
   setVisibleModal: Dispatch<SetStateAction<boolean>>
@@ -24,7 +25,7 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
 
   const handlerLogout = () => {
     destroyCookie(null, 'user_session')
-    push('/auth/redirect')
+    push(ROUTES.public.redirect)
   }
 
   return (
@@ -97,15 +98,16 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
               <Line className="my-8" />
               <div className="flex flex-col gap-y-5">
                 <Button text="Configurações" fill="empty" isModalButton>
-                  <Settings />
+                  <Settings strokeWidth={1.5} />
                 </Button>
                 <Button
+                  onClick={() => setVisibleModal(false)}
                   href="/dashboard"
                   text="Desks"
                   fill="empty"
                   isModalButton
                 >
-                  <Home />
+                  <Home strokeWidth={1.5} />
                 </Button>
                 <Button
                   onClick={handlerLogout}
@@ -113,7 +115,7 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
                   fill="empty"
                   isModalButton
                 >
-                  <LogOut />
+                  <LogOut strokeWidth={1.5} />
                 </Button>
               </div>
             </>

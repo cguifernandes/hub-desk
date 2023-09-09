@@ -18,7 +18,7 @@ export const schemaDesk = z.object({
   description: z
     .string()
     .trim()
-    .max(124, 'Número máximo de caracteres foi excedido.')
+    .max(150, 'Número máximo de caracteres foi excedido.')
     .nonempty('O campo "Descrição" é obrigatório.'),
   repo: z.union([z.literal(''), z.string().trim().url()]),
   website: z.union([z.literal(''), z.string().trim().url()]),

@@ -11,6 +11,7 @@ export const categories = [
 export const ROUTES = {
   private: {
     desk: { name: '/desk' },
+    dashboard: { name: '/dashboard' },
   },
   public: {
     home: '/',

@@ -11,6 +11,7 @@ import { api } from '@/utils/api'
 import { ResponseProps } from '@/utils/type'
 import { setCookie } from 'nookies'
 import useConnection from '@/hooks/useConnection'
+import { ROUTES } from '@/utils/constant'
 
 const FormSignUp = () => {
   const [visiblePassword, setVisiblePassword] = useState(false)
@@ -20,7 +21,7 @@ const FormSignUp = () => {
 
   useEffect(() => {
     if (isConnected) {
-      push('/auth/redirect')
+      push(ROUTES.public.redirect)
     }
   }, [isConnected, push])
 
@@ -50,7 +51,7 @@ const FormSignUp = () => {
         ErrorToast(data.error)
       } else {
         reset()
-        push('/')
+        push(ROUTES.public.home)
         setCookie(null, 'user_session', data.id, {
           path: '/',
           maxAge: undefined,
@@ -66,7 +67,7 @@ const FormSignUp = () => {
   }
 
   if (isConnected) {
-    push('/')
+    push(ROUTES.public.home)
   }
 
   return (

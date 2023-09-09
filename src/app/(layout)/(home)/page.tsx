@@ -35,7 +35,7 @@ const Home = () => {
           />
         </div>
       </section>
-      <section className="space-y-6 bg-gradient-to-t from-grey-550 to-grey-500 py-14">
+      <section className="space-y-6 py-14">
         <Heading className="font-semibold" align="center" size="lg">
           Tópicos em destaque
         </Heading>

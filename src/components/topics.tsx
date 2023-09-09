@@ -33,10 +33,10 @@ const Topics = ({ className, text, component, size = 'base' }: TopicsProps) => {
         {text}
       </Text>
       {component === 'button' ? (
-        <ExternalLink color="#fff" />
+        <ExternalLink strokeWidth={1.5} color="#fff" />
       ) : (
         <span className="absolute bottom-6 right-6 flex items-center text-sm text-white">
-          Ver mais <ExternalLink size={20} className="ml-2" />
+          Ver mais <ExternalLink strokeWidth={1.5} size={20} className="ml-2" />
         </span>
       )}
     </button>

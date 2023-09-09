@@ -13,7 +13,7 @@ const Desk = () => {
       <div className="w-[90%] py-16 text-center sm:w-[80%] lg:w-[920px] xl:w-[1020px]">
         <Heading size="md">
           Crie uma desk para que você possa discutir sua opinião com a
-          comunidade.
+          comunidade
         </Heading>
         <Text className="text-white/50">Campos com “*” são obrigatórios</Text>
       </div>
