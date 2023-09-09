@@ -12,7 +12,6 @@ import clsx from 'clsx'
 import Skeleton from '../skeleton'
 import { destroyCookie } from 'nookies'
 import { useRouter } from 'next/navigation'
-import { ROUTES } from '@/utils/constant'
 
 type ModalBarProps = {
   setVisibleModal: Dispatch<SetStateAction<boolean>>
@@ -25,7 +24,7 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
 
   const handlerLogout = () => {
     destroyCookie(null, 'user_session')
-    push(ROUTES.public.redirect)
+    push('/auth/redirect?m=A saída foi um sucesso!')
   }
 
   return (

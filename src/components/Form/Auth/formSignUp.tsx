@@ -66,10 +66,6 @@ const FormSignUp = () => {
     }
   }
 
-  if (isConnected) {
-    push(ROUTES.public.home)
-  }
-
   return (
     <Form.Root
       handleSubmit={handleSubmit(handlerFormSubmit)}

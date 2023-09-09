@@ -15,23 +15,25 @@ const useConnection = () => {
 
   useEffect(() => {
     const getDesks = async () => {
-      try {
-        setIsLoading(true)
-        const { data }: { data: ResponseProps } = await api.get(
-          `/desks?id=${user_session}`,
-        )
-
-        const sortedDesks = data.data.slice().sort((a, b) => {
-          return (
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      if (user_session) {
+        try {
+          setIsLoading(true)
+          const { data }: { data: ResponseProps } = await api.get(
+            `/desks?id=${user_session}`,
           )
-        })
 
-        setDesks(sortedDesks)
-      } catch (err) {
-        console.log(err)
-      } finally {
-        setIsLoading(false)
+          const sortedDesks = data.data.slice().sort((a, b) => {
+            return (
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+            )
+          })
+
+          setDesks(sortedDesks)
+        } catch (err) {
+          console.log(err)
+        } finally {
+          setIsLoading(false)
+        }
       }
     }
 

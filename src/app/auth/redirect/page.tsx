@@ -1,5 +1,5 @@
 'use client'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useEffect } from 'react'
 import Back from '@/components/back'
 import RedirectWrapper from '@/components/Layout/redirect'
@@ -7,6 +7,7 @@ import { ROUTES } from '@/utils/constant'
 
 const Redirect = () => {
   const { push } = useRouter()
+  const pathname = useSearchParams()
 
   useEffect(() => {
     setTimeout(() => {
@@ -18,7 +19,7 @@ const Redirect = () => {
     <>
       <Back />
       <RedirectWrapper
-        text="A autenticação foi um sucesso!"
+        text={pathname.get('m') || 'A autenticação foi um sucesso!'}
         subtext="Você será redirecionado."
       />
     </>
