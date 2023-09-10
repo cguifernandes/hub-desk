@@ -9,10 +9,11 @@ import EmptyAnimation from '../../../public/emptyAnimation.json'
 import Link from 'next/link'
 import Text from '../Typography/text'
 import Skeleton from '../skeleton'
+import Pagination from '../pagination'
 
 const Desks = () => {
-  const { desks, client, isLoading } = useConnection()
-
+  const { desks, client, isLoading, totalPages, setCurrentPage } =
+    useConnection()
   const name = client.map((client) => client.name)
 
   return (
@@ -62,6 +63,12 @@ const Desks = () => {
                 <Skeleton className="h-[590px] min-w-[340px] max-w-[450px] flex-1" />
                 <Skeleton className="h-[590px] min-w-[340px] max-w-[450px] flex-1" />
                 <Skeleton className="h-[590px] min-w-[340px] max-w-[450px] flex-1" />
+                <Skeleton className="h-[590px] min-w-[340px] max-w-[450px] flex-1" />
+                <Skeleton className="h-[590px] min-w-[340px] max-w-[450px] flex-1" />
+                <Skeleton className="h-[590px] min-w-[340px] max-w-[450px] flex-1" />
+                <Skeleton className="h-[590px] min-w-[340px] max-w-[450px] flex-1" />
+                <Skeleton className="h-[590px] min-w-[340px] max-w-[450px] flex-1" />
+                <Skeleton className="h-[590px] min-w-[340px] max-w-[450px] flex-1" />
               </>
             ) : (
               desks.map((desk) => (
@@ -81,6 +88,9 @@ const Desks = () => {
             )}
           </div>
         </>
+      )}
+      {desks.length > 0 && !isLoading && (
+        <Pagination setCurrentPage={setCurrentPage} totalPages={totalPages} />
       )}
     </>
   )
