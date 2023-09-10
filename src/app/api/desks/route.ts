@@ -26,8 +26,13 @@ export async function DELETE(request: NextRequest) {
   if (id) {
     const desks = await prisma.desk.delete({ where: { id } })
 
+    const updatedCards = await prisma.desk.findMany()
+
     if (desks) {
-      return NextResponse.json({ success: 'Desks encontrado', data: desks })
+      return NextResponse.json({
+        success: 'Desks encontrado',
+        data: updatedCards,
+      })
     } else {
       return NextResponse.json({
         error: 'Nenhuma desk foi encontrada por este usuário.',

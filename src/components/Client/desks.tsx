@@ -12,7 +12,7 @@ import Skeleton from '../skeleton'
 import Pagination from '../pagination'
 
 const Desks = () => {
-  const { desks, client, isLoading, totalPages, setCurrentPage } =
+  const { desks, client, isLoading, totalPages, setCurrentPage, setDesks } =
     useConnection()
   const name = client.map((client) => client.name)
 
@@ -73,6 +73,7 @@ const Desks = () => {
             ) : (
               desks.map((desk) => (
                 <CardDesk
+                  setDesks={setDesks}
                   key={desk.id}
                   category={desk.category}
                   createdAt={desk.createdAt}

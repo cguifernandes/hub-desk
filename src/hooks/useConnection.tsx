@@ -78,6 +78,7 @@ const useConnection = () => {
     desks: getCurrentPageItems(),
     setCurrentPage,
     totalPages,
+    setDesks,
   }
 }
 

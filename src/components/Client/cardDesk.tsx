@@ -6,8 +6,12 @@ import Button from '../button'
 import clsx from 'clsx'
 import { Trash2 } from 'lucide-react'
 import { api } from '@/utils/api'
-import { ErrorToast, SuccessToast } from '@/utils/toast'
-import { useRouter } from 'next/navigation'
+import { ErrorToast } from '@/utils/toast'
+import { Dispatch, SetStateAction } from 'react'
+
+type CardDeskProps = RDeskProps & {
+  setDesks: Dispatch<SetStateAction<RDeskProps[]>>
+}
 
 const CardDesk = ({
   category,
@@ -19,26 +23,25 @@ const CardDesk = ({
   website,
   id,
   name,
-}: RDeskProps) => {
+  setDesks,
+}: CardDeskProps) => {
   const formattedDate = new Date(createdAt).toLocaleDateString()
-  const router = useRouter()
 
   const handleDeleteDesk = async () => {
-    // try {
-    //   const { data }: { data: ResponseProps } = await api.delete('desks', {
-    //     data: JSON.stringify({ id }),
-    //     headers: { 'Content-Type': 'application/json' },
-    //   })
-    //   if (data.error) {
-    //     ErrorToast(data.error)
-    //   } else {
-    //     SuccessToast('A desk foi apagada com sucesso.')
-    //     router.refresh()
-    //   }
-    // } catch (err) {
-    //   console.error('Erro ao processar formulário:', err)
-    //   ErrorToast('Erro ao apagar a desk.')
-    // }
+    try {
+      const { data }: { data: ResponseProps } = await api.delete('desks', {
+        data: JSON.stringify({ id }),
+        headers: { 'Content-Type': 'application/json' },
+      })
+
+      if (data.error) {
+        ErrorToast(data.error)
+      } else {
+        setDesks(data.data)
+      }
+    } catch (err) {
+      ErrorToast(`Erro ao apagar a desk. ${err}`)
+    }
   }
 
   return (
