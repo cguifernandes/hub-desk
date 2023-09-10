@@ -15,7 +15,7 @@ const useConnection = () => {
 
   useEffect(() => {
     const getDesks = async () => {
-      if (user_session) {
+      if (isConnected) {
         try {
           setIsLoading(true)
           const { data }: { data: ResponseProps } = await api.get(

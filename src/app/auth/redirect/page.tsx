@@ -20,7 +20,7 @@ const Redirect = () => {
       <Back />
       <RedirectWrapper
         text={pathname.get('m') || 'A autenticação foi um sucesso!'}
-        subtext="Você será redirecionado."
+        subtext="Você será redirecionado"
       />
     </>
   )

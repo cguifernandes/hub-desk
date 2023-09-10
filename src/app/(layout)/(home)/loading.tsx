@@ -37,6 +37,10 @@ const Loading = () => {
             height={220}
             className="flex-[50%] sm:flex-[33.33%] lg:flex-[20%]"
           />
+          <Skeleton
+            height={220}
+            className="flex-[50%] sm:flex-[33.33%] lg:flex-[20%]"
+          />
         </div>
       </section>
     </div>
