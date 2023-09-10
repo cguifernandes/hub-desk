@@ -3,47 +3,23 @@
 import useConnection from '@/hooks/useConnection'
 import CardDesk from './cardDesk'
 import clsx from 'clsx'
-import Heading from '../Typography/heading'
-import { Player } from '@lottiefiles/react-lottie-player'
-import EmptyAnimation from '../../../public/emptyAnimation.json'
-import Link from 'next/link'
-import Text from '../Typography/text'
-import Skeleton from '../skeleton'
-import Pagination from '../pagination'
+import Heading from '../../Typography/heading'
+import Skeleton from '../../skeleton'
+import Pagination from '../../pagination'
+import EmptyAlert from './emptyAlert'
 
 const Desks = () => {
   const { desks, client, isLoading, totalPages, setCurrentPage, setDesks } =
     useConnection()
   const name = client.map((client) => client.name)
 
+  if (desks.length === 0 && !isLoading) {
+    return <EmptyAlert />
+  }
+
   return (
     <>
-      {desks.length === 0 && !isLoading ? (
-        <div className="mt-8 flex items-center justify-center px-10 sm:mt-14">
-          <div className="space-y-6">
-            <div className="space-y-1 text-center">
-              <Heading size="lg" className="text-white">
-                Você não tem nenhuma Desk
-              </Heading>
-              <Text>
-                <Link
-                  href={'/desk'}
-                  className="text-sky-600 transition-colors hover:text-sky-700"
-                >
-                  Clique aqui
-                </Link>{' '}
-                para criar uma nova desk
-              </Text>
-            </div>
-            <Player
-              src={EmptyAnimation}
-              autoplay
-              keepLastFrame
-              className="w-96"
-            />
-          </div>
-        </div>
-      ) : (
+      {desks.length > 0 && (
         <>
           <div className="mt-8 flex items-center justify-center px-10 sm:mt-14">
             <Heading size="lg" align="center" className="text-white">

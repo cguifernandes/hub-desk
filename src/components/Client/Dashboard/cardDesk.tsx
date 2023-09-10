@@ -1,8 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { RDeskProps, ResponseProps } from '@/utils/type'
-import Heading from '../Typography/heading'
-import Text from '../Typography/text'
-import Button from '../button'
+import Heading from '../../Typography/heading'
+import Text from '../../Typography/text'
+import Button from '../../button'
 import clsx from 'clsx'
 import { Trash2 } from 'lucide-react'
 import { api } from '@/utils/api'

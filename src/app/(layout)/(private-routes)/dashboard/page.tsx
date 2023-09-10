@@ -1,4 +1,4 @@
-import Desks from '@/components/Client/desks'
+import Desks from '@/components/Client/Dashboard/desks'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
