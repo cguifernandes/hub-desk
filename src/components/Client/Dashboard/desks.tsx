@@ -8,9 +8,10 @@ import Skeleton from '../../skeleton'
 import Pagination from '../../pagination'
 import EmptyAlert from './emptyAlert'
 import Select from '@/components/select'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, Search } from 'lucide-react'
 import { categories } from '@/utils/constant'
 import { useState } from 'react'
+import Input from '@/components/input'
 
 const Desks = () => {
   const { desks, client, isLoading, totalPages, setCurrentPage, setDesks } =
@@ -41,7 +42,12 @@ const Desks = () => {
             >
               <ChevronDown color="#fff" strokeWidth={1.5} size={30} />
             </Select>
-            <div className="h-16 w-[600px] bg-white" />
+            <Input
+              className="h-14 w-[458px]"
+              placeholder="Pesquise por suas desks..."
+            >
+              <Search color="#fff" strokeWidth={1.5} size={30} />
+            </Input>
           </div>
           <div
             className={clsx(
