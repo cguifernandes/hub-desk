@@ -86,7 +86,7 @@ const Select = ({
           initial={{ translateY: -10, opacity: 0 }}
           animate={{ translateY: 0, opacity: 1 }}
           transition={{ type: 'keyframes', duration: 0.3 }}
-          className="absolute top-20 z-20 w-full select-none rounded-md bg-grey-650 shadow-md"
+          className="absolute top-20 z-20 w-full select-none rounded-md border-2 border-sky-700 bg-grey-650 shadow-md"
         >
           {dropDownItems.map((item) => (
             <ul key={item.name} className="group flex flex-col text-white">
