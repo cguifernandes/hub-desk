@@ -6,14 +6,7 @@ export const metadata: Metadata = {
 }
 
 const Dashboard = () => {
-  return (
-    <section
-      id="desk"
-      className="flex min-h-[calc(100vh_-_192px)] flex-col bg-gradient-to-b from-grey-550 to-grey-500"
-    >
-      <Desks />
-    </section>
-  )
+  return <Desks />
 }
 
 export default Dashboard

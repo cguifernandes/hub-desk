@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const Desk = () => {
   return (
-    <section className="flex min-h-[calc(100vh_-_192px)] flex-col items-center bg-gradient-to-b from-grey-550 to-grey-500">
+    <>
       <div className="w-[90%] py-16 text-center sm:w-[80%] lg:w-[920px] xl:w-[1020px]">
         <Heading size="md">
           Crie uma desk para que você possa discutir sua opinião com a
@@ -18,7 +18,7 @@ const Desk = () => {
         <Text className="text-white/50">Campos com “*” são obrigatórios</Text>
       </div>
       <FormDesk />
-    </section>
+    </>
   )
 }
 
