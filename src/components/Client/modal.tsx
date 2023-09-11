@@ -5,7 +5,7 @@ import { Dispatch, SetStateAction } from 'react'
 import Heading from '../Typography/heading'
 import Topics from '../topics'
 import Button from '../button'
-import { Home, LogOut, Settings } from 'lucide-react'
+import { Home, LogOut } from 'lucide-react'
 import Line from '../line'
 import useConnection from '@/hooks/useConnection'
 import clsx from 'clsx'
@@ -96,9 +96,6 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
             <>
               <Line className="my-8" />
               <div className="flex flex-col gap-y-5">
-                <Button text="Configurações" fill="empty" isModalButton>
-                  <Settings strokeWidth={1.5} />
-                </Button>
                 <Button
                   onClick={() => setVisibleModal(false)}
                   href="/dashboard"

@@ -27,7 +27,6 @@ export type RDeskProps = {
     | 'Séries'
     | 'Sites'
   title: string
-  imageURL: string
   description: string
   repo: string
   website: string

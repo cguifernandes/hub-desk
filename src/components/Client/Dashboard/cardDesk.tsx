@@ -17,7 +17,6 @@ const CardDesk = ({
   category,
   createdAt,
   description,
-  imageURL,
   repo,
   title,
   website,
@@ -66,13 +65,7 @@ const CardDesk = ({
         </Heading>
         <Text className="text-white/50">{category}</Text>
       </div>
-      <img
-        src={imageURL}
-        alt={description}
-        className="aspect-video h-36 w-full overflow-clip object-cover object-top"
-      />
       <Text className="w-full break-words text-center">{description}</Text>
-
       {category === 'Sites' && (
         <div className="flex flex-col gap-6">
           {repo !== '' && (

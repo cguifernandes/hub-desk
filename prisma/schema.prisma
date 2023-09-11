@@ -27,7 +27,6 @@ model Desk {
   authorId    String      @db.ObjectId 
   category    String
   title       String
-  imageURL    String
   description String?
   repo        String?
   website     String?

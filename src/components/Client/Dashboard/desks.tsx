@@ -54,7 +54,6 @@ const Desks = () => {
                   category={desk.category}
                   createdAt={desk.createdAt}
                   description={desk.description}
-                  imageURL={desk.imageURL}
                   repo={desk.repo}
                   title={desk.title}
                   website={desk.website}

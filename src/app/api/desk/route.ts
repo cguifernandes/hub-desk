@@ -19,8 +19,6 @@ export async function POST(request: NextRequest) {
       data: {
         category,
         description,
-        imageURL:
-          'https://user-images.githubusercontent.com/88489337/246123199-359fb647-c077-4651-8d85-449d1f1dc204.png',
         title,
         authorId: id,
         repo,
