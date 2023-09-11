@@ -7,11 +7,16 @@ import Heading from '../../Typography/heading'
 import Skeleton from '../../skeleton'
 import Pagination from '../../pagination'
 import EmptyAlert from './emptyAlert'
+import Select from '@/components/select'
+import { ChevronDown } from 'lucide-react'
+import { categories } from '@/utils/constant'
+import { useState } from 'react'
 
 const Desks = () => {
   const { desks, client, isLoading, totalPages, setCurrentPage, setDesks } =
     useConnection()
   const name = client.map((client) => client.name)
+  const [selectedDropDown, setSelectedDropDown] = useState('')
 
   if (desks.length === 0 && !isLoading) {
     return <EmptyAlert />
@@ -25,6 +30,18 @@ const Desks = () => {
             <Heading size="lg" align="center" className="text-white">
               Bem-vindo(a) às suas Desks
             </Heading>
+          </div>
+          <div className="flex w-full justify-between p-10">
+            <Select
+              selectedDropDown={selectedDropDown}
+              setSelectedDropDown={setSelectedDropDown}
+              dropDownItems={categories}
+              className="h-14 w-96"
+              value={'Categorias'}
+            >
+              <ChevronDown color="#fff" strokeWidth={1.5} size={30} />
+            </Select>
+            <div className="h-16 w-[600px] bg-white" />
           </div>
           <div
             className={clsx(

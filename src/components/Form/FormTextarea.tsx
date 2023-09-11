@@ -38,7 +38,7 @@ const FormTextarea = ({
 }: TextareaProps) => {
   return (
     <>
-      <div className="relative flex justify-between">
+      <div className="relative flex justify-between shadow-md">
         <textarea
           {...props}
           {...register(name as 'title' | 'category' | 'description')}

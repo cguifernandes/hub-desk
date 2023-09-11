@@ -6,7 +6,11 @@ export const metadata: Metadata = {
 }
 
 const Dashboard = () => {
-  return <Desks />
+  return (
+    <>
+      <Desks />
+    </>
+  )
 }
 
 export default Dashboard

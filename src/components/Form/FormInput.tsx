@@ -23,7 +23,7 @@ const FormInput = ({
   if (children) {
     return (
       <>
-        <div className="relative flex justify-between">
+        <div className="relative flex justify-between shadow-md">
           <input
             {...register(name)}
             className={clsx(

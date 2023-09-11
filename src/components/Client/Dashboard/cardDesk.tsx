@@ -46,8 +46,8 @@ const CardDesk = ({
   return (
     <div
       className={clsx(
-        'flex h-[590px] min-w-[340px] flex-1 flex-col justify-between border-2 p-6 md:w-[80%] xl:w-[390px] 2xl:w-[355px]',
-        'relative max-w-[450px] border-grey-400 hover:bg-gradient-to-b hover:from-grey-550 hover:to-grey-500',
+        'flex h-[590px] min-w-[340px] flex-1 flex-col justify-between border-2 p-6 shadow-md md:w-[80%]',
+        'relative max-w-[450px] border-grey-400 transition-colors hover:bg-grey-500 xl:w-[390px] 2xl:w-[355px]',
       )}
     >
       <button
