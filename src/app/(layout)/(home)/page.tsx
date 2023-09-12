@@ -29,7 +29,7 @@ const Home = () => {
             nossa comunidade hoje!
           </Text>
           <Button
-            href="/desk"
+            href="/post-desk"
             text="Criar uma desk"
             className="m-auto !mt-8 w-full sm:w-[60%]"
           />

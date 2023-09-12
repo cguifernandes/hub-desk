@@ -10,14 +10,14 @@ import { api } from '@/utils/api'
 import { ErrorToast } from '@/utils/toast'
 import { ResponseProps } from '@/utils/type'
 import { setCookie } from 'nookies'
-import useConnection from '@/hooks/useConnection'
 import { ROUTES } from '@/utils/constant'
+import useClient from '@/hooks/useClient'
 
 const FormSignIn = () => {
   const [visiblePassword, setVisiblePassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const { push } = useRouter()
-  const { isConnected } = useConnection()
+  const { isConnected } = useClient()
 
   useEffect(() => {
     if (isConnected) {

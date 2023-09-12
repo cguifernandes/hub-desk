@@ -2,7 +2,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 'use client'
 import { Form } from '@/components/Form'
-import useConnection from '@/hooks/useConnection'
 import { DeskProps, schemaDesk } from '@/utils/Zod/desk'
 import { api } from '@/utils/api'
 import { ErrorToast, SuccessToast } from '@/utils/toast'
@@ -12,11 +11,12 @@ import { ChevronDown, Github, Globe, Subtitles } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { motion } from 'framer-motion'
+import useClient from '@/hooks/useClient'
 
 const FormDesk = () => {
   const [selectedDropDown, setSelectedDropDown] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const { user_session } = useConnection()
+  const { user_session } = useClient()
   const isVisibleRepoWebsite = selectedDropDown === 'Sites'
   const {
     handleSubmit,

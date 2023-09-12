@@ -10,14 +10,14 @@ import { SignUpProps, schemaSignUp } from '@/utils/Zod/sign-up'
 import { api } from '@/utils/api'
 import { ResponseProps } from '@/utils/type'
 import { setCookie } from 'nookies'
-import useConnection from '@/hooks/useConnection'
 import { ROUTES } from '@/utils/constant'
+import useClient from '@/hooks/useClient'
 
 const FormSignUp = () => {
   const [visiblePassword, setVisiblePassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const { push } = useRouter()
-  const { isConnected } = useConnection()
+  const { isConnected } = useClient()
 
   useEffect(() => {
     if (isConnected) {

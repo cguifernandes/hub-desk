@@ -1,10 +1,10 @@
 'use client'
-import useConnection from '@/hooks/useConnection'
 import { ReactNode, useEffect, useState } from 'react'
 import { ROUTES } from '@/utils/constant'
 import { useRouter } from 'next/navigation'
 import RedirectWrapper from '@/components/Layout/redirect'
 import Loading from '@/components/loading'
+import useClient from '@/hooks/useClient'
 
 type LayoutProps = {
   children: ReactNode
@@ -12,7 +12,7 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   const { push } = useRouter()
-  const { isConnected } = useConnection()
+  const { isConnected } = useClient()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {

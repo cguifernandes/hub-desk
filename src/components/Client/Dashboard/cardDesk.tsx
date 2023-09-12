@@ -9,6 +9,7 @@ import { Trash2 } from 'lucide-react'
 import { api } from '@/utils/api'
 import { ErrorToast } from '@/utils/toast'
 import { Dispatch, SetStateAction } from 'react'
+import Link from 'next/link'
 
 type CardDeskProps = RDeskProps & {
   setDesks: Dispatch<SetStateAction<RDeskProps[]>>
@@ -51,7 +52,8 @@ const CardDesk = ({
   }
 
   return (
-    <div
+    <Link
+      href={`/desk/${id}`}
       className={clsx(
         'flex h-[590px] min-w-[340px] flex-1 flex-col justify-between border-2 p-6 shadow-md md:w-[80%]',
         'relative max-w-[450px] border-grey-400 transition-colors hover:bg-grey-500 xl:w-[390px] 2xl:w-[355px]',
@@ -98,7 +100,7 @@ const CardDesk = ({
         <span>Autor: {name}</span>
         <span>Criado em: {formattedDate}</span>
       </div>
-    </div>
+    </Link>
   )
 }
 

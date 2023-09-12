@@ -12,6 +12,7 @@ import clsx from 'clsx'
 import Skeleton from '../skeleton'
 import { destroyCookie } from 'nookies'
 import { useRouter } from 'next/navigation'
+import useClient from '@/hooks/useClient'
 
 type ModalBarProps = {
   setVisibleModal: Dispatch<SetStateAction<boolean>>
@@ -20,7 +21,8 @@ type ModalBarProps = {
 
 const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
   const { push } = useRouter()
-  const { client, isConnected, isLoading } = useConnection()
+  const { client, isLoading } = useConnection()
+  const { isConnected } = useClient()
 
   const handlerLogout = () => {
     destroyCookie(null, 'user_session')

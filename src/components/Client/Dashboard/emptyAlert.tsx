@@ -14,7 +14,7 @@ const EmptyAlert = () => {
           </Heading>
           <Text>
             <Link
-              href={'/desk'}
+              href={'/post-desk'}
               className="text-sky-600 transition-colors hover:text-sky-700"
             >
               Clique aqui

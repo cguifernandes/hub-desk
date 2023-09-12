@@ -1,16 +1,16 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
-import useConnection from '@/hooks/useConnection'
 import { ReactNode, useEffect, useState } from 'react'
 import ModalBar from './modal'
 import Skeleton from '../skeleton'
 import Button from '../button'
+import useClient from '@/hooks/useClient'
 
 const Nav = ({ children }: { children: ReactNode }) => {
   const [visibleModal, setVisibleModal] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const { isConnected } = useConnection()
+  const { isConnected } = useClient()
 
   useEffect(() => {
     setMounted(true)

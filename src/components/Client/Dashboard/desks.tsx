@@ -1,17 +1,56 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable camelcase */
 'use client'
-import useConnection from '@/hooks/useConnection'
 import CardDesk from './cardDesk'
 import clsx from 'clsx'
 import Heading from '../../Typography/heading'
 import Skeleton from '../../skeleton'
 import Pagination from '../../pagination'
 import EmptyAlert from './emptyAlert'
+import useClient from '@/hooks/useClient'
+import { useEffect, useState } from 'react'
+import { RDeskProps, ResponseProps } from '@/utils/type'
+import { api } from '@/utils/api'
+import useConnection from '@/hooks/useConnection'
 
 const Desks = () => {
-  const { desks, name, isLoading, totalPages, setCurrentPage, setDesks } =
-    useConnection()
+  const [isLoading, setIsLoading] = useState(false)
+  const [desks, setDesks] = useState<RDeskProps[]>([])
+  const [currentPage, setCurrentPage] = useState(0)
+  const { user_session } = useClient()
+  const { name } = useConnection()
+
+  const ITEMS_PER_PAGE = 12
+  const totalPages = Math.ceil(desks.length / ITEMS_PER_PAGE)
+  const startIndex = currentPage * ITEMS_PER_PAGE
+  const endIndex = startIndex + ITEMS_PER_PAGE
+  const paginatedDesks = desks.slice(startIndex, endIndex)
+
+  useEffect(() => {
+    const getDesks = async () => {
+      try {
+        setIsLoading(true)
+        const { data }: { data: ResponseProps } = await api.get(
+          `/desks?id=${user_session}`,
+        )
+
+        const sortedDesks = data.data
+          .slice()
+          .sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+          )
+
+        setDesks(sortedDesks)
+      } catch (err) {
+        console.log(err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    getDesks()
+  }, [])
 
   return (
     <>
@@ -23,24 +62,7 @@ const Desks = () => {
           Bem-vindo(a) às suas Desks
         </Heading>
       </div>
-      {/* <div className="flex w-full justify-between p-10">
-        <Select
-          selectedDropDown={selectedDropDown}
-          setSelectedDropDown={setSelectedDropDown}
-          dropDownItems={categories}
-          className="h-14 w-96"
-          value={'Categorias'}
-        >
-          <ChevronDown color="#fff" strokeWidth={1.5} size={30} />
-        </Select>
-        <Input
-          className="h-14 w-[458px]"
-          placeholder="Pesquise por suas desks..."
-        >
-          <Search color="#fff" strokeWidth={1.5} size={24} />
-        </Input>
-      </div> */}
-      {desks.length === 0 && !isLoading ? (
+      {paginatedDesks.length === 0 && !isLoading ? (
         <EmptyAlert />
       ) : (
         <div
@@ -64,7 +86,7 @@ const Desks = () => {
               <Skeleton className="h-[590px] min-w-[340px] max-w-[450px] flex-1" />
             </>
           ) : (
-            desks.map((desk) => (
+            paginatedDesks.map((desk) => (
               <CardDesk
                 setDesks={setDesks}
                 key={desk.id}
@@ -82,7 +104,7 @@ const Desks = () => {
         </div>
       )}
 
-      {desks.length > 0 && !isLoading && (
+      {paginatedDesks.length > 0 && !isLoading && (
         <Pagination setCurrentPage={setCurrentPage} totalPages={totalPages} />
       )}
     </>
