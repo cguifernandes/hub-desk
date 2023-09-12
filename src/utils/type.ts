@@ -26,6 +26,7 @@ export type RDeskProps = {
     | 'Outros'
     | 'Séries'
     | 'Sites'
+    | 'Todas categorias'
   title: string
   description: string
   repo: string

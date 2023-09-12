@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 import { RDeskProps, ResponseProps } from '@/utils/type'
 import Heading from '../../Typography/heading'

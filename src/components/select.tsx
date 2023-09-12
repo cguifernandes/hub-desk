@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Dispatch,
   InputHTMLAttributes,
@@ -8,7 +9,12 @@ import {
 import InputWrapper from './inputWrapper'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
-import { UseFormSetValue } from 'react-hook-form'
+import {
+  FieldError,
+  FieldErrorsImpl,
+  Merge,
+  UseFormSetValue,
+} from 'react-hook-form'
 
 type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
   children: ReactNode
@@ -31,6 +37,7 @@ type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
     repo: string
     website: string
   }>
+  error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
 }
 
 const Select = ({
@@ -41,6 +48,7 @@ const Select = ({
   setSelectedDropDown,
   setValue,
   selectedDropDown,
+  error,
 }: SelectProps) => {
   const [visibleDropDown, setVisibleDropDown] = useState(false)
 
@@ -62,20 +70,21 @@ const Select = ({
     }
   }
 
+  const customStyle = {
+    color: selectedDropDown ? 'white' : 'rgba(255, 255, 255, 0.5)',
+    ...(error && { border: '2px solid rgb(239, 68, 68)' }),
+  }
+
   return (
     <div
       onClick={() => setVisibleDropDown(!visibleDropDown)}
       className={clsx('relative flex justify-between shadow-md', className)}
     >
       <input
-        style={
-          selectedDropDown
-            ? { color: 'white' }
-            : { color: 'rgb(255 255 255 / 0.5)' }
-        }
+        style={customStyle}
         className={clsx(
-          'w-[calc(100%_-_60px)] rounded-l-md border-2 border-y-2 border-r-0',
-          'cursor-pointer select-none border-l-2 border-transparent bg-grey-400/30 p-4',
+          'w-[calc(100%_-_60px)] rounded-l-md border-y-2 !border-r-0 border-l-2 border-transparent',
+          'cursor-pointer select-none bg-grey-400/30 p-4',
         )}
         value={selectedDropDown || value}
         readOnly

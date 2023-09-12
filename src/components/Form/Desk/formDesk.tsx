@@ -58,7 +58,7 @@ const FormDesk = () => {
 
   return (
     <Form.Root
-      className="w-11/12 space-y-8 sm:w-8/12 lg:w-5/12"
+      className="w-10/12 space-y-8 lg:w-8/12 xl:w-6/12"
       handleSubmit={handleSubmit(handlerFormSubmit)}
     >
       <Form.Input

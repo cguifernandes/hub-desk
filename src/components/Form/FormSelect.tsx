@@ -42,6 +42,7 @@ const FormSelect = ({
   return (
     <>
       <Select
+        error={error}
         dropDownItems={categories}
         selectedDropDown={selectedDropDown}
         setSelectedDropDown={setSelectedDropDown}

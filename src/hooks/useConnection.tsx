@@ -15,6 +15,7 @@ const useConnection = () => {
   const totalPages = Math.ceil(desks.length / ITEMS_PER_PAGE)
   const [isLoading, setIsLoading] = useState(false)
   const isConnected = !!user_session
+  const name = client.map((client) => client.name)
 
   useEffect(() => {
     const getDesks = async () => {
@@ -79,6 +80,7 @@ const useConnection = () => {
     setCurrentPage,
     totalPages,
     setDesks,
+    name,
   }
 }
 
