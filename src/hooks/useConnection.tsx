@@ -26,11 +26,13 @@ const useConnection = () => {
             `/desks?id=${user_session}`,
           )
 
-          const sortedDesks = data.data.slice().sort((a, b) => {
-            return (
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          const sortedDesks = data.data
+            .slice()
+            .sort(
+              (a, b) =>
+                new Date(b.createdAt).getTime() -
+                new Date(a.createdAt).getTime(),
             )
-          })
 
           setDesks(sortedDesks)
         } catch (err) {

@@ -37,7 +37,13 @@ const CardDesk = ({
       if (data.error) {
         ErrorToast(data.error)
       } else {
-        setDesks(data.data)
+        const sortedDesks = data.data
+          .slice()
+          .sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+          )
+        setDesks(sortedDesks)
       }
     } catch (err) {
       ErrorToast(`Erro ao apagar a desk. ${err}`)

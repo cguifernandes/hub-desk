@@ -29,4 +29,5 @@ a {
   margin: 0px;
   font-family: var(--font-poppins);
   scroll-behavior: smooth;
+  scroll-padding-top: 96px;
 }

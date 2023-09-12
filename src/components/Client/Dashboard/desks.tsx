@@ -15,7 +15,10 @@ const Desks = () => {
 
   return (
     <>
-      <div className="mt-8 flex items-center justify-center px-10 sm:mt-14">
+      <div
+        id="desk"
+        className="flex items-center justify-center px-10 pt-8 sm:pt-14"
+      >
         <Heading size="lg" align="center" className="text-white">
           Bem-vindo(a) às suas Desks
         </Heading>
