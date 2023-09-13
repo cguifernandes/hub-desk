@@ -1,18 +1,17 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @next/next/no-img-element */
-import { RDeskProps, ResponseProps } from '@/utils/type'
+import { RDeskProps } from '@/utils/type'
 import Heading from '../../Typography/heading'
 import Text from '../../Typography/text'
 import Button from '../../button'
 import clsx from 'clsx'
-import { Trash2 } from 'lucide-react'
-import { api } from '@/utils/api'
-import { ErrorToast } from '@/utils/toast'
-import { Dispatch, SetStateAction } from 'react'
+import { ReactNode } from 'react'
 import Link from 'next/link'
 
 type CardDeskProps = RDeskProps & {
-  setDesks: Dispatch<SetStateAction<RDeskProps[]>>
+  children?: ReactNode
+  href?: string
+  className: string
 }
 
 const CardDesk = ({
@@ -22,49 +21,25 @@ const CardDesk = ({
   repo,
   title,
   website,
-  id,
   name,
-  setDesks,
+  children,
+  href,
+  className,
 }: CardDeskProps) => {
   const formattedDate = new Date(createdAt).toLocaleDateString()
-
-  const handleDeleteDesk = async () => {
-    try {
-      const { data }: { data: ResponseProps } = await api.delete('desks', {
-        data: JSON.stringify({ id }),
-        headers: { 'Content-Type': 'application/json' },
-      })
-
-      if (data.error) {
-        ErrorToast(data.error)
-      } else {
-        const sortedDesks = data.data
-          .slice()
-          .sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-          )
-        setDesks(sortedDesks)
-      }
-    } catch (err) {
-      ErrorToast(`Erro ao apagar a desk. ${err}`)
-    }
-  }
+  const Pattern = href ? Link : 'div'
 
   return (
-    <Link
-      href={`/desk/${id}`}
+    <Pattern
+      href={href!}
       className={clsx(
-        'flex h-[590px] min-w-[340px] flex-1 flex-col justify-between border-2 p-6 shadow-md md:w-[80%]',
-        'relative max-w-[450px] border-grey-400 transition-colors hover:bg-grey-500 xl:w-[390px] 2xl:w-[355px]',
+        'flex h-[590px] min-w-[340px] flex-col justify-between border-2 p-6 shadow-md',
+        'max-w-[450px] border-grey-400 transition-colors hover:bg-grey-500',
+        className,
       )}
     >
-      <button
-        onClick={handleDeleteDesk}
-        className="absolute right-4 top-4 rounded-xl p-2 transition-colors hover:bg-grey-400"
-      >
-        <Trash2 color="#fff" strokeWidth={1.5} />
-      </button>
+      {children}
+
       <div className="flex flex-col items-center space-y-1 text-center">
         <Heading
           className="w-8/12 overflow-hidden text-ellipsis whitespace-nowrap"
@@ -100,7 +75,7 @@ const CardDesk = ({
         <span>Autor: {name}</span>
         <span>Criado em: {formattedDate}</span>
       </div>
-    </Link>
+    </Pattern>
   )
 }
 

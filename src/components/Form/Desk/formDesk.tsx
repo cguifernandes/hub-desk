@@ -37,7 +37,7 @@ const FormDesk = () => {
     try {
       setIsLoading(true)
       const { data }: { data: ResponseProps } = await api.post(
-        `/desk?id=${user_session}`,
+        `/desks?id=${user_session}`,
         JSON.stringify(desk),
         { headers: { 'Content-Type': 'application/json' } },
       )

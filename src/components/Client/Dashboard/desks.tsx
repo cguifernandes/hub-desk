@@ -12,6 +12,8 @@ import { useEffect, useState } from 'react'
 import { RDeskProps, ResponseProps } from '@/utils/type'
 import { api } from '@/utils/api'
 import useConnection from '@/hooks/useConnection'
+import { ErrorToast } from '@/utils/toast'
+import { Trash2 } from 'lucide-react'
 
 const Desks = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -26,12 +28,35 @@ const Desks = () => {
   const endIndex = startIndex + ITEMS_PER_PAGE
   const paginatedDesks = desks.slice(startIndex, endIndex)
 
+  const handleDeleteDesk = async (id: string | undefined) => {
+    try {
+      const { data }: { data: ResponseProps } = await api.delete('desks', {
+        data: JSON.stringify({ id }),
+        headers: { 'Content-Type': 'application/json' },
+      })
+
+      if (data.error) {
+        ErrorToast(data.error)
+      } else {
+        const sortedDesks = data.data
+          .slice()
+          .sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+          )
+        setDesks(sortedDesks)
+      }
+    } catch (err) {
+      ErrorToast(`Erro ao apagar a desk. ${err}`)
+    }
+  }
+
   useEffect(() => {
     const getDesks = async () => {
       try {
         setIsLoading(true)
         const { data }: { data: ResponseProps } = await api.get(
-          `/desks?id=${user_session}`,
+          `/desks/getMany?id=${user_session}`,
         )
 
         const sortedDesks = data.data
@@ -88,7 +113,8 @@ const Desks = () => {
           ) : (
             paginatedDesks.map((desk) => (
               <CardDesk
-                setDesks={setDesks}
+                className="relative flex-1 md:w-[80%] xl:w-[390px] 2xl:w-[355px]"
+                href={`/desk/${desk.id}`}
                 key={desk.id}
                 category={desk.category}
                 createdAt={desk.createdAt}
@@ -96,9 +122,15 @@ const Desks = () => {
                 repo={desk.repo}
                 title={desk.title}
                 website={desk.website}
-                id={desk.id}
                 name={name}
-              />
+              >
+                <button
+                  onClick={() => handleDeleteDesk(desk.id)}
+                  className="absolute right-4 top-4 rounded-xl p-2 transition-colors hover:bg-grey-400"
+                >
+                  <Trash2 color="#fff" strokeWidth={1.5} />
+                </button>
+              </CardDesk>
             ))
           )}
         </div>
