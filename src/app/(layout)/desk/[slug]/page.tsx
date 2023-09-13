@@ -25,7 +25,7 @@ export async function generateMetadata({
   }
 }
 
-export async function getStaticProps(id: string | undefined) {
+async function getStaticProps(id: string | undefined) {
   if (!id) return
 
   const response = await fetch(`${url}/api/desks/getUnique?id=${id}`)
@@ -33,7 +33,7 @@ export async function getStaticProps(id: string | undefined) {
   return await response.json()
 }
 
-const Desk = async ({ params }: { params: { slug: string } }) => {
+export default async function Desk({ params }: { params: { slug: string } }) {
   const { data } = await getStaticProps(params.slug)
 
   return (
@@ -62,5 +62,3 @@ const Desk = async ({ params }: { params: { slug: string } }) => {
     </section>
   )
 }
-
-export default Desk
