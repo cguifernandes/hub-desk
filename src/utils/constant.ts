@@ -1,23 +1,23 @@
 export const categories = [
   {
     name: 'Animes',
-    id: 1,
+    path: '/topics/animes',
   },
   {
     name: 'Desenhos',
-    id: 2,
+    path: '/topics/designs',
   },
   {
     name: 'Filmes',
-    id: 3,
+    path: '/topics/movies',
   },
-  { name: 'Jogos', id: 4 },
-  { name: 'Outros', id: 5 },
+  { name: 'Jogos', path: '/topics/games' },
+  { name: 'Outros', path: '/topics/others' },
   {
     name: 'Séries',
-    id: 6,
+    path: '/topics/series',
   },
-  { name: 'Sites', id: 7 },
+  { name: 'Sites', path: '/topics/websites' },
 ]
 
 export const ROUTES = {
@@ -32,3 +32,8 @@ export const ROUTES = {
     redirect: '/auth/redirect',
   },
 }
+
+export const url =
+  process?.env.NODE_ENV === 'development'
+    ? 'http://localhost:3000'
+    : 'https://hub-desk.vercel.app'

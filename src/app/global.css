@@ -31,3 +31,11 @@ a {
   scroll-behavior: smooth;
   scroll-padding-top: 96px;
 }
+
+.swiper-scrollbar {
+  background-color: rgba(92, 92, 92, 1) !important;
+}
+
+.swiper-scrollbar-drag {
+  background-color: rgba(255, 255, 255, 0.7) !important;
+}

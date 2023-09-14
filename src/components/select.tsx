@@ -20,7 +20,7 @@ type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
   children: ReactNode
   value: string
   className?: string
-  dropDownItems: { name: string; id: number }[]
+  dropDownItems: { name: string; path: string }[]
   selectedDropDown: string
   setSelectedDropDown: Dispatch<SetStateAction<string>>
   setValue?: UseFormSetValue<{
@@ -52,7 +52,7 @@ const Select = ({
 }: SelectProps) => {
   const [visibleDropDown, setVisibleDropDown] = useState(false)
 
-  const handlerClickSelect = (categories: { name: string; id: number }) => {
+  const handlerClickSelect = (categories: { name: string; path: string }) => {
     setSelectedDropDown(categories.name)
 
     if (setValue) {

@@ -20,14 +20,6 @@ const Footer = () => {
           <Link
             target="_blank"
             className="transition-colors hover:text-grey-200"
-            href="https://portfolio-enzosylvestrin.vercel.app"
-          >
-            Enzo Sylvestrin
-          </Link>{' '}
-          e{' '}
-          <Link
-            target="_blank"
-            className="transition-colors hover:text-grey-200"
             href="https://guifernandes.vercel.app"
           >
             GuilhermeFAZER SITES DE NAVEGHACAO Fernandes

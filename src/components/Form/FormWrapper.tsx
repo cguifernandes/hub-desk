@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Check } from 'lucide-react'
-import Link from 'next/link'
 
 type FormWrapper = {
   register: any
@@ -27,12 +26,6 @@ const FormWrapper = ({ name, register }: FormWrapper) => {
         />
         <span className="ml-2 text-white">Lembrar de mim?</span>
       </label>
-      <Link
-        className="text-sky-600 transition-colors hover:text-sky-700"
-        href={''}
-      >
-        Esqueceu a senha?
-      </Link>
     </div>
   )
 }

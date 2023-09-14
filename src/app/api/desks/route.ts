@@ -5,17 +5,17 @@ import { DeskProps } from '@/utils/Zod/desk'
 
 export async function DELETE(request: NextRequest) {
   const body: RDeskProps = await request.json()
-  const { id } = body
+  const { id, authorId } = body
 
   if (id) {
-    const desks = await prisma.desk.delete({ where: { id } })
+    const deletedDesks = await prisma.desk.delete({ where: { id } })
 
-    const updatedCards = await prisma.desk.findMany()
+    if (deletedDesks) {
+      const updatedDeks = await prisma.desk.findMany({ where: { authorId } })
 
-    if (desks) {
       return NextResponse.json({
         success: 'Desks encontrado',
-        data: updatedCards,
+        data: updatedDeks,
       })
     } else {
       return NextResponse.json({

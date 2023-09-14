@@ -39,9 +39,15 @@ const Home = () => {
         <Heading className="font-semibold" align="center" size="lg">
           Tópicos em destaque
         </Heading>
-        <div className="mx-5 flex flex-wrap justify-center gap-10 md:mx-10">
+        <div className="flex w-full grow-[1] basis-0 flex-wrap gap-6 p-6">
           {categories.map((categories) => (
-            <Topics key={categories.id} size="md" text={categories.name} />
+            <Topics
+              className="min-w-[290px] flex-1"
+              key={categories.path}
+              href={categories.path}
+              size="md"
+              text={categories.name}
+            />
           ))}
         </div>
       </section>

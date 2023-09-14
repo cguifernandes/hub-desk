@@ -13,6 +13,7 @@ import Skeleton from '../skeleton'
 import { destroyCookie } from 'nookies'
 import { useRouter } from 'next/navigation'
 import useClient from '@/hooks/useClient'
+import { categories } from '@/utils/constant'
 
 type ModalBarProps = {
   setVisibleModal: Dispatch<SetStateAction<boolean>>
@@ -39,7 +40,7 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
         <Modal.Children
           className={clsx(
             'z-20 m-8 !mt-28 max-h-[calc(90%_-_92px)] w-[380px] overflow-y-auto md:m-10',
-            'rounded-md bg-grey-600 p-10 shadow-lg sm:w-[450px]',
+            'rounded-md bg-grey-600 p-8 shadow-lg sm:w-[450px]',
           )}
         >
           <Modal.Header>
@@ -50,7 +51,7 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
                 client.map((client) => {
                   return (
                     <div
-                      key={client.id}
+                      key={client.pfp}
                       className="flex flex-col items-center justify-between gap-y-8"
                     >
                       <img
@@ -86,13 +87,17 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
             )}
           </Modal.Header>
           <Line className="my-8" />
-          <div className="grid grid-cols-1 grid-rows-3 gap-5 sm:grid-cols-2">
-            <Topics component="button" text="Animes" />
-            <Topics component="button" text="Filmes" />
-            <Topics component="button" text="Desenhos" />
-            <Topics component="button" text="Sites" />
-            <Topics component="button" text="Séries" />
-            <Topics component="button" text="Outros" />
+          <div className="flex w-full grow-[1] basis-0 flex-wrap gap-6">
+            {categories.map((categories) => (
+              <Topics
+                onClick={() => setVisibleModal(false)}
+                className="min-w-[170px] flex-1"
+                key={categories.name}
+                href={categories.path}
+                component="button"
+                text={categories.name}
+              />
+            ))}
           </div>
           {isConnected && (
             <>

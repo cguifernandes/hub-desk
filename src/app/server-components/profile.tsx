@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 /* eslint-disable @next/next/no-img-element */
+import { url } from '@/utils/constant'
 import { ResponseProps } from '@/utils/type'
 import { cookies } from 'next/headers'
 
@@ -10,11 +11,9 @@ export async function getStaticProps({
 }) {
   if (!user_session) return
 
-  const url =
-    process?.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000'
-      : 'https://hub-desk.vercel.app'
-  const response = await fetch(`${url}/api/auth?id=${user_session}`)
+  const response = await fetch(`${url}/api/auth?id=${user_session}`, {
+    cache: 'no-cache',
+  })
 
   return (await response.json()) as ResponseProps | undefined
 }
@@ -27,7 +26,7 @@ export const PFP = async () => {
     <>
       {data?.clients.map((client) => (
         <img
-          key={client.id}
+          key={client.password}
           alt={client.name}
           src={client.pfp}
           className="h-11 w-11 overflow-clip rounded-full object-cover object-center align-top"

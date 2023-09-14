@@ -6,9 +6,9 @@ import clsx from 'clsx'
 import Heading from '../../Typography/heading'
 import Skeleton from '../../skeleton'
 import Pagination from '../../pagination'
-import EmptyAlert from './emptyAlert'
+import EmptyAlert from '@/components/emptyAlert'
 import useClient from '@/hooks/useClient'
-import { useEffect, useState } from 'react'
+import { MouseEvent, useEffect, useState } from 'react'
 import { RDeskProps, ResponseProps } from '@/utils/type'
 import { api } from '@/utils/api'
 import useConnection from '@/hooks/useConnection'
@@ -28,10 +28,15 @@ const Desks = () => {
   const endIndex = startIndex + ITEMS_PER_PAGE
   const paginatedDesks = desks.slice(startIndex, endIndex)
 
-  const handleDeleteDesk = async (id: string | undefined) => {
+  const handleDeleteDesk = async (
+    event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
+    id: string | undefined,
+    authorId: string | undefined,
+  ) => {
+    event.preventDefault()
     try {
       const { data }: { data: ResponseProps } = await api.delete('desks', {
-        data: JSON.stringify({ id }),
+        data: JSON.stringify({ id, authorId }),
         headers: { 'Content-Type': 'application/json' },
       })
 
@@ -88,7 +93,7 @@ const Desks = () => {
         </Heading>
       </div>
       {paginatedDesks.length === 0 && !isLoading ? (
-        <EmptyAlert />
+        <EmptyAlert message="Você não tem nenhuma Desk" />
       ) : (
         <div
           className={clsx(
@@ -115,7 +120,8 @@ const Desks = () => {
               <CardDesk
                 className="relative flex-1 md:w-[80%] xl:w-[390px] 2xl:w-[355px]"
                 href={`/desk/${desk.id}`}
-                key={desk.id}
+                key={desk.description}
+                authorId={desk.authorId}
                 category={desk.category}
                 createdAt={desk.createdAt}
                 description={desk.description}
@@ -125,8 +131,10 @@ const Desks = () => {
                 name={name}
               >
                 <button
-                  onClick={() => handleDeleteDesk(desk.id)}
-                  className="absolute right-4 top-4 rounded-xl p-2 transition-colors hover:bg-grey-400"
+                  onClick={(event) =>
+                    handleDeleteDesk(event, desk.id, desk.authorId)
+                  }
+                  className="absolute right-4 top-4 z-40 rounded-xl p-2 transition-colors hover:bg-grey-400"
                 >
                   <Trash2 color="#fff" strokeWidth={1.5} />
                 </button>
@@ -135,9 +143,12 @@ const Desks = () => {
           )}
         </div>
       )}
-
       {paginatedDesks.length > 0 && !isLoading && (
-        <Pagination setCurrentPage={setCurrentPage} totalPages={totalPages} />
+        <Pagination
+          desks={desks}
+          setCurrentPage={setCurrentPage}
+          totalPages={totalPages}
+        />
       )}
     </>
   )

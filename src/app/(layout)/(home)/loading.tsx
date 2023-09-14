@@ -12,35 +12,14 @@ const Loading = () => {
       </section>
       <section className="space-y-6 bg-gradient-to-t from-grey-550 to-grey-500 py-14">
         <Skeleton className="m-auto" height={32} width={244} />
-        <div className="mx-5 flex flex-wrap justify-center gap-10 md:mx-10">
-          <Skeleton
-            height={220}
-            className="flex-[50%] sm:flex-[33.33%] lg:flex-[20%]"
-          />
-          <Skeleton
-            height={220}
-            className="flex-[50%] sm:flex-[33.33%] lg:flex-[20%]"
-          />
-          <Skeleton
-            height={220}
-            className="flex-[50%] sm:flex-[33.33%] lg:flex-[20%]"
-          />
-          <Skeleton
-            height={220}
-            className="flex-[50%] sm:flex-[33.33%] lg:flex-[20%]"
-          />
-          <Skeleton
-            height={220}
-            className="flex-[50%] sm:flex-[33.33%] lg:flex-[20%]"
-          />
-          <Skeleton
-            height={220}
-            className="flex-[50%] sm:flex-[33.33%] lg:flex-[20%]"
-          />
-          <Skeleton
-            height={220}
-            className="flex-[50%] sm:flex-[33.33%] lg:flex-[20%]"
-          />
+        <div className="flex w-full grow-[1] basis-0 flex-wrap gap-6 p-6">
+          <Skeleton height={220} className="min-w-[290px] flex-1" />
+          <Skeleton height={220} className="min-w-[290px] flex-1" />
+          <Skeleton height={220} className="min-w-[290px] flex-1" />
+          <Skeleton height={220} className="min-w-[290px] flex-1" />
+          <Skeleton height={220} className="min-w-[290px] flex-1" />
+          <Skeleton height={220} className="min-w-[290px] flex-1" />
+          <Skeleton height={220} className="min-w-[290px] flex-1" />
         </div>
       </section>
     </div>
