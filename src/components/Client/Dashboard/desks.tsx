@@ -49,6 +49,7 @@ const Desks = () => {
             (a, b) =>
               new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
           )
+
         setDesks(sortedDesks)
       }
     } catch (err) {
@@ -144,11 +145,7 @@ const Desks = () => {
         </div>
       )}
       {paginatedDesks.length > 0 && !isLoading && (
-        <Pagination
-          desks={desks}
-          setCurrentPage={setCurrentPage}
-          totalPages={totalPages}
-        />
+        <Pagination setCurrentPage={setCurrentPage} totalPages={totalPages} />
       )}
     </>
   )

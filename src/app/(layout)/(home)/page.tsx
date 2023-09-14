@@ -17,7 +17,7 @@ const Home = () => {
           <Heading className="font-semibold" align="center" size="lg">
             O que é o Hub Desk
           </Heading>
-          <Text align="center" className="text-white/60">
+          <Text align="center" className="text-white/50">
             Você já se sentiu frustrado por não conseguir encontrar um lugar
             para discutir ideias e opiniões com outras pessoas que compartilham
             seus interesses? Ou talvez você já tenha tentado participar de

@@ -4,7 +4,7 @@ type LoadingProps = {
   className?: string
 }
 
-const Loading = ({ className }: LoadingProps) => {
+const LoadingComponent = ({ className }: LoadingProps) => {
   return (
     <svg
       aria-hidden="true"
@@ -28,4 +28,4 @@ const Loading = ({ className }: LoadingProps) => {
   )
 }
 
-export default Loading
+export default LoadingComponent

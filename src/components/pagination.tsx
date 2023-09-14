@@ -1,21 +1,18 @@
-import { RDeskProps } from '@/utils/type'
 import { useRouter } from 'next/navigation'
 import { Dispatch, MouseEvent, SetStateAction } from 'react'
 
 type PaginationProps = {
   totalPages: number
   setCurrentPage: Dispatch<SetStateAction<number>>
-  desks: RDeskProps[]
 }
 
-const Pagination = ({ totalPages, setCurrentPage, desks }: PaginationProps) => {
+const Pagination = ({ totalPages, setCurrentPage }: PaginationProps) => {
   const { push } = useRouter()
 
   const handleClickPagination = (e: MouseEvent<HTMLButtonElement>) => {
-    setCurrentPage(desks.length === 12 ? 0 : Number(e.currentTarget.value))
+    setCurrentPage(Number(e.currentTarget.value))
     push('/dashboard#desk')
   }
-
   return (
     <>
       {totalPages > 1 && (

@@ -29,9 +29,7 @@ const Games = async () => {
         </Heading>
         <Text className="text-white/50">Filmes</Text>
       </div>
-      <div className="w-full p-10">
-        <Carousel data={data} />
-      </div>
+      <Carousel data={data} />
     </>
   )
 }
