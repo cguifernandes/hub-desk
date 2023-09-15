@@ -4,7 +4,7 @@ import { url } from '@/utils/constant'
 import { ResponseProps } from '@/utils/type'
 import { cookies } from 'next/headers'
 
-export async function getStaticProps({
+export async function getServerSideProps({
   user_session,
 }: {
   user_session: string | undefined
@@ -20,7 +20,7 @@ export async function getStaticProps({
 
 export const PFP = async () => {
   const user_session = cookies().get('user_session')?.value
-  const data = await getStaticProps({ user_session })
+  const data = await getServerSideProps({ user_session })
 
   return (
     <>

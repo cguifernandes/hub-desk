@@ -11,7 +11,7 @@ export const schemaSignUp = z.object({
     .nonempty('O campo "E-mail" é obrigatório.'),
   password: z
     .string()
-    .min(6, 'A senha precisa conter 6 caracteres.')
+    .min(6, 'A senha precisa conter pelo menos 6 caracteres.')
     .max(12, 'A senha deve conter no máximo 12 caracteres.')
     .nonempty('O campo "Senha" é obrigatório.')
     .refine(

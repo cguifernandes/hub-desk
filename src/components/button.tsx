@@ -26,6 +26,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
     children?: ReactNode
     isModalButton?: boolean
     target?: '_blank'
+    deskButton?: boolean
   }
 
 const Button = ({
@@ -37,6 +38,7 @@ const Button = ({
   children,
   isModalButton,
   target,
+  deskButton,
   ...props
 }: ButtonProps) => {
   if (isModalButton) {
@@ -100,6 +102,25 @@ const Button = ({
         <Loading className="h-8 w-8" />
       </button>
     )
+  }
+
+  if (deskButton) {
+    if (href) {
+      return (
+        <button {...props}>
+          <Link
+            target={target}
+            className={button({
+              fill,
+              className: `${className} flex items-center justify-center`,
+            })}
+            href={href}
+          >
+            {text}
+          </Link>
+        </button>
+      )
+    }
   }
 
   if (href) {

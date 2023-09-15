@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Scrollbar, Autoplay } from 'swiper/modules'
@@ -10,77 +11,74 @@ import { useEffect, useState } from 'react'
 import EmptyAlert from './emptyAlert'
 import Skeleton from './skeleton'
 
-type CarouselProps = {
-  data: RDeskProps[]
-}
-
-const Carousel = ({ data }: CarouselProps) => {
-  const [mounted, setMounted] = useState(false)
+const Carousel = ({ category }: { category: string }) => {
+  const [isLoading, setIsLoading] = useState(false)
+  const [desks, setDesks] = useState<RDeskProps[]>([])
 
   useEffect(() => {
-    setMounted(true)
+    const getDesks = async () => {
+      try {
+        setIsLoading(true)
+        const response = await fetch(
+          `/api/desks/getWithCategory?category=${category}`,
+          { cache: 'no-store' },
+        )
+
+        const data = await response.json()
+
+        setDesks(data.data)
+      } catch (err) {
+        console.log(err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    getDesks()
   }, [])
 
-  if (data.length === 0) {
+  if (desks.length === 0 && !isLoading) {
     return <EmptyAlert message="Não existe nenhuma Desk com esta categoria." />
   }
 
   return (
     <div className="w-full px-4 py-10 md:p-10">
-      {!mounted ? (
-        <Swiper
-          speed={200}
-          autoplay
-          modules={[Scrollbar, Autoplay]}
-          spaceBetween={20}
-          scrollbar={{ draggable: true }}
-          breakpoints={{
-            768: {
-              slidesPerView: 2,
-            },
-            1280: {
-              slidesPerView: 3,
-            },
-            1536: {
-              slidesPerView: 4,
-            },
-          }}
-          className="!px-2 !pb-16"
-        >
-          <SwiperSlide>
-            <Skeleton className="w-full" height={590} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Skeleton className="w-full" height={590} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Skeleton className="w-full" height={590} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Skeleton className="w-full" height={590} />
-          </SwiperSlide>
-        </Swiper>
-      ) : (
-        <Swiper
-          speed={200}
-          autoplay
-          modules={[Scrollbar, Autoplay]}
-          spaceBetween={20}
-          scrollbar={{ draggable: true }}
-          breakpoints={{
-            768: {
-              slidesPerView: 2,
-            },
-            1280: {
-              slidesPerView: 3,
-            },
-            1536: {
-              slidesPerView: 4,
-            },
-          }}
-          className="!px-2 !pb-16"
-        >
-          {data.map((desk) => (
+      <Swiper
+        speed={200}
+        autoplay
+        modules={[Scrollbar, Autoplay]}
+        spaceBetween={20}
+        scrollbar={{ draggable: true }}
+        breakpoints={{
+          768: {
+            slidesPerView: 2,
+          },
+          1280: {
+            slidesPerView: 3,
+          },
+          1536: {
+            slidesPerView: 4,
+          },
+        }}
+        className="!pb-10"
+      >
+        {isLoading ? (
+          <>
+            <SwiperSlide>
+              <Skeleton className="w-full" height={590} />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Skeleton className="w-full" height={590} />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Skeleton className="w-full" height={590} />
+            </SwiperSlide>
+            <SwiperSlide>
+              <Skeleton className="w-full" height={590} />
+            </SwiperSlide>
+          </>
+        ) : (
+          desks?.map((desk) => (
             <SwiperSlide key={desk.id}>
               <CardDesk
                 className="!w-full max-w-none"
@@ -94,9 +92,9 @@ const Carousel = ({ data }: CarouselProps) => {
                 website={desk.website}
               />
             </SwiperSlide>
-          ))}
-        </Swiper>
-      )}
+          ))
+        )}
+      </Swiper>
     </div>
   )
 }

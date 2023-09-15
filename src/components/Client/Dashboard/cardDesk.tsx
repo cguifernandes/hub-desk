@@ -82,8 +82,9 @@ const CardDesk = ({
           {repo !== '' && (
             <Button
               target="_blank"
+              deskButton
+              onClick={(e) => e.stopPropagation()}
               href={repo}
-              className="w-full"
               fill="empty"
               text="Repositório"
             />
@@ -91,8 +92,9 @@ const CardDesk = ({
           {website !== '' && (
             <Button
               target="_blank"
+              deskButton
+              onClick={(e) => e.stopPropagation()}
               href={website}
-              className="w-full"
               text="Site"
             />
           )}

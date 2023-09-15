@@ -23,7 +23,7 @@ export async function generateMetadata({
   }
 }
 
-async function getStaticProps(id: string | undefined) {
+async function getServerSideProps(id: string | undefined) {
   if (!id) return
 
   const response = await fetch(`${url}/api/desks/getUnique?id=${id}`)
@@ -32,7 +32,7 @@ async function getStaticProps(id: string | undefined) {
 }
 
 export default async function Desk({ params }: { params: { slug: string } }) {
-  const { data }: { data: RDeskProps[] } = await getStaticProps(params.slug)
+  const { data }: { data: RDeskProps[] } = await getServerSideProps(params.slug)
 
   return (
     <section className="flex min-h-[calc(100vh_-_192px)] flex-col items-center bg-gradient-to-b from-grey-550 to-grey-500">
