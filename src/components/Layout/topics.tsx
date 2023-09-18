@@ -2,7 +2,7 @@
 import { ExternalLink } from 'lucide-react'
 import { tv, VariantProps } from 'tailwind-variants'
 import { ButtonHTMLAttributes } from 'react'
-import Text from './Typography/text'
+import Text from '@/components/Typography/text'
 import Link from 'next/link'
 
 const topics = tv({

@@ -3,7 +3,7 @@
 'use client'
 import { ReactNode, useEffect, useState } from 'react'
 import ModalBar from './modal'
-import Skeleton from '../skeleton'
+import Skeleton from '@/components/Layout/skeleton'
 import Button from '../button'
 import useClient from '@/hooks/useClient'
 

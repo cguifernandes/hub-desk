@@ -1,7 +1,7 @@
 import Button from '@/components/button'
 import Heading from '@/components/Typography/heading'
 import Text from '@/components/Typography/text'
-import Topics from '@/components/topics'
+import Topics from '@/components/Layout/topics'
 import { Metadata } from 'next'
 import { categories } from '@/utils/constant'
 

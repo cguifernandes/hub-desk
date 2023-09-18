@@ -8,8 +8,8 @@ import '@/css/pagination.css'
 import CardDesk from './Client/Dashboard/cardDesk'
 import { RDeskProps } from '@/utils/type'
 import { useEffect, useState } from 'react'
-import EmptyAlert from './emptyAlert'
-import Skeleton from './skeleton'
+import EmptyAlert from '@/components/Layout/emptyAlert'
+import Skeleton from '@/components/Layout/skeleton'
 
 const Carousel = ({ category }: { category: string }) => {
   const [isLoading, setIsLoading] = useState(false)

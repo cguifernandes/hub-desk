@@ -2,14 +2,14 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
-import { ClientsProps, RDeskProps } from '@/utils/type'
+import { RDeskProps } from '@/utils/type'
 import Heading from '../../Typography/heading'
 import Text from '../../Typography/text'
 import Button from '../../button'
 import clsx from 'clsx'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode } from 'react'
 import Link from 'next/link'
-import Skeleton from '@/components/skeleton'
+import DeskWrapper from '@/components/deskWrapper'
 
 type CardDeskProps = RDeskProps & {
   children?: ReactNode
@@ -29,32 +29,7 @@ const CardDesk = ({
   authorId,
   className,
 }: CardDeskProps) => {
-  const [author, setAuthor] = useState<ClientsProps>()
-  const [isLoading, setIsLoading] = useState(false)
-  const formattedDate = new Date(createdAt).toLocaleDateString()
   const Pattern = href ? Link : 'div'
-
-  useEffect(() => {
-    const getClient = async () => {
-      try {
-        setIsLoading(true)
-        const response = await fetch(`/api/auth?id=${authorId}`, {
-          cache: 'force-cache',
-          method: 'GET',
-        })
-
-        const data = await response.json()
-
-        setAuthor(data.clients[0])
-      } catch (err) {
-        console.log(err)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    getClient()
-  }, [])
 
   return (
     <Pattern
@@ -100,22 +75,7 @@ const CardDesk = ({
           )}
         </div>
       )}
-      <div className="flex justify-between text-xs text-white">
-        {isLoading ? (
-          <Skeleton width={95} height={16} />
-        ) : (
-          <span className="flex items-center gap-x-1">
-            Autor: {author?.name}{' '}
-            <img
-              className="h-4 w-4 overflow-clip rounded-full object-cover object-center align-top"
-              alt="Foto de perfil do autor"
-              src={author?.pfp}
-            />
-          </span>
-        )}
-
-        <span>Criado em: {formattedDate}</span>
-      </div>
+      <DeskWrapper authorId={authorId} createdAt={createdAt} />
     </Pattern>
   )
 }

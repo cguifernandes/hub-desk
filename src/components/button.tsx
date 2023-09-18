@@ -2,7 +2,7 @@
 import Link from 'next/link'
 import { ButtonHTMLAttributes, ReactNode } from 'react'
 import { tv, VariantProps } from 'tailwind-variants'
-import Loading from './loading'
+import Loading from '@/components/Layout/loading'
 import { ChevronRight } from 'lucide-react'
 
 const button = tv({

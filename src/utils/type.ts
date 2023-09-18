@@ -6,7 +6,7 @@ export type ClientsProps = {
   pfp: string
 }
 
-export type Comment = {
+export type CommentProps = {
   id: string
   text: string
   createdAt: Date
@@ -31,7 +31,6 @@ export type RDeskProps = {
   description: string
   repo: string
   website: string
-  comments?: Comment[]
   name?: string[]
 }
 

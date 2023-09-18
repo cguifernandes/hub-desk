@@ -1,8 +1,8 @@
 import 'swiper/css'
 import 'swiper/css/scrollbar'
 import 'swiper/css/navigation'
-import Skeleton from '@/components/skeleton'
-import LoadingComponent from '@/components/loading'
+import Skeleton from '@/components/Layout/skeleton'
+import LoadingComponent from '@/components/Layout/loading'
 
 const Loading = () => {
   return (

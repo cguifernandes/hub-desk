@@ -1,4 +1,4 @@
-import Skeleton from '@/components/skeleton'
+import Skeleton from '@/components/Layout/skeleton'
 
 const Loading = () => {
   return (

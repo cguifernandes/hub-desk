@@ -3,12 +3,12 @@
 import CardDesk from '@/components/Client/Dashboard/cardDesk'
 import Heading from '@/components/Typography/heading'
 import Text from '@/components/Typography/text'
-import Skeleton from '@/components/skeleton'
 import { url } from '@/utils/constant'
 import { RDeskProps } from '@/utils/type'
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { Suspense } from 'react'
+import FormComments from '@/components/Form/Comments/formComments'
+import Comments from '@/components/comments'
 
 export async function generateMetadata({
   params,
@@ -23,10 +23,10 @@ export async function generateMetadata({
   }
 }
 
-async function getServerSideProps(id: string | undefined) {
-  if (!id) return
+async function getServerSideProps(deskId: string | undefined) {
+  if (!deskId) return
 
-  const response = await fetch(`${url}/api/desks/getUnique?id=${id}`)
+  const response = await fetch(`${url}/api/desks/getUnique?id=${deskId}`)
 
   return await response.json()
 }
@@ -61,22 +61,22 @@ export default async function Desk({ params }: { params: { slug: string } }) {
           </div>
         </div>
       ) : (
-        <div className="flex w-full grow-[1] basis-0 flex-wrap items-center justify-center px-10 py-6">
-          <Suspense fallback={<Skeleton width={450} height={590} />}>
-            {data?.map((desk) => (
-              <CardDesk
-                className="flex-1"
-                key={desk.title}
-                category={desk.category}
-                createdAt={desk.createdAt}
-                description={desk.description}
-                authorId={desk.authorId}
-                repo={desk.repo}
-                title={desk.title}
-                website={desk.website}
-              />
-            ))}
-          </Suspense>
+        <div className="w-full space-y-6 px-10 py-6">
+          <div className="flex w-full grow-[1] basis-0 flex-wrap items-center justify-center">
+            <CardDesk
+              className="flex-1"
+              key={data[0].title}
+              category={data[0].category}
+              createdAt={data[0].createdAt}
+              description={data[0].description}
+              authorId={data[0].authorId}
+              repo={data[0].repo}
+              title={data[0].title}
+              website={data[0].website}
+            />
+          </div>
+          <FormComments deskId={data[0].id} />
+          <Comments deskId={params.slug} />
         </div>
       )}
     </section>

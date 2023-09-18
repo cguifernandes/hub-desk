@@ -3,7 +3,7 @@ import { ReactNode, useEffect, useState } from 'react'
 import { ROUTES } from '@/utils/constant'
 import { useRouter } from 'next/navigation'
 import RedirectWrapper from '@/components/Layout/redirect'
-import Loading from '@/components/loading'
+import Loading from '@/components/Layout/loading'
 import useClient from '@/hooks/useClient'
 
 type LayoutProps = {

@@ -3,13 +3,13 @@
 import { Modal } from '@/components/Modal'
 import { Dispatch, SetStateAction } from 'react'
 import Heading from '../Typography/heading'
-import Topics from '../topics'
+import Topics from '@/components/Layout/topics'
 import Button from '../button'
 import { Home, LogOut } from 'lucide-react'
 import Line from '../line'
 import useConnection from '@/hooks/useConnection'
 import clsx from 'clsx'
-import Skeleton from '../skeleton'
+import Skeleton from '@/components/Layout/skeleton'
 import { destroyCookie } from 'nookies'
 import { useRouter } from 'next/navigation'
 import useClient from '@/hooks/useClient'
@@ -21,13 +21,13 @@ type ModalBarProps = {
 }
 
 const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
-  const { push } = useRouter()
+  const { refresh } = useRouter()
   const { client, isLoading } = useConnection()
   const { isConnected } = useClient()
 
   const handlerLogout = () => {
     destroyCookie(null, 'user_session')
-    push('/auth/redirect?m=A saída foi um sucesso!')
+    refresh()
   }
 
   return (
