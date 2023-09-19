@@ -6,7 +6,12 @@ export async function GET(request: NextRequest) {
   const category = searchParams.get('category')
 
   if (category) {
-    const desks = await prisma.desk.findMany({ where: { category } })
+    const desks = await prisma.desk.findMany({
+      where: { category },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    })
 
     if (desks) {
       return NextResponse.json({ success: 'Desks encontrado', data: desks })

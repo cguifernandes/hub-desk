@@ -11,7 +11,12 @@ export async function DELETE(request: NextRequest) {
     const deletedDesks = await prisma.desk.delete({ where: { id } })
 
     if (deletedDesks) {
-      const updatedDeks = await prisma.desk.findMany({ where: { authorId } })
+      const updatedDeks = await prisma.desk.findMany({
+        where: { authorId },
+        orderBy: {
+          createdAt: 'desc',
+        },
+      })
 
       return NextResponse.json({
         success: 'Desks encontrado',
