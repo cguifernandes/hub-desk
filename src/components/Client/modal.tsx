@@ -73,13 +73,13 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
             ) : (
               <nav className="flex flex-col gap-y-5">
                 <Button
-                  href="auth/sign-in"
+                  href="/auth/sign-in"
                   fill="empty"
                   text="Login"
                   className="w-full"
                 />
                 <Button
-                  href="auth/sign-up"
+                  href="/auth/sign-up"
                   text="Registrar"
                   className="w-full"
                 />

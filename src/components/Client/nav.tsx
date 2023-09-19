@@ -31,12 +31,12 @@ const Nav = ({ children }: { children: ReactNode }) => {
         <>
           <nav className="hidden gap-x-5 md:flex">
             <Button
-              href="auth/sign-in"
+              href="/auth/sign-in"
               fill="empty"
               text="Login"
               className="w-44"
             />
-            <Button href="auth/sign-up" text="Registrar" className="w-44" />
+            <Button href="/auth/sign-up" text="Registrar" className="w-44" />
           </nav>
           <button
             onClick={() => setVisibleModal(true)}
