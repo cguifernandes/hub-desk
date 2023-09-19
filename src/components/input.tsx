@@ -31,7 +31,7 @@ const Input = ({
         <input
           {...register(name as 'title' | 'email' | 'password')}
           className={clsx(
-            'w-[calc(100%_-_60px)] rounded-l-md border-y-2 border-l-2 border-transparent bg-grey-400/30',
+            'bg-grey-525 w-[calc(100%_-_60px)] rounded-l-md border-y-2 border-l-2 border-transparent',
             'p-4 text-white placeholder-white/50 transition-colors focus:border-sky-700',
             className,
           )}
@@ -47,7 +47,7 @@ const Input = ({
     <div className={clsx('relative flex justify-between shadow-md', className)}>
       <input
         className={clsx(
-          'w-[calc(100%_-_60px)] rounded-l-md border-y-2 border-l-2 border-transparent bg-grey-400/30',
+          'bg-grey-525 w-[calc(100%_-_60px)] rounded-l-md border-y-2 border-l-2 border-transparent',
           'p-4 text-white placeholder-white/50 transition-colors focus:border-sky-700',
         )}
         {...props}

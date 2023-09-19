@@ -44,7 +44,7 @@ const Textarea = ({
           {...register(name as 'title' | 'category' | 'description')}
           className={clsx(
             'h-48 w-[calc(100%_-_60px)] resize-none rounded-l-md border-y-2 border-l-2 border-transparent text-white',
-            'bg-grey-400/30 p-4 placeholder-white/50 transition-colors focus:border-sky-700',
+            'bg-grey-525 p-4 placeholder-white/50 transition-colors focus:border-sky-700',
             className,
           )}
           style={error && { borderColor: 'rgb(239 68 68)' }}
@@ -60,7 +60,7 @@ const Textarea = ({
         {...props}
         className={clsx(
           'h-48 resize-none rounded-l-md border-y-2 border-l-2 border-transparent text-white',
-          'bg-grey-400/30 p-4 placeholder-white/50 transition-colors focus:border-sky-700',
+          'bg-grey-525 p-4 placeholder-white/50 transition-colors focus:border-sky-700',
           className,
         )}
       />

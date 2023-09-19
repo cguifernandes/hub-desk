@@ -26,7 +26,9 @@ export async function generateMetadata({
 async function getServerSideProps(deskId: string | undefined) {
   if (!deskId) return
 
-  const response = await fetch(`${url}/api/desks/getUnique?id=${deskId}`)
+  const response = await fetch(`${url}/api/desks/getUnique?id=${deskId}`, {
+    cache: 'reload',
+  })
 
   return await response.json()
 }

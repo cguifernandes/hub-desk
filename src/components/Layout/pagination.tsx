@@ -1,27 +1,25 @@
-import { useRouter } from 'next/navigation'
-import { Dispatch, MouseEvent, SetStateAction } from 'react'
+import clsx from 'clsx'
+import { Dispatch, SetStateAction } from 'react'
 
 type PaginationProps = {
   totalPages: number
-  setCurrentPage: Dispatch<SetStateAction<number>>
+  setPage: Dispatch<SetStateAction<number>>
+  className?: string
 }
 
-const Pagination = ({ totalPages, setCurrentPage }: PaginationProps) => {
-  const { push } = useRouter()
-
-  const handleClickPagination = (e: MouseEvent<HTMLButtonElement>) => {
-    setCurrentPage(Number(e.currentTarget.value))
-    push('/dashboard#desk')
-  }
+const Pagination = ({ totalPages, setPage, className }: PaginationProps) => {
   return (
     <>
       {totalPages > 1 && (
-        <div className="m-auto flex gap-x-4">
+        <div className={clsx('flex justify-center gap-x-4', className)}>
           {Array.from({ length: totalPages }, (_, index) => (
             <button
-              onClick={(e) => handleClickPagination(e)}
               value={index}
-              className="flex h-11 w-11 items-center justify-center rounded-md bg-grey-400 text-white transition-colors hover:bg-grey-300"
+              onClick={() => setPage(index + 1)}
+              className={clsx(
+                'flex h-11 w-11 items-center justify-center rounded-md shadow-md',
+                'bg-grey-525 text-white transition-colors hover:bg-grey-400/80',
+              )}
               key={index}
             >
               {index + 1}

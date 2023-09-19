@@ -22,7 +22,7 @@ const Footer = () => {
             className="transition-colors hover:text-grey-200"
             href="https://guifernandes.vercel.app"
           >
-            GuilhermeFAZER SITES DE NAVEGHACAO Fernandes
+            Guilherme Fernandes
           </Link>
         </Text>
       </div>

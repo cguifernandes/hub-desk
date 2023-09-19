@@ -12,7 +12,7 @@ export async function getServerSideProps({
   if (!user_session) return
 
   const response = await fetch(`${url}/api/auth?id=${user_session}`, {
-    cache: 'no-cache',
+    cache: 'reload',
   })
 
   return (await response.json()) as ResponseProps | undefined
