@@ -1,0 +1,41 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+button {
+  outline: 0;
+}
+
+html {
+  background-color: #333;
+}
+
+input, textarea {
+  outline: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+#checkbox:checked ~ .check {
+  @apply opacity-100;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+  font-family: var(--font-poppins);
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+}
+
+.swiper-scrollbar {
+  background-color: rgba(92, 92, 92, 1) !important;
+}
+
+.swiper-scrollbar-drag {
+  background-color: rgba(255, 255, 255, 0.7) !important;
+}
