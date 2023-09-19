@@ -12,7 +12,7 @@ import { api } from '@/utils/api'
 
 const FormComments = ({ deskId }: { deskId: string | undefined }) => {
   const [isLoading, setIsLoading] = useState(false)
-  const { user_session } = useClient()
+  const { user_session, isConnected } = useClient()
   const {
     handleSubmit,
     register,
@@ -63,12 +63,21 @@ const FormComments = ({ deskId }: { deskId: string | undefined }) => {
           placeholder="Comente aqui!"
         />
       </div>
-      <Form.Button
-        loading={isLoading}
-        type="submit"
-        text="Comentar"
-        className="w-full min-w-[240px] max-w-[650px]"
-      />
+      {!isConnected ? (
+        <Form.Button
+          type="submit"
+          text="Você precisa estar logado para comentar."
+          className="w-full min-w-[240px] max-w-[650px]"
+          disabled
+        />
+      ) : (
+        <Form.Button
+          loading={isLoading}
+          type="submit"
+          text="Comentar"
+          className="w-full min-w-[240px] max-w-[650px]"
+        />
+      )}
     </Form.Root>
   )
 }

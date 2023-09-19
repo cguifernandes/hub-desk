@@ -5,17 +5,18 @@ import { Form } from '@/components/Form'
 import { DeskProps, schemaDesk } from '@/utils/Zod/desk'
 import { api } from '@/utils/api'
 import { ErrorToast, SuccessToast } from '@/utils/toast'
-import { ResponseProps } from '@/utils/type'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ChevronDown, Github, Globe } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { motion } from 'framer-motion'
 import useClient from '@/hooks/useClient'
+import { useRouter } from 'next/navigation'
 
 const FormDesk = () => {
   const [selectedDropDown, setSelectedDropDown] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const { push } = useRouter()
   const { user_session } = useClient()
   const isVisibleRepoWebsite = selectedDropDown === 'Sites'
   const {
@@ -36,7 +37,7 @@ const FormDesk = () => {
   const handlerFormSubmit = async (desk: DeskProps) => {
     try {
       setIsLoading(true)
-      const { data }: { data: ResponseProps } = await api.post(
+      const { data } = await api.post(
         `/desks?id=${user_session}`,
         JSON.stringify(desk),
         { headers: { 'Content-Type': 'application/json' } },
@@ -48,6 +49,7 @@ const FormDesk = () => {
         SuccessToast(data.success)
         reset()
         setSelectedDropDown('')
+        push(`/desk/${data.data.id}`)
       }
     } catch (err) {
       console.error('Erro ao processar formulário:', err)

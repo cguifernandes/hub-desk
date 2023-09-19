@@ -6,7 +6,6 @@ import Text from '@/components/Typography/text'
 import { url } from '@/utils/constant'
 import { RDeskProps } from '@/utils/type'
 import { Metadata } from 'next'
-import Link from 'next/link'
 import FormComments from '@/components/Form/Comments/formComments'
 import Comments from '@/components/comments'
 
@@ -44,43 +43,23 @@ export default async function Desk({ params }: { params: { slug: string } }) {
         </Heading>
         <Text className="text-white/50">{data[0]?.title}</Text>
       </div>
-
-      {data.length === 0 ? (
-        <div className="mt-8 flex flex-col items-center justify-center px-10 sm:mt-14">
-          <div className="space-y-1 text-center">
-            <Heading size="md" className="text-white">
-              Nenhuma desk foi encontrada
-            </Heading>
-            <Text className="text-white/50">
-              <Link
-                href={'/post-desk'}
-                className="text-sky-600 transition-colors hover:text-sky-700"
-              >
-                Clique aqui
-              </Link>{' '}
-              para criar uma nova desk
-            </Text>
-          </div>
+      <div className="w-full space-y-6 px-10 py-6">
+        <div className="flex w-full grow-[1] basis-0 flex-wrap items-center justify-center">
+          <CardDesk
+            className="flex-1"
+            key={data[0].title}
+            category={data[0].category}
+            createdAt={data[0].createdAt}
+            description={data[0].description}
+            authorId={data[0].authorId}
+            repo={data[0].repo}
+            title={data[0].title}
+            website={data[0].website}
+          />
         </div>
-      ) : (
-        <div className="w-full space-y-6 px-10 py-6">
-          <div className="flex w-full grow-[1] basis-0 flex-wrap items-center justify-center">
-            <CardDesk
-              className="flex-1"
-              key={data[0].title}
-              category={data[0].category}
-              createdAt={data[0].createdAt}
-              description={data[0].description}
-              authorId={data[0].authorId}
-              repo={data[0].repo}
-              title={data[0].title}
-              website={data[0].website}
-            />
-          </div>
-          <FormComments deskId={data[0].id} />
-          <Comments deskId={params.slug} />
-        </div>
-      )}
+        <FormComments deskId={data[0].id} />
+        <Comments deskId={params.slug} />
+      </div>
     </section>
   )
 }
