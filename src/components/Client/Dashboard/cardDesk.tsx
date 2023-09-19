@@ -8,8 +8,9 @@ import Text from '../../Typography/text'
 import Button from '../../button'
 import clsx from 'clsx'
 import { ReactNode } from 'react'
-import Link from 'next/link'
 import DeskWrapper from '@/components/deskWrapper'
+import { motion } from 'framer-motion'
+import Link from 'next/link'
 
 type CardDeskProps = RDeskProps & {
   children?: ReactNode
@@ -29,10 +30,13 @@ const CardDesk = ({
   authorId,
   className,
 }: CardDeskProps) => {
-  const Pattern = href ? Link : 'div'
+  const Pattern = href ? motion(Link) : motion.div
 
   return (
     <Pattern
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ type: 'keyframes' }}
       href={href!}
       className={clsx(
         'flex h-[590px] min-w-[340px] flex-col justify-between border-2 p-6 shadow-md',
