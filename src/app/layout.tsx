@@ -1,5 +1,8 @@
 import { ReactNode } from 'react'
 import './global.css'
+import 'swiper/css'
+import 'swiper/css/scrollbar'
+import 'swiper/css/navigation'
 import { Poppins, Montserrat } from 'next/font/google'
 import { Toaster } from 'react-hot-toast'
 
