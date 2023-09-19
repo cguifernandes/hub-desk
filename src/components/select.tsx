@@ -84,7 +84,7 @@ const Select = ({
         style={customStyle}
         className={clsx(
           'w-[calc(100%_-_60px)] rounded-l-md border-y-2 !border-r-0 border-l-2 border-transparent',
-          'bg-grey-525 cursor-pointer select-none p-4',
+          'cursor-pointer select-none bg-grey-550 p-4',
         )}
         value={selectedDropDown || value}
         readOnly

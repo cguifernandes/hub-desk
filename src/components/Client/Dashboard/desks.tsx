@@ -18,15 +18,11 @@ import { Trash2 } from 'lucide-react'
 const Desks = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [desks, setDesks] = useState<RDeskProps[]>([])
-  const [currentPage, setCurrentPage] = useState(0)
+  const [count, setCount] = useState(0)
+  const [page, setPage] = useState(0)
   const { user_session } = useClient()
   const { name } = useConnection()
-
-  const ITEMS_PER_PAGE = 12
-  const totalPages = Math.ceil(desks.length / ITEMS_PER_PAGE)
-  const startIndex = currentPage * ITEMS_PER_PAGE
-  const endIndex = startIndex + ITEMS_PER_PAGE
-  const paginatedDesks = desks.slice(startIndex, endIndex)
+  const totalPages = Math.ceil(count / 12)
 
   const handleDeleteDesk = async (
     event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
@@ -35,15 +31,19 @@ const Desks = () => {
   ) => {
     event.preventDefault()
     try {
-      const { data }: { data: ResponseProps } = await api.delete('desks', {
-        data: JSON.stringify({ id, authorId }),
-        headers: { 'Content-Type': 'application/json' },
-      })
+      const { data }: { data: ResponseProps } = await api.delete(
+        `desks?page=${page}`,
+        {
+          data: JSON.stringify({ id, authorId }),
+          headers: { 'Content-Type': 'application/json' },
+        },
+      )
 
       if (data.error) {
         ErrorToast(data.error)
       } else {
         setDesks(data.data)
+        setPage(0)
       }
     } catch (err) {
       ErrorToast(`Erro ao apagar a desk. ${err}`)
@@ -54,18 +54,12 @@ const Desks = () => {
     const getDesks = async () => {
       try {
         setIsLoading(true)
-        const { data }: { data: ResponseProps } = await api.get(
-          `/desks/getMany?id=${user_session}`,
+        const { data } = await api.get(
+          `/desks/getMany?id=${user_session}&page=${page}`,
         )
 
-        const sortedDesks = data.data
-          .slice()
-          .sort(
-            (a, b) =>
-              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-          )
-
-        setDesks(sortedDesks)
+        setDesks(data.data)
+        setCount(data.count)
       } catch (err) {
         console.log(err)
       } finally {
@@ -74,7 +68,7 @@ const Desks = () => {
     }
 
     getDesks()
-  }, [])
+  }, [page])
 
   return (
     <>
@@ -86,7 +80,7 @@ const Desks = () => {
           Bem-vindo(a) às suas Desks
         </Heading>
       </div>
-      {paginatedDesks.length === 0 && !isLoading ? (
+      {desks.length === 0 && !isLoading ? (
         <EmptyAlert message="Você não tem nenhuma Desk" />
       ) : (
         <div
@@ -110,11 +104,11 @@ const Desks = () => {
               <Skeleton className="h-[590px] min-w-[340px] max-w-[450px] flex-1" />
             </>
           ) : (
-            paginatedDesks.map((desk) => (
+            desks.map((desk) => (
               <CardDesk
                 className="relative flex-1 md:w-[80%] xl:w-[390px] 2xl:w-[355px]"
                 href={`/desk/${desk.id}`}
-                key={desk.description}
+                key={desk.id}
                 authorId={desk.authorId}
                 category={desk.category}
                 createdAt={desk.createdAt}
@@ -128,7 +122,7 @@ const Desks = () => {
                   onClick={(event) =>
                     handleDeleteDesk(event, desk.id, desk.authorId)
                   }
-                  className="absolute right-4 top-4 z-40 rounded-xl p-2 transition-colors hover:bg-grey-400"
+                  className="absolute right-4 top-4 z-40 rounded-xl p-2 transition-colors hover:bg-grey-550"
                 >
                   <Trash2 color="#fff" strokeWidth={1.5} />
                 </button>
@@ -137,8 +131,8 @@ const Desks = () => {
           )}
         </div>
       )}
-      {paginatedDesks.length > 0 && !isLoading && (
-        <Pagination setCurrentPage={setCurrentPage} totalPages={totalPages} />
+      {desks.length > 0 && !isLoading && (
+        <Pagination setPage={setPage} totalPages={totalPages} />
       )}
     </>
   )

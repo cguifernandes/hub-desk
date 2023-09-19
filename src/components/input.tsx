@@ -31,14 +31,14 @@ const Input = ({
         <input
           {...register(name as 'title' | 'email' | 'password')}
           className={clsx(
-            'bg-grey-525 w-[calc(100%_-_60px)] rounded-l-md border-y-2 border-l-2 border-transparent',
+            'w-[calc(100%_-_60px)] rounded-l-md border-y-2 border-l-2 border-transparent bg-grey-550',
             'p-4 text-white placeholder-white/50 transition-colors focus:border-sky-700',
             className,
           )}
           {...props}
           style={error && { borderColor: 'rgb(239 68 68)' }}
         />
-        <InputWrapper>{children}</InputWrapper>
+        {children && <InputWrapper>{children}</InputWrapper>}
       </div>
     )
   }
@@ -47,12 +47,12 @@ const Input = ({
     <div className={clsx('relative flex justify-between shadow-md', className)}>
       <input
         className={clsx(
-          'bg-grey-525 w-[calc(100%_-_60px)] rounded-l-md border-y-2 border-l-2 border-transparent',
+          'w-[calc(100%_-_60px)] rounded-l-md border-y-2 border-l-2 border-transparent bg-grey-550',
           'p-4 text-white placeholder-white/50 transition-colors focus:border-sky-700',
         )}
         {...props}
       />
-      <InputWrapper>{children}</InputWrapper>
+      {children && <InputWrapper>{children}</InputWrapper>}
     </div>
   )
 }

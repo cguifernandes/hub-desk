@@ -7,7 +7,7 @@ import { api } from '@/utils/api'
 import { ErrorToast, SuccessToast } from '@/utils/toast'
 import { ResponseProps } from '@/utils/type'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ChevronDown, Github, Globe, Subtitles } from 'lucide-react'
+import { ChevronDown, Github, Globe } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { motion } from 'framer-motion'
@@ -66,9 +66,9 @@ const FormDesk = () => {
         register={register}
         name="title"
         placeholder="Título*"
-      >
-        <Subtitles color="#fff" strokeWidth={1.5} size={30} />
-      </Form.Input>
+        maxLength={50}
+        className="!w-full !rounded-md border-2"
+      />
       <Form.Select
         error={errors.category}
         setValue={setValue}
@@ -83,6 +83,7 @@ const FormDesk = () => {
         name="description"
         register={register}
         placeholder="Descrição*"
+        maxLength={250}
       />
       <motion.div className="space-y-8" animate={animationVisibleRepoWebsite}>
         <Form.Input

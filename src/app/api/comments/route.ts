@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
       })
 
       return NextResponse.json({
-        success: 'Desk criada com sucesso.',
+        success: 'Seu comentário foi postado.',
       })
     } catch (error) {
       throw new Error(JSON.stringify(error))

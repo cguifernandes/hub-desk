@@ -18,7 +18,7 @@ const Pagination = ({ totalPages, setPage, className }: PaginationProps) => {
               onClick={() => setPage(index + 1)}
               className={clsx(
                 'flex h-11 w-11 items-center justify-center rounded-md shadow-md',
-                'bg-grey-525 text-white transition-colors hover:bg-grey-400/80',
+                'bg-grey-550 text-white transition-colors hover:bg-grey-400/80',
               )}
               key={index}
             >

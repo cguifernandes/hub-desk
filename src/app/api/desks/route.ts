@@ -4,14 +4,20 @@ import { RDeskProps } from '@/utils/type'
 import { DeskProps } from '@/utils/Zod/desk'
 
 export async function DELETE(request: NextRequest) {
+  const { searchParams } = new URL(request.url)
   const body: RDeskProps = await request.json()
+  const page = searchParams.get('page')
   const { id, authorId } = body
+  const PER_PAGE = 12
 
   if (id) {
     const deletedDesks = await prisma.desk.delete({ where: { id } })
+    const currentPage = Math.max(Number(page || 1), 1)
 
     if (deletedDesks) {
       const updatedDeks = await prisma.desk.findMany({
+        take: PER_PAGE,
+        skip: (currentPage - 1) * PER_PAGE,
         where: { authorId },
         orderBy: {
           createdAt: 'desc',
@@ -19,7 +25,7 @@ export async function DELETE(request: NextRequest) {
       })
 
       return NextResponse.json({
-        success: 'Desks encontrado',
+        success: 'Desks apagada',
         data: updatedDeks,
       })
     } else {
