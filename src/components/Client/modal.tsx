@@ -21,13 +21,13 @@ type ModalBarProps = {
 }
 
 const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
-  const { refresh } = useRouter()
+  const { push } = useRouter()
   const { client, isLoading } = useConnection()
   const { isConnected } = useClient()
 
   const handlerLogout = () => {
     destroyCookie(null, 'user_session')
-    refresh()
+    push('/auth/redirect?m=A saída foi um sucesso!')
   }
 
   return (

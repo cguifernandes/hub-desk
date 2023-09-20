@@ -1,16 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
-import { ReactNode, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import ModalBar from './modal'
 import Skeleton from '@/components/Layout/skeleton'
 import Button from '../button'
 import useClient from '@/hooks/useClient'
+import useConnection from '@/hooks/useConnection'
 
-const Nav = ({ children }: { children: ReactNode }) => {
+const Nav = () => {
   const [visibleModal, setVisibleModal] = useState(false)
   const [mounted, setMounted] = useState(false)
   const { isConnected } = useClient()
+  const { client, isLoading } = useConnection()
 
   useEffect(() => {
     setMounted(true)
@@ -18,14 +20,19 @@ const Nav = ({ children }: { children: ReactNode }) => {
 
   return (
     <>
-      {!mounted ? (
+      {!mounted || isLoading ? (
         <Skeleton height={44} width={44} isRoundedFull />
       ) : isConnected ? (
         <button
           onClick={() => setVisibleModal(!visibleModal)}
           className="h-11 w-11"
         >
-          {children}
+          <img
+            key={client[0]?.password}
+            alt={client[0]?.name}
+            src={client[0]?.pfp}
+            className="h-11 w-11 overflow-clip rounded-full object-cover object-center align-top"
+          />
         </button>
       ) : (
         <>
