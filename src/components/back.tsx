@@ -20,7 +20,7 @@ const Back = ({ isHeader = false, className, href }: BackProps) => {
   }, [])
 
   if (!mounted) {
-    return <Skeleton margin={isHeader ? 0 : 'auto'} height={58} width={290} />
+    return <Skeleton margin={isHeader ? 0 : 'auto'} height={58} width={200} />
   }
 
   if (href) {
@@ -28,7 +28,7 @@ const Back = ({ isHeader = false, className, href }: BackProps) => {
       <Link href={href}>
         <Image
           className={clsx(isHeader ? 'm-0' : 'm-auto', className)}
-          width={290}
+          width={200}
           alt="Logo"
           src={Logo}
         />
@@ -39,7 +39,7 @@ const Back = ({ isHeader = false, className, href }: BackProps) => {
   return (
     <Image
       className={clsx(isHeader ? 'm-0' : 'm-auto', className)}
-      width={290}
+      width={200}
       alt="Logo"
       src={Logo}
     />

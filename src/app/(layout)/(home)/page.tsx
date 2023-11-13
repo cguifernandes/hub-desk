@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 const Home = () => {
   return (
     <>
-      <section className="flex h-[calc(100vh_-_96px)] items-center justify-center bg-gradient-to-b from-grey-550 to-grey-500">
+      <section className="flex h-[calc(100vh_-_96px)] items-center justify-center">
         <div className="w-[90%] space-y-4 text-center sm:w-[80%] lg:w-[920px] xl:w-[1020px]">
           <Heading className="font-semibold" align="center" size="lg">
             O que é o Hub Desk
@@ -35,7 +35,7 @@ const Home = () => {
           />
         </div>
       </section>
-      <section className="space-y-6 bg-gradient-to-t from-grey-550 to-grey-500 py-14">
+      <section className="space-y-6 py-14">
         <Heading className="font-semibold" align="center" size="lg">
           Tópicos em destaque
         </Heading>
