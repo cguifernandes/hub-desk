@@ -41,12 +41,12 @@ const Nav = () => {
               href="/auth/sign-in"
               fill="empty"
               text="Login"
-              className="w-40 !py-2"
+              className="w-48 !py-2"
             />
             <Button
               href="/auth/sign-up"
               text="Registrar"
-              className="w-40 !py-2"
+              className="w-48 !py-2"
             />
           </nav>
           <button

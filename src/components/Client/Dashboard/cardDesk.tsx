@@ -12,24 +12,14 @@ import DeskWrapper from '@/components/deskWrapper'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 
-type CardDeskProps = RDeskProps & {
+type CardDeskProps = {
   children?: ReactNode
   href?: string
   className?: string
+  data: RDeskProps
 }
 
-const CardDesk = ({
-  category,
-  createdAt,
-  description,
-  repo,
-  title,
-  website,
-  children,
-  href,
-  authorId,
-  className,
-}: CardDeskProps) => {
+const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
   const Pattern = href ? motion(Link) : motion.div
 
   return (
@@ -51,35 +41,35 @@ const CardDesk = ({
           className="w-8/12 overflow-hidden text-ellipsis whitespace-nowrap"
           size="md"
         >
-          {title}
+          {data.title}
         </Heading>
-        <Text className="text-white/50">{category}</Text>
+        <Text className="text-white/50">{data.category}</Text>
       </div>
-      <Text className="w-full break-words text-center">{description}</Text>
-      {category === 'Sites' && (
+      <Text className="w-full break-words text-center">{data.description}</Text>
+      {data.category === 'Sites' && (
         <div className="flex flex-col gap-6">
-          {repo !== '' && (
+          {data.repo !== '' && (
             <Button
               target="_blank"
               deskButton
               onClick={(e) => e.stopPropagation()}
-              href={repo}
+              href={data.repo}
               fill="empty"
               text="Repositório"
             />
           )}
-          {website !== '' && (
+          {data.website !== '' && (
             <Button
               target="_blank"
               deskButton
               onClick={(e) => e.stopPropagation()}
-              href={website}
+              href={data.website}
               text="Site"
             />
           )}
         </div>
       )}
-      <DeskWrapper authorId={authorId} createdAt={createdAt} />
+      <DeskWrapper authorId={data.authorId} createdAt={data.createdAt} />
     </Pattern>
   )
 }

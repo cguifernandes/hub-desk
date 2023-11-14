@@ -4,34 +4,61 @@ import Text from '@/components/Typography/text'
 import Topics from '@/components/Layout/topics'
 import { Metadata } from 'next'
 import { categories } from '@/utils/constant'
+import { ExternalLink } from 'lucide-react'
+import { FakeRDeskProps } from '@/utils/type'
+import FakeDesk from '@/components/fakeDesk'
+import FakeNetflix from '../../../../public/fakeNetflixCard.png'
 
 export const metadata: Metadata = {
   title: 'Home | Hub Desk',
 }
 
+const fakeDataHubDesk: FakeRDeskProps = {
+  title: 'Hub Desk',
+  category: 'Sites',
+  description:
+    'Olá pessoal, vocês poderiam opinar sobre esse site que estou criando?',
+}
+
+const fakeDataNetflix: FakeRDeskProps = {
+  title: 'Netflix',
+  category: 'Sites',
+  description:
+    'Olá pessoal, vocês poderiam opinar sobre esse site que estou criando?',
+  src: FakeNetflix.src,
+}
+
 const Home = () => {
   return (
     <>
-      <section className="flex h-[calc(100vh_-_80px)] items-center justify-center">
-        <div className="w-[90%] space-y-4 text-center sm:w-[80%] lg:w-[920px] xl:w-[1020px]">
-          <Heading className="font-semibold" align="center" size="lg">
+      <section className="flex h-[calc(100vh_-_80px)] items-center justify-between px-32">
+        <div className="w-[710px] space-y-4">
+          <Heading className="font-medium" align="left" size="lg">
             O que é o Hub Desk
           </Heading>
-          <Text align="center" className="text-white/50">
-            Você já se sentiu frustrado por não conseguir encontrar um lugar
-            para discutir ideias e opiniões com outras pessoas que compartilham
-            seus interesses? Ou talvez você já tenha tentado participar de
-            fóruns online, mas achou difícil acompanhar as discussões e
-            interagir com outros membros? Crie uma mesa de discussão no Hub Desk
-            e comece a fazer parte de uma comunidade de pessoas apaixonadas por
-            tópicos semelhantes aos seus. Não perca mais tempo tentando
-            encontrar um lugar para discutir suas ideias e opiniões. Junte-se a
-            nossa comunidade hoje!
+          <Text align="left" className="text-white/60">
+            O <span className="gradient-text">Hub Desk</span> é uma plataforma
+            que permite aos usuários criar uma mesa de discussão dedicada a um
+            tópico específico. Nela, os participantes podem compartilhar ideias,
+            trocar informações e debater sobre um assunto em questão.
           </Text>
           <Button
             href="/post-desk"
             text="Criar uma desk"
-            className="m-auto !mt-8 w-full sm:w-[60%]"
+            className="flex w-96 items-center justify-between "
+          >
+            <ExternalLink strokeWidth={1.5} size={22} className="ml-2" />
+          </Button>
+        </div>
+        <div className="relative h-[730px] w-[670px]">
+          <FakeDesk
+            className="absolute bottom-0 left-0 z-10"
+            data={fakeDataHubDesk}
+          />
+          <FakeDesk
+            delay
+            className="absolute right-0 top-0"
+            data={fakeDataNetflix}
           />
         </div>
       </section>

@@ -14,10 +14,10 @@ export type CommentProps = {
   deskId: string
 }
 
-export type RDeskProps = {
-  id?: string
-  createdAt: Date
-  authorId?: string
+export type FakeRDeskProps = {
+  title: string
+  description: string
+  src?: string
   category:
     | 'Animes'
     | 'Desenhos'
@@ -27,11 +27,26 @@ export type RDeskProps = {
     | 'Séries'
     | 'Sites'
     | 'Todas categorias'
+}
+
+export type RDeskProps = {
+  id?: string
+  createdAt: Date
+  authorId?: string
   title: string
   description: string
   repo: string
   website: string
   name?: string[]
+  category:
+    | 'Animes'
+    | 'Desenhos'
+    | 'Filmes'
+    | 'Jogos'
+    | 'Outros'
+    | 'Séries'
+    | 'Sites'
+    | 'Todas categorias'
 }
 
 export type ResponseProps = {
