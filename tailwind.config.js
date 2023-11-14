@@ -7,6 +7,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        'sky-gradient':
+          'linear-gradient(91deg, #0369A1 0%, #0369A1 0.01%, #024B72 100%)',
+        'grey-gradient': 'linear-gradient(91deg, #333 0%, #2E2E2E 100%)',
+      },
       colors: {
         grey: {
           50: '#ebebeb',

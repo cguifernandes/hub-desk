@@ -9,8 +9,8 @@ const button = tv({
   base: 'rounded-md px-6 py-3 text-white transition-colors',
   variants: {
     fill: {
-      empty: 'bg-transparent border-2 border-grey-400 hover:bg-grey-700',
-      base: 'bg-sky-700 hover:bg-sky-800',
+      empty: 'bg-grey-gradient border-2 border-grey-400',
+      base: 'bg-sky-gradient',
     },
   },
   defaultVariants: {

@@ -41,9 +41,13 @@ const Nav = () => {
               href="/auth/sign-in"
               fill="empty"
               text="Login"
-              className="w-44"
+              className="w-40 !py-2"
             />
-            <Button href="/auth/sign-up" text="Registrar" className="w-44" />
+            <Button
+              href="/auth/sign-up"
+              text="Registrar"
+              className="w-40 !py-2"
+            />
           </nav>
           <button
             onClick={() => setVisibleModal(true)}
