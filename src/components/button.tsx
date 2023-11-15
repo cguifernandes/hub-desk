@@ -9,7 +9,7 @@ const button = tv({
   base: 'rounded-md px-6 py-3 text-white transition-colors',
   variants: {
     fill: {
-      empty: 'bg-grey-gradient border-2 border-grey-400',
+      empty: 'bg-grey-gradient border border-grey-400',
       base: 'bg-sky-gradient',
     },
   },
@@ -26,7 +26,6 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
     children?: ReactNode
     isModalButton?: boolean
     target?: '_blank'
-    deskButton?: boolean
   }
 
 const Button = ({
@@ -38,53 +37,43 @@ const Button = ({
   children,
   isModalButton,
   target,
-  deskButton,
   ...props
 }: ButtonProps) => {
-  if (isModalButton) {
-    if (href) {
-      return (
-        <Link target={target} href={href}>
-          <button
-            {...props}
-            className={button({
-              fill,
-              className: `flex w-full items-center justify-between !px-4 py-3`,
-            })}
-          >
-            <div className="flex items-center gap-x-3">
-              {children}
-              <div className="h-[24px] w-[2px] bg-grey-400" />
-              <span>{text}</span>
-            </div>
-            <ChevronRight color="#fff" />
-          </button>
-        </Link>
-      )
-    }
+  if (isModalButton && href) {
     return (
-      <button
-        {...props}
-        className={button({
-          fill,
-          className: `flex w-full items-center justify-between !px-4 py-3`,
-        })}
-      >
-        <div className="flex items-center gap-x-3">
-          {children}
-          <div className="h-[24px] w-[2px] bg-grey-400" />
-          <span>{text}</span>
-        </div>
-        <ChevronRight color="#fff" />
-      </button>
+      <Link target={target} href={href}>
+        <button
+          {...props}
+          className={button({
+            fill,
+            className: `flex w-full items-center justify-between !px-4 py-3`,
+          })}
+        >
+          <div className="flex items-center gap-x-3">
+            {children}
+            <div className="h-[24px] w-[2px] bg-grey-400" />
+            <span>{text}</span>
+          </div>
+          <ChevronRight color="#fff" />
+        </button>
+      </Link>
     )
   }
 
-  if (children) {
+  if (children && href) {
     return (
-      <button {...props} className={button({ fill, className })}>
-        <span>{text}</span>
-        {children}
+      <button {...props}>
+        <Link
+          target={target}
+          className={button({
+            fill,
+            className: `${className} flex items-center justify-between`,
+          })}
+          href={href}
+        >
+          <span>{text}</span>
+          {children}
+        </Link>
       </button>
     )
   }
@@ -102,25 +91,6 @@ const Button = ({
         <Loading className="h-8 w-8" />
       </button>
     )
-  }
-
-  if (deskButton) {
-    if (href) {
-      return (
-        <button {...props}>
-          <Link
-            target={target}
-            className={button({
-              fill,
-              className: `${className} flex items-center justify-center`,
-            })}
-            href={href}
-          >
-            {text}
-          </Link>
-        </button>
-      )
-    }
   }
 
   if (href) {

@@ -79,14 +79,8 @@ const Carousel = ({ category }: { category: string }) => {
             <SwiperSlide key={desk.id}>
               <CardDesk
                 className="!w-full max-w-none"
-                authorId={desk.authorId}
+                data={desk}
                 href={`/desk/${desk.id}`}
-                category={desk.category}
-                createdAt={desk.createdAt}
-                description={desk.description}
-                repo={desk.repo}
-                title={desk.title}
-                website={desk.website}
               />
             </SwiperSlide>
           ))

@@ -51,7 +51,6 @@ const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
           {data.repo !== '' && (
             <Button
               target="_blank"
-              deskButton
               onClick={(e) => e.stopPropagation()}
               href={data.repo}
               fill="empty"
@@ -61,7 +60,6 @@ const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
           {data.website !== '' && (
             <Button
               target="_blank"
-              deskButton
               onClick={(e) => e.stopPropagation()}
               href={data.website}
               text="Site"

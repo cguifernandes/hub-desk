@@ -18,10 +18,10 @@ const FakeDesk = ({ data, className, delay }: FakeDeskProps) => {
     <motion.div
       initial={{ opacity: 0, x: 80 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ type: 'keyframes', delay: delay ? 0.4 : 0 }}
+      transition={{ type: 'keyframes', delay: delay ? 0.4 : 0, duration: 0.4 }}
       className={clsx(
-        'flex h-[530px] flex-col justify-between rounded-md border-2 p-7',
-        'bg-desk-gradient w-[420px] border-grey-400 transition-colors',
+        'flex h-[530px] flex-col justify-between rounded-md border p-7',
+        'w-[420px] border-grey-400 bg-desk-gradient transition-colors',
         className,
       )}
     >
@@ -34,20 +34,18 @@ const FakeDesk = ({ data, className, delay }: FakeDeskProps) => {
         </Heading>
         <Text className="text-white/50">{data.category}</Text>
       </div>
-      <img alt="Imagem da desk" src={data.src} />
+      {data.src && <img alt="Imagem da desk" src={data.src} />}
       <Text className="w-full break-words text-center">{data.description}</Text>
       {data.category === 'Sites' && (
         <div className="flex flex-col gap-6">
           <Button
             target="_blank"
-            deskButton
             onClick={(e) => e.stopPropagation()}
             fill="empty"
             text="Repositório"
           />
           <Button
             target="_blank"
-            deskButton
             onClick={(e) => e.stopPropagation()}
             text="Site"
           />
