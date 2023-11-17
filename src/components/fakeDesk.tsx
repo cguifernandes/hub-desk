@@ -20,8 +20,8 @@ const FakeDesk = ({ data, className, delay }: FakeDeskProps) => {
       animate={{ opacity: 1, x: 0 }}
       transition={{ type: 'keyframes', delay: delay ? 0.4 : 0, duration: 0.4 }}
       className={clsx(
-        'flex h-[530px] flex-col justify-between rounded-md border p-7',
-        'w-[420px] border-grey-400 bg-desk-gradient transition-colors',
+        'flex flex-col justify-between rounded-md border p-7 shadow-md lg:h-[480px] xl:h-[560px]',
+        'border-grey-400 bg-desk-gradient transition-colors lg:w-[370px] xl:w-[450px]',
         className,
       )}
     >

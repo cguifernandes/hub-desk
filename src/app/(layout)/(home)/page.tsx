@@ -32,16 +32,16 @@ const fakeDataNetflix: FakeRDeskProps = {
 const Home = () => {
   return (
     <>
-      <section className="flex h-[calc(100vh_-_80px)] items-center justify-between px-32">
+      <section className="m-auto flex h-[calc(100vh_-_80px)] w-full items-center justify-center lg:max-w-[1890px] lg:justify-between lg:px-10 xl:px-16">
         <AnimationWrapper
           initial={{ opacity: 0, x: -80 }}
           animate={{ opacity: 1, x: 0 }}
-          className="w-[710px] space-y-4"
+          className="mx-8 w-[710px] space-y-4 text-center lg:m-0 lg:mr-6 lg:text-left"
         >
-          <Heading className="font-medium" align="left" size="lg">
+          <Heading className="font-medium" size="lg">
             O que é o Hub Desk
           </Heading>
-          <Text align="left" className="text-white/50">
+          <Text className="text-white/50">
             O <span className="gradient-text">Hub Desk</span> é uma plataforma
             que permite aos usuários criar uma mesa de discussão dedicada a um
             tópico específico. Nela, os participantes podem compartilhar ideias,
@@ -50,12 +50,12 @@ const Home = () => {
           <Button
             href="/post-desk"
             text="Criar uma desk"
-            className="flex w-96 items-center justify-between "
+            className="flex w-[420px] items-center justify-between lg:w-96"
           >
             <ExternalLink strokeWidth={1.5} size={22} className="ml-2" />
           </Button>
         </AnimationWrapper>
-        <div className="relative h-[730px] w-[670px]">
+        <div className="relative hidden h-[730px] w-[670px] lg:inline">
           <FakeDesk
             delay
             className="absolute bottom-0 left-0 z-10"
