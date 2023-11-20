@@ -7,8 +7,14 @@ import { RDeskProps } from '@/utils/type'
 import { useEffect, useState } from 'react'
 import EmptyAlert from '@/components/Layout/emptyAlert'
 import Skeleton from '@/components/Layout/skeleton'
+import clsx from 'clsx'
 
-const Carousel = ({ category }: { category: string }) => {
+type CarouselProps = {
+  category: string
+  className?: string
+}
+
+const Carousel = ({ category, className }: CarouselProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const [desks, setDesks] = useState<RDeskProps[]>([])
 
@@ -39,7 +45,7 @@ const Carousel = ({ category }: { category: string }) => {
   }
 
   return (
-    <div className="w-full px-4 py-10 md:p-10">
+    <div className={clsx('w-full', className)}>
       <Swiper
         speed={200}
         autoplay

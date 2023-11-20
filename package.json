@@ -33,6 +33,7 @@
     "tailwind-variants": "^0.1.13",
     "tailwindcss": "3.3.3",
     "typescript": "5.1.6",
+    "typewriter-effect": "^2.21.0",
     "zod": "^3.22.2"
   },
   "devDependencies": {

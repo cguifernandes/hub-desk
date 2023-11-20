@@ -1,7 +1,6 @@
 import Button from '@/components/button'
 import Heading from '@/components/Typography/heading'
 import Text from '@/components/Typography/text'
-import Topics from '@/components/Layout/topics'
 import { Metadata } from 'next'
 import { categories } from '@/utils/constant'
 import { ExternalLink } from 'lucide-react'
@@ -9,6 +8,7 @@ import { FakeRDeskProps } from '@/utils/type'
 import FakeDesk from '@/components/fakeDesk'
 import FakeNetflix from '../../../../public/fakeNetflixCard.png'
 import AnimationWrapper from '@/components/animationWrapper'
+import Carousel from '@/components/carousel'
 
 export const metadata: Metadata = {
   title: 'Home | Hub Desk',
@@ -64,19 +64,23 @@ const Home = () => {
           <FakeDesk className="absolute right-0 top-0" data={fakeDataNetflix} />
         </div>
       </section>
-      <section className="space-y-6 py-14">
-        <Heading className="font-semibold" align="center" size="lg">
+      <section className="py-14">
+        <Heading className="font-medium" align="center" size="lg">
           Tópicos em destaque
         </Heading>
-        <div className="flex w-full grow-[1] basis-0 flex-wrap gap-6 p-6">
+        <div className="flex w-full grow-[1] basis-0 flex-wrap">
           {categories.map((categories) => (
-            <Topics
-              className="min-w-[290px] flex-1"
+            <AnimationWrapper
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1, x: -20 }}
+              className="w-full space-y-4 px-10 py-6"
               key={categories.path}
-              href={categories.path}
-              size="md"
-              text={categories.name}
-            />
+            >
+              <Heading className="font-medium" size="md">
+                {categories.name}
+              </Heading>
+              <Carousel category={categories.name} />
+            </AnimationWrapper>
           ))}
         </div>
       </section>

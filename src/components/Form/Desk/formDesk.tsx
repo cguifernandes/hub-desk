@@ -11,12 +11,10 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { motion } from 'framer-motion'
 import useClient from '@/hooks/useClient'
-import { useRouter } from 'next/navigation'
 
 const FormDesk = () => {
   const [selectedDropDown, setSelectedDropDown] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-  const { push } = useRouter()
   const { user_session } = useClient()
   const isVisibleRepoWebsite = selectedDropDown === 'Sites'
   const {
@@ -49,7 +47,6 @@ const FormDesk = () => {
         SuccessToast(data.success)
         reset()
         setSelectedDropDown('')
-        push(`/desk/${data.data.id}`)
       }
     } catch (err) {
       console.error('Erro ao processar formulário:', err)

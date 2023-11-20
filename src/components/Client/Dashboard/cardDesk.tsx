@@ -29,8 +29,8 @@ const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
       transition={{ type: 'keyframes' }}
       href={href!}
       className={clsx(
-        'flex h-[590px] min-w-[340px] flex-col justify-between border-2 p-6 shadow-md',
-        'max-w-[450px] border-grey-400 transition-colors hover:bg-grey-500',
+        'flex h-[590px] flex-col justify-between rounded-md border p-7 shadow-md',
+        'w-[450px] border-grey-400 bg-desk-gradient transition-colors',
         className,
       )}
     >
