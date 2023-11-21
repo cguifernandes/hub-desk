@@ -48,7 +48,7 @@ const Home = () => {
             trocar informações e debater sobre um assunto em questão.
           </Text>
           <Button
-            href="/post-desk"
+            href="/desk/post"
             text="Criar uma desk"
             className="flex w-[420px] items-center justify-between lg:w-96"
           >
