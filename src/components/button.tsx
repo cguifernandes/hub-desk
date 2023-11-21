@@ -6,7 +6,7 @@ import Loading from '@/components/Layout/loading'
 import { ChevronRight } from 'lucide-react'
 
 const button = tv({
-  base: 'rounded-md px-6 py-3 text-white transition-colors',
+  base: 'rounded-md px-4 py-3 text-white transition-colors',
   variants: {
     fill: {
       empty: 'bg-grey-gradient border border-grey-400',
@@ -62,19 +62,19 @@ const Button = ({
 
   if (children && href) {
     return (
-      <button {...props}>
-        <Link
-          target={target}
-          className={button({
-            fill,
-            className: `${className} flex items-center justify-between`,
-          })}
-          href={href}
-        >
+      <Link
+        target={target}
+        className={button({
+          fill,
+          className: `${className} flex items-center justify-between`,
+        })}
+        href={href}
+      >
+        <button className="flex w-full items-center justify-between">
           <span>{text}</span>
           {children}
-        </Link>
-      </button>
+        </button>
+      </Link>
     )
   }
 

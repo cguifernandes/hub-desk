@@ -36,7 +36,7 @@ const Home = () => {
         <AnimationWrapper
           initial={{ opacity: 0, x: -80 }}
           animate={{ opacity: 1, x: 0 }}
-          className="mx-8 w-[710px] space-y-4 text-center lg:m-0 lg:mr-6 lg:text-left"
+          className="mx-8 w-full space-y-4 text-center sm:w-[710px] lg:m-0 lg:mr-6 lg:text-left"
         >
           <Heading className="font-medium" size="lg">
             O que é o Hub Desk
@@ -50,7 +50,7 @@ const Home = () => {
           <Button
             href="/desk/post"
             text="Criar uma desk"
-            className="flex w-[420px] items-center justify-between lg:w-96"
+            className="m-auto flex w-4/5 items-center justify-between sm:w-[420px] lg:m-0 lg:w-96"
           >
             <ExternalLink strokeWidth={1.5} size={22} className="ml-2" />
           </Button>
