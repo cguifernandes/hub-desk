@@ -47,7 +47,7 @@ export default async function Desk({ params }: { params: { slug: string } }) {
         alt={clients[0].name}
       />
       <Heading className="font-medium">{clients[0].name}</Heading>
-      <span>{}</span>
+      <span></span>
     </section>
   )
 }
