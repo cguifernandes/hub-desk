@@ -3,9 +3,8 @@
 import { Modal } from '@/components/Modal'
 import { Dispatch, SetStateAction } from 'react'
 import Heading from '../Typography/heading'
-import Topics from '@/components/Layout/topics'
 import Button from '../button'
-import { Home, LogOut } from 'lucide-react'
+import { ExternalLink, Home, LogOut, UserCircle } from 'lucide-react'
 import Line from '../line'
 import useConnection from '@/hooks/useConnection'
 import clsx from 'clsx'
@@ -40,7 +39,7 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
         <Modal.Children
           className={clsx(
             'z-20 m-8 !mt-28 max-h-[calc(90%_-_92px)] w-[380px] overflow-y-auto md:m-10',
-            'bg-modal-gradient rounded-md p-8 shadow-lg sm:w-[450px]',
+            'rounded-md bg-modal-gradient p-8 shadow-lg sm:w-[450px]',
           )}
         >
           <Modal.Header>
@@ -48,27 +47,20 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
               isLoading ? (
                 <Skeleton className="w-full" height={172} />
               ) : (
-                client.map((client) => {
-                  return (
-                    <div
-                      key={client.pfp}
-                      className="flex flex-col items-center justify-between gap-y-8"
-                    >
-                      <img
-                        alt={client.name}
-                        src={client.pfp}
-                        className="h-28 w-28 overflow-clip rounded-full object-cover object-center align-top"
-                      />
-                      <Heading
-                        size="md"
-                        className="w-full overflow-hidden text-ellipsis whitespace-nowrap"
-                        align="center"
-                      >
-                        {client.name}
-                      </Heading>
-                    </div>
-                  )
-                })
+                <div className="flex flex-col items-center justify-between gap-y-8">
+                  <img
+                    alt={client[0]?.name}
+                    src={client[0]?.pfp}
+                    className="h-28 w-28 overflow-clip rounded-full object-cover object-center align-top"
+                  />
+                  <Heading
+                    size="md"
+                    className="w-full overflow-hidden text-ellipsis whitespace-nowrap"
+                    align="center"
+                  >
+                    {client[0]?.name}
+                  </Heading>
+                </div>
               )
             ) : (
               <nav className="flex flex-col gap-y-5">
@@ -89,14 +81,15 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
           <Line className="my-8" />
           <div className="flex w-full grow-[1] basis-0 flex-wrap gap-6">
             {categories.map((categories) => (
-              <Topics
+              <Button
                 onClick={() => setVisibleModal(false)}
                 className="min-w-[170px] flex-1"
                 key={categories.name}
                 href={categories.path}
-                component="button"
                 text={categories.name}
-              />
+              >
+                <ExternalLink strokeWidth={1.5} size={22} className="ml-2" />
+              </Button>
             ))}
           </div>
           {isConnected && (
@@ -110,8 +103,21 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
                   fill="empty"
                   isModalButton
                 >
-                  <Home strokeWidth={1.5} />
+                  <Home strokeWidth={1.5} size={22} />
                 </Button>
+                {isLoading ? (
+                  <p>ololo</p>
+                ) : (
+                  <Button
+                    onClick={() => setVisibleModal(false)}
+                    href={`/profile/${client[0]?.name}`}
+                    text="Meu perfil"
+                    fill="empty"
+                    isModalButton
+                  >
+                    <UserCircle strokeWidth={1.5} size={22} />
+                  </Button>
+                )}
                 <Button
                   onClick={handlerLogout}
                   text="Sair"

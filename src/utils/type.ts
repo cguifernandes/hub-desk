@@ -4,6 +4,7 @@ export type ClientsProps = {
   password: string
   name: string
   pfp: string
+  createdAt: Date
 }
 
 export type CommentProps = {

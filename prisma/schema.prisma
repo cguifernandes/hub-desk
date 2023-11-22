@@ -13,6 +13,7 @@ generator client {
 model Clients { 
   id          String      @id @default(auto()) @map("_id") @db.ObjectId 
   email       String      @unique
+  createdAt   DateTime    @default(now())
   password    String
   name        String
   pfp         String

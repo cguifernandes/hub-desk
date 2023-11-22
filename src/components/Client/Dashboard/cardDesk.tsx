@@ -9,7 +9,6 @@ import Button from '../../button'
 import clsx from 'clsx'
 import { ReactNode } from 'react'
 import DeskWrapper from '@/components/deskWrapper'
-import { motion } from 'framer-motion'
 import Link from 'next/link'
 
 type CardDeskProps = {
@@ -20,13 +19,10 @@ type CardDeskProps = {
 }
 
 const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
-  const Pattern = href ? motion(Link) : motion.div
+  const Pattern = href ? Link : 'div'
 
   return (
     <Pattern
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ type: 'keyframes' }}
       href={href!}
       className={clsx(
         'flex h-[590px] flex-col justify-between rounded-md border',
