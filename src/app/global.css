@@ -34,7 +34,6 @@ a {
   scrollbar-color: rgba(255, 255, 255, 0.7) rgba(92, 92, 92, 1);
 }
 
-/* Works on Chrome, Edge, and Safari */
 *::-webkit-scrollbar {
   width: 12px;
 }

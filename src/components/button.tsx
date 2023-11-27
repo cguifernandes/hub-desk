@@ -61,6 +61,25 @@ const Button = ({
     )
   }
 
+  if (isModalButton) {
+    return (
+      <button
+        className={button({
+          fill,
+          className: `flex w-full items-center justify-between px-4 py-3`,
+        })}
+        {...props}
+      >
+        <div className="flex items-center gap-x-3">
+          {children}
+          <div className="h-[24px] w-[2px] bg-grey-400" />
+          <span>{text}</span>
+        </div>
+        <ChevronRight color="#fff" />
+      </button>
+    )
+  }
+
   if (children && href) {
     return (
       <button className={className}>
@@ -75,6 +94,21 @@ const Button = ({
           <span>{text}</span>
           {children}
         </Link>
+      </button>
+    )
+  }
+
+  if (children) {
+    return (
+      <button
+        {...props}
+        className={button({
+          fill,
+          className: `${className} flex items-center justify-between`,
+        })}
+      >
+        <span>{text}</span>
+        {children}
       </button>
     )
   }

@@ -2,8 +2,8 @@
 'use client'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Scrollbar, Autoplay } from 'swiper/modules'
-import CardDesk from './Client/Dashboard/cardDesk'
-import { RDeskProps } from '@/utils/type'
+import CardDesk from './cardDesk'
+import { DeskProps } from '@/utils/type'
 import { useEffect, useState } from 'react'
 import EmptyAlert from '@/components/Layout/emptyAlert'
 import Skeleton from '@/components/Layout/skeleton'
@@ -16,7 +16,7 @@ type CarouselProps = {
 
 const Carousel = ({ category, className }: CarouselProps) => {
   const [isLoading, setIsLoading] = useState(false)
-  const [desks, setDesks] = useState<RDeskProps[]>([])
+  const [desks, setDesks] = useState<DeskProps[]>([])
 
   useEffect(() => {
     const getDesks = async () => {

@@ -2,10 +2,10 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable react-hooks/exhaustive-deps */
 'use client'
-import { RDeskProps } from '@/utils/type'
-import Heading from '../../Typography/heading'
-import Text from '../../Typography/text'
-import Button from '../../button'
+import { DeskProps } from '@/utils/type'
+import Heading from './Typography/heading'
+import Text from './Typography/text'
+import Button from './button'
 import clsx from 'clsx'
 import { ReactNode } from 'react'
 import DeskWrapper from '@/components/deskWrapper'
@@ -15,7 +15,7 @@ type CardDeskProps = {
   children?: ReactNode
   href?: string
   className?: string
-  data: RDeskProps
+  data: DeskProps
 }
 
 const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
@@ -25,8 +25,8 @@ const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
     <Pattern
       href={href!}
       className={clsx(
-        'flex h-[590px] flex-col justify-between rounded-md border',
-        'w-[450px] border-grey-400 bg-desk-gradient p-7 shadow-md',
+        'flex h-[590px] flex-col justify-between rounded-md border-2',
+        'border-grey-400 bg-desk-gradient p-7 shadow-md',
         className,
       )}
     >

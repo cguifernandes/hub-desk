@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable camelcase */
-import CardDesk from '@/components/Client/Dashboard/cardDesk'
+import CardDesk from '@/components/cardDesk'
 import Heading from '@/components/Typography/heading'
 import Text from '@/components/Typography/text'
 import { url } from '@/utils/constant'
-import { RDeskProps } from '@/utils/type'
+import { DeskProps } from '@/utils/type'
 import { Metadata } from 'next'
 import FormComments from '@/components/Form/Comments/formComments'
 import Comments from '@/components/comments'
@@ -33,7 +33,7 @@ async function getServerSideProps(deskId: string | undefined) {
 }
 
 export default async function Desk({ params }: { params: { slug: string } }) {
-  const { data }: { data: RDeskProps[] } = await getServerSideProps(params.slug)
+  const { data }: { data: DeskProps[] } = await getServerSideProps(params.slug)
 
   return (
     <section className="flex min-h-[calc(100vh_-_192px)] flex-col items-center bg-gradient-to-b from-grey-550 to-grey-500">
@@ -48,13 +48,7 @@ export default async function Desk({ params }: { params: { slug: string } }) {
           <CardDesk
             className="flex-1"
             key={data[0].title}
-            category={data[0].category}
-            createdAt={data[0].createdAt}
-            description={data[0].description}
-            authorId={data[0].authorId}
-            repo={data[0].repo}
-            title={data[0].title}
-            website={data[0].website}
+            data={data[0]}
           />
         </div>
         <FormComments deskId={data[0].id} />

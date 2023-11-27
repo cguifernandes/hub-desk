@@ -4,7 +4,7 @@ import { Modal } from '@/components/Modal'
 import { Dispatch, SetStateAction } from 'react'
 import Heading from '../Typography/heading'
 import Button from '../button'
-import { ExternalLink, Home, LogOut, UserCircle } from 'lucide-react'
+import { ExternalLink, LogOut, UserCircle } from 'lucide-react'
 import Line from '../line'
 import useConnection from '@/hooks/useConnection'
 import clsx from 'clsx'
@@ -96,36 +96,32 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
             <>
               <Line className="my-8" />
               <div className="flex flex-col gap-y-5">
-                <Button
-                  onClick={() => setVisibleModal(false)}
-                  href="/dashboard"
-                  text="Desks"
-                  fill="empty"
-                  isModalButton
-                >
-                  <Home strokeWidth={1.5} size={22} />
-                </Button>
                 {isLoading ? (
-                  <p>ololo</p>
+                  <>
+                    <Skeleton className="w-full" height={50} />
+                    <Skeleton className="w-full" height={50} />
+                  </>
                 ) : (
-                  <Button
-                    onClick={() => setVisibleModal(false)}
-                    href={`/profile/${client[0]?.name}`}
-                    text="Meu perfil"
-                    fill="empty"
-                    isModalButton
-                  >
-                    <UserCircle strokeWidth={1.5} size={22} />
-                  </Button>
+                  <>
+                    <Button
+                      onClick={() => setVisibleModal(false)}
+                      href={`/profile/${client[0]?.name}`}
+                      text="Meu perfil"
+                      fill="empty"
+                      isModalButton
+                    >
+                      <UserCircle strokeWidth={1.5} size={22} />
+                    </Button>
+                    <Button
+                      onClick={handlerLogout}
+                      text="Sair"
+                      fill="empty"
+                      isModalButton
+                    >
+                      <LogOut strokeWidth={1.5} size={22} />
+                    </Button>
+                  </>
                 )}
-                <Button
-                  onClick={handlerLogout}
-                  text="Sair"
-                  fill="empty"
-                  isModalButton
-                >
-                  <LogOut strokeWidth={1.5} />
-                </Button>
               </div>
             </>
           )}
