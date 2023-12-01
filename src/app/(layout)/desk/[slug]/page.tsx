@@ -45,11 +45,7 @@ export default async function Desk({ params }: { params: { slug: string } }) {
       </div>
       <div className="w-full space-y-6 px-10 py-6">
         <div className="flex w-full grow-[1] basis-0 flex-wrap items-center justify-center">
-          <CardDesk
-            className="flex-1"
-            key={data[0].title}
-            data={data[0]}
-          />
+          <CardDesk className="flex-1" key={data[0].title} data={data[0]} />
         </div>
         <FormComments deskId={data[0].id} />
         <Comments deskId={params.slug} />

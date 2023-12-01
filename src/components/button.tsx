@@ -9,7 +9,7 @@ const button = tv({
   base: 'rounded-md px-4 py-3 text-white transition-colors',
   variants: {
     fill: {
-      empty: 'bg-grey-gradient border border-grey-400',
+      empty: 'bg-button-gradient border border-grey-400',
       base: 'bg-sky-gradient',
     },
   },

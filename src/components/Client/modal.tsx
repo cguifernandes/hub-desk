@@ -49,7 +49,7 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
               ) : (
                 <div className="flex flex-col items-center justify-between gap-y-8">
                   <img
-                    alt={client[0]?.name}
+                    alt={client[0]?.user}
                     src={client[0]?.pfp}
                     className="h-28 w-28 overflow-clip rounded-full object-cover object-center align-top"
                   />
@@ -58,7 +58,7 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
                     className="w-full overflow-hidden text-ellipsis whitespace-nowrap"
                     align="center"
                   >
-                    {client[0]?.name}
+                    {client[0]?.user}
                   </Heading>
                 </div>
               )
@@ -105,7 +105,7 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
                   <>
                     <Button
                       onClick={() => setVisibleModal(false)}
-                      href={`/profile/${client[0]?.name}`}
+                      href={`/profile/${client[0]?.user}`}
                       text="Meu perfil"
                       fill="empty"
                       isModalButton

@@ -14,13 +14,12 @@ import { api } from '@/utils/api'
 import { ErrorToast } from '@/utils/toast'
 import { Trash2 } from 'lucide-react'
 
-const Desks = () => {
+const Desks = ({ id }: { id: string }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [desks, setDesks] = useState<DeskProps[]>([])
   const [count, setCount] = useState(0)
   const [page, setPage] = useState(0)
-  const { user_session } = useClient()
   const totalPages = Math.ceil(count / 12)
 
   // const handleDeleteDesk = async (
@@ -55,7 +54,7 @@ const Desks = () => {
       try {
         setIsLoading(true)
         const response = await fetch(
-          `/api/desks/getMany?id=${user_session}&page=${page}`,
+          `/api/desks/getMany?id=${id}&page=${page}`,
           {
             cache: 'no-cache',
             headers: { 'Content-Type': 'application/json' },
@@ -83,12 +82,14 @@ const Desks = () => {
         )}
       >
         {' '}
-        <Skeleton className="h-[590px] max-w-[490px] flex-1" />
-        <Skeleton className="h-[590px] max-w-[490px] flex-1" />
-        <Skeleton className="h-[590px] max-w-[490px] flex-1" />
-        <Skeleton className="h-[590px] max-w-[490px] flex-1" />
-        <Skeleton className="h-[590px] max-w-[490px] flex-1" />
-        <Skeleton className="h-[590px] max-w-[490px] flex-1" />
+        <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
+        <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
+        <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
+        <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
+        <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
+        <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
+        <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
+        <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
       </div>
     )
   }
@@ -105,6 +106,8 @@ const Desks = () => {
         >
           {isLoading ? (
             <>
+              <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
+              <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
               <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
               <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
               <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />

@@ -3,16 +3,16 @@ import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
-  const name = searchParams.get('name')
+  const user = searchParams.get('user')
 
-  if (!name) {
+  if (!user) {
     return NextResponse.json({
       error: 'Por favor, forneça um nome para pesquisar.',
     })
   }
 
   try {
-    const clients = await prisma.clients.findMany({ where: { name } })
+    const clients = await prisma.clients.findMany({ where: { user } })
 
     if (clients.length > 0) {
       return NextResponse.json({ success: 'Usuário encontrado', clients })

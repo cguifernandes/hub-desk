@@ -2,7 +2,7 @@ export type ClientsProps = {
   id: string
   email: string
   password: string
-  name: string
+  user: string
   pfp: string
   createdAt: Date
 }

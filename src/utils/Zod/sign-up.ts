@@ -1,10 +1,13 @@
 import { z } from 'zod'
 
 export const schemaSignUp = z.object({
-  name: z
+  user: z
     .string()
-    .max(24, 'O nome deve conter no máximo 18 caracteres')
-    .nonempty('O campo "Nome" é obrigatório.'),
+    .nonempty('O campo "User" é obrigatório.')
+    .refine(
+      (password) => !/\s/.test(password),
+      'O campo "User" não pode conter espações vazios',
+    ),
   email: z
     .string()
     .email('O e-mail precisa ser válido.')

@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt'
 
 type Users = {
   email: string
-  name: string
+  user: string
   password: string
   id: string
 }
@@ -26,22 +26,28 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const body: Users = await request.json()
-  const { name, email, password } = body
+  const { user, email, password } = body
   const hash = await bcrypt.hash(password, 10)
 
   try {
-    const client = await prisma.clients.findUnique({
+    const existingEmail = await prisma.clients.findUnique({
       where: { email },
     })
 
-    if (client) {
+    const existingUser = await prisma.clients.findFirst({
+      where: { user },
+    })
+
+    if (existingEmail) {
       return NextResponse.json({ error: 'Este email já está em uso.' })
+    } else if (existingUser) {
+      return NextResponse.json({ error: 'Este user já está em uso.' })
     } else {
       const newClient = await prisma.clients.create({
         data: {
           pfp: 'https://i.im.ge/2023/08/25/mRf7ep.pfp.png',
           email,
-          name,
+          user,
           password: hash,
         },
       })

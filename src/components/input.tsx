@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { InputHTMLAttributes, ReactNode } from 'react'
-import InputWrapper from './inputWrapper'
 import clsx from 'clsx'
 import {
   FieldError,
@@ -27,18 +26,18 @@ const Input = ({
 }: InputProps) => {
   if (register) {
     return (
-      <div className="relative flex justify-between shadow-md">
+      <div className="relative flex items-center justify-between shadow-md">
         <input
           {...register(name as 'title' | 'email' | 'password')}
           className={clsx(
-            'w-[calc(100%_-_60px)] rounded-l-md border-y-2 border-l-2 border-transparent bg-grey-550',
-            'p-4 text-white placeholder-white/50 transition-colors focus:border-sky-700',
+            'w-full rounded-md border-2 border-transparent bg-button-gradient text-white',
+            'px-4 py-3 placeholder-white/50 transition-colors focus:border-sky-700',
             className,
           )}
           {...props}
           style={error && { borderColor: 'rgb(239 68 68)' }}
         />
-        {children && <InputWrapper>{children}</InputWrapper>}
+        {children}
       </div>
     )
   }
@@ -52,7 +51,7 @@ const Input = ({
         )}
         {...props}
       />
-      {children && <InputWrapper>{children}</InputWrapper>}
+      {children}
     </div>
   )
 }

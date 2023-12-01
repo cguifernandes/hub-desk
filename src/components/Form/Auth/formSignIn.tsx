@@ -87,7 +87,12 @@ const FormSignIn = () => {
         name="email"
         placeholder="E-mail"
       >
-        <Mail color="#fff" strokeWidth={1.5} size={30} />
+        <Mail
+          className="absolute right-4"
+          color="#fff"
+          strokeWidth={1.5}
+          size={26}
+        />
       </Form.Input>
       <Form.Input
         type={visiblePassword ? 'text' : 'password'}
@@ -101,16 +106,16 @@ const FormSignIn = () => {
             onClick={() => setVisiblePassword(true)}
             color="#fff"
             strokeWidth={1.5}
-            size={30}
-            className="z-40 cursor-pointer"
+            size={26}
+            className="absolute right-4 z-40 cursor-pointer"
           />
         ) : (
           <EyeOffIcon
             onClick={() => setVisiblePassword(false)}
             color="#fff"
             strokeWidth={1.5}
-            size={30}
-            className="z-40 cursor-pointer"
+            size={26}
+            className="absolute right-4 z-40 cursor-pointer"
           />
         )}
       </Form.Input>

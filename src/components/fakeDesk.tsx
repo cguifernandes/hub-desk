@@ -16,7 +16,7 @@ type FakeDeskProps = {
 const FakeDesk = ({ data, className, delay }: FakeDeskProps) => {
   return (
     <motion.div
-      initial={{ opacity: 0, x: 70 }}
+      initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ type: 'keyframes', delay: delay ? 0.4 : 0, duration: 0.4 }}
       className={clsx(

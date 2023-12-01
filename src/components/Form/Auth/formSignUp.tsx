@@ -1,11 +1,11 @@
 'use client'
 import { Form } from '@/components/Form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Eye, EyeOffIcon, Mail, UserCircle2 } from 'lucide-react'
+import { Eye, EyeOffIcon, Mail, UserCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
-import { ErrorToast } from '@/utils/toast'
+import { ErrorToast, SuccessToast } from '@/utils/toast'
 import { SignUpProps, schemaSignUp } from '@/utils/Zod/sign-up'
 import { api } from '@/utils/api'
 import { ResponseProps } from '@/utils/type'
@@ -43,12 +43,13 @@ const FormSignUp = () => {
         JSON.stringify({
           password: user.password,
           email: user.email,
-          name: user.name,
+          user: user.user,
         }),
       )
 
       if (data.error) {
         ErrorToast(data.error)
+        SuccessToast('Conta criada!')
       } else {
         reset()
         push(ROUTES.public.home)
@@ -77,15 +78,25 @@ const FormSignUp = () => {
         name="email"
         placeholder="E-mail"
       >
-        <Mail color="#fff" strokeWidth={1.5} size={30} />
+        <Mail
+          className="absolute right-4"
+          color="#fff"
+          strokeWidth={1.5}
+          size={26}
+        />
       </Form.Input>
       <Form.Input
-        error={errors.name}
+        error={errors.user}
         register={register}
-        name="name"
-        placeholder="Nome"
+        name="user"
+        placeholder="User"
       >
-        <UserCircle2 color="#fff" strokeWidth={1.5} size={30} />
+        <UserCircle
+          className="absolute right-4"
+          color="#fff"
+          strokeWidth={1.5}
+          size={26}
+        />
       </Form.Input>
       <Form.Input
         type={visiblePassword ? 'text' : 'password'}
@@ -99,16 +110,16 @@ const FormSignUp = () => {
             onClick={() => setVisiblePassword(true)}
             color="#fff"
             strokeWidth={1.5}
-            size={30}
-            className="z-40 cursor-pointer"
+            size={26}
+            className="absolute right-4 z-40 cursor-pointer"
           />
         ) : (
           <EyeOffIcon
             onClick={() => setVisiblePassword(false)}
             color="#fff"
             strokeWidth={1.5}
-            size={30}
-            className="z-40 cursor-pointer"
+            size={26}
+            className="absolute right-4 z-40 cursor-pointer"
           />
         )}
       </Form.Input>

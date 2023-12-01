@@ -6,7 +6,6 @@ import {
   SetStateAction,
   useState,
 } from 'react'
-import InputWrapper from './inputWrapper'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
 import {
@@ -89,7 +88,7 @@ const Select = ({
         value={selectedDropDown || value}
         readOnly
       />
-      <InputWrapper className="cursor-pointer">{children}</InputWrapper>
+      {children}
       {visibleDropDown && (
         <motion.div
           initial={{ translateY: -10, opacity: 0 }}

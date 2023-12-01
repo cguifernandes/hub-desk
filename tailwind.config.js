@@ -11,8 +11,9 @@ module.exports = {
         'sky-gradient':
           'linear-gradient(91deg, #0369A1 0%, #0369A1 0%, #024B72 100%)',
         'modal-gradient': 'linear-gradient(153deg, #333 0%, #272727 100%);',
-        'grey-gradient': 'linear-gradient(91deg, #333 0%, #2E2E2E 100%)',
+        'button-gradient': 'linear-gradient(91deg, #333 0%, #2E2E2E 100%)',
         'desk-gradient': 'linear-gradient(91deg, #2E2E2E 0%, #242424 100%)',
+        'grey-gradient': 'linear-gradient(141deg, #181818 0%, #242424 100%);',
       },
       colors: {
         grey: {

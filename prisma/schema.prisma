@@ -15,7 +15,7 @@ model Clients {
   email       String      @unique
   createdAt   DateTime    @default(now())
   password    String
-  name        String
+  user        String      @unique
   pfp         String
   desks       Desk[]
   comments    Comment[]

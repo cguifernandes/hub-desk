@@ -13,20 +13,20 @@ export async function generateMetadata({
   params: { slug: string }
 }): Promise<Metadata> {
   const response = await fetch(
-    `${url}/api/auth/getWithName?name=${params.slug}`,
+    `${url}/api/auth/getWithUser?user=${params.slug}`,
   )
   const { clients } = await response.json()
 
   return {
-    title: `Perfil | ${clients[0]?.name}`,
+    title: `Perfil | ${clients[0]?.user}`,
   }
 }
 
-async function getServerSideProps(name: string | undefined) {
-  if (!name) return
+async function getServerSideProps(user: string | undefined) {
+  if (!user) return
 
   const clientResponse = await fetch(
-    `${url}/api/auth/getWithName?name=${name}`,
+    `${url}/api/auth/getWithUser?user=${user}`,
     {
       headers: { 'Content-Type': 'application/json' },
       cache: 'no-cache',
@@ -57,10 +57,10 @@ export default async function Desk({ params }: { params: { slug: string } }) {
   const { props } = (await getServerSideProps(params.slug)) as {
     props: { client: ClientsProps[]; desk: RDeskProps }
   }
-
   const formattedDate = new Date(props.client[0].createdAt).toLocaleDateString()
+
   return (
-    <section className="flex min-h-[calc(100vh_-_176px)] flex-col items-center">
+    <section className="flex min-h-[calc(100vh_-_80px_-_64px)] flex-col items-center">
       <div className="relative h-[calc(240px_+_252px_-_80px)] w-full md:h-[calc(240px_+_192px_-_96px)]">
         <img
           className="h-60 w-full object-cover"
@@ -71,17 +71,17 @@ export default async function Desk({ params }: { params: { slug: string } }) {
           <img
             className="mb-3 h-40 w-40 overflow-clip rounded-full object-cover object-center shadow-md md:mb-0 md:h-48 md:w-48"
             src={props.client[0].pfp}
-            alt={props.client[0].name}
+            alt={props.client[0].user}
           />
           <div className="flex w-full items-center justify-center md:flex-1 md:justify-between md:pl-4">
             <div className="flex flex-col text-center md:text-left">
               <Heading size="lg" className="mb-2 font-medium">
-                {props.client[0].name}
+                {props.client[0].user}
               </Heading>
-              <span className="text-sm text-white/60">
+              <span className="text-sm text-white/50">
                 Membro desde {formattedDate}
               </span>
-              <span className="text-sm text-white/60">
+              <span className="text-sm text-white/50">
                 Há um total de {props.desk.count} desks criadas
               </span>
             </div>
@@ -92,7 +92,7 @@ export default async function Desk({ params }: { params: { slug: string } }) {
         <Heading className="font-medium" align="center" size="lg">
           Desks
         </Heading>
-        <Desks />
+        <Desks id={props.client[0].id} />
       </div>
     </section>
   )
