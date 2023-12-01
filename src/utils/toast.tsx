@@ -14,7 +14,7 @@ export const Toast = (message: string) => {
       <button onClick={() => toast.dismiss(t.id)}>
         <X size={26} strokeWidth={1.5} color="#fff" />
       </button>
-      <div className="h-[30px] w-[1.5px] bg-white/70" />
+      <div className="h-[30px] w-[1.5px] bg-white/50" />
       <span className="text-white">{message}</span>
     </AnimationWrapper>
   ))

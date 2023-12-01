@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { api } from '@/utils/api'
-import { ErrorToast } from '@/utils/toast'
+import { Toast } from '@/utils/toast'
 import { ResponseProps } from '@/utils/type'
 import { setCookie } from 'nookies'
 import { ROUTES } from '@/utils/constant'
@@ -48,7 +48,7 @@ const FormSignIn = () => {
       )
 
       if (data.error) {
-        ErrorToast(data.error)
+        Toast(data.error)
       } else {
         reset()
         push(ROUTES.public.home)
