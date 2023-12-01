@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 import { Form } from '..'
 import { useState } from 'react'
 import useClient from '@/hooks/useClient'
-import { ErrorToast, SuccessToast } from '@/utils/toast'
+import { Toast } from '@/utils/toast'
 import { ResponseProps } from '@/utils/type'
 import { api } from '@/utils/api'
 
@@ -36,9 +36,9 @@ const FormComments = ({ deskId }: { deskId: string | undefined }) => {
       )
 
       if (data.error) {
-        ErrorToast(data.error)
+        Toast(data.error)
       } else {
-        SuccessToast(data.success)
+        Toast(data.success)
         reset()
       }
     } catch (err) {

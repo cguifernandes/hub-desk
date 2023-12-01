@@ -4,7 +4,7 @@
 import { Form } from '@/components/Form'
 import { DeskProps, schemaDesk } from '@/utils/Zod/desk'
 import { api } from '@/utils/api'
-import { ErrorToast, SuccessToast } from '@/utils/toast'
+import { Toast, SuccessToast } from '@/utils/toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ChevronDown, Github, Globe } from 'lucide-react'
 import { useState } from 'react'
@@ -42,7 +42,7 @@ const FormDesk = () => {
       )
 
       if (data.error) {
-        ErrorToast(data.error)
+        Toast(data.error)
       } else {
         SuccessToast(data.success)
         reset()

@@ -9,7 +9,7 @@ const LoadingComponent = ({ className }: LoadingProps) => {
     <svg
       aria-hidden="true"
       className={clsx(
-        'dark:text-white/5040 mr-2 animate-spin fill-white text-gray-200',
+        'mr-2 animate-spin fill-white text-gray-200 dark:text-white/40',
         className,
       )}
       viewBox="0 0 100 101"

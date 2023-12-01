@@ -11,7 +11,7 @@ import useClient from '@/hooks/useClient'
 import { MouseEvent, useEffect, useState } from 'react'
 import { DeskProps, RDeskProps, ResponseProps } from '@/utils/type'
 import { api } from '@/utils/api'
-import { ErrorToast } from '@/utils/toast'
+import { Toast } from '@/utils/toast'
 import { Trash2 } from 'lucide-react'
 
 const Desks = ({ id }: { id: string }) => {
@@ -38,13 +38,13 @@ const Desks = ({ id }: { id: string }) => {
   //     )
 
   //     if (data.error) {
-  //       ErrorToast(data.error)
+  //       Toast(data.error)
   //     } else {
   //       setDesks(data.data)
   //       setPage(0)
   //     }
   //   } catch (err) {
-  //     ErrorToast(`Erro ao apagar a desk. ${err}`)
+  //     Toast(`Erro ao apagar a desk. ${err}`)
   //   }
   // }
 

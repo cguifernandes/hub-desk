@@ -4,7 +4,7 @@ import { Modal } from '@/components/Modal'
 import { Dispatch, SetStateAction } from 'react'
 import Heading from '../Typography/heading'
 import Button from '../button'
-import { ExternalLink, LogOut, UserCircle } from 'lucide-react'
+import { ExternalLink, LogOut, Settings, UserCircle } from 'lucide-react'
 import Line from '../line'
 import useConnection from '@/hooks/useConnection'
 import clsx from 'clsx'
@@ -13,6 +13,7 @@ import { destroyCookie } from 'nookies'
 import { useRouter } from 'next/navigation'
 import useClient from '@/hooks/useClient'
 import { categories } from '@/utils/constant'
+import { Toast } from '@/utils/toast'
 
 type ModalBarProps = {
   setVisibleModal: Dispatch<SetStateAction<boolean>>
@@ -100,6 +101,7 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
                   <>
                     <Skeleton className="w-full" height={50} />
                     <Skeleton className="w-full" height={50} />
+                    <Skeleton className="w-full" height={50} />
                   </>
                 ) : (
                   <>
@@ -111,6 +113,15 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
                       isModalButton
                     >
                       <UserCircle strokeWidth={1.5} size={22} />
+                    </Button>
+                    <Button
+                      onClick={() => Toast('Em breve!')}
+                      // href={`/profile/${client[0]?.user}`}
+                      text="Configurações"
+                      fill="empty"
+                      isModalButton
+                    >
+                      <Settings strokeWidth={1.5} size={22} />
                     </Button>
                     <Button
                       onClick={handlerLogout}

@@ -50,7 +50,7 @@ const DeskWrapper = ({ authorId, createdAt, className }: DeskWrapperProps) => {
         <Skeleton width={95} height={16} />
       ) : (
         <span className="flex items-center gap-x-1 pr-4">
-          Autor: {author?.name}{' '}
+          Autor: {author?.user}{' '}
           <img
             className="h-4 w-4 overflow-clip rounded-full object-cover object-center align-top"
             alt="Foto de perfil do autor"

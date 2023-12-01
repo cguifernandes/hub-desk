@@ -5,7 +5,7 @@ import { Eye, EyeOffIcon, Mail, UserCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
-import { ErrorToast, SuccessToast } from '@/utils/toast'
+import { Toast } from '@/utils/toast'
 import { SignUpProps, schemaSignUp } from '@/utils/Zod/sign-up'
 import { api } from '@/utils/api'
 import { ResponseProps } from '@/utils/type'
@@ -48,10 +48,10 @@ const FormSignUp = () => {
       )
 
       if (data.error) {
-        ErrorToast(data.error)
-        SuccessToast('Conta criada!')
+        Toast(data.error)
       } else {
         reset()
+        Toast('Conta criada!')
         push(ROUTES.public.home)
         setCookie(null, 'user_session', data.id, {
           path: '/',
