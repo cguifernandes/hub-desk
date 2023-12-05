@@ -1,0 +1,85 @@
+/* eslint-disable camelcase */
+/* eslint-disable @next/next/no-img-element */
+'use client'
+import ConfirmPassword from '@/components/Layout/confirmPassword'
+import Heading from '@/components/Typography/heading'
+import { ClientsProps } from '@/utils/type'
+import { useState } from 'react'
+import FormAccount from './Form/Settings/formAccount'
+import Text from './Typography/text'
+import Button from './button'
+import { api } from '@/utils/api'
+import useClient from '@/hooks/useClient'
+import { Toast } from '@/utils/toast'
+import { useRouter } from 'next/navigation'
+import { destroyCookie } from 'nookies'
+
+const AccountWrapper = ({ client }: { client: ClientsProps[] }) => {
+  const [confirmPassword, setConfirmPassword] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const { push } = useRouter()
+  const { user_session } = useClient()
+
+  const handlerDeleteAccount = async () => {
+    try {
+      setIsLoading(true)
+      const { data } = await api.delete(`/auth/?id=${user_session}`, {
+        headers: { 'Content-Type': 'application/json' },
+      })
+
+      if (data.error) {
+        Toast(data.error)
+      } else {
+        Toast(data.success)
+        destroyCookie(null, 'user_session')
+        push('/auth/redirect?m=Conta excluída, foi um prazer :)')
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return (
+    <>
+      {!confirmPassword ? (
+        <ConfirmPassword
+          user_session={user_session}
+          setConfirmPassword={setConfirmPassword}
+        />
+      ) : (
+        <>
+          <div className="flex w-full flex-col items-center gap-y-6 border-b-2 border-grey-400 pb-6">
+            <Heading size="md">Alterar dados da conta</Heading>
+            <img
+              className="h-52 w-52 rounded-full object-cover md:h-60 md:w-60"
+              src={client[0].pfp}
+              alt={client[0].user}
+            />
+            <FormAccount user_session={user_session} client={client} />
+          </div>
+          <div className="flex flex-col space-y-6 py-6">
+            <div className="flex flex-col items-start justify-center space-y-1 text-left">
+              <Heading size="md" className="text-white">
+                Excluir conta
+              </Heading>
+              <Text className="text-white/50">
+                Exclua permanentemente sua conta. Uma vez excluídos, os dados
+                não podem ser recuperados.
+              </Text>
+            </div>
+            <Button
+              onClick={handlerDeleteAccount}
+              className="w-3/4"
+              loading={isLoading}
+              text="Excluir conta permanentemente"
+            />
+          </div>
+        </>
+      )}
+    </>
+  )
+}
+
+export default AccountWrapper

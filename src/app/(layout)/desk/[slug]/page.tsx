@@ -7,7 +7,7 @@ import { url } from '@/utils/constant'
 import { DeskProps } from '@/utils/type'
 import { Metadata } from 'next'
 import FormComments from '@/components/Form/Comments/formComments'
-import Comments from '@/components/comments'
+import Comments from '@/components/Layout/comments'
 
 export async function generateMetadata({
   params,

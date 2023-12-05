@@ -29,7 +29,7 @@ const Nav = () => {
         >
           <img
             key={client[0]?.password}
-            alt={client[0]?.name}
+            alt={client[0]?.user}
             src={client[0]?.pfp}
             className="h-11 w-11 overflow-clip rounded-full object-cover object-center align-top"
           />

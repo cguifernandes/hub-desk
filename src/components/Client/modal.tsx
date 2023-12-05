@@ -5,7 +5,6 @@ import { Dispatch, SetStateAction } from 'react'
 import Heading from '../Typography/heading'
 import Button from '../button'
 import { ExternalLink, LogOut, Settings, UserCircle } from 'lucide-react'
-import Line from '../line'
 import useConnection from '@/hooks/useConnection'
 import clsx from 'clsx'
 import Skeleton from '@/components/Layout/skeleton'
@@ -13,7 +12,6 @@ import { destroyCookie } from 'nookies'
 import { useRouter } from 'next/navigation'
 import useClient from '@/hooks/useClient'
 import { categories } from '@/utils/constant'
-import { Toast } from '@/utils/toast'
 
 type ModalBarProps = {
   setVisibleModal: Dispatch<SetStateAction<boolean>>
@@ -79,7 +77,7 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
               </nav>
             )}
           </Modal.Header>
-          <Line className="my-8" />
+          <div className="my-8 h-[2px] w-full bg-grey-400" />
           <div className="flex w-full grow-[1] basis-0 flex-wrap gap-6">
             {categories.map((categories) => (
               <Button
@@ -95,7 +93,7 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
           </div>
           {isConnected && (
             <>
-              <Line className="my-8" />
+              <div className="my-8 h-[2px] w-full bg-grey-400" />
               <div className="flex flex-col gap-y-5">
                 {isLoading ? (
                   <>
@@ -115,8 +113,8 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
                       <UserCircle strokeWidth={1.5} size={22} />
                     </Button>
                     <Button
-                      onClick={() => Toast('Em breve!')}
-                      // href={`/profile/${client[0]?.user}`}
+                      onClick={() => setVisibleModal(false)}
+                      href="/settings/account"
                       text="Configurações"
                       fill="empty"
                       isModalButton

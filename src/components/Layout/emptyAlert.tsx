@@ -13,7 +13,7 @@ const EmptyAlert = ({ message }: EmptyAlertProps) => {
         <Heading size="md" className="text-white">
           {message}
         </Heading>
-        <Text className="text-white/50 text-sm">
+        <Text className="text-sm text-white/50">
           <Link href={'/post-desk'} className="gradient-text">
             Clique aqui
           </Link>{' '}

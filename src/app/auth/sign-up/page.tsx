@@ -3,6 +3,7 @@ import Text from '@/components/Typography/text'
 import { Metadata } from 'next'
 import FormSignUp from '@/components/Form/Auth/formSignUp'
 import Back from '@/components/back'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Cadastrar | Hub Desk',
@@ -18,9 +19,9 @@ const SignUp = () => {
             <Heading className="text-3xl">Registrar</Heading>
             <Text size="sm" className="text-white/50">
               Já possui uma conta?{' '}
-              <a href="sign-in" className="gradient-text">
+              <Link href="sign-in" className="gradient-text">
                 Logar.
-              </a>
+              </Link>
             </Text>
           </header>
           <FormSignUp />

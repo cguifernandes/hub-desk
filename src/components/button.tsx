@@ -6,7 +6,7 @@ import Loading from '@/components/Layout/loading'
 import { ChevronRight } from 'lucide-react'
 
 const button = tv({
-  base: 'rounded-md px-4 py-3 text-white transition-colors',
+  base: 'rounded-md px-4 py-3 text-white transition-colors h-12',
   variants: {
     fill: {
       empty: 'bg-button-gradient border border-grey-400',

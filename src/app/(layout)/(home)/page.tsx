@@ -8,7 +8,7 @@ import { FakeRDeskProps } from '@/utils/type'
 import FakeDesk from '@/components/fakeDesk'
 import FakeNetflix from '../../../../public/fakeNetflixCard.png'
 import AnimationWrapper from '@/components/animationWrapper'
-import Carousel from '@/components/carousel'
+import Carousel from '@/components/Layout/carousel'
 
 export const metadata: Metadata = {
   title: 'Home | Hub Desk',

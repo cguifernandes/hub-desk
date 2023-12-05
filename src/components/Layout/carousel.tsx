@@ -2,7 +2,7 @@
 'use client'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Scrollbar, Autoplay } from 'swiper/modules'
-import CardDesk from './cardDesk'
+import CardDesk from '@/components/cardDesk'
 import { DeskProps } from '@/utils/type'
 import { useEffect, useState } from 'react'
 import EmptyAlert from '@/components/Layout/emptyAlert'

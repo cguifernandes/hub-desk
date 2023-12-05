@@ -1,46 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  Dispatch,
-  InputHTMLAttributes,
-  ReactNode,
-  SetStateAction,
-  useState,
-} from 'react'
+import { Dispatch, InputHTMLAttributes, SetStateAction, useState } from 'react'
 import clsx from 'clsx'
-import { motion } from 'framer-motion'
 import {
   FieldError,
   FieldErrorsImpl,
   Merge,
   UseFormSetValue,
 } from 'react-hook-form'
+import AnimationWrapper from './animationWrapper'
+import { ChevronDown } from 'lucide-react'
 
 type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
-  children: ReactNode
   value: string
   className?: string
-  dropDownItems: { name: string; path: string }[]
+  dropDownItems: { id: number; value: any }[]
   selectedDropDown: string
   setSelectedDropDown: Dispatch<SetStateAction<string>>
-  setValue?: UseFormSetValue<{
-    title: string
-    category:
-      | 'Animes'
-      | 'Desenhos'
-      | 'Filmes'
-      | 'Jogos'
-      | 'Outros'
-      | 'Séries'
-      | 'Sites'
-    description: string
-    repo: string
-    website: string
-  }>
-  error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
+  setValue?: UseFormSetValue<any>
+  error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
 }
 
 const Select = ({
-  children,
   value,
   className,
   dropDownItems,
@@ -51,65 +31,57 @@ const Select = ({
 }: SelectProps) => {
   const [visibleDropDown, setVisibleDropDown] = useState(false)
 
-  const handlerClickSelect = (categories: { name: string; path: string }) => {
-    setSelectedDropDown(categories.name)
-
-    if (setValue) {
-      setValue(
-        'category',
-        categories.name as
-          | 'Animes'
-          | 'Filmes'
-          | 'Séries'
-          | 'Desenhos'
-          | 'Sites'
-          | 'Outros'
-          | 'Jogos',
-      )
-    }
-  }
-
-  const customStyle = {
-    color: selectedDropDown ? 'white' : 'rgba(255, 255, 255, 0.5)',
-    ...(error && { border: '2px solid rgb(239, 68, 68)' }),
+  const handlerClickSelect = (value: any) => {
+    setSelectedDropDown(value)
+    setValue?.('category', value)
   }
 
   return (
     <div
       onClick={() => setVisibleDropDown(!visibleDropDown)}
-      className={clsx('relative flex justify-between shadow-md', className)}
+      className={clsx(
+        'relative flex h-full cursor-pointer items-center',
+        className,
+      )}
     >
       <input
-        style={customStyle}
-        className={clsx(
-          'w-[calc(100%_-_60px)] rounded-l-md border-y-2 !border-r-0 border-l-2 border-transparent',
-          'cursor-pointer select-none bg-grey-550 p-4',
-        )}
+        style={{
+          color: selectedDropDown ? 'white' : 'rgba(255, 255, 255, 0.5)',
+          ...(error && { border: '2px solid rgb(239, 68, 68)' }),
+        }}
+        className="w-full cursor-pointer select-none rounded-md border border-grey-400 bg-grey-500 px-4 py-3"
         value={selectedDropDown || value}
         readOnly
       />
-      {children}
+      <ChevronDown
+        style={{
+          transform: visibleDropDown ? 'rotate(0deg)' : 'rotate(-90deg)',
+        }}
+        className="absolute right-4 rotate-3 duration-200 ease-out"
+        color="#fff"
+        strokeWidth={1.5}
+        size={22}
+      />
       {visibleDropDown && (
-        <motion.div
+        <AnimationWrapper
           initial={{ translateY: -10, opacity: 0 }}
           animate={{ translateY: 0, opacity: 1 }}
-          transition={{ type: 'keyframes', duration: 0.3 }}
-          className="absolute top-20 z-20 w-full select-none rounded-md border-2 border-sky-700 bg-grey-650 shadow-md"
+          className="absolute top-14 z-20 w-full select-none rounded-md border border-grey-400 bg-grey-700 shadow-md"
         >
           {dropDownItems.map((item) => (
-            <ul key={item.name} className="group flex flex-col text-white">
+            <ul key={item.id} className="group flex flex-col text-white">
               <li
-                onClick={() => handlerClickSelect(item)}
+                onClick={() => handlerClickSelect(item.value)}
                 className={clsx(
-                  'w-full cursor-pointer group-last:rounded-b-md',
-                  'ease-ou p-4 duration-200 hover:bg-grey-400 group-first:rounded-t-md',
+                  'w-full cursor-pointer py-3 ease-out group-last:rounded-b-md',
+                  'px-4 duration-200 hover:bg-grey-500 group-first:rounded-t-md',
                 )}
               >
-                {item.name}
+                {item.value}
               </li>
             </ul>
           ))}
-        </motion.div>
+        </AnimationWrapper>
       )}
     </div>
   )

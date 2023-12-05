@@ -3,10 +3,9 @@
 'use client'
 import { CommentProps } from '@/utils/type'
 import { useEffect, useState } from 'react'
-import DeskWrapper from './deskWrapper'
-import Line from './line'
-import Text from './Typography/text'
-import Pagination from './Layout/pagination'
+import DeskWrapper from '../deskWrapper'
+import Text from '../Typography/text'
+import Pagination from './pagination'
 
 const Comments = ({ deskId }: { deskId: string | undefined }) => {
   const [comments, setComments] = useState<CommentProps[]>([])
@@ -39,7 +38,7 @@ const Comments = ({ deskId }: { deskId: string | undefined }) => {
     <>
       {comments.length > 0 && (
         <>
-          <Line className="m-auto max-w-[700px]" />
+          <div className="m-auto h-[2px] w-full max-w-[700px] bg-grey-400" />
           <div className="flex w-full flex-col items-center justify-center space-y-4 py-4">
             {comments.map((comments) => (
               <div

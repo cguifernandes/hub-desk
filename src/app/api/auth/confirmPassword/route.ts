@@ -2,17 +2,22 @@ import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcrypt'
 import prisma from '../../../../../lib/prisma'
 
-export async function POST(request: NextRequest) {
-  const body = await request.json()
-  const { email, password } = body
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url)
+  const password = searchParams.get('password')
+  const id = searchParams.get('id')
 
   try {
+    if (!id || !password) {
+      return NextResponse.json({ error: 'ID de usuário ou senha ausente.' })
+    }
+
     const user = await prisma.clients.findUnique({
-      where: { email },
+      where: { id },
     })
 
     if (!user) {
-      return NextResponse.json({ error: 'E-mail não encontrado.' })
+      return NextResponse.json({ error: 'Este usuário não foi encontrado.' })
     }
 
     const match = await bcrypt.compare(password, user.password)
@@ -20,7 +25,6 @@ export async function POST(request: NextRequest) {
     if (match) {
       return NextResponse.json({
         success: 'Autenticação bem-sucedida.',
-        id: user.id,
       })
     } else {
       return NextResponse.json({ error: 'Senha incorreta.' })

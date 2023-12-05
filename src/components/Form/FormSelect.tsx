@@ -9,7 +9,6 @@ import {
   UseFormSetValue,
 } from 'react-hook-form'
 import Select from '../select'
-import { categories } from '@/utils/constant'
 
 type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
   className?: string
@@ -39,6 +38,28 @@ const FormSelect = ({
   selectedDropDown,
   error,
 }: SelectProps) => {
+  const categories = [
+    {
+      value: 'Animes',
+      id: 1,
+    },
+    {
+      value: 'Desenhos',
+      id: 2,
+    },
+    {
+      value: 'Filmes',
+      id: 3,
+    },
+    { value: 'Jogos', id: 4 },
+    { value: 'Outros', id: 5 },
+    {
+      value: 'Séries',
+      id: 6,
+    },
+    { value: 'Sites', id: 7 },
+  ]
+
   return (
     <>
       <Select
@@ -49,7 +70,7 @@ const FormSelect = ({
         value={'Categoria*'}
         setValue={setValue}
       >
-        <ChevronDown color="#fff" strokeWidth={1.5} size={30} />
+        <ChevronDown color="#fff" strokeWidth={1.5} size={22} />
       </Select>
       {error && (
         <span className="text-red-500">

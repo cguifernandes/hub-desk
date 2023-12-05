@@ -7,9 +7,9 @@ import Input from '../input'
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   className?: string
   children?: ReactNode
-  register: any
-  name: string
-  error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
+  register?: any
+  name?: string
+  error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
 }
 
 const FormInput = ({

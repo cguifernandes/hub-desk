@@ -9,12 +9,12 @@ export const Toast = (message: string) => {
       animate={{ opacity: 1, y: 0 }}
       className={`${
         t.visible ? 'opacity-100' : 'opacity-0'
-      } flex items-center gap-x-3 rounded-md bg-sky-gradient p-4 shadow-md`}
+      } flex items-center gap-x-3 rounded-md bg-sky-gradient px-4 py-3 shadow-md`}
     >
       <button onClick={() => toast.dismiss(t.id)}>
         <X size={26} strokeWidth={1.5} color="#fff" />
       </button>
-      <div className="h-[30px] w-[1.5px] bg-white/50" />
+      <div className="h-8 w-[2px] bg-white" />
       <span className="text-white">{message}</span>
     </AnimationWrapper>
   ))

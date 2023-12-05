@@ -14,6 +14,7 @@ type AnimationWrapperProps = {
   initial?: AnimationProps['initial']
   animate?: AnimationProps['animate']
   whileInView?: VariantLabels | TargetAndTransition | undefined
+  component?: 'button' | 'div'
 }
 
 const AnimationWrapper = ({
@@ -23,9 +24,12 @@ const AnimationWrapper = ({
   animate,
   initial,
   whileInView,
+  component = 'div',
 }: AnimationWrapperProps) => {
+  const Pattern = component === 'button' ? motion.button : motion.div
+
   return (
-    <motion.div
+    <Pattern
       initial={initial}
       animate={animate}
       whileInView={whileInView}
@@ -34,7 +38,7 @@ const AnimationWrapper = ({
       className={className}
     >
       {children}
-    </motion.div>
+    </Pattern>
   )
 }
 

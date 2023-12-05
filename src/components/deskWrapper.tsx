@@ -21,8 +21,8 @@ const DeskWrapper = ({ authorId, createdAt, className }: DeskWrapperProps) => {
     const getClient = async () => {
       try {
         setIsLoading(true)
-        const response = await fetch(`/api/auth?id=${authorId}`, {
-          cache: 'force-cache',
+        const response = await fetch(`/api/auth/getWithId?id=${authorId}`, {
+          cache: 'reload',
           method: 'GET',
         })
 

@@ -3,23 +3,23 @@
 import { ClientsProps, ResponseProps } from '@/utils/type'
 import { useEffect, useState } from 'react'
 import useClient from './useClient'
-import { api } from '@/utils/api'
 
 const useConnection = () => {
   const [client, setClient] = useState<ClientsProps[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const { isConnected, user_session } = useClient()
-  const name = client.map((client) => client.name)
+  const name = client.map((client) => client.user)
 
   useEffect(() => {
     const getClient = async () => {
       if (isConnected) {
         try {
           setIsLoading(true)
-          const { data }: { data: ResponseProps } = await api.get(
-            `/auth?id=${user_session}`,
-          )
+          const response = await fetch(`/api/auth?id=${user_session}`, {
+            cache: 'no-cache',
+          })
 
+          const data: ResponseProps = await response.json()
           setClient(data.clients)
         } catch (err) {
           console.log(err)
