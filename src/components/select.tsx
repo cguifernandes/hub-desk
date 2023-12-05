@@ -1,12 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Dispatch, InputHTMLAttributes, SetStateAction, useState } from 'react'
+import { InputHTMLAttributes, useState } from 'react'
 import clsx from 'clsx'
-import {
-  FieldError,
-  FieldErrorsImpl,
-  Merge,
-  UseFormSetValue,
-} from 'react-hook-form'
+import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 import AnimationWrapper from './animationWrapper'
 import { ChevronDown } from 'lucide-react'
 
@@ -14,27 +9,20 @@ type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
   value: string
   className?: string
   dropDownItems: { id: number; value: any }[]
-  selectedDropDown: string
-  setSelectedDropDown: Dispatch<SetStateAction<string>>
-  setValue?: UseFormSetValue<any>
+  selectedDropDown: string | number
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
+  handlerClickSelect: (value: any) => void
 }
 
 const Select = ({
   value,
   className,
   dropDownItems,
-  setSelectedDropDown,
-  setValue,
   selectedDropDown,
   error,
+  handlerClickSelect,
 }: SelectProps) => {
   const [visibleDropDown, setVisibleDropDown] = useState(false)
-
-  const handlerClickSelect = (value: any) => {
-    setSelectedDropDown(value)
-    setValue?.('category', value)
-  }
 
   return (
     <div

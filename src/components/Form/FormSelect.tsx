@@ -1,42 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import { ChevronDown } from 'lucide-react'
-import { Dispatch, InputHTMLAttributes, ReactNode, SetStateAction } from 'react'
-import {
-  FieldError,
-  FieldErrorsImpl,
-  Merge,
-  UseFormSetValue,
-} from 'react-hook-form'
+import { InputHTMLAttributes, ReactNode } from 'react'
+import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 import Select from '../select'
 
 type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
   className?: string
   children?: ReactNode
   selectedDropDown: string
-  setSelectedDropDown: Dispatch<SetStateAction<string>>
-  setValue: UseFormSetValue<{
-    title: string
-    category:
-      | 'Animes'
-      | 'Desenhos'
-      | 'Filmes'
-      | 'Jogos'
-      | 'Outros'
-      | 'Séries'
-      | 'Sites'
-    description: string
-    repo: string
-    website: string
-  }>
   error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
+  handlerClickSelect: (value: any) => void
 }
 
 const FormSelect = ({
-  setValue,
-  setSelectedDropDown,
   selectedDropDown,
   error,
+  handlerClickSelect,
 }: SelectProps) => {
   const categories = [
     {
@@ -66,9 +46,8 @@ const FormSelect = ({
         error={error}
         dropDownItems={categories}
         selectedDropDown={selectedDropDown}
-        setSelectedDropDown={setSelectedDropDown}
         value={'Categoria*'}
-        setValue={setValue}
+        handlerClickSelect={handlerClickSelect}
       >
         <ChevronDown color="#fff" strokeWidth={1.5} size={22} />
       </Select>

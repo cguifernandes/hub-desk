@@ -13,9 +13,11 @@ import useClient from '@/hooks/useClient'
 import { Toast } from '@/utils/toast'
 import { useRouter } from 'next/navigation'
 import { destroyCookie } from 'nookies'
+import DeleteModal from './Modal/DeleteAccount/deleteAccount'
 
 const AccountWrapper = ({ client }: { client: ClientsProps[] }) => {
   const [confirmPassword, setConfirmPassword] = useState(false)
+  const [visibleModal, setVisibleModal] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const { push } = useRouter()
   const { user_session } = useClient()
@@ -59,6 +61,12 @@ const AccountWrapper = ({ client }: { client: ClientsProps[] }) => {
             />
             <FormAccount user_session={user_session} client={client} />
           </div>
+          <DeleteModal
+            loading={isLoading}
+            handlerDeleteAccount={handlerDeleteAccount}
+            setVisibleModal={setVisibleModal}
+            visibleModal={visibleModal}
+          />
           <div className="flex flex-col space-y-6 py-6">
             <div className="flex flex-col items-start justify-center space-y-1 text-left">
               <Heading size="md" className="text-white">
@@ -70,9 +78,8 @@ const AccountWrapper = ({ client }: { client: ClientsProps[] }) => {
               </Text>
             </div>
             <Button
-              onClick={handlerDeleteAccount}
+              onClick={() => setVisibleModal(true)}
               className="w-3/4"
-              loading={isLoading}
               text="Excluir conta permanentemente"
             />
           </div>

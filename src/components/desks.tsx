@@ -60,10 +60,10 @@ const Desks = ({ id }: { id: string }) => {
             headers: { 'Content-Type': 'application/json' },
           },
         )
-        const data = (await response.json()) as RDeskProps
+        const { data, count } = (await response.json()) as RDeskProps
 
-        setDesks(data.data)
-        setCount(data.count)
+        setDesks(data)
+        setCount(count)
       } catch (err) {
         console.log(err)
       } finally {

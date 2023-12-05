@@ -11,6 +11,7 @@ const button = tv({
     fill: {
       empty: 'bg-button-gradient border border-grey-400',
       base: 'bg-sky-gradient',
+      alert: 'bg-red-500',
     },
   },
   defaultVariants: {

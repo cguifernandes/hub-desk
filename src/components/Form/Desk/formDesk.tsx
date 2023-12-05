@@ -55,6 +55,20 @@ const FormDesk = () => {
     }
   }
 
+  const handlerClickSelect = (
+    value:
+      | 'Animes'
+      | 'Desenhos'
+      | 'Filmes'
+      | 'Jogos'
+      | 'Outros'
+      | 'Séries'
+      | 'Sites',
+  ) => {
+    setSelectedDropDown(value)
+    setValue?.('category', value)
+  }
+
   return (
     <Form.Root
       className="w-10/12 space-y-8 lg:w-8/12 xl:w-6/12"
@@ -70,10 +84,9 @@ const FormDesk = () => {
       />
       <Form.Select
         error={errors.category}
-        setValue={setValue}
         placeholder="Categoria*"
-        setSelectedDropDown={setSelectedDropDown}
         selectedDropDown={selectedDropDown}
+        handlerClickSelect={handlerClickSelect}
       >
         <ChevronDown color="#fff" strokeWidth={1.5} size={30} />
       </Form.Select>

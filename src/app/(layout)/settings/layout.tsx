@@ -12,7 +12,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
       </div>
       <div className="flex w-11/12 flex-col gap-x-6 gap-y-8 border-t-2 border-grey-400 py-8 lg:flex-row xl:px-6">
         <SideBar />
-        <div className="max-h-[600px] flex-1 overflow-y-auto lg:border-l-2 lg:border-grey-400 lg:pl-6">
+        <div className="max-h-[600px] min-h-[400px] flex-1 overflow-y-auto lg:border-l-2 lg:border-grey-400 lg:pl-6">
           {children}
         </div>
       </div>
