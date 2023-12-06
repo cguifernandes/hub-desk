@@ -37,7 +37,7 @@ const Select = ({
           color: selectedDropDown ? 'white' : 'rgba(255, 255, 255, 0.5)',
           ...(error && { border: '2px solid rgb(239, 68, 68)' }),
         }}
-        className="w-full cursor-pointer select-none rounded-md border border-grey-400 bg-grey-500 px-4 py-3"
+        className="w-full cursor-pointer select-none rounded-md bg-button-gradient px-4 py-3"
         value={selectedDropDown || value}
         readOnly
       />

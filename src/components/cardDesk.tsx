@@ -42,7 +42,7 @@ const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
         <Text className="text-white/50">{data.category}</Text>
       </div>
       <Text className="w-full break-words text-center">{data.description}</Text>
-      {data.category === 'Sites' && (
+      {data.category === 'Sites' && data.repo !== '' && data.website !== '' && (
         <div className="flex flex-col gap-6">
           {data.repo !== '' && (
             <Button
