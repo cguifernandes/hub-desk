@@ -32,8 +32,8 @@ const FormDesk = () => {
 
   const handlerFormSubmit = async (desk: DeskProps) => {
     try {
-      const timestamp = new Date().getTime()
       setIsLoading(true)
+      const timestamp = new Date().getTime()
       const storage = await supabase.storage
         .from('hub-desk')
         .upload(`desk/${timestamp}_${desk.image.name}`, desk.image)

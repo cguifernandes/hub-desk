@@ -1,5 +1,5 @@
 import { z } from 'zod'
-const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif']
+import { allowedImageTypes } from '../constant'
 
 export const schemaDesk = z.object({
   category: z.enum([

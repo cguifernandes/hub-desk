@@ -32,7 +32,9 @@ const FormInput = ({
         {children}
       </Input>
       {error && (
-        <span className="text-red-500">{error.message?.toString()}</span>
+        <span className="text-sm text-red-500">
+          {error.message?.toString()}
+        </span>
       )}
     </>
   )

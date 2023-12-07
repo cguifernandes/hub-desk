@@ -50,7 +50,7 @@ const FormSelect = ({
         <ChevronDown color="#fff" strokeWidth={1.5} size={22} />
       </Select>
       {error && (
-        <span className="text-red-500">
+        <span className="text-sm text-red-500">
           {error.type === 'invalid_type' &&
             'O campo "Categoria" é obrigatório.'}
         </span>

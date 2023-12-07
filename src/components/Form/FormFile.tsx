@@ -1,10 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import clsx from 'clsx'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useState } from 'react'
 import {
   FieldError,
   FieldErrorsImpl,
   Merge,
+  UseFormRegister,
   UseFormWatch,
 } from 'react-hook-form'
 
@@ -12,7 +13,21 @@ import {
 type FormFileProps = {
   className?: string
   children: ReactNode
-  register: any
+  register: UseFormRegister<{
+    title: string
+    category:
+      | 'Animes'
+      | 'Desenhos'
+      | 'Filmes'
+      | 'Jogos'
+      | 'Outros'
+      | 'Séries'
+      | 'Sites'
+    description: string
+    repo: string
+    website: string
+    image?: any
+  }>
   name: string
   error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
   watch: UseFormWatch<{
@@ -36,15 +51,10 @@ const FormFile = ({
   children,
   className,
   error,
-  name,
   watch,
   register,
 }: FormFileProps) => {
   const [fileList, setFileList] = useState<FileList | null>(null)
-
-  useEffect(() => {
-    setFileList(watch('image'))
-  }, [watch('image')])
 
   return (
     <>
@@ -56,7 +66,9 @@ const FormFile = ({
         )}
       >
         <input
-          {...register(name)}
+          {...register('image', {
+            onChange: () => setFileList(watch('image')),
+          })}
           id="image"
           type="file"
           accept="image/*"
@@ -70,7 +82,9 @@ const FormFile = ({
         {children}
       </div>
       {error && (
-        <span className="text-red-500">{error.message?.toString()}</span>
+        <span className="text-sm text-red-500">
+          {error.message?.toString()}
+        </span>
       )}
     </>
   )

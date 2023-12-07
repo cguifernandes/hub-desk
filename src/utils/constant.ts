@@ -20,18 +20,7 @@ export const categories = [
   { name: 'Sites', path: '/topics/websites' },
 ]
 
-export const ROUTES = {
-  private: {
-    desk: '/desk',
-    dashboard: '/dashboard',
-  },
-  public: {
-    home: '/',
-    signIn: '/auth/sign-in',
-    signUp: '/auth/sign-up',
-    redirect: '/auth/redirect',
-  },
-}
+export const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif']
 
 export const url =
   process?.env.NODE_ENV === 'development'

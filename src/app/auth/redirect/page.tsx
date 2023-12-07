@@ -3,14 +3,13 @@ import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import Back from '@/components/back'
 import RedirectWrapper from '@/components/Layout/redirect'
-import { ROUTES } from '@/utils/constant'
 
 const Redirect = () => {
   const { push } = useRouter()
 
   useEffect(() => {
     setTimeout(() => {
-      push(ROUTES.public.home)
+      push('/')
     }, 3000)
   }, [push])
 

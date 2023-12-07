@@ -67,7 +67,7 @@ export async function PUT(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const id = searchParams.get('id')
   const body: ClientsProps = await request.json()
-  const { email, user } = body
+  const { email, user, pfp } = body
 
   try {
     if (!email || !user || !id) {
@@ -78,7 +78,11 @@ export async function PUT(request: NextRequest) {
 
     const clients = await prisma.clients.updateMany({
       where: { id },
-      data: { email, user },
+      data: {
+        email,
+        user,
+        pfp: `https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${pfp}`,
+      },
     })
 
     if (clients) {

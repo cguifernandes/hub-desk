@@ -54,11 +54,6 @@ const AccountWrapper = ({ client }: { client: ClientsProps[] }) => {
         <>
           <div className="flex w-full flex-col items-center gap-y-6 border-b-2 border-grey-400 pb-6">
             <Heading size="md">Alterar dados da conta</Heading>
-            <img
-              className="h-52 w-52 rounded-full object-cover md:h-60 md:w-60"
-              src={client[0].pfp}
-              alt={client[0].user}
-            />
             <FormAccount user_session={user_session} client={client} />
           </div>
           <DeleteModal
