@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable react-hooks/exhaustive-deps */
@@ -25,13 +26,12 @@ const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
     <Pattern
       href={href!}
       className={clsx(
-        'flex h-[590px] flex-col justify-between rounded-md border-2',
+        'flex h-[640px] flex-col justify-between rounded-md border-2',
         'border-grey-400 bg-desk-gradient p-7 shadow-md',
         className,
       )}
     >
       {children}
-
       <div className="flex flex-col items-center space-y-1 text-center">
         <Heading
           className="w-8/12 overflow-hidden text-ellipsis whitespace-nowrap"
@@ -41,7 +41,16 @@ const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
         </Heading>
         <Text className="text-white/50">{data.category}</Text>
       </div>
-      <Text className="w-full break-words text-center">{data.description}</Text>
+      <div className="space-y-4">
+        <Text className="line-clamp-3 break-words text-center">
+          {data.description}
+        </Text>
+        <img
+          src={data.image}
+          alt={data.description}
+          className="h-56 w-full overflow-clip object-cover object-top align-top"
+        />
+      </div>
       {data.category === 'Sites' && data.repo !== '' && data.website !== '' && (
         <div className="flex flex-col gap-6">
           {data.repo !== '' && (
