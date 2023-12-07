@@ -1,4 +1,5 @@
 import FormButton from './FormButton'
+import FormFile from './FormFile'
 import FormInput from './FormInput'
 import FormRoot from './FormRoot'
 import FormSelect from './FormSelect'
@@ -12,4 +13,5 @@ export const Form = {
   Wrapper: FormWrapper,
   Textarea: FormTextarea,
   Select: FormSelect,
+  File: FormFile,
 }

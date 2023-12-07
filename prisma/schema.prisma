@@ -29,6 +29,7 @@ model Desk {
   category    String
   title       String
   description String?
+  image       String?
   repo        String?
   website     String?
   comments    Comment[]

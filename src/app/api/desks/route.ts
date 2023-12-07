@@ -1,11 +1,11 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { NextRequest, NextResponse } from 'next/server'
 import prisma from '../../../../lib/prisma'
-import { RDeskProps } from '@/utils/type'
-import { DeskProps } from '@/utils/Zod/desk'
+import { DeskProps } from '@/utils/type'
 
 export async function DELETE(request: NextRequest) {
   const { searchParams } = new URL(request.url)
-  const body: RDeskProps = await request.json()
+  const body: DeskProps = await request.json()
   const page = searchParams.get('page')
   const { id, authorId } = body
   const PER_PAGE = 12
@@ -40,15 +40,13 @@ export async function POST(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const id = searchParams.get('id')
   const body: DeskProps = await request.json()
-  const { category, description, title, repo, website } = body
-
+  const { category, description, title, repo, website, image } = body
   try {
     if (!id) {
       return NextResponse.json({
         error: 'Não é possível criar uma desk sem estar logado.',
       })
     }
-
     const newDesk = await prisma.desk.create({
       data: {
         category,
@@ -57,6 +55,7 @@ export async function POST(request: NextRequest) {
         authorId: id,
         repo,
         website,
+        image: `https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${image}`,
       },
     })
 

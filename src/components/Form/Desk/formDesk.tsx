@@ -6,11 +6,12 @@ import { DeskProps, schemaDesk } from '@/utils/Zod/desk'
 import { api } from '@/utils/api'
 import { Toast } from '@/utils/toast'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { ChevronDown, Github, Globe } from 'lucide-react'
+import { Github, Globe, Image } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { motion } from 'framer-motion'
 import useClient from '@/hooks/useClient'
+import { supabase } from '../../../../lib/supabase'
+import AnimationWrapper from '@/components/animationWrapper'
 
 const FormDesk = () => {
   const [selectedDropDown, setSelectedDropDown] = useState('')
@@ -21,6 +22,7 @@ const FormDesk = () => {
     handleSubmit,
     register,
     reset,
+    watch,
     setValue,
     formState: { errors },
   } = useForm<DeskProps>({
@@ -28,21 +30,23 @@ const FormDesk = () => {
     resolver: zodResolver(schemaDesk),
   })
 
-  const animationVisibleRepoWebsite = isVisibleRepoWebsite
-    ? { opacity: 1 }
-    : { opacity: 0, display: 'none' }
-
   const handlerFormSubmit = async (desk: DeskProps) => {
     try {
+      const timestamp = new Date().getTime()
       setIsLoading(true)
-      const { data } = await api.post(
-        `/desks?id=${user_session}`,
-        JSON.stringify(desk),
-        { headers: { 'Content-Type': 'application/json' } },
-      )
+      const storage = await supabase.storage
+        .from('hub-desk')
+        .upload(`desk/${timestamp}_${desk.image.name}`, desk.image)
+      desk.image = storage.data?.path
+
+      const { data } = await api.post(`/desks?id=${user_session}`, desk, {
+        headers: { 'Content-Type': 'application/json' },
+      })
 
       if (data.error) {
         Toast(data.error)
+      } else if (storage.error) {
+        Toast(storage.error.message)
       } else {
         Toast(data.success)
         reset()
@@ -80,16 +84,22 @@ const FormDesk = () => {
         name="title"
         placeholder="Título*"
         maxLength={50}
-        className="!w-full !rounded-md border-2"
+        className="!w-full !rounded-md"
       />
       <Form.Select
         error={errors.category}
         placeholder="Categoria*"
         selectedDropDown={selectedDropDown}
         handlerClickSelect={handlerClickSelect}
+      />
+      <Form.File
+        watch={watch}
+        error={errors.image}
+        name="image"
+        register={register}
       >
-        <ChevronDown color="#fff" strokeWidth={1.5} size={30} />
-      </Form.Select>
+        <Image className="absolute right-4" size={22} strokeWidth={1.5} />
+      </Form.File>
       <Form.Textarea
         error={errors.description}
         name="description"
@@ -97,14 +107,26 @@ const FormDesk = () => {
         placeholder="Descrição*"
         maxLength={250}
       />
-      <motion.div className="space-y-8" animate={animationVisibleRepoWebsite}>
+      <AnimationWrapper
+        className="space-y-8"
+        animate={
+          isVisibleRepoWebsite
+            ? { opacity: 1 }
+            : { opacity: 0, display: 'none' }
+        }
+      >
         <Form.Input
           error={errors.repo}
           register={register}
           name="repo"
           placeholder="Repositório"
         >
-          <Github color="#fff" strokeWidth={1.5} size={30} />
+          <Github
+            className="absolute right-4"
+            color="#fff"
+            strokeWidth={1.5}
+            size={22}
+          />
         </Form.Input>
         <Form.Input
           error={errors.website}
@@ -112,9 +134,14 @@ const FormDesk = () => {
           name="website"
           placeholder="Site"
         >
-          <Globe color="#fff" strokeWidth={1.5} size={30} />
+          <Globe
+            className="absolute right-4"
+            color="#fff"
+            strokeWidth={1.5}
+            size={22}
+          />
         </Form.Input>
-      </motion.div>
+      </AnimationWrapper>
       <Form.Button
         loading={isLoading}
         type="submit"

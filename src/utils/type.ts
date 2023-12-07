@@ -24,6 +24,7 @@ export type DeskProps = {
   repo: string
   website: string
   name?: string[]
+  image?: File
   category:
     | 'Animes'
     | 'Desenhos'

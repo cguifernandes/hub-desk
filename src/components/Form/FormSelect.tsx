@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import { ChevronDown } from 'lucide-react'
-import { InputHTMLAttributes, ReactNode } from 'react'
+import { InputHTMLAttributes } from 'react'
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 import Select from '../select'
 
 type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
-  className?: string
-  children?: ReactNode
   selectedDropDown: string
   error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
   handlerClickSelect: (value: any) => void

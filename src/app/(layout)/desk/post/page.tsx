@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 
 const Desk = () => {
   return (
-    <section className="flex min-h-[calc(100vh_-_192px)] flex-col items-center">
-      <div className="w-[90%] py-16 text-center sm:w-[80%] lg:w-[920px] xl:w-[1020px]">
+    <section className="flex min-h-[calc(100vh_-_80px_-_64px)] flex-col items-center py-16">
+      <div className="w-[90%] pb-16 text-center sm:w-[80%] lg:w-[920px] xl:w-[1020px]">
         <Heading size="md">
           Crie uma desk para que você possa discutir sua opinião com a
           comunidade
