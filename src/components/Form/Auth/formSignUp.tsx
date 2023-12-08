@@ -10,7 +10,6 @@ import { SignUpProps, schemaSignUp } from '@/utils/Zod/sign-up'
 import { api } from '@/utils/api'
 import { ResponseProps } from '@/utils/type'
 import { setCookie } from 'nookies'
-import { ROUTES } from '@/utils/constant'
 import useClient from '@/hooks/useClient'
 
 const FormSignUp = () => {
@@ -21,7 +20,7 @@ const FormSignUp = () => {
 
   useEffect(() => {
     if (isConnected) {
-      push(ROUTES.public.redirect)
+      push('/auth/redirect')
     }
   }, [isConnected, push])
 
@@ -52,7 +51,7 @@ const FormSignUp = () => {
       } else {
         reset()
         Toast('Conta criada!')
-        push(ROUTES.public.home)
+        push('/')
         setCookie(null, 'user_session', data.id, {
           path: '/',
           maxAge: undefined,

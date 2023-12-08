@@ -70,7 +70,7 @@ export default async function Desk({ params }: { params: { slug: string } }) {
         <div className="absolute bottom-0 flex w-full flex-col items-center justify-center px-6 md:flex-row md:items-end md:justify-between md:px-10">
           <img
             className="mb-3 h-40 w-40 overflow-clip rounded-full object-cover object-center shadow-md md:mb-0 md:h-48 md:w-48"
-            src={props.client[0].pfp}
+            src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${props.client[0].pfp}`}
             alt={props.client[0].user}
           />
           <div className="flex w-full items-center justify-center md:flex-1 md:justify-between md:pl-4">

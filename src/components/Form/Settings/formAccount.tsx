@@ -30,7 +30,7 @@ const FormAccount = ({ client, user_session }: FormAccountProps) => {
     formState: { errors },
   } = useForm<AccountProps>({
     reValidateMode: 'onSubmit',
-    defaultValues: { email: client[0].email, user: client[0].user },
+    defaultValues: { email: client[0]?.email, user: client[0]?.user },
     resolver: zodResolver(schemaAccount),
   })
 
@@ -40,7 +40,10 @@ const FormAccount = ({ client, user_session }: FormAccountProps) => {
       const timestamp = new Date().getTime()
       const storage = await supabase.storage
         .from('hub-desk')
-        .upload(`profile/${timestamp}_${account.pfp.name}`, account.pfp)
+        .upload(
+          `profile/${client[0]?.user}/${timestamp}_${account.pfp.name}`,
+          account.pfp,
+        )
       account.pfp = storage.data?.path
 
       const { data } = await api.put(`/auth/?id=${user_session}`, account, {
@@ -92,7 +95,10 @@ const FormAccount = ({ client, user_session }: FormAccountProps) => {
               : '1px solid transparent',
           }}
           className="h-52 w-52 rounded-full object-cover duration-200 ease-out md:h-60 md:w-60"
-          src={imageSrc || client[0].pfp}
+          src={
+            imageSrc ||
+            `https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${client[0].pfp}`
+          }
           alt={client[0].user}
         />
         <input

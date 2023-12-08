@@ -20,12 +20,16 @@ const DeleteModal = ({
   return (
     <>
       {visibleModal && (
-        <Modal.Overlay
-          className="flex items-center justify-center"
+        <Modal.Root
+          className="items-center justify-center"
           visibleModal={visibleModal}
-          onClick={() => setVisibleModal(false)}
         >
-          <Modal.Children className="z-20 ml-4 mr-7 flex w-full max-w-[700px] flex-col gap-y-6 rounded-md bg-modal-gradient p-6 sm:h-full sm:max-h-[250px]">
+          <Modal.Overlay
+            className="flex items-center justify-center"
+            visibleModal={visibleModal}
+            onClick={() => setVisibleModal(false)}
+          />
+          <Modal.Children className="z-30 ml-4 mr-7 flex w-full max-w-[700px] flex-col justify-between gap-y-6 rounded-md bg-modal-gradient p-6 py-10 sm:h-full sm:max-h-[250px]">
             <Modal.Header className="flex flex-col items-center justify-center space-y-1 px-4 text-center">
               <Heading size="md" className="text-white">
                 Tem certeza que deseja deletar sua conta?
@@ -34,7 +38,7 @@ const DeleteModal = ({
                 Ao clicar no botão &#34;Confirmar&#34; seus dados serão apagados
               </Text>
             </Modal.Header>
-            <div className="my-auto flex flex-col justify-evenly gap-y-6 sm:flex-row">
+            <div className="flex flex-col justify-evenly gap-y-6 sm:flex-row">
               <Button className="w-full sm:w-60" text="Cancelar" fill="empty" />
               <Button
                 onClick={handlerDeleteAccount}
@@ -45,7 +49,7 @@ const DeleteModal = ({
               />
             </div>
           </Modal.Children>
-        </Modal.Overlay>
+        </Modal.Root>
       )}
     </>
   )

@@ -25,9 +25,12 @@ const AccountWrapper = ({ client }: { client: ClientsProps[] }) => {
   const handlerDeleteAccount = async () => {
     try {
       setIsLoading(true)
-      const { data } = await api.delete(`/auth/?id=${user_session}`, {
-        headers: { 'Content-Type': 'application/json' },
-      })
+      const { data } = await api.delete(
+        `/auth/?id=${user_session}&user=${client[0].user}`,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        },
+      )
 
       if (data.error) {
         Toast(data.error)
@@ -40,6 +43,7 @@ const AccountWrapper = ({ client }: { client: ClientsProps[] }) => {
       console.log(error)
     } finally {
       setIsLoading(false)
+      setVisibleModal(false)
     }
   }
 

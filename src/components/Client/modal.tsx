@@ -30,7 +30,10 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
 
   return (
     <>
-      <Modal.Root visibleModal={visibleModal}>
+      <Modal.Root
+        className="items-start justify-end"
+        visibleModal={visibleModal}
+      >
         <Modal.Overlay
           visibleModal={visibleModal}
           onClick={() => setVisibleModal(false)}
@@ -49,8 +52,8 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
                 <div className="flex flex-col items-center justify-between gap-y-8">
                   <img
                     alt={client[0]?.user}
-                    src={client[0]?.pfp}
-                    className="h-28 w-28 overflow-clip rounded-full object-cover object-center align-top"
+                    src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${client[0]?.pfp}`}
+                    className="h-36 w-36 overflow-clip rounded-full object-cover object-center align-top"
                   />
                   <Heading
                     size="md"

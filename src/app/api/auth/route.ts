@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import prisma from '../../../../lib/prisma'
 import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcrypt'
 import { ClientsProps } from '@/utils/type'
+import { supabase } from '../../../../lib/supabase'
 
 type Users = {
   email: string
@@ -46,7 +48,7 @@ export async function POST(request: NextRequest) {
     } else {
       const newClient = await prisma.clients.create({
         data: {
-          pfp: 'https://i.im.ge/2023/08/25/mRf7ep.pfp.png',
+          pfp: 'profile/default.png',
           email,
           user,
           password: hash,
@@ -81,7 +83,7 @@ export async function PUT(request: NextRequest) {
       data: {
         email,
         user,
-        pfp: `https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${pfp}`,
+        pfp,
       },
     })
 
@@ -103,19 +105,25 @@ export async function PUT(request: NextRequest) {
 export async function DELETE(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const id = searchParams.get('id')
+  const user = searchParams.get('user')
 
   try {
-    if (!id) {
+    if (!id || !user) {
       return NextResponse.json({ error: 'ID de usuário não encontrado.' })
     }
 
     await prisma.desk.deleteMany({ where: { authorId: id } })
     await prisma.comment.deleteMany({ where: { authorId: id } })
     await prisma.clients.delete({ where: { id } })
+    const { data: list } = await supabase.storage
+      .from('hub-desk')
+      .list(`profile/${user}`)
+    const filesToRemove = list?.map((x) => `profile/${user}/${x.name}`)
+    if (filesToRemove) {
+      await supabase.storage.from('hub-desk').remove(filesToRemove)
+    }
 
-    return NextResponse.json({
-      success: 'Dados excluídos com sucesso!',
-    })
+    return NextResponse.json({ success: 'Conta excluída com sucesso.' })
   } catch (error) {
     console.error('Erro durante a autenticação:', error)
     return NextResponse.json('Ocorreu um erro durante a autenticação.', {

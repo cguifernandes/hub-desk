@@ -10,7 +10,6 @@ import { api } from '@/utils/api'
 import { Toast } from '@/utils/toast'
 import { ResponseProps } from '@/utils/type'
 import { setCookie } from 'nookies'
-import { ROUTES } from '@/utils/constant'
 import useClient from '@/hooks/useClient'
 
 const FormSignIn = () => {
@@ -21,7 +20,7 @@ const FormSignIn = () => {
 
   useEffect(() => {
     if (isConnected) {
-      push(ROUTES.public.redirect)
+      push('/auth/redirect')
     }
   }, [isConnected, push])
 
@@ -51,7 +50,7 @@ const FormSignIn = () => {
         Toast(data.error)
       } else {
         reset()
-        push(ROUTES.public.home)
+        push('/')
 
         if (user.rememberUser) {
           setCookie(null, 'user_session', data.id, {
