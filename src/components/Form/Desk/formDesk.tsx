@@ -22,7 +22,6 @@ const FormDesk = () => {
     handleSubmit,
     register,
     reset,
-    watch,
     setValue,
     formState: { errors },
   } = useForm<DeskProps>({
@@ -92,12 +91,7 @@ const FormDesk = () => {
         selectedDropDown={selectedDropDown}
         handlerClickSelect={handlerClickSelect}
       />
-      <Form.File
-        watch={watch}
-        error={errors.image}
-        name="image"
-        register={register}
-      >
+      <Form.File error={errors.image} name="image" register={register}>
         <Image className="absolute right-4" size={22} strokeWidth={1.5} />
       </Form.File>
       <Form.Textarea

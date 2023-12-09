@@ -14,7 +14,7 @@ async function getServerSideProps() {
     `${url}/api/auth/getWithId?id=${user_session?.value}`,
     {
       headers: { 'Content-Type': 'application/json' },
-      cache: 'no-cache',
+      cache: 'reload',
     },
   )
 

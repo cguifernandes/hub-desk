@@ -12,6 +12,8 @@ import { useRouter } from 'next/navigation'
 import { ChangeEvent, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { supabase } from '../../../../lib/supabase'
+import useConnection from '@/hooks/useConnection'
+import Skeleton from '@/components/Layout/skeleton'
 
 type FormAccountProps = {
   client: ClientsProps[]
@@ -22,6 +24,7 @@ const FormAccount = ({ client, user_session }: FormAccountProps) => {
   const [visibleEdit, setVisibleEdit] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [imageSrc, setImageSrc] = useState('')
+  const { client: user, isLoading: loading } = useConnection()
   const { push } = useRouter()
 
   const {
@@ -85,22 +88,26 @@ const FormAccount = ({ client, user_session }: FormAccountProps) => {
       handleSubmit={handleSubmit(handlerUpdateAccount)}
     >
       <div className="relative flex items-center justify-center rounded-full">
-        <img
-          onMouseEnter={() => setVisibleEdit(true)}
-          onMouseLeave={() => setVisibleEdit(false)}
-          style={{
-            opacity: visibleEdit ? 0.5 : 1,
-            border: errors.pfp
-              ? '1px rgb(239, 68, 68) solid'
-              : '1px solid transparent',
-          }}
-          className="h-52 w-52 rounded-full object-cover duration-200 ease-out md:h-60 md:w-60"
-          src={
-            imageSrc ||
-            `https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${client[0].pfp}`
-          }
-          alt={client[0].user}
-        />
+        {loading ? (
+          <Skeleton className="h-52 w-52 md:h-60 md:w-60" isRoundedFull />
+        ) : (
+          <img
+            onMouseEnter={() => setVisibleEdit(true)}
+            onMouseLeave={() => setVisibleEdit(false)}
+            style={{
+              opacity: visibleEdit ? 0.5 : 1,
+              border: errors.pfp
+                ? '1px rgb(239, 68, 68) solid'
+                : '1px solid transparent',
+            }}
+            className="h-52 w-52 rounded-full object-cover duration-200 ease-out md:h-60 md:w-60"
+            src={
+              imageSrc ||
+              `https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${user[0]?.pfp}`
+            }
+            alt={user[0]?.user}
+          />
+        )}
         <input
           {...register('pfp', { onChange: (e) => handleFileInputChange(e) })}
           id="pfp"
