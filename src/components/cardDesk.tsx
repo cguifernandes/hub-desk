@@ -45,11 +45,13 @@ const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
         <Text className="line-clamp-3 break-words text-center">
           {data.description}
         </Text>
-        <img
-          src={data.image}
-          alt={data.description}
-          className="h-56 w-full overflow-clip object-cover object-top align-top"
-        />
+        {data.image && (
+          <img
+            src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${data.image}`}
+            alt={data.description}
+            className="h-56 w-full overflow-clip object-cover object-top align-top"
+          />
+        )}
       </div>
       {data.category === 'Sites' && data.repo !== '' && data.website !== '' && (
         <div className="flex flex-col gap-6">

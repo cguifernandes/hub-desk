@@ -15,6 +15,7 @@ import AnimationWrapper from '@/components/animationWrapper'
 
 const FormDesk = () => {
   const [selectedDropDown, setSelectedDropDown] = useState('')
+  const [fileList, setFileList] = useState<File | undefined>(undefined)
   const [isLoading, setIsLoading] = useState(false)
   const { user_session } = useClient()
   const isVisibleRepoWebsite = selectedDropDown === 'Sites'
@@ -32,11 +33,15 @@ const FormDesk = () => {
   const handlerFormSubmit = async (desk: DeskProps) => {
     try {
       setIsLoading(true)
-      const timestamp = new Date().getTime()
-      const storage = await supabase.storage
-        .from('hub-desk')
-        .upload(`desk/${timestamp}_${desk.image.name}`, desk.image)
-      desk.image = storage.data?.path
+      if (desk.image !== undefined) {
+        const timestamp = new Date().getTime()
+        const storage = await supabase.storage
+          .from('hub-desk')
+          .upload(`desk/${timestamp}_${desk.image.name}`, desk.image)
+        desk.image = storage.data?.path
+      } else {
+        desk.image = ''
+      }
 
       const { data } = await api.post(`/desks?id=${user_session}`, desk, {
         headers: { 'Content-Type': 'application/json' },
@@ -44,12 +49,11 @@ const FormDesk = () => {
 
       if (data.error) {
         Toast(data.error)
-      } else if (storage.error) {
-        Toast(storage.error.message)
       } else {
         Toast(data.success)
         reset()
         setSelectedDropDown('')
+        setFileList(undefined)
       }
     } catch (err) {
       console.error('Erro ao processar formulário:', err)
@@ -91,7 +95,12 @@ const FormDesk = () => {
         selectedDropDown={selectedDropDown}
         handlerClickSelect={handlerClickSelect}
       />
-      <Form.File error={errors.image} name="image" register={register}>
+      <Form.File
+        error={errors.image}
+        fileList={fileList}
+        setFileList={setFileList}
+        register={register}
+      >
         <Image className="absolute right-4" size={22} strokeWidth={1.5} />
       </Form.File>
       <Form.Textarea

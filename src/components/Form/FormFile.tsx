@@ -1,6 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import clsx from 'clsx'
-import { ChangeEvent, ReactNode, useState } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  ReactNode,
+  SetStateAction,
+  useState,
+} from 'react'
 import {
   FieldError,
   FieldErrorsImpl,
@@ -27,13 +33,19 @@ type FormFileProps = {
     website: string
     image?: any
   }>
-  name: string
   error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
+  setFileList: Dispatch<SetStateAction<File | undefined>>
+  fileList: File | undefined
 }
 
-const FormFile = ({ children, className, error, register }: FormFileProps) => {
-  const [fileList, setFileList] = useState<File | undefined>(undefined)
-
+const FormFile = ({
+  children,
+  className,
+  error,
+  register,
+  fileList,
+  setFileList,
+}: FormFileProps) => {
   return (
     <>
       <div

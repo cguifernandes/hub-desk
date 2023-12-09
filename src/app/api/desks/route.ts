@@ -55,7 +55,7 @@ export async function POST(request: NextRequest) {
         authorId: id,
         repo,
         website,
-        image: `https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${image}`,
+        image,
       },
     })
 
