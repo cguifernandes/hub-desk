@@ -8,9 +8,11 @@ export async function GET(request: NextRequest) {
   if (query) {
     const clients = await prisma.clients.findMany({
       where: { user: { mode: 'insensitive', contains: query } },
+      orderBy: { createdAt: 'desc' },
     })
     const desks = await prisma.desk.findMany({
       where: { title: { mode: 'insensitive', contains: query } },
+      orderBy: { createdAt: 'desc' },
     })
 
     if (desks.length === 0 && clients.length === 0) {
