@@ -4,6 +4,7 @@ import clsx from 'clsx'
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 import AnimationWrapper from './animationWrapper'
 import { ChevronDown } from 'lucide-react'
+import { AnimatePresence } from 'framer-motion'
 
 type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
   value: string
@@ -50,27 +51,30 @@ const Select = ({
         strokeWidth={1.5}
         size={22}
       />
-      {visibleDropDown && (
-        <AnimationWrapper
-          initial={{ translateY: -10, opacity: 0 }}
-          animate={{ translateY: 0, opacity: 1 }}
-          className="absolute top-14 z-20 w-full select-none rounded-md border border-grey-400 bg-grey-700 shadow-md"
-        >
-          {dropDownItems.map((item) => (
-            <ul key={item.id} className="group flex flex-col text-white">
-              <li
-                onClick={() => handlerClickSelect(item.value)}
-                className={clsx(
-                  'w-full cursor-pointer py-3 ease-out group-last:rounded-b-md',
-                  'px-4 duration-200 hover:bg-grey-500 group-first:rounded-t-md',
-                )}
-              >
-                {item.value}
-              </li>
-            </ul>
-          ))}
-        </AnimationWrapper>
-      )}
+      <AnimatePresence>
+        {visibleDropDown && (
+          <AnimationWrapper
+            initial={{ translateY: -10, opacity: 0 }}
+            animate={{ translateY: 0, opacity: 1 }}
+            exit={{ translateY: -20, opacity: 0 }}
+            className="absolute top-14 z-20 w-full select-none rounded-md border border-grey-400 bg-modal-gradient shadow-md backdrop-blur-md"
+          >
+            {dropDownItems.map((item) => (
+              <ul key={item.id} className="group flex flex-col text-white">
+                <li
+                  onClick={() => handlerClickSelect(item.value)}
+                  className={clsx(
+                    'w-full cursor-pointer py-3 ease-out group-last:rounded-b-md',
+                    'px-4 duration-200 hover:bg-grey-500 group-first:rounded-t-md',
+                  )}
+                >
+                  {item.value}
+                </li>
+              </ul>
+            ))}
+          </AnimationWrapper>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

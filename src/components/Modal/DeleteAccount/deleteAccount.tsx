@@ -29,7 +29,7 @@ const DeleteModal = ({
             visibleModal={visibleModal}
             onClick={() => setVisibleModal(false)}
           />
-          <Modal.Children className="z-30 ml-4 mr-7 flex w-full max-w-[700px] flex-col justify-between gap-y-6 rounded-md bg-modal-gradient p-6 py-10 sm:h-full sm:max-h-[250px]">
+          <Modal.Children className="z-30 ml-4 mr-7 flex w-full max-w-[700px] flex-col justify-between gap-y-6 rounded-md bg-modal-gradient p-6 py-10 backdrop-blur-md sm:h-full sm:max-h-[250px]">
             <Modal.Header className="flex flex-col items-center justify-center space-y-1 px-4 text-center">
               <Heading size="md" className="text-white">
                 Tem certeza que deseja deletar sua conta?

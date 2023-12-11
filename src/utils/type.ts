@@ -64,3 +64,8 @@ export type ResponseProps = {
   clients: ClientsProps[]
   data: DeskProps[]
 }
+
+export type RSearchProps = {
+  clients: ClientsProps[]
+  desks: DeskProps[]
+}

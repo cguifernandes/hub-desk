@@ -13,6 +13,7 @@ type AnimationWrapperProps = {
   children: ReactNode
   initial?: AnimationProps['initial']
   animate?: AnimationProps['animate']
+  exit?: AnimationProps['exit']
   whileInView?: VariantLabels | TargetAndTransition | undefined
   component?: 'button' | 'div'
 }
@@ -24,6 +25,7 @@ const AnimationWrapper = ({
   animate,
   initial,
   whileInView,
+  exit,
   component = 'div',
 }: AnimationWrapperProps) => {
   const Pattern = component === 'button' ? motion.button : motion.div
@@ -32,6 +34,7 @@ const AnimationWrapper = ({
     <Pattern
       initial={initial}
       animate={animate}
+      exit={exit}
       whileInView={whileInView}
       viewport={{ once: true }}
       transition={{ type: 'keyframes', delay: delay ? 0.4 : 0, duration: 0.4 }}
