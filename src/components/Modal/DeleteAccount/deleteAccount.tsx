@@ -39,7 +39,12 @@ const DeleteModal = ({
               </Text>
             </Modal.Header>
             <div className="flex flex-col justify-evenly gap-y-6 sm:flex-row">
-              <Button className="w-full sm:w-60" text="Cancelar" fill="empty" />
+              <Button
+                onClick={() => setVisibleModal(false)}
+                className="w-full sm:w-60"
+                text="Cancelar"
+                fill="empty"
+              />
               <Button
                 onClick={handlerDeleteAccount}
                 loading={loading}

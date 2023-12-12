@@ -34,7 +34,7 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
           ) : (
             <>
               <div className="space-y-2">
-                <Heading className="text-xl">Desks encontradas</Heading>
+                <Heading className="text-xl">Desks</Heading>
                 {response?.desks && response?.desks.length > 0 ? (
                   response?.desks.map((desk) => (
                     <Link
@@ -71,7 +71,7 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                 )}
               </div>
               <div className="space-y-2">
-                <Heading className="text-xl">Usuários encontradas</Heading>
+                <Heading className="text-xl">Usuários</Heading>
                 {response?.clients && response?.clients.length > 0 ? (
                   response?.clients.map((client) => (
                     <Link
