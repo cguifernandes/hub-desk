@@ -29,7 +29,7 @@ const DeskWrapper = ({
       try {
         setIsLoading(true)
         const response = await fetch(`/api/auth/getWithId?id=${authorId}`, {
-          cache: 'reload',
+          cache: 'force-cache',
           method: 'GET',
         })
 

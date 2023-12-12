@@ -15,10 +15,6 @@ export async function GET(request: NextRequest) {
       orderBy: { createdAt: 'desc' },
     })
 
-    if (desks.length === 0 && clients.length === 0) {
-      return NextResponse.json({ error: 'Nenhum resultado encontrado.' })
-    } else {
-      return NextResponse.json({ desks, clients })
-    }
+    return NextResponse.json({ desks, clients })
   }
 }
