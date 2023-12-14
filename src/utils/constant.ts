@@ -1,23 +1,24 @@
 export const categories = [
   {
     name: 'Animes',
-    path: '/topics/animes',
   },
   {
     name: 'Desenhos',
-    path: '/topics/designs',
   },
   {
     name: 'Filmes',
-    path: '/topics/movies',
   },
-  { name: 'Jogos', path: '/topics/games' },
-  { name: 'Outros', path: '/topics/others' },
+  { name: 'Jogos' },
+  { name: 'Outros' },
   {
     name: 'Séries',
-    path: '/topics/series',
   },
-  { name: 'Sites', path: '/topics/websites' },
+  { name: 'Sites' },
+]
+
+export const PRIVATE_ROUTES = [
+  { path: '/desk/post' },
+  { path: 'settings/account' },
 ]
 
 export const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif']

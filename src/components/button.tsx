@@ -4,6 +4,7 @@ import { ButtonHTMLAttributes, ReactNode } from 'react'
 import { tv, VariantProps } from 'tailwind-variants'
 import Loading from '@/components/Layout/loading'
 import { ChevronRight } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 
 const button = tv({
   base: 'rounded-md px-4 py-3 text-white transition-colors h-12',
@@ -27,6 +28,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
     children?: ReactNode
     isModalButton?: boolean
     target?: '_blank'
+    isDeskCard?: boolean
   }
 
 const Button = ({
@@ -38,8 +40,11 @@ const Button = ({
   children,
   isModalButton,
   target,
+  isDeskCard,
   ...props
 }: ButtonProps) => {
+  const { push } = useRouter()
+
   if (isModalButton && href) {
     return (
       <button {...props}>
@@ -129,18 +134,35 @@ const Button = ({
     )
   }
 
-  if (href) {
+  if (isDeskCard && href) {
     return (
-      <Link
-        target={target}
+      <button
         className={button({
           fill,
           className: `${className} flex items-center justify-center`,
         })}
-        href={href}
+        {...props}
+        onClick={() => push(href)}
       >
-        <button {...props}>{text}</button>
-      </Link>
+        {text}
+      </button>
+    )
+  }
+
+  if (href) {
+    return (
+      <button {...props}>
+        <Link
+          className={button({
+            fill,
+            className: `${className} flex items-center justify-center`,
+          })}
+          target={target}
+          href={href}
+        >
+          {text}
+        </Link>
+      </button>
     )
   }
 

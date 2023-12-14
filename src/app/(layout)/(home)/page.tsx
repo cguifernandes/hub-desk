@@ -69,12 +69,12 @@ const Home = () => {
           Tópicos em destaque
         </Heading>
         <div className="flex w-full grow-[1] basis-0 flex-wrap">
-          {categories.map((categories) => (
+          {categories.map((categories, index) => (
             <AnimationWrapper
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               className="w-full space-y-4 px-10 py-6"
-              key={categories.path}
+              key={index}
             >
               <Heading className="font-medium" size="md">
                 {categories.name}

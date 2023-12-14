@@ -8,7 +8,14 @@ import { cookies } from 'next/headers'
 async function getServerSideProps() {
   const headers = cookies()
   const user_session = headers.get('user_session')
-  if (!user_session?.value) return
+  const isConnected = headers.has('user_session')
+  if (!isConnected) {
+    return {
+      props: {
+        client: [],
+      },
+    }
+  }
 
   const response = await fetch(
     `${url}/api/auth/getWithId?id=${user_session?.value}`,

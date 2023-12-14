@@ -40,7 +40,7 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                     <Link
                       key={desk.id}
                       href={`/desk/${desk.id}`}
-                      className="flex h-32 w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500"
+                      className="flex max-h-[140px] min-h-[130px] w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500"
                     >
                       {desk.image && (
                         <img
@@ -49,10 +49,15 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                           alt={desk.title}
                         />
                       )}
-                      <div className="flex flex-col justify-between py-2">
+                      <div className="flex flex-col justify-between gap-y-3 py-2">
                         <div className="space-y-px">
-                          <Heading className="text-lg">{desk.title}</Heading>
-                          <Text size="sm" className="text-white/50">
+                          <Heading className="line-clamp-1 text-lg">
+                            {desk.title}
+                          </Heading>
+                          <Text
+                            size="sm"
+                            className="line-clamp-2 break-words text-white/50"
+                          >
                             {desk.description}
                           </Text>
                         </div>
@@ -76,18 +81,16 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                   response?.clients.map((client) => (
                     <Link
                       key={client.id}
-                      className="flex h-20 w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500"
+                      className="flex h-24 w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500"
                       href={`/profile/${client.user}`}
                     >
                       <img
                         src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${client.pfp}`}
                         alt={client.user}
-                        className="mr-3 h-full w-16 overflow-clip rounded-full object-cover object-center align-top"
+                        className="mr-3 h-full w-20 overflow-clip rounded-full object-cover object-center align-top"
                       />
-                      <div className="flex flex-col justify-between py-1">
-                        <div className="space-y-px">
-                          <Heading className="text-lg">{client.user}</Heading>
-                        </div>
+                      <div className="flex flex-col justify-between py-2">
+                        <Heading className="text-lg">{client.user}</Heading>
                         <ClientWrapper
                           authorId={client.id}
                           createdAt={client.createdAt}

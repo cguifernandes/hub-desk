@@ -48,7 +48,7 @@ const ClientWrapper = ({ createdAt, authorId }: ClientWrapperProps) => {
           <span className="flex items-center gap-x-2 text-white">
             {count} Desks criadas
           </span>
-          <span className="text-white">{formattedDate}</span>
+          <span className="text-white">Membro desde: {formattedDate}</span>
         </>
       )}
     </div>

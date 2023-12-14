@@ -62,6 +62,7 @@ const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
               href={data.repo}
               fill="empty"
               text="Repositório"
+              isDeskCard
             />
           )}
           {data.website !== '' && (
@@ -70,6 +71,7 @@ const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
               onClick={(e) => e.stopPropagation()}
               href={data.website}
               text="Site"
+              isDeskCard
             />
           )}
         </div>
