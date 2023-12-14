@@ -2,7 +2,6 @@ import Heading from '@/components/Typography/heading'
 import Text from '@/components/Typography/text'
 import { Metadata } from 'next'
 import FormSignIn from '@/components/Form/Auth/formSignIn'
-import Back from '@/components/back'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
@@ -12,21 +11,16 @@ export const metadata: Metadata = {
 const SignIn = () => {
   return (
     <>
-      <Back href="/" />
-      <div className="mt-8 flex items-center justify-center sm:mt-14">
-        <div className="w-full max-w-[550px] rounded-md bg-grey-gradient p-10 shadow-lg">
-          <header className="flex flex-col gap-y-1">
-            <Heading className="text-3xl">Login</Heading>
-            <Text size="sm" className="text-white/50">
-              Ainda não tem uma conta?{' '}
-              <Link href="sign-up" className="gradient-text">
-                Criar uma conta.
-              </Link>
-            </Text>
-          </header>
-          <FormSignIn />
-        </div>
-      </div>
+      <header className="flex flex-col gap-y-1">
+        <Heading className="text-3xl">Login</Heading>
+        <Text size="sm" className="text-white/50">
+          Ainda não tem uma conta?{' '}
+          <Link href="sign-up" className="gradient-text">
+            Criar uma conta.
+          </Link>
+        </Text>
+      </header>
+      <FormSignIn />
     </>
   )
 }

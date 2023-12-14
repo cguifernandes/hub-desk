@@ -1,7 +1,6 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
-import Back from '@/components/back'
 import RedirectWrapper from '@/components/Layout/redirect'
 
 const Redirect = () => {
@@ -14,13 +13,10 @@ const Redirect = () => {
   }, [push])
 
   return (
-    <>
-      <Back />
-      <RedirectWrapper
-        text={'A autenticação foi um sucesso!'}
-        subtext="Você será redirecionado"
-      />
-    </>
+    <RedirectWrapper
+      text={'A autenticação foi um sucesso!'}
+      subtext="Você será redirecionado"
+    />
   )
 }
 
