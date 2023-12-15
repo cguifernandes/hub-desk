@@ -7,6 +7,7 @@ import AnimationWrapper from '../animationWrapper'
 import { useIsLarge, useIsMedium } from '@/hooks/useMediaQuery'
 import { RSearchProps } from '@/utils/type'
 import DropSearch from '../dropSearch'
+import clsx from 'clsx'
 
 const Search = () => {
   const [isVisibleSearch, setIsVisibleSearch] = useState(false)
@@ -59,7 +60,10 @@ const Search = () => {
             marginRight: isLarge ? 0 : 92,
           },
         }}
-        className="absolute right-0 z-20 flex h-[41px] min-w-[54px] items-center justify-between rounded-md bg-grey-500 px-4 py-2 md:h-auto md:min-w-[240px] lg:relative lg:m-0"
+        className={clsx(
+          'absolute right-0 z-20 flex h-[41px] min-w-[54px] items-center justify-between rounded-md',
+          'bg-grey-500 px-4 py-2 md:h-auto md:min-w-[240px] lg:relative lg:m-0',
+        )}
       >
         <input
           type="text"

@@ -20,13 +20,7 @@ const Back = ({ isHeader = false, className, href }: BackProps) => {
   }, [])
 
   if (!mounted) {
-    return (
-      <Skeleton
-        className="absolute left-2/4 top-16 -translate-x-2/4"
-        height={36}
-        width={210}
-      />
-    )
+    return <Skeleton height={36} width={210} />
   }
 
   if (href) {

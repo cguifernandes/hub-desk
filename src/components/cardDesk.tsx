@@ -27,32 +27,34 @@ const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
       href={href!}
       className={clsx(
         'flex h-[640px] flex-col justify-between rounded-md border-2',
-        'border-grey-400 bg-desk-gradient p-7 shadow-md',
+        'relative border-grey-400 bg-desk-gradient p-7 shadow-md',
         className,
       )}
     >
       {children}
-      <div className="flex flex-col items-center space-y-1 text-center">
+      {data.image && (
+        <div className="absolute left-0 top-0 h-40 w-full">
+          <img
+            src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${data.image}`}
+            alt={data.title}
+            className="h-full w-full overflow-clip rounded-t-md object-cover object-top align-top"
+          />
+          <div className="absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-grey-600"></div>
+        </div>
+      )}
+      <div
+        style={{ marginTop: data.image ? 120 : 0 }}
+        className="z-20 flex w-full flex-col items-center space-y-1 text-center"
+      >
         <Heading
-          className="w-8/12 overflow-hidden text-ellipsis whitespace-nowrap"
+          className="w-full overflow-hidden text-ellipsis whitespace-nowrap"
           size="md"
         >
           {data.title}
         </Heading>
         <Text className="text-white/50">{data.category}</Text>
       </div>
-      <div className="space-y-4">
-        <Text className="line-clamp-3 break-words text-center">
-          {data.description}
-        </Text>
-        {data.image && (
-          <img
-            src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${data.image}`}
-            alt={data.description}
-            className="h-56 w-full overflow-clip object-cover object-top align-top"
-          />
-        )}
-      </div>
+      <Text className=" break-words text-center">{data.description}</Text>
       {data.category === 'Sites' && data.repo !== '' && data.website !== '' && (
         <div className="flex flex-col gap-6">
           {data.repo !== '' && (
