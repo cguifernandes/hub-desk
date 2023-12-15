@@ -6,6 +6,7 @@ import Skeleton from '../Layout/skeleton'
 import { ClientsProps } from '@/utils/type'
 import clsx from 'clsx'
 import { MessageSquare } from 'lucide-react'
+import Link from 'next/link'
 
 type DeskWrapperProps = {
   authorId: string | undefined
@@ -77,14 +78,17 @@ const DeskWrapper = ({
           <Skeleton width={300} height={20} />
         ) : (
           <>
-            <span className="flex items-center gap-x-2 text-white">
+            <Link
+              href={`/profile/${author.user}`}
+              className="z-10 flex items-center gap-x-2 text-white"
+            >
               {author?.user}
               <img
                 className="h-5 w-5 rounded-full"
                 src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${author?.pfp}`}
                 alt={author?.user}
               />
-            </span>
+            </Link>
             <span className="flex items-center gap-x-2 text-white">
               Fazer isso <MessageSquare strokeWidth={1.5} size={18} />
             </span>
@@ -104,14 +108,17 @@ const DeskWrapper = ({
       {isLoading || author === undefined ? (
         <Skeleton width={95} height={16} />
       ) : (
-        <span className="flex items-center gap-x-1 rounded-md bg-grey-500 px-3 py-2">
+        <Link
+          href={`/profile/${author.user}`}
+          className="z-10 flex items-center gap-x-1 rounded-md bg-grey-500 px-3 py-2"
+        >
           {author?.user}{' '}
           <img
             className="h-4 w-4 overflow-clip rounded-full object-cover object-center align-top"
             alt="Foto de perfil do autor"
             src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${author?.pfp}`}
           />
-        </span>
+        </Link>
       )}
       <span className="rounded-md bg-grey-500 px-3 py-2">
         {formattedDate()}

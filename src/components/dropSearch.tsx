@@ -37,9 +37,8 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                 <Heading className="text-xl">Desks</Heading>
                 {response?.desks && response?.desks.length > 0 ? (
                   response?.desks.map((desk) => (
-                    <Link
+                    <div
                       key={desk.id}
-                      href={`/desk/${desk.id}`}
                       className="flex max-h-[140px] min-h-[130px] w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500"
                     >
                       {desk.image && (
@@ -50,7 +49,7 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                         />
                       )}
                       <div className="flex flex-col justify-between gap-y-3 py-2">
-                        <div className="space-y-px">
+                        <Link href={`/desk/${desk.id}`} className="space-y-px">
                           <Heading className="line-clamp-1 text-lg">
                             {desk.title}
                           </Heading>
@@ -60,14 +59,14 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                           >
                             {desk.description}
                           </Text>
-                        </div>
+                        </Link>
                         <DeskWrapper
                           authorId={desk.authorId}
                           createdAt={desk.createdAt}
                           searchDesk
                         />
                       </div>
-                    </Link>
+                    </div>
                   ))
                 ) : (
                   <Text className="text-white/50">
@@ -79,10 +78,9 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                 <Heading className="text-xl">Usuários</Heading>
                 {response?.clients && response?.clients.length > 0 ? (
                   response?.clients.map((client) => (
-                    <Link
+                    <div
                       key={client.id}
                       className="flex h-24 w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500"
-                      href={`/profile/${client.user}`}
                     >
                       <img
                         src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${client.pfp}`}
@@ -90,13 +88,15 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                         className="mr-3 h-full w-20 overflow-clip rounded-full object-cover object-center align-top"
                       />
                       <div className="flex flex-col justify-between py-2">
-                        <Heading className="text-lg">{client.user}</Heading>
+                        <a href={`/profile/${client.user}`}>
+                          <Heading className="text-lg">{client.user}</Heading>
+                        </a>
                         <ClientWrapper
                           authorId={client.id}
                           createdAt={client.createdAt}
                         />
                       </div>
-                    </Link>
+                    </div>
                   ))
                 ) : (
                   <Heading className="text-white/50">
