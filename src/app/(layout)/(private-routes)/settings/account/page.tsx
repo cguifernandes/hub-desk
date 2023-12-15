@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable camelcase */
-import AccountWrapper from '@/components/accountWrapper'
+import AccountWrapper from '@/components/Wrapper/accountWrapper'
 import { url } from '@/utils/constant'
 import { ClientsProps } from '@/utils/type'
 import { cookies } from 'next/headers'

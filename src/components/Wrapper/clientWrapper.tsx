@@ -2,7 +2,7 @@
 import { url } from '@/utils/constant'
 import { RDeskProps } from '@/utils/type'
 import { useEffect, useState } from 'react'
-import Skeleton from './Layout/skeleton'
+import Skeleton from '../Layout/skeleton'
 
 type ClientWrapperProps = {
   createdAt: Date

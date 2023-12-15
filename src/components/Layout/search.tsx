@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { Search as SearchIcon } from 'lucide-react'
 import { useState } from 'react'
-import AnimationWrapper from '../animationWrapper'
+import AnimationWrapper from '../Wrapper/animationWrapper'
 import { useIsLarge, useIsMedium } from '@/hooks/useMediaQuery'
 import { RSearchProps } from '@/utils/type'
 import DropSearch from '../dropSearch'

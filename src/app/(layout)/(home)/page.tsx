@@ -7,7 +7,7 @@ import { ExternalLink } from 'lucide-react'
 import { FakeRDeskProps } from '@/utils/type'
 import FakeDesk from '@/components/fakeDesk'
 import FakeNetflix from '../../../../public/fakeNetflixCard.png'
-import AnimationWrapper from '@/components/animationWrapper'
+import AnimationWrapper from '@/components/Wrapper/animationWrapper'
 import Carousel from '@/components/Layout/carousel'
 
 export const metadata: Metadata = {

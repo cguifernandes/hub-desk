@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 import Heading from './Typography/heading'
 import Text from './Typography/text'
-import DeskWrapper from './deskWrapper'
+import DeskWrapper from './Wrapper/deskWrapper'
 import Link from 'next/link'
-import ClientWrapper from './clientWrapper'
+import ClientWrapper from './Wrapper/clientWrapper'
 import Skeleton from './Layout/skeleton'
 import { RSearchProps } from '@/utils/type'
 

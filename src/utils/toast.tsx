@@ -1,4 +1,4 @@
-import AnimationWrapper from '@/components/animationWrapper'
+import AnimationWrapper from '@/components/Wrapper/animationWrapper'
 import { X } from 'lucide-react'
 import toast from 'react-hot-toast'
 

@@ -9,7 +9,7 @@ import Text from './Typography/text'
 import Button from './button'
 import clsx from 'clsx'
 import { ReactNode } from 'react'
-import DeskWrapper from '@/components/deskWrapper'
+import DeskWrapper from '@/components/Wrapper/deskWrapper'
 import Link from 'next/link'
 
 type CardDeskProps = {

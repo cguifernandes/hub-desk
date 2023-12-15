@@ -25,7 +25,20 @@ const FakeDesk = ({ data, className, delay }: FakeDeskProps) => {
         className,
       )}
     >
-      <div className="flex flex-col items-center space-y-1 text-center">
+      {data.src && (
+        <div className="absolute left-0 top-0 h-28 w-full">
+          <img
+            className="h-full w-full overflow-clip rounded-t-md object-cover object-top align-top"
+            alt="Imagem da desk"
+            src={data.src}
+          />
+          <div className="absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-grey-600"></div>
+        </div>
+      )}
+      <div
+        style={{ marginTop: data.src ? 60 : 0 }}
+        className="z-10 flex flex-col items-center space-y-1 text-center"
+      >
         <Heading
           className="w-8/12 overflow-hidden text-ellipsis whitespace-nowrap"
           size="md"
@@ -34,7 +47,6 @@ const FakeDesk = ({ data, className, delay }: FakeDeskProps) => {
         </Heading>
         <Text className="text-white/50">{data.category}</Text>
       </div>
-      {data.src && <img alt="Imagem da desk" src={data.src} />}
       <Text className="w-full break-words text-center">{data.description}</Text>
       {data.category === 'Sites' && (
         <div className="flex flex-col gap-6">

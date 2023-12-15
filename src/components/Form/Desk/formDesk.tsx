@@ -11,7 +11,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import useClient from '@/hooks/useClient'
 import { supabase } from '../../../../lib/supabase'
-import AnimationWrapper from '@/components/animationWrapper'
+import AnimationWrapper from '@/components/Wrapper/animationWrapper'
 
 const FormDesk = () => {
   const [selectedDropDown, setSelectedDropDown] = useState('')
