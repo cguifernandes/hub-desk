@@ -38,16 +38,19 @@ const FormAccount = ({ client, user_session }: FormAccountProps) => {
   })
 
   const handlerUpdateAccount = async (account: AccountProps) => {
+    console.log(account)
     try {
       setIsLoading(true)
-      const timestamp = new Date().getTime()
-      const storage = await supabase.storage
-        .from('hub-desk')
-        .upload(
-          `profile/${client[0]?.user}/${timestamp}_${account.pfp.name}`,
-          account.pfp,
-        )
-      account.pfp = storage.data?.path
+      if (account.pfp !== undefined) {
+        const timestamp = new Date().getTime()
+        const storage = await supabase.storage
+          .from('hub-desk')
+          .upload(
+            `profile/${client[0]?.user}/${timestamp}_${account.pfp.name}`,
+            account.pfp,
+          )
+        account.pfp = storage.data?.path
+      }
 
       const { data } = await api.put(`/auth/?id=${user_session}`, account, {
         headers: { 'Content-Type': 'application/json' },

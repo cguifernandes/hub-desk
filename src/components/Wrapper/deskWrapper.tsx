@@ -32,20 +32,20 @@ const DeskWrapper = ({
 
     if (minutes > 60 * 24 * 30 * 12) {
       const years = Math.floor(minutes / (60 * 24 * 30 * 12))
-      return `${years} ano${years > 1 ? 's' : ''} atrás`
+      return `Publicado há ${years} ano${years > 1 ? 's' : ''} atrás`
     } else if (minutes > 60 * 24 * 30) {
       const months = Math.floor(minutes / (60 * 24 * 30))
-      return `${months} mês${months > 1 ? 'es' : ''} atrás`
+      return `Publicado há ${months} mês${months > 1 ? 'es' : ''} atrás`
     } else if (minutes > 60 * 24) {
       const days = Math.floor(minutes / (60 * 24))
-      return `${days} dia${days > 1 ? 's' : ''} atrás`
+      return `Publicado há ${days} dia${days > 1 ? 's' : ''} atrás`
     } else if (minutes > 60) {
       const hours = Math.floor(minutes / 60)
-      return `${hours} hora${hours > 1 ? 's' : ''} atrás`
+      return `Publicado há ${hours} hora${hours > 1 ? 's' : ''} atrás`
     } else if (minutes >= 1) {
-      return `${minutes} minuto${minutes > 1 ? 's' : ''} atrás`
+      return `Publicado há ${minutes} minuto${minutes > 1 ? 's' : ''} atrás`
     } else {
-      return 'Agora'
+      return 'Publicado agora'
     }
   }
 
@@ -54,7 +54,7 @@ const DeskWrapper = ({
       try {
         setIsLoading(true)
         const response = await fetch(`/api/auth/getWithId?id=${authorId}`, {
-          cache: 'force-cache',
+          cache: 'no-cache',
           method: 'GET',
         })
 
@@ -106,7 +106,7 @@ const DeskWrapper = ({
       )}
     >
       {isLoading || author === undefined ? (
-        <Skeleton width={95} height={16} />
+        <Skeleton width={120} height={32} />
       ) : (
         <Link
           href={`/profile/${author.user}`}
