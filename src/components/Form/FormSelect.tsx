@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import { ChevronDown } from 'lucide-react'
-import { InputHTMLAttributes } from 'react'
+import { Dispatch, InputHTMLAttributes, SetStateAction } from 'react'
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 import Select from '../select'
+import { FakeRDeskProps } from '@/utils/type'
 
 type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
   selectedDropDown: string
   error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
   handlerClickSelect: (value: any) => void
+  setFakeData?: Dispatch<SetStateAction<FakeRDeskProps | undefined>>
 }
 
 const FormSelect = ({

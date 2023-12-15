@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { InputHTMLAttributes, ReactNode } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  InputHTMLAttributes,
+  ReactNode,
+  SetStateAction,
+} from 'react'
 import clsx from 'clsx'
 import {
   FieldError,
@@ -7,6 +13,7 @@ import {
   Merge,
   UseFormRegister,
 } from 'react-hook-form'
+import { FakeRDeskProps } from '@/utils/type'
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   className?: string
@@ -14,6 +21,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   register?: UseFormRegister<{ email: string; password: string; title: string }>
   name?: string
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
+  setFakeData?: Dispatch<SetStateAction<FakeRDeskProps | undefined>>
 }
 
 const Input = ({
@@ -22,8 +30,18 @@ const Input = ({
   error,
   name,
   register,
+  setFakeData,
   ...props
 }: InputProps) => {
+  const handlerChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
+    if (setFakeData) {
+      setFakeData((prevData) => ({
+        ...prevData,
+        [name as string]: e.target.value,
+      }))
+    }
+  }
+
   if (register) {
     if (children) {
       return (
@@ -34,7 +52,10 @@ const Input = ({
           )}
         >
           <input
-            {...register(name as 'title' | 'email' | 'password')}
+            {...register(name as 'title' | 'email' | 'password', {
+              onChange: (e: ChangeEvent<HTMLInputElement>) =>
+                handlerChangeValue(e),
+            })}
             className={clsx(
               'w-full rounded-md border border-transparent bg-button-gradient text-white',
               'px-4 py-3 placeholder-white/50 transition-colors focus:border-sky-700',
@@ -49,7 +70,14 @@ const Input = ({
 
     return (
       <input
-        {...register(name as 'title' | 'email' | 'password')}
+        {...register(name as 'title' | 'email' | 'password', {
+          onChange: (e: ChangeEvent<HTMLInputElement>) =>
+            setFakeData &&
+            setFakeData((prevData) => ({
+              ...prevData,
+              [name as string]: e.target.value,
+            })),
+        })}
         className={clsx(
           'w-full rounded-md border border-transparent bg-button-gradient text-white',
           'px-4 py-3 placeholder-white/50 transition-colors focus:border-sky-700',

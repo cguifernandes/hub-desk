@@ -1,12 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { FakeRDeskProps } from '@/utils/type'
 import clsx from 'clsx'
-import {
-  ChangeEvent,
-  Dispatch,
-  ReactNode,
-  SetStateAction,
-  useState,
-} from 'react'
+import { ChangeEvent, Dispatch, ReactNode, SetStateAction } from 'react'
 import {
   FieldError,
   FieldErrorsImpl,
@@ -36,6 +31,7 @@ type FormFileProps = {
   error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
   setFileList: Dispatch<SetStateAction<File | undefined>>
   fileList: File | undefined
+  setFakeData?: Dispatch<SetStateAction<FakeRDeskProps | undefined>>
 }
 
 const FormFile = ({
@@ -45,7 +41,31 @@ const FormFile = ({
   register,
   fileList,
   setFileList,
+  setFakeData,
 }: FormFileProps) => {
+  const handlerChangeValues = (e: ChangeEvent<HTMLInputElement>) => {
+    setFileList(e.target.files?.[0])
+
+    if (setFakeData) {
+      const file = e.target.files?.[0]
+
+      if (file) {
+        const reader = new FileReader()
+        reader.onload = () => {
+          const fileContent = reader.result
+          if (typeof fileContent === 'string') {
+            setFakeData((prevData) => ({
+              ...prevData,
+              src: fileContent,
+            }))
+          }
+        }
+
+        reader.readAsDataURL(file)
+      }
+    }
+  }
+
   return (
     <>
       <div
@@ -58,7 +78,7 @@ const FormFile = ({
         <input
           {...register('image', {
             onChange: (e: ChangeEvent<HTMLInputElement>) =>
-              setFileList(e.target.files?.[0]),
+              handlerChangeValues(e),
           })}
           id="image"
           type="file"

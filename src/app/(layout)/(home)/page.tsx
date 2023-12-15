@@ -58,10 +58,13 @@ const Home = () => {
         <div className="relative hidden h-[730px] w-[670px] lg:inline">
           <FakeDesk
             delay
-            className="absolute bottom-0 left-0 z-10"
+            className="absolute bottom-0 left-0 z-10 lg:h-[480px] lg:w-[370px] xl:h-[560px] xl:w-[450px]"
             data={fakeDataHubDesk}
           />
-          <FakeDesk className="absolute right-0 top-0" data={fakeDataNetflix} />
+          <FakeDesk
+            className="absolute right-0 top-0 lg:h-[480px] lg:w-[370px] xl:h-[560px] xl:w-[450px]"
+            data={fakeDataNetflix}
+          />
         </div>
       </section>
       <section className="py-14">

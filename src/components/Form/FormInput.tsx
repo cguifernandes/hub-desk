@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { InputHTMLAttributes, ReactNode } from 'react'
+import { Dispatch, InputHTMLAttributes, ReactNode, SetStateAction } from 'react'
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 import Input from '../input'
+import { FakeRDeskProps } from '@/utils/type'
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   className?: string
@@ -10,6 +11,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   register?: any
   name?: string
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
+  setFakeData?: Dispatch<SetStateAction<FakeRDeskProps | undefined>>
 }
 
 const FormInput = ({
@@ -18,6 +20,7 @@ const FormInput = ({
   name,
   error,
   children,
+  setFakeData,
   ...props
 }: InputProps) => {
   return (
@@ -28,6 +31,7 @@ const FormInput = ({
         register={register}
         className={className!}
         error={error}
+        setFakeData={setFakeData}
       >
         {children}
       </Input>

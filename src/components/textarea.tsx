@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { TextareaHTMLAttributes } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  TextareaHTMLAttributes,
+} from 'react'
 import {
   FieldError,
   FieldErrorsImpl,
@@ -7,6 +12,7 @@ import {
   UseFormRegister,
 } from 'react-hook-form'
 import { clsx } from 'clsx'
+import { FakeRDeskProps } from '@/utils/type'
 
 type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   className?: string
@@ -26,6 +32,7 @@ type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   }>
   name?: string
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
+  setFakeData?: Dispatch<SetStateAction<FakeRDeskProps | undefined>>
 }
 
 const Textarea = ({
@@ -33,14 +40,27 @@ const Textarea = ({
   register,
   name,
   error,
+  setFakeData,
   ...props
 }: TextareaProps) => {
+  const handlerChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
+    if (setFakeData) {
+      setFakeData((prevData) => ({
+        ...prevData,
+        description: e.target.value,
+      }))
+    }
+  }
+
   if (register) {
     return (
       <div className="relative flex justify-between shadow-md">
         <textarea
           {...props}
-          {...register(name as 'title' | 'category' | 'description')}
+          {...register(name as 'title' | 'category' | 'description', {
+            onChange: (e: ChangeEvent<HTMLInputElement>) =>
+              handlerChangeValue(e),
+          })}
           className={clsx(
             'h-48 w-full resize-none rounded-md border border-transparent text-white',
             'bg-button-gradient px-4 py-3 placeholder-white/50 transition-colors focus:border-sky-700',

@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { TextareaHTMLAttributes } from 'react'
+import { Dispatch, SetStateAction, TextareaHTMLAttributes } from 'react'
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 import Textarea from '../textarea'
+import { FakeRDeskProps } from '@/utils/type'
 
 type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   className?: string
   register: any
   name: string
   error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
+  setFakeData?: Dispatch<SetStateAction<FakeRDeskProps | undefined>>
 }
 
 const FormTextarea = ({
@@ -15,6 +17,7 @@ const FormTextarea = ({
   register,
   name,
   error,
+  setFakeData,
   ...props
 }: TextareaProps) => {
   return (
@@ -25,6 +28,7 @@ const FormTextarea = ({
         register={register}
         name={name}
         error={error}
+        setFakeData={setFakeData}
       />
       {error && (
         <span className="text-sm text-red-500">

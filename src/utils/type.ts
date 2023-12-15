@@ -37,10 +37,10 @@ export type DeskProps = {
 }
 
 export type FakeRDeskProps = {
-  title: string
-  description: string
+  title?: string
+  description?: string
   src?: string
-  category:
+  category?:
     | 'Animes'
     | 'Desenhos'
     | 'Filmes'
@@ -48,7 +48,7 @@ export type FakeRDeskProps = {
     | 'Outros'
     | 'Séries'
     | 'Sites'
-    | 'Todas categorias'
+    | any
 }
 
 export type RDeskProps = {
