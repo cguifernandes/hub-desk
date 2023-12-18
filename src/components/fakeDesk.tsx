@@ -12,8 +12,8 @@ type FakeDeskProps = {
   className?: string
   delay?: boolean
   data: FakeRDeskProps | undefined
-  authorId: string | undefined
-  createdAt: Date
+  authorId?: string | undefined
+  createdAt?: Date
 }
 
 const FakeDesk = ({
@@ -72,7 +72,9 @@ const FakeDesk = ({
           />
         </div>
       )}
-      <DeskWrapper authorId={authorId} createdAt={createdAt} />
+      {authorId && createdAt && (
+        <DeskWrapper authorId={authorId} createdAt={createdAt} />
+      )}
     </motion.div>
   )
 }

@@ -45,9 +45,12 @@ const Textarea = ({
 }: TextareaProps) => {
   const handlerChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
     if (setFakeData) {
+      const value =
+        e.target.value === '' ? 'Escreva uma descrição' : e.target.value
+
       setFakeData((prevData) => ({
         ...prevData,
-        description: e.target.value,
+        description: value,
       }))
     }
   }

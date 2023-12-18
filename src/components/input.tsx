@@ -35,9 +35,11 @@ const Input = ({
 }: InputProps) => {
   const handlerChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
     if (setFakeData) {
+      const value = e.target.value === '' ? 'Escreva um título' : e.target.value
+
       setFakeData((prevData) => ({
         ...prevData,
-        [name as string]: e.target.value,
+        [name as string]: value,
       }))
     }
   }
@@ -71,12 +73,7 @@ const Input = ({
     return (
       <input
         {...register(name as 'title' | 'email' | 'password', {
-          onChange: (e: ChangeEvent<HTMLInputElement>) =>
-            setFakeData &&
-            setFakeData((prevData) => ({
-              ...prevData,
-              [name as string]: e.target.value,
-            })),
+          onChange: (e: ChangeEvent<HTMLInputElement>) => handlerChangeValue(e),
         })}
         className={clsx(
           'w-full rounded-md border border-transparent bg-button-gradient text-white',
