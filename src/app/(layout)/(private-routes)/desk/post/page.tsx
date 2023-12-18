@@ -17,7 +17,7 @@ const Desk = () => {
     <section className="flex min-h-[calc(100vh_-_80px_-_64px)] flex-col items-center">
       {isConnected ? (
         <>
-          <div className="w-[90%] px-10 py-8 text-center sm:w-[80%] lg:w-[920px] xl:w-[1020px]">
+          <div className="w-[90%] py-8 text-center sm:w-[80%] lg:w-[920px] lg:px-10 xl:w-[1020px]">
             <Heading size="md">
               Crie uma desk para que você possa discutir sua opinião com a
               comunidade
@@ -26,7 +26,7 @@ const Desk = () => {
               Campos com “*” são obrigatórios
             </Text>
           </div>
-          <div className="flex w-full items-center justify-evenly pb-8">
+          <div className="flex w-full flex-col items-center justify-evenly gap-y-12 px-4 pb-8 lg:flex-row">
             <FormDesk />
           </div>
         </>

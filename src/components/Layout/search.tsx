@@ -61,7 +61,7 @@ const Search = () => {
           },
         }}
         className={clsx(
-          'absolute right-0 z-20 flex h-[41px] min-w-[54px] items-center justify-between rounded-md',
+          'absolute right-0 z-20 flex h-[38px] min-w-[42px] items-center justify-between rounded-md',
           'bg-grey-500 px-4 py-2 md:h-auto md:min-w-[240px] lg:relative lg:m-0',
         )}
       >
@@ -73,9 +73,8 @@ const Search = () => {
           value={query}
         />
         <SearchIcon
-          className="absolute right-4 z-[5] bg-grey-500"
+          className="absolute right-[11px] z-[5] w-5 bg-grey-500 md:right-4"
           color="#fff"
-          size={22}
           strokeWidth={1.5}
         />
         <AnimatePresence>

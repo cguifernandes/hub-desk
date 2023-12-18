@@ -99,7 +99,7 @@ const FormDesk = () => {
   return (
     <>
       <Form.Root
-        className="w-2/5 space-y-8"
+        className="w-full max-w-[600px] space-y-8 lg:w-full lg:max-w-[550px] lg:pr-6"
         handleSubmit={handleSubmit(handlerFormSubmit)}
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -179,7 +179,7 @@ const FormDesk = () => {
         />
       </Form.Root>
       <FakeDesk
-        className="relative h-[600px] w-[500px]"
+        className="relative h-[600px] w-full max-w-[500px] lg:w-2/5 lg:max-w-[500px]"
         authorId={user_session}
         createdAt={currentDate}
         data={fakeData}
