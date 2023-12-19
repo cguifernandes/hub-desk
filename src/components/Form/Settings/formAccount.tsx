@@ -115,6 +115,7 @@ const FormAccount = ({ client, user_session }: FormAccountProps) => {
           {...register('pfp', { onChange: (e) => handleFileInputChange(e) })}
           id="pfp"
           type="file"
+          accept="image/*"
           className="hidden"
         />
         <label

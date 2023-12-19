@@ -7,7 +7,7 @@ const Loading = () => {
         <Skeleton className="max-w-[140px]" height={36} />
         <Skeleton className="max-w-[340px]" height={20} />
       </header>
-      <div className="space-y-8 pt-12">
+      <div className="space-y-8">
         <Skeleton height={52} />
         <Skeleton height={52} />
         <Skeleton height={52} />

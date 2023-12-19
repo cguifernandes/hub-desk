@@ -2,7 +2,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable camelcase */
 import Heading from '@/components/Typography/heading'
-import Desks from '@/components/desks'
+import Text from '@/components/Typography/text'
+import Desks from '@/components/Layout/desks'
 import { url } from '@/utils/constant'
 import { ClientsProps, RDeskProps } from '@/utils/type'
 import { Metadata } from 'next'
@@ -88,10 +89,13 @@ export default async function Desk({ params }: { params: { slug: string } }) {
           </div>
         </div>
       </div>
-      <div className="my-16 flex h-full flex-col">
-        <Heading className="font-medium" align="center" size="lg">
-          Desks
-        </Heading>
+      <div className="my-16 flex h-full w-full flex-col">
+        <div className="w-full text-center">
+          <Heading size="lg">Desks</Heading>
+          <Text className="text-white/50">
+            Desks criadas por {props.client[0].user}
+          </Text>
+        </div>
         <Desks id={props.client[0].id} />
       </div>
     </section>

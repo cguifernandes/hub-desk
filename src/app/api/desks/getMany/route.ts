@@ -5,7 +5,7 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const id = searchParams.get('id')
   const page = searchParams.get('page')
-  const PER_PAGE = 12
+  const PER_PAGE = 8
 
   if (id) {
     const currentPage = Math.max(Number(page || 1), 1)

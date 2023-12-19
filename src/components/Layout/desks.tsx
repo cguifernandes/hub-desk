@@ -1,52 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable camelcase */
 'use client'
-import CardDesk from './cardDesk'
+import CardDesk from '../cardDesk'
 import clsx from 'clsx'
-import Heading from './Typography/heading'
 import Skeleton from '@/components/Layout/skeleton'
 import Pagination from '@/components/Layout/pagination'
 import EmptyAlert from '@/components/Layout/emptyAlert'
-import useClient from '@/hooks/useClient'
-import { MouseEvent, useEffect, useState } from 'react'
-import { DeskProps, RDeskProps, ResponseProps } from '@/utils/type'
-import { api } from '@/utils/api'
-import { Toast } from '@/utils/toast'
-import { Trash2 } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { DeskProps, RDeskProps } from '@/utils/type'
 
 const Desks = ({ id }: { id: string }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [desks, setDesks] = useState<DeskProps[]>([])
   const [count, setCount] = useState(0)
-  const [page, setPage] = useState(0)
-  const totalPages = Math.ceil(count / 12)
-
-  // const handleDeleteDesk = async (
-  //   event: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
-  //   id: string | undefined,
-  //   authorId: string | undefined,
-  // ) => {
-  //   event.preventDefault()
-  //   try {
-  //     const { data }: { data: ResponseProps } = await api.delete(
-  //       `desks?page=${page}`,
-  //       {
-  //         data: JSON.stringify({ id, authorId }),
-  //         headers: { 'Content-Type': 'application/json' },
-  //       },
-  //     )
-
-  //     if (data.error) {
-  //       Toast(data.error)
-  //     } else {
-  //       setDesks(data.data)
-  //       setPage(0)
-  //     }
-  //   } catch (err) {
-  //     Toast(`Erro ao apagar a desk. ${err}`)
-  //   }
-  // }
+  const [page, setPage] = useState(1)
+  const totalPages = Math.ceil(count / 8)
 
   useEffect(() => {
     setMounted(true)
@@ -118,7 +87,7 @@ const Desks = ({ id }: { id: string }) => {
           ) : (
             desks.map((desk) => (
               <CardDesk
-                className="relative min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]"
+                className="relative min-w-[360px] max-w-[490px] flex-1 sm:min-w-[420px]"
                 href={`/desk/${desk.id}`}
                 key={desk.id}
                 data={desk}
@@ -128,7 +97,7 @@ const Desks = ({ id }: { id: string }) => {
         </div>
       )}
       {desks.length > 0 && !isLoading && (
-        <Pagination setPage={setPage} totalPages={totalPages} />
+        <Pagination page={page} setPage={setPage} totalPages={totalPages} />
       )}
     </>
   )
