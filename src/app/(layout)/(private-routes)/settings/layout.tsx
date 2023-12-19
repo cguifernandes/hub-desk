@@ -1,6 +1,11 @@
 import Heading from '@/components/Typography/heading'
 import SideBar from '@/components/Layout/sideBar'
 import { ReactNode } from 'react'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Configurações | Hub Desk',
+}
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (

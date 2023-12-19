@@ -20,7 +20,7 @@ const Back = ({ isHeader = false, className, href }: BackProps) => {
   }, [])
 
   if (!mounted) {
-    return <Skeleton height={36} width={210} />
+    return <Skeleton className={className} height={36} width={210} />
   }
 
   if (href) {

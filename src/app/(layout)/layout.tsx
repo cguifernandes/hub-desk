@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+'use client'
 import { ReactNode } from 'react'
 import Footer from '@/components/Layout/footer'
 import Header from '@/components/Layout/header'
