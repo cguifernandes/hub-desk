@@ -8,11 +8,13 @@ import { useIsLarge, useIsMedium } from '@/hooks/useMediaQuery'
 import { RSearchProps } from '@/utils/type'
 import DropSearch from '../dropSearch'
 import clsx from 'clsx'
+import useClient from '@/hooks/useClient'
 
 const Search = () => {
   const [isVisibleSearch, setIsVisibleSearch] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [response, setResponse] = useState<RSearchProps>()
+  const { isConnected } = useClient()
   const [query, setQuery] = useState('')
   const isLarge = useIsLarge()
   const isMedium = useIsMedium()
@@ -41,6 +43,10 @@ const Search = () => {
   const handlerClickOverlay = () => {
     setIsVisibleSearch(false)
     setQuery('')
+  }
+
+  if (!isConnected) {
+    return <></>
   }
 
   return (
