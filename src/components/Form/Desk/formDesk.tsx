@@ -65,7 +65,7 @@ const FormDesk = () => {
         Toast(data.success)
         reset()
         setSelectedCategory('')
-        setSelectedVisibility('')
+        setSelectedVisibility('Público')
         setFileList(undefined)
         setFakeData({
           category: 'Selecione uma categoria',

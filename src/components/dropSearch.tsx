@@ -39,7 +39,7 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                   response?.desks.map((desk) => (
                     <div
                       key={desk.id}
-                      className="flex max-h-[140px] min-h-[130px] w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500"
+                      className="flex max-h-[140px] min-h-[130px] max-w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500"
                     >
                       {desk.image && (
                         <img
@@ -49,13 +49,17 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                         />
                       )}
                       <div className="flex flex-col justify-between gap-y-3 py-2">
-                        <Link href={`/desk/${desk.id}`} className="space-y-px">
+                        <Link
+                          href={`/desk/${desk.id}`}
+                          style={{ maxWidth: desk.image ? 439 : 531 }}
+                          className="space-y-px"
+                        >
                           <Heading className="line-clamp-1 text-lg">
                             {desk.title}
                           </Heading>
                           <Text
                             size="sm"
-                            className="line-clamp-2 break-words text-white/50"
+                            className="truncate whitespace-nowrap text-white/50"
                           >
                             {desk.description}
                           </Text>

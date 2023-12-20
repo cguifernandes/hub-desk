@@ -50,7 +50,7 @@ const FormSignUp = () => {
         Toast(data.error)
       } else {
         reset()
-        Toast('Conta criada!')
+        Toast(data.success)
         push('/')
         setCookie(null, 'user_session', data.id, {
           path: '/',
@@ -89,6 +89,7 @@ const FormSignUp = () => {
         register={register}
         name="user"
         placeholder="User"
+        maxLength={18}
       >
         <UserCircle
           className="absolute right-4"

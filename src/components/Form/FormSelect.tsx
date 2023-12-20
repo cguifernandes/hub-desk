@@ -32,7 +32,7 @@ const FormSelect = ({
 }: SelectProps) => {
   return (
     <div className="w-full sm:w-1/2">
-      {value && <span className="text-sm text-white/50">{value}</span>}
+      {value && <label className="text-sm text-white/50">{value}</label>}
       <Select
         error={error}
         {...props}

@@ -50,7 +50,7 @@ const Input = ({
         <div
           className={clsx(
             'relative flex items-center justify-between rounded-md border border-transparent',
-            'bg-button-gradient px-4 py-3 text-white transition-colors focus:border-sky-700',
+            'bg-button-gradient text-white transition-colors focus:border-sky-700',
             className,
           )}
         >
@@ -59,7 +59,7 @@ const Input = ({
               onChange: (e: ChangeEvent<HTMLInputElement>) =>
                 handlerChangeValue(e),
             })}
-            className="w-[calc(100%_-_15%)] bg-transparent placeholder-white/50"
+            className="w-[calc(100%_-_58px)] bg-transparent py-3 pl-4 placeholder-white/50"
             {...props}
             style={error && { borderColor: 'rgb(239 68 68)' }}
           />

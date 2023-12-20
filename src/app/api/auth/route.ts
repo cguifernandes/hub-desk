@@ -112,18 +112,25 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: 'ID de usuário não encontrado.' })
     }
 
-    await prisma.desk.deleteMany({ where: { authorId: id } })
-    await prisma.comment.deleteMany({ where: { authorId: id } })
-    await prisma.clients.delete({ where: { id } })
-    const { data: list } = await supabase.storage
-      .from('hub-desk')
-      .list(`profile/${user}`)
-    const filesToRemove = list?.map((x) => `profile/${user}/${x.name}`)
-    if (filesToRemove) {
-      await supabase.storage.from('hub-desk').remove(filesToRemove)
-    }
+    const existingClient = await prisma.clients.findUnique({ where: { id } })
 
-    return NextResponse.json({ success: 'Conta excluída com sucesso.' })
+    if (existingClient) {
+      await prisma.member.deleteMany({ where: { userId: id } })
+      await prisma.comment.deleteMany({ where: { authorId: id } })
+      await prisma.desk.deleteMany({ where: { authorId: id } })
+      await prisma.clients.delete({ where: { id } })
+      const { data: list } = await supabase.storage
+        .from('hub-desk')
+        .list(`profile/${user}`)
+      const filesToRemove = list?.map((x) => `profile/${user}/${x.name}`)
+      if (filesToRemove) {
+        await supabase.storage.from('hub-desk').remove(filesToRemove)
+      }
+
+      return NextResponse.json({ success: 'Conta excluída com sucesso.' })
+    } else {
+      return NextResponse.json({ error: 'Usuário não encontrado.' })
+    }
   } catch (error) {
     console.error('Erro durante a autenticação:', error)
     return NextResponse.json('Ocorreu um erro durante a autenticação.', {

@@ -60,12 +60,6 @@ const AccountWrapper = ({ client }: { client: ClientsProps[] }) => {
             <Heading size="md">Alterar dados da conta</Heading>
             <FormAccount user_session={user_session} client={client} />
           </div>
-          <DeleteModal
-            loading={isLoading}
-            handlerDeleteAccount={handlerDeleteAccount}
-            setVisibleModal={setVisibleModal}
-            visibleModal={visibleModal}
-          />
           <div className="flex flex-col space-y-6 py-6">
             <div className="flex flex-col items-start justify-center space-y-1 text-left">
               <Heading size="md" className="text-white">
@@ -80,6 +74,12 @@ const AccountWrapper = ({ client }: { client: ClientsProps[] }) => {
               onClick={() => setVisibleModal(true)}
               className="w-3/4"
               text="Excluir conta permanentemente"
+            />
+            <DeleteModal
+              loading={isLoading}
+              handlerDeleteAccount={handlerDeleteAccount}
+              setVisibleModal={setVisibleModal}
+              visibleModal={visibleModal}
             />
           </div>
         </>

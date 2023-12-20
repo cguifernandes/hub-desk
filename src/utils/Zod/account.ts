@@ -8,6 +8,7 @@ export const schemaAccount = z.object({
     .nonempty('Este campo é obrigatório.'),
   user: z
     .string()
+    .min(5, 'Este campo precisa conter pelo menos 5 caracteres.')
     .nonempty('Este campo é obrigatório.')
     .refine(
       (userName) => !/\s/.test(userName),

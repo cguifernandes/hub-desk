@@ -22,9 +22,9 @@ const FormTextarea = ({
   ...props
 }: TextareaProps) => {
   return (
-    <div>
+    <div className="flex flex-col">
       {placeholder && (
-        <span className="text-sm text-white/50">{placeholder}</span>
+        <label className="text-sm text-white/50">{placeholder}</label>
       )}
       <Textarea
         {...props}

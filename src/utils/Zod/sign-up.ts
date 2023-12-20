@@ -3,6 +3,7 @@ import { z } from 'zod'
 export const schemaSignUp = z.object({
   user: z
     .string()
+    .min(5, 'Este campo precisa conter pelo menos 5 caracteres.')
     .nonempty('Este campo é obrigatório.')
     .refine(
       (password) => !/\s/.test(password),

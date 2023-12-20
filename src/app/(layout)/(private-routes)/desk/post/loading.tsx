@@ -2,7 +2,7 @@ import Skeleton from '@/components/Layout/skeleton'
 
 const Loading = () => {
   return (
-    <>
+    <section className="flex min-h-[calc(100vh_-_80px_-_64px)] flex-col items-center py-8 lg:py-10">
       <div className="w-[90%] space-y-1 py-16 text-center sm:w-[80%] lg:w-[920px] xl:w-[1020px]">
         <Skeleton className="m-auto w-10/12" height={28} />
         <Skeleton className="m-auto w-4/12" height={24} />
@@ -13,7 +13,7 @@ const Loading = () => {
         <Skeleton height={192} className="w-full" />
         <Skeleton height={48} className="w-full" />
       </div>
-    </>
+    </section>
   )
 }
 

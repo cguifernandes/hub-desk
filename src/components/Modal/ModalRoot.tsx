@@ -13,7 +13,7 @@ const ModalRoot = ({ children, visibleModal, className }: ModalRootProps) => {
       {visibleModal && (
         <div
           className={clsx(
-            'fixed left-0 top-0 z-20 flex h-screen w-screen',
+            'fixed left-0 top-0 z-20 !m-0 flex h-screen w-screen',
             className,
           )}
         >

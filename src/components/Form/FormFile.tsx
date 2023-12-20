@@ -48,8 +48,8 @@ const FormFile = ({
   }
 
   return (
-    <div>
-      <span className="text-sm text-white/50">Imagem</span>
+    <div className="flex flex-col">
+      <label className="text-sm text-white/50">Imagem</label>
       <div
         style={error && { borderColor: 'rgb(239 68 68)' }}
         className={clsx(

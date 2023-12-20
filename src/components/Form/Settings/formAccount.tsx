@@ -38,7 +38,6 @@ const FormAccount = ({ client, user_session }: FormAccountProps) => {
   })
 
   const handlerUpdateAccount = async (account: AccountProps) => {
-    console.log(account)
     try {
       setIsLoading(true)
       if (account.pfp !== undefined) {
@@ -133,12 +132,18 @@ const FormAccount = ({ client, user_session }: FormAccountProps) => {
           {errors.pfp.message?.toString()}
         </span>
       )}
-      <Form.Input error={errors.email} register={register} name="email" />
+      <Form.Input
+        error={errors.email}
+        register={register}
+        placeholder="Email"
+        name="email"
+      />
       <Form.Input
         maxLength={18}
         error={errors.user}
         register={register}
         name="user"
+        placeholder="User"
       />
       <Form.Button
         loading={isLoading}

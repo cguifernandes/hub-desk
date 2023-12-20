@@ -20,7 +20,7 @@ const Layout = ({ children }: LayoutProps) => {
             className="absolute left-2/4 top-16 -translate-x-2/4"
             href="/"
           />
-          <div className="flex h-[420px] w-full flex-col justify-evenly">
+          <div className="flex w-full flex-col justify-evenly gap-y-6">
             {children}
           </div>
         </div>

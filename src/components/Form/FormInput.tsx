@@ -4,6 +4,7 @@ import { Dispatch, InputHTMLAttributes, ReactNode, SetStateAction } from 'react'
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 import Input from '../input'
 import { FakeRDeskProps } from '@/utils/type'
+import clsx from 'clsx'
 
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   className?: string
@@ -25,9 +26,9 @@ const FormInput = ({
   ...props
 }: InputProps) => {
   return (
-    <div className={className}>
+    <div className={clsx('flex flex-col justify-start', className)}>
       {placeholder && (
-        <span className="text-sm text-white/50">{placeholder}</span>
+        <label className="text-sm text-white/50">{placeholder}</label>
       )}
       <Input
         {...props}
