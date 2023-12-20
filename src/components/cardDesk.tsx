@@ -11,6 +11,7 @@ import clsx from 'clsx'
 import { ReactNode } from 'react'
 import DeskWrapper from '@/components/Wrapper/deskWrapper'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 
 type CardDeskProps = {
   children?: ReactNode
@@ -20,8 +21,13 @@ type CardDeskProps = {
 }
 
 const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
+  const Pattern = href ? motion(Link) : motion.div
+
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ type: 'keyframes', duration: 0.4 }}
       className={clsx(
         'flex h-[640px] flex-col justify-between rounded-md border-2',
         'relative border-grey-400 bg-desk-gradient p-7 shadow-md',
@@ -39,7 +45,7 @@ const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
           <div className="absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-grey-600"></div>
         </div>
       )}
-      <Link
+      <Pattern
         href={href!}
         style={{ marginTop: data.image ? 120 : 0 }}
         className="z-20 flex w-full flex-col items-center space-y-1 text-center"
@@ -51,7 +57,7 @@ const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
           {data.title}
         </Heading>
         <Text className="text-white/50">{data.category}</Text>
-      </Link>
+      </Pattern>
       <Text className="break-words text-center">{data.description}</Text>
       {data.category === 'Sites' && data.repo !== '' && data.website !== '' && (
         <div className="flex flex-col gap-6">
@@ -77,7 +83,7 @@ const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
         </div>
       )}
       <DeskWrapper authorId={data.authorId} createdAt={data.createdAt} />
-    </div>
+    </motion.div>
   )
 }
 

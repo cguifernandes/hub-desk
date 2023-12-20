@@ -4,7 +4,7 @@ import CardDesk from '@/components/cardDesk'
 import Heading from '@/components/Typography/heading'
 import Text from '@/components/Typography/text'
 import { url } from '@/utils/constant'
-import { DeskProps } from '@/utils/type'
+import { DeskProps, RDeskProps } from '@/utils/type'
 import { Metadata } from 'next'
 import FormComments from '@/components/Form/Comments/formComments'
 import Comments from '@/components/Layout/comments'
@@ -29,25 +29,36 @@ async function getServerSideProps(deskId: string | undefined) {
     cache: 'reload',
   })
 
-  return await response.json()
+  const desk = await response.json()
+
+  return {
+    props: {
+      desk,
+    },
+  }
 }
 
 export default async function Desk({ params }: { params: { slug: string } }) {
-  const { data }: { data: DeskProps[] } = await getServerSideProps(params.slug)
+  const { props } = (await getServerSideProps(params.slug)) as {
+    props: { desk: RDeskProps }
+  }
 
   return (
-    <section className="flex min-h-[calc(100vh_-_192px)] flex-col items-center bg-gradient-to-b from-grey-550 to-grey-500">
-      <div className="flex flex-col items-center justify-center px-10 pt-8 sm:pt-14">
+    <section className="flex min-h-[calc(100vh_-_80px_-_64px)] flex-col items-center py-8 sm:py-14">
+      {/* <div className="flex max-w-full flex-col items-center justify-center whitespace-nowrap px-10">
         <Heading size="lg" align="center" className="text-white">
           Desk
         </Heading>
-        <Text className="text-white/50">{data[0]?.title}</Text>
-      </div>
-      <div className="w-full space-y-6 px-10 py-6">
-        <div className="flex w-full grow-[1] basis-0 flex-wrap items-center justify-center">
-          <CardDesk className="flex-1" key={data[0].title} data={data[0]} />
-        </div>
-        <FormComments deskId={data[0].id} />
+        <Text className="truncate text-white/50">
+          {props.desk.data[0]?.title}
+        </Text>
+      </div> */}
+      <div className="w-full space-y-6 px-4">
+        <CardDesk
+          className="mx-auto w-full min-w-[320px] max-w-[520px] md:min-w-[420px]"
+          data={props.desk.data[0]}
+        />
+        <FormComments deskId={props.desk.data[0].id} />
         <Comments deskId={params.slug} />
       </div>
     </section>

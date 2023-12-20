@@ -80,9 +80,9 @@ const Home = () => {
               key={index}
             >
               <Heading className="font-medium" size="md">
-                {categories.name}
+                {categories.value}
               </Heading>
-              <Carousel category={categories.name} />
+              <Carousel category={categories.value} />
             </AnimationWrapper>
           ))}
         </div>

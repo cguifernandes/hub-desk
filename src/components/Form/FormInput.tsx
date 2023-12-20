@@ -21,17 +21,21 @@ const FormInput = ({
   error,
   children,
   setFakeData,
+  placeholder,
   ...props
 }: InputProps) => {
   return (
-    <>
+    <div className={className}>
+      {placeholder && (
+        <span className="text-sm text-white/50">{placeholder}</span>
+      )}
       <Input
         {...props}
         name={name}
         register={register}
-        className={className!}
         error={error}
         setFakeData={setFakeData}
+        placeholder={placeholder}
       >
         {children}
       </Input>
@@ -40,7 +44,7 @@ const FormInput = ({
           {error.message?.toString()}
         </span>
       )}
-    </>
+    </div>
   )
 }
 

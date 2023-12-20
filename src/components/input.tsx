@@ -49,7 +49,8 @@ const Input = ({
       return (
         <div
           className={clsx(
-            'relative flex items-center justify-between',
+            'relative flex items-center justify-between rounded-md border border-transparent',
+            'bg-button-gradient px-4 py-3 text-white transition-colors focus:border-sky-700',
             className,
           )}
         >
@@ -58,10 +59,7 @@ const Input = ({
               onChange: (e: ChangeEvent<HTMLInputElement>) =>
                 handlerChangeValue(e),
             })}
-            className={clsx(
-              'w-full rounded-md border border-transparent bg-button-gradient text-white',
-              'px-4 py-3 placeholder-white/50 transition-colors focus:border-sky-700',
-            )}
+            className="w-[calc(100%_-_15%)] bg-transparent placeholder-white/50"
             {...props}
             style={error && { borderColor: 'rgb(239 68 68)' }}
           />

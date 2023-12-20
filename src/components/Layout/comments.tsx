@@ -6,16 +6,20 @@ import { useEffect, useState } from 'react'
 import DeskWrapper from '../Wrapper/deskWrapper'
 import Text from '../Typography/text'
 import Pagination from './pagination'
+import clsx from 'clsx'
+import Skeleton from './skeleton'
 
 const Comments = ({ deskId }: { deskId: string | undefined }) => {
   const [comments, setComments] = useState<CommentProps[]>([])
   const [count, setCount] = useState(0)
-  const [page, setPage] = useState(0)
-  const totalPages = Math.ceil(count / 2)
+  const [isLoading, setIsLoading] = useState(false)
+  const [page, setPage] = useState(1)
+  const totalPages = Math.ceil(count / 4)
 
   useEffect(() => {
     const getComments = async () => {
       try {
+        setIsLoading(true)
         const response = await fetch(
           `/api/comments/getUnique?id=${deskId}&page=${page}`,
           {
@@ -28,6 +32,8 @@ const Comments = ({ deskId }: { deskId: string | undefined }) => {
         setCount(data.count)
       } catch (err) {
         console.log(err)
+      } finally {
+        setIsLoading(false)
       }
     }
 
@@ -39,22 +45,35 @@ const Comments = ({ deskId }: { deskId: string | undefined }) => {
       {comments.length > 0 && (
         <>
           <div className="m-auto h-[2px] w-full max-w-[700px] bg-grey-400" />
-          <div className="flex w-full flex-col items-center justify-center space-y-4 py-4">
-            {comments.map((comments) => (
-              <div
-                className="flex h-auto min-h-[180px] w-full max-w-[600px] flex-col justify-between rounded-md bg-grey-550 p-4 text-white shadow-md"
-                key={comments.id}
-              >
-                <Text className="break-words">{comments.text}</Text>
-                <DeskWrapper
-                  className="pt-8"
-                  authorId={comments.authorId}
-                  createdAt={comments.createdAt}
-                />
-              </div>
-            ))}
+          <div className="grid w-full grid-cols-2 items-center justify-items-center gap-4 py-4">
+            {!isLoading ? (
+              comments.map((comments) => (
+                <div
+                  className={clsx(
+                    'flex h-40 w-full max-w-2xl flex-col justify-between rounded-md',
+                    'border-2 border-grey-400 bg-desk-gradient p-4 text-white',
+                  )}
+                  key={comments.id}
+                >
+                  <Text className="break-words">{comments.text}</Text>
+                  <DeskWrapper
+                    className="pt-8"
+                    authorId={comments.authorId}
+                    createdAt={comments.createdAt}
+                  />
+                </div>
+              ))
+            ) : (
+              <>
+                <Skeleton className="h-40 w-full max-w-2xl" />
+                <Skeleton className="h-40 w-full max-w-2xl" />
+                <Skeleton className="h-40 w-full max-w-2xl" />
+                <Skeleton className="h-40 w-full max-w-2xl" />
+              </>
+            )}
           </div>
           <Pagination
+            page={page}
             className="w-full"
             setPage={setPage}
             totalPages={totalPages}

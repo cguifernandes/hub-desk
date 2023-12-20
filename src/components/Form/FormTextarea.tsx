@@ -18,15 +18,20 @@ const FormTextarea = ({
   name,
   error,
   setFakeData,
+  placeholder,
   ...props
 }: TextareaProps) => {
   return (
-    <>
+    <div>
+      {placeholder && (
+        <span className="text-sm text-white/50">{placeholder}</span>
+      )}
       <Textarea
         {...props}
         className={className}
         register={register}
         name={name}
+        placeholder={placeholder}
         error={error}
         setFakeData={setFakeData}
       />
@@ -35,7 +40,7 @@ const FormTextarea = ({
           {error.message?.toString()}
         </span>
       )}
-    </>
+    </div>
   )
 }
 

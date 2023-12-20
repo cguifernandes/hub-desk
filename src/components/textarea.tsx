@@ -57,21 +57,18 @@ const Textarea = ({
 
   if (register) {
     return (
-      <div className="relative flex justify-between shadow-md">
-        <textarea
-          {...props}
-          {...register(name as 'title' | 'category' | 'description', {
-            onChange: (e: ChangeEvent<HTMLInputElement>) =>
-              handlerChangeValue(e),
-          })}
-          className={clsx(
-            'h-48 w-full resize-none rounded-md border border-transparent text-white',
-            'bg-button-gradient px-4 py-3 placeholder-white/50 transition-colors focus:border-sky-700',
-            className,
-          )}
-          style={error && { borderColor: 'rgb(239 68 68)' }}
-        />
-      </div>
+      <textarea
+        {...props}
+        {...register(name as 'title' | 'category' | 'description', {
+          onChange: (e: ChangeEvent<HTMLInputElement>) => handlerChangeValue(e),
+        })}
+        className={clsx(
+          'h-48 w-full resize-none rounded-md border border-transparent text-white',
+          'bg-button-gradient px-4 py-3 placeholder-white/50 transition-colors focus:border-sky-700',
+          className,
+        )}
+        style={error && { borderColor: 'rgb(239 68 68)' }}
+      />
     )
   }
 

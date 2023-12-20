@@ -38,11 +38,12 @@ export async function DELETE(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const { searchParams } = new URL(request.url)
-  const id = searchParams.get('id')
+  const authorId = searchParams.get('authorId')
   const body: DeskProps = await request.json()
-  const { category, description, title, repo, website, image } = body
+  const { category, description, title, repo, website, image, visibility } =
+    body
   try {
-    if (!id) {
+    if (!authorId) {
       return NextResponse.json({
         error: 'Não é possível criar uma desk sem estar logado.',
       })
@@ -52,10 +53,11 @@ export async function POST(request: NextRequest) {
         category,
         description,
         title,
-        authorId: id,
+        authorId,
         repo,
         website,
         image,
+        visibility,
       },
     })
 

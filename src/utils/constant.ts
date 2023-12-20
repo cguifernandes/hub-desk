@@ -1,19 +1,34 @@
 export const categories = [
   {
-    name: 'Animes',
+    value: 'Animes',
+    id: 1,
   },
   {
-    name: 'Desenhos',
+    value: 'Desenhos',
+    id: 2,
   },
   {
-    name: 'Filmes',
+    value: 'Filmes',
+    id: 3,
   },
-  { name: 'Jogos' },
-  { name: 'Outros' },
+  { value: 'Jogos', id: 4 },
+  { value: 'Outros', id: 5 },
   {
-    name: 'Séries',
+    value: 'Séries',
+    id: 6,
   },
-  { name: 'Sites' },
+  { value: 'Sites', id: 7 },
+]
+
+export const visibility = [
+  {
+    value: 'Público',
+    id: 1,
+  },
+  {
+    value: 'Privado',
+    id: 2,
+  },
 ]
 
 export const PRIVATE_ROUTES = [

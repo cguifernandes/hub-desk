@@ -11,53 +11,47 @@ type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
   error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
   handlerClickSelect: (value: any) => void
   setFakeData?: Dispatch<SetStateAction<FakeRDeskProps | undefined>>
+  className?: string
+  value: string
+  dropDownItems: {
+    id: number
+    value: any
+  }[]
+  message?: string
 }
 
 const FormSelect = ({
   selectedDropDown,
   error,
   handlerClickSelect,
+  className,
+  dropDownItems,
+  value,
+  message,
+  ...props
 }: SelectProps) => {
-  const categories = [
-    {
-      value: 'Animes',
-      id: 1,
-    },
-    {
-      value: 'Desenhos',
-      id: 2,
-    },
-    {
-      value: 'Filmes',
-      id: 3,
-    },
-    { value: 'Jogos', id: 4 },
-    { value: 'Outros', id: 5 },
-    {
-      value: 'Séries',
-      id: 6,
-    },
-    { value: 'Sites', id: 7 },
-  ]
-
   return (
-    <>
+    <div className="w-full sm:w-1/2">
+      {value && <span className="text-sm text-white/50">{value}</span>}
       <Select
         error={error}
-        dropDownItems={categories}
+        {...props}
+        dropDownItems={dropDownItems}
         selectedDropDown={selectedDropDown}
-        value={'Categoria*'}
         handlerClickSelect={handlerClickSelect}
+        className={className}
+        value={value}
       >
         <ChevronDown color="#fff" strokeWidth={1.5} size={22} />
       </Select>
+      {message && <span className="text-sm text-white/50">{message}</span>}
       {error && (
         <span className="text-sm text-red-500">
           {error.type === 'invalid_type' &&
             'O campo "Categoria" é obrigatório.'}
         </span>
       )}
-    </>
+    </div>
   )
 }
 

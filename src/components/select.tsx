@@ -22,16 +22,15 @@ const Select = ({
   selectedDropDown,
   error,
   handlerClickSelect,
+  ...props
 }: SelectProps) => {
   const [visibleDropDown, setVisibleDropDown] = useState(false)
 
   return (
     <div
       onClick={() => setVisibleDropDown(!visibleDropDown)}
-      className={clsx(
-        'relative flex h-full cursor-pointer items-center',
-        className,
-      )}
+      {...props}
+      className={clsx('relative flex cursor-pointer items-center', className)}
     >
       <input
         style={{
@@ -56,7 +55,7 @@ const Select = ({
           <AnimationWrapper
             initial={{ translateY: -10, opacity: 0 }}
             animate={{ translateY: 0, opacity: 1 }}
-            exit={{ translateY: -20, opacity: 0 }}
+            exit={{ opacity: 0 }}
             className="absolute top-14 z-20 w-full select-none rounded-md border border-grey-400 bg-modal-gradient shadow-md backdrop-blur-md"
           >
             {dropDownItems.map((item) => (

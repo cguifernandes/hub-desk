@@ -2,32 +2,13 @@
 import { FakeRDeskProps } from '@/utils/type'
 import clsx from 'clsx'
 import { ChangeEvent, Dispatch, ReactNode, SetStateAction } from 'react'
-import {
-  FieldError,
-  FieldErrorsImpl,
-  Merge,
-  UseFormRegister,
-} from 'react-hook-form'
+import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type FormFileProps = {
   className?: string
   children: ReactNode
-  register: UseFormRegister<{
-    title: string
-    category:
-      | 'Animes'
-      | 'Desenhos'
-      | 'Filmes'
-      | 'Jogos'
-      | 'Outros'
-      | 'Séries'
-      | 'Sites'
-    description: string
-    repo: string
-    website: string
-    image?: any
-  }>
+  register: any
   error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
   setFileList: Dispatch<SetStateAction<File | undefined>>
   fileList: File | undefined
@@ -67,7 +48,8 @@ const FormFile = ({
   }
 
   return (
-    <>
+    <div>
+      <span className="text-sm text-white/50">Imagem</span>
       <div
         style={error && { borderColor: 'rgb(239 68 68)' }}
         className={clsx(
@@ -97,7 +79,7 @@ const FormFile = ({
           {error.message?.toString()}
         </span>
       )}
-    </>
+    </div>
   )
 }
 

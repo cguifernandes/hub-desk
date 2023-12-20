@@ -4,14 +4,16 @@ import { CommentZodProps, schemaComment } from '@/utils/Zod/comments'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Form } from '..'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useClient from '@/hooks/useClient'
 import { Toast } from '@/utils/toast'
 import { ResponseProps } from '@/utils/type'
 import { api } from '@/utils/api'
+import Skeleton from '@/components/Layout/skeleton'
 
 const FormComments = ({ deskId }: { deskId: string | undefined }) => {
   const [isLoading, setIsLoading] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const { user_session, isConnected } = useClient()
   const {
     handleSubmit,
@@ -22,6 +24,10 @@ const FormComments = ({ deskId }: { deskId: string | undefined }) => {
     reValidateMode: 'onSubmit',
     resolver: zodResolver(schemaComment),
   })
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handlerFormSubmit = async ({ text }: CommentZodProps) => {
     try {
@@ -46,7 +52,6 @@ const FormComments = ({ deskId }: { deskId: string | undefined }) => {
     } finally {
       setIsLoading(false)
     }
-    reset()
   }
 
   return (
@@ -63,18 +68,17 @@ const FormComments = ({ deskId }: { deskId: string | undefined }) => {
           placeholder="Comente aqui!"
         />
       </div>
-      {!isConnected ? (
-        <Form.Button
-          type="submit"
-          text="Você precisa estar logado para comentar."
-          className="w-full min-w-[240px] max-w-[650px]"
-          disabled
-        />
+      {!mounted ? (
+        <Skeleton height={48} className="w-full min-w-[240px] max-w-[650px]" />
       ) : (
         <Form.Button
           loading={isLoading}
           type="submit"
-          text="Comentar"
+          text={
+            isConnected
+              ? 'Comentar'
+              : 'Você precisa estar logado para comentar.'
+          }
           className="w-full min-w-[240px] max-w-[650px]"
         />
       )}

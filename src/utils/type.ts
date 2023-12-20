@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type ClientsProps = {
   id: string
   email: string
@@ -24,7 +25,8 @@ export type DeskProps = {
   repo: string
   website: string
   name?: string[]
-  image?: string
+  image: string
+  visibility: 'Público' | 'Privado'
   category:
     | 'Animes'
     | 'Desenhos'
@@ -33,7 +35,11 @@ export type DeskProps = {
     | 'Outros'
     | 'Séries'
     | 'Sites'
-    | 'Todas categorias'
+  members: {
+    userId: string
+    role: string
+    deskId: string
+  }[]
 }
 
 export type FakeRDeskProps = {

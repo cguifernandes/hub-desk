@@ -19,6 +19,7 @@ export const schemaDesk = z.object({
     .nonempty('Este campo é obrigatório.'),
   repo: z.union([z.literal(''), z.string().trim().url()]),
   website: z.union([z.literal(''), z.string().trim().url()]),
+  visibility: z.enum(['Público', 'Privado']).optional().default('Público'),
   image: z
     .any()
     .transform((file) => file[0])

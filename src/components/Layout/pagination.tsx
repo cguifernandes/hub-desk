@@ -15,7 +15,6 @@ const Pagination = ({
   className,
   page,
 }: PaginationProps) => {
-  console.log(page)
   return (
     <>
       {totalPages > 1 && (
