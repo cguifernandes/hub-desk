@@ -1,18 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { InputHTMLAttributes, useState } from 'react'
+import {
+  Dispatch,
+  InputHTMLAttributes,
+  ReactNode,
+  SetStateAction,
+  useState,
+} from 'react'
 import clsx from 'clsx'
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
-import AnimationWrapper from './Wrapper/animationWrapper'
 import { ChevronDown } from 'lucide-react'
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
   value: string
   className?: string
-  dropDownItems: { id: number; value: any }[]
-  selectedDropDown: string | number
+  dropDownItems?: { id: number; value: any }[]
+  selectedDropDown?: string | number
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
-  handlerClickSelect: (value: any) => void
+  handlerClickSelect?: (value: any) => void
+  children?: ReactNode
+  setQuery?: Dispatch<SetStateAction<string>>
 }
 
 const Select = ({
@@ -21,24 +28,37 @@ const Select = ({
   dropDownItems,
   selectedDropDown,
   error,
+  style,
+  setQuery,
   handlerClickSelect,
+  children,
   ...props
 }: SelectProps) => {
   const [visibleDropDown, setVisibleDropDown] = useState(false)
 
+  const handlerClick = () => {
+    if (children && setQuery) {
+      setQuery('')
+      setVisibleDropDown(!visibleDropDown)
+    }
+  }
+
   return (
     <div
-      onClick={() => setVisibleDropDown(!visibleDropDown)}
-      {...props}
-      className={clsx('relative flex cursor-pointer items-center', className)}
+      onClick={
+        children ? undefined : () => setVisibleDropDown(!visibleDropDown)
+      }
+      className={clsx('relative flex items-center', className)}
     >
       <input
+        {...props}
         style={{
-          color: selectedDropDown ? 'white' : 'rgba(255, 255, 255, 0.5)',
-          ...(error && { border: '2px solid rgb(239, 68, 68)' }),
+          ...style,
+          ...(error ? { border: '2px solid rgb(239, 68, 68)' } : {}),
         }}
         className="w-full cursor-pointer select-none rounded-md bg-button-gradient px-4 py-3"
         value={selectedDropDown || value}
+        onClick={handlerClick}
         readOnly
       />
       <ChevronDown
@@ -52,26 +72,33 @@ const Select = ({
       />
       <AnimatePresence>
         {visibleDropDown && (
-          <AnimationWrapper
+          <motion.div
             initial={{ translateY: -10, opacity: 0 }}
             animate={{ translateY: 0, opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="absolute top-14 z-20 w-full select-none rounded-md border border-grey-400 bg-modal-gradient shadow-md backdrop-blur-md"
+            transition={{ type: 'keyframes', duration: 0.2 }}
+            style={style}
+            className="absolute top-14 z-10 w-full select-none rounded-md border border-grey-400 bg-modal-gradient shadow-md backdrop-blur-md"
           >
-            {dropDownItems.map((item) => (
-              <ul key={item.id} className="group flex flex-col text-white">
-                <li
-                  onClick={() => handlerClickSelect(item.value)}
-                  className={clsx(
-                    'w-full cursor-pointer py-3 ease-out group-last:rounded-b-md',
-                    'px-4 duration-200 hover:bg-grey-500 group-first:rounded-t-md',
-                  )}
-                >
-                  {item.value}
-                </li>
+            {children || (
+              <ul className="group flex flex-col text-white">
+                {dropDownItems?.map((item) => (
+                  <li
+                    key={item.id}
+                    onClick={() =>
+                      handlerClickSelect && handlerClickSelect(item.value)
+                    }
+                    className={clsx(
+                      'w-full cursor-pointer py-3 ease-out group-last:rounded-b-md',
+                      'px-4 duration-200 hover:bg-grey-500 group-first:rounded-t-md',
+                    )}
+                  >
+                    {item.value}
+                  </li>
+                ))}
               </ul>
-            ))}
-          </AnimationWrapper>
+            )}
+          </motion.div>
         )}
       </AnimatePresence>
     </div>

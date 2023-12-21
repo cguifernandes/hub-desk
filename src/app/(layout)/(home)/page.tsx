@@ -32,11 +32,11 @@ const fakeDataNetflix: FakeRDeskProps = {
 const Home = () => {
   return (
     <>
-      <section className="m-auto flex h-[calc(100vh_-_80px)] w-full items-center justify-center lg:max-w-[1890px] lg:justify-between lg:px-10 xl:px-16">
+      <section className="relative flex h-[calc(100vh_-_80px)] w-full items-center justify-center lg:max-w-[1890px] lg:justify-between lg:px-10 xl:px-16">
         <AnimationWrapper
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="mx-8 w-full space-y-4 text-center sm:w-[710px] lg:m-0 lg:mr-6 lg:text-left"
+          className="z-10 mx-8 w-full space-y-4 text-center sm:w-[710px] lg:m-0 lg:mr-6 lg:text-left"
         >
           <Heading className="font-medium" size="lg">
             O que é o Hub Desk

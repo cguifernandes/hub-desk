@@ -82,25 +82,24 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                 <Heading className="text-xl">Usuários</Heading>
                 {response?.clients && response?.clients.length > 0 ? (
                   response?.clients.map((client) => (
-                    <div
+                    <Link
+                      href={`/profile/${client.user}`}
                       key={client.id}
-                      className="flex h-24 w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500"
+                      className="flex h-20 w-full items-center rounded-md px-3 py-2 transition-all hover:bg-grey-500"
                     >
                       <img
                         src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${client.pfp}`}
                         alt={client.user}
-                        className="mr-3 h-full w-20 overflow-clip rounded-full object-cover object-center align-top"
+                        className="mr-3 h-14 w-14 overflow-clip rounded-full object-cover object-center align-top"
                       />
-                      <div className="flex flex-col justify-between py-2">
-                        <a href={`/profile/${client.user}`}>
-                          <Heading className="text-lg">{client.user}</Heading>
-                        </a>
+                      <div className="flex flex-col justify-center gap-y-1">
+                        <Heading className="text-lg">{client.user}</Heading>
                         <ClientWrapper
                           authorId={client.id}
                           createdAt={client.createdAt}
                         />
                       </div>
-                    </div>
+                    </Link>
                   ))
                 ) : (
                   <Heading className="text-white/50">

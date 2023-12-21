@@ -45,10 +45,10 @@ const ClientWrapper = ({ createdAt, authorId }: ClientWrapperProps) => {
         <Skeleton width={182} height={20} />
       ) : (
         <>
-          <span className="flex items-center gap-x-2 text-white">
+          <span className="flex items-center gap-x-2 text-white/50">
             {count} Desks criadas
           </span>
-          <span className="text-white">Membro desde: {formattedDate}</span>
+          <span className="text-white/50">Membro desde: {formattedDate}</span>
         </>
       )}
     </div>

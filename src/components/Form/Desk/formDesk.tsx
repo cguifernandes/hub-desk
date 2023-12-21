@@ -7,7 +7,7 @@ import { DeskProps, schemaDesk } from '@/utils/Zod/desk'
 import { api } from '@/utils/api'
 import { Toast } from '@/utils/toast'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Github, Globe, Image } from 'lucide-react'
+import { Image } from 'lucide-react'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import useClient from '@/hooks/useClient'
@@ -20,6 +20,7 @@ import { categories, visibility } from '@/utils/constant'
 const FormDesk = () => {
   const [selectedCategory, setSelectedCategory] = useState('')
   const [selectedVisibility, setSelectedVisibility] = useState('Público')
+  const [users, setUsers] = useState<{ userId: string; user: string }[]>()
   const [fileList, setFileList] = useState<File | undefined>(undefined)
   const [fakeData, setFakeData] = useState<FakeRDeskProps | undefined>({
     category: 'Selecione uma categoria',
@@ -107,7 +108,7 @@ const FormDesk = () => {
   return (
     <div className="flex w-full flex-col items-center justify-evenly gap-y-12 px-4 pb-4 lg:flex-row lg:pb-6">
       <Form.Root
-        className="w-full min-w-[400px] max-w-[630px] space-y-8 lg:w-full lg:pr-6"
+        className="w-full min-w-0 max-w-[630px] space-y-8 sm:min-w-[400px] lg:w-full lg:pr-6"
         handleSubmit={handleSubmit(handlerFormSubmit)}
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
@@ -128,6 +129,10 @@ const FormDesk = () => {
             dropDownItems={categories}
             handlerClickSelect={handlerClickCategory}
             value="Categoria*"
+            style={{
+              zIndex: 20,
+              color: selectedCategory ? 'white' : 'rgba(255, 255, 255, 0.5)',
+            }}
           />
           <Form.Select
             error={errors.visibility}
@@ -135,8 +140,28 @@ const FormDesk = () => {
             selectedDropDown={selectedVisibility}
             handlerClickSelect={handlerClickVisibility}
             value="Visibilidade"
+            style={{
+              color: selectedVisibility ? 'white' : 'rgba(255, 255, 255, 0.5)',
+            }}
           />
         </div>
+        {selectedVisibility === 'Privado' && (
+          <Form.Multiselect
+            setUsers={setUsers}
+            value={
+              users === undefined
+                ? 'Convidar membros'
+                : users.length > 5
+                ? `${users.length} usuários selecionados`
+                : users?.map((user) => user.user).join(', ')
+            }
+            users={users}
+            placeholder="Convidar membros"
+            style={{
+              color: users === undefined ? 'rgba(255, 255, 255, 0.5)' : 'white',
+            }}
+          />
+        )}
         <Form.File
           error={errors.image}
           fileList={fileList}
@@ -185,7 +210,7 @@ const FormDesk = () => {
         />
       </Form.Root>
       <FakeDesk
-        className="relative h-[600px] w-full min-w-[460px] max-w-[500px] lg:w-2/5 lg:max-w-[500px]"
+        className="relative h-[600px] w-full min-w-[320px] max-w-[500px] sm:min-w-[460px] lg:w-2/5 lg:max-w-[500px]"
         authorId={user_session}
         createdAt={currentDate}
         data={fakeData}

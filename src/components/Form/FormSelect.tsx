@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
-import { ChevronDown } from 'lucide-react'
 import { Dispatch, InputHTMLAttributes, SetStateAction } from 'react'
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 import Select from '../select'
@@ -13,7 +12,7 @@ type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
   setFakeData?: Dispatch<SetStateAction<FakeRDeskProps | undefined>>
   className?: string
   value: string
-  dropDownItems: {
+  dropDownItems?: {
     id: number
     value: any
   }[]
@@ -28,6 +27,7 @@ const FormSelect = ({
   dropDownItems,
   value,
   message,
+  style,
   ...props
 }: SelectProps) => {
   return (
@@ -35,15 +35,14 @@ const FormSelect = ({
       {value && <label className="text-sm text-white/50">{value}</label>}
       <Select
         error={error}
+        style={style}
         {...props}
         dropDownItems={dropDownItems}
         selectedDropDown={selectedDropDown}
         handlerClickSelect={handlerClickSelect}
         className={className}
         value={value}
-      >
-        <ChevronDown color="#fff" strokeWidth={1.5} size={22} />
-      </Select>
+      />
       {message && <span className="text-sm text-white/50">{message}</span>}
       {error && (
         <span className="text-sm text-red-500">
