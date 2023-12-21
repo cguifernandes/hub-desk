@@ -168,28 +168,14 @@ const FormDesk = () => {
             name="repo"
             placeholder="Repositório"
             className="w-full sm:w-2/4"
-          >
-            <Github
-              className="absolute right-4"
-              color="#fff"
-              strokeWidth={1.5}
-              size={22}
-            />
-          </Form.Input>
+          />
           <Form.Input
             error={errors.website}
             register={register}
             name="website"
             placeholder="Site"
             className="w-full sm:w-2/4"
-          >
-            <Globe
-              className="absolute right-4"
-              color="#fff"
-              strokeWidth={1.5}
-              size={22}
-            />
-          </Form.Input>
+          />
         </AnimationWrapper>
         <Form.Button
           loading={isLoading}

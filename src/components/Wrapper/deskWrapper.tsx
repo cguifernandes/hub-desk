@@ -110,7 +110,7 @@ const DeskWrapper = ({
       ) : (
         <Link
           href={`/profile/${author.user}`}
-          className="z-10 flex items-center gap-x-1 rounded-md bg-grey-500 px-3 py-2"
+          className="z-10 flex items-center gap-x-2 rounded-md bg-grey-500 px-3 py-2"
         >
           {author?.user}{' '}
           <img

@@ -1,5 +1,5 @@
 'use client'
-import { ReactNode } from 'react'
+import { CSSProperties, ReactNode } from 'react'
 import {
   AnimationProps,
   TargetAndTransition,
@@ -16,6 +16,7 @@ type AnimationWrapperProps = {
   exit?: AnimationProps['exit']
   whileInView?: VariantLabels | TargetAndTransition | undefined
   component?: 'button' | 'div'
+  style?: CSSProperties
 }
 
 const AnimationWrapper = ({
@@ -25,6 +26,7 @@ const AnimationWrapper = ({
   animate,
   initial,
   whileInView,
+  style,
   exit,
   component = 'div',
 }: AnimationWrapperProps) => {
@@ -35,6 +37,7 @@ const AnimationWrapper = ({
       initial={initial}
       animate={animate}
       exit={exit}
+      style={style}
       whileInView={whileInView}
       viewport={{ once: true }}
       transition={{ type: 'keyframes', delay: delay ? 0.4 : 0, duration: 0.4 }}

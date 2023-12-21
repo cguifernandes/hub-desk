@@ -17,8 +17,8 @@ export const schemaDesk = z.object({
     .trim()
     .min(32, 'A descrição precisa conter pelo menos 32 caracteres.')
     .nonempty('Este campo é obrigatório.'),
-  repo: z.union([z.literal(''), z.string().trim().url()]),
-  website: z.union([z.literal(''), z.string().trim().url()]),
+  repo: z.union([z.literal(''), z.string().trim().url('URL inválida.')]),
+  website: z.union([z.literal(''), z.string().trim().url('URL inválida.')]),
   visibility: z.enum(['Público', 'Privado']).optional().default('Público'),
   image: z
     .any()
