@@ -20,13 +20,15 @@ model Clients {
   desks       Desk[]
   comments    Comment[]
   members     Member[]
+  receiver    Invite[]    @relation("receiver")
+  sender      Invite[]    @relation("sender")
 }
 
 model Desk {
   id          String      @id @default(auto()) @map("_id") @db.ObjectId 
   createdAt   DateTime    @default(now())
   author      Clients     @relation(fields: [authorId], references: [id])
-  authorId    String      @db.ObjectId 
+  authorId    String      @db.ObjectId
   category    String
   title       String
   description String?
@@ -36,13 +38,14 @@ model Desk {
   visibility  String
   comments    Comment[]
   members     Member[]
+  invites     Invite[]
 }
 
 model Comment {
   id          String      @id @default(auto()) @map("_id") @db.ObjectId
   text        String
   createdAt   DateTime    @default(now())
-  author      Clients     @relation(fields: [authorId], references: [id])
+  author      Clients     @relation(fields: [authorId], references: [id]) 
   authorId    String      @db.ObjectId
   desk        Desk        @relation(fields: [deskId], references: [id])
   deskId      String      @db.ObjectId
@@ -55,4 +58,15 @@ model Member {
   role        String      
   desk        Desk        @relation(fields: [deskId], references: [id])
   deskId      String      @db.ObjectId
+}
+
+model Invite {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  receiver      Clients     @relation("receiver", fields: [receiverId], references: [id])
+  receiverId    String      @db.ObjectId
+  sender        Clients     @relation("sender", fields: [senderId], references: [id])
+  senderId      String      @db.ObjectId
+  desk          Desk        @relation(fields: [deskId], references: [id])
+  deskId        String      @db.ObjectId
+  createdAt     DateTime    @default(now())
 }

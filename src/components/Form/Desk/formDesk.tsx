@@ -20,7 +20,6 @@ import { categories, visibility } from '@/utils/constant'
 const FormDesk = () => {
   const [selectedCategory, setSelectedCategory] = useState('')
   const [selectedVisibility, setSelectedVisibility] = useState('Público')
-  const [users, setUsers] = useState<{ userId: string; user: string }[]>()
   const [fileList, setFileList] = useState<File | undefined>(undefined)
   const [fakeData, setFakeData] = useState<FakeRDeskProps | undefined>({
     category: 'Selecione uma categoria',
@@ -145,23 +144,6 @@ const FormDesk = () => {
             }}
           />
         </div>
-        {selectedVisibility === 'Privado' && (
-          <Form.Multiselect
-            setUsers={setUsers}
-            value={
-              users === undefined
-                ? 'Convidar membros'
-                : users.length > 5
-                ? `${users.length} usuários selecionados`
-                : users?.map((user) => user.user).join(', ')
-            }
-            users={users}
-            placeholder="Convidar membros"
-            style={{
-              color: users === undefined ? 'rgba(255, 255, 255, 0.5)' : 'white',
-            }}
-          />
-        )}
         <Form.File
           error={errors.image}
           fileList={fileList}

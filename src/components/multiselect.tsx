@@ -2,14 +2,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import clsx from 'clsx'
 import { Dispatch, InputHTMLAttributes, SetStateAction, useState } from 'react'
-import Select from '../select'
+import Select from '../components/select'
 import { CheckCircle2, Search, X } from 'lucide-react'
 import { ClientsProps } from '@/utils/type'
-import Skeleton from '../Layout/skeleton'
-import Text from '../Typography/text'
-import Heading from '../Typography/heading'
+import Skeleton from '../components/Layout/skeleton'
+import Text from '../components/Typography/text'
+import Heading from '../components/Typography/heading'
 
-type FormMultiselectProps = InputHTMLAttributes<HTMLInputElement> & {
+type MultiselectProps = InputHTMLAttributes<HTMLInputElement> & {
   value: string
   setUsers: Dispatch<
     SetStateAction<
@@ -28,14 +28,14 @@ type FormMultiselectProps = InputHTMLAttributes<HTMLInputElement> & {
     | undefined
 }
 
-const FormMultiselect = ({
+const Multiselect = ({
   value,
   className,
   placeholder,
   setUsers,
   users,
   ...props
-}: FormMultiselectProps) => {
+}: MultiselectProps) => {
   const [query, setQuery] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [response, setResponse] = useState<ClientsProps[]>()
@@ -177,4 +177,4 @@ const FormMultiselect = ({
   )
 }
 
-export default FormMultiselect
+export default Multiselect

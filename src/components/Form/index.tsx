@@ -1,7 +1,6 @@
 import FormButton from './FormButton'
 import FormFile from './FormFile'
 import FormInput from './FormInput'
-import FormMultiselect from './FormMultiselect'
 import FormRoot from './FormRoot'
 import FormSelect from './FormSelect'
 import FormTextarea from './FormTextarea'
@@ -15,5 +14,4 @@ export const Form = {
   Textarea: FormTextarea,
   Select: FormSelect,
   File: FormFile,
-  Multiselect: FormMultiselect,
 }
