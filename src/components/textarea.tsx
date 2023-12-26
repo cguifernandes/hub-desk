@@ -64,7 +64,7 @@ const Textarea = ({
         })}
         className={clsx(
           'h-48 w-full resize-none rounded-md border border-transparent text-white',
-          'bg-button-gradient px-4 py-3 placeholder-white/50 transition-colors focus:border-sky-700',
+          'bg-button-gradient px-4 py-3 placeholder-white/50 transition-colors focus:border-blue-700',
           className,
         )}
         style={error && { borderColor: 'rgb(239 68 68)' }}
@@ -78,7 +78,7 @@ const Textarea = ({
         {...props}
         className={clsx(
           'h-48 resize-none rounded-md border border-transparent text-white',
-          'bg-button-gradient p-4 placeholder-white/50 transition-colors focus:border-sky-700',
+          'bg-button-gradient p-4 placeholder-white/50 transition-colors focus:border-blue-700',
           className,
         )}
       />

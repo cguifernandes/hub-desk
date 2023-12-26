@@ -1,11 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  Dispatch,
-  InputHTMLAttributes,
-  ReactNode,
-  SetStateAction,
-  useState,
-} from 'react'
+import { Dispatch, InputHTMLAttributes, ReactNode, SetStateAction } from 'react'
 import clsx from 'clsx'
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 import { ChevronDown } from 'lucide-react'
@@ -20,6 +14,8 @@ type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
   handlerClickSelect?: (value: any) => void
   children?: ReactNode
   setQuery?: Dispatch<SetStateAction<string>>
+  setVisibleDropDown: Dispatch<SetStateAction<boolean>>
+  visibleDropDown: boolean
 }
 
 const Select = ({
@@ -31,11 +27,11 @@ const Select = ({
   style,
   setQuery,
   handlerClickSelect,
+  setVisibleDropDown,
+  visibleDropDown,
   children,
   ...props
 }: SelectProps) => {
-  const [visibleDropDown, setVisibleDropDown] = useState(false)
-
   const handlerClick = () => {
     if (children && setQuery) {
       setQuery('')
@@ -65,7 +61,7 @@ const Select = ({
         style={{
           transform: visibleDropDown ? 'rotate(0deg)' : 'rotate(-90deg)',
         }}
-        className="absolute right-4 rotate-3 duration-200 ease-out"
+        className="absolute right-4 z-20 rotate-3 duration-200 ease-out"
         color="#fff"
         strokeWidth={1.5}
         size={22}

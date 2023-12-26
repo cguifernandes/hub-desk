@@ -16,6 +16,21 @@ export type CommentProps = {
   deskId: string
 }
 
+export type MemberProps = {
+  id: string
+  deskId: string
+  role: 'Líder' | 'Co-líder' | 'Membro'
+  userId: string
+  user: ClientsProps
+}
+
+export type RMembersProps = {
+  sucess?: string
+  error?: string
+  data: MemberProps[]
+  count: number
+}
+
 export type DeskProps = {
   id?: string
   createdAt: Date

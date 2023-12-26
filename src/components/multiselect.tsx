@@ -4,41 +4,37 @@ import clsx from 'clsx'
 import { Dispatch, InputHTMLAttributes, SetStateAction, useState } from 'react'
 import Select from '../components/select'
 import { CheckCircle2, Search, X } from 'lucide-react'
-import { ClientsProps } from '@/utils/type'
+import { ClientsProps, MemberProps } from '@/utils/type'
 import Skeleton from '../components/Layout/skeleton'
 import Text from '../components/Typography/text'
 import Heading from '../components/Typography/heading'
 
 type MultiselectProps = InputHTMLAttributes<HTMLInputElement> & {
   value: string
-  setUsers: Dispatch<
+  setInviteMember: Dispatch<
     SetStateAction<
       | {
           userId: string
           user: string
-        }[]
+        }
       | undefined
     >
   >
-  users:
-    | {
-        userId: string
-        user: string
-      }[]
-    | undefined
+  members: MemberProps[] | undefined
 }
 
 const Multiselect = ({
   value,
   className,
   placeholder,
-  setUsers,
-  users,
+  setInviteMember,
+  members,
   ...props
 }: MultiselectProps) => {
   const [query, setQuery] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [response, setResponse] = useState<ClientsProps[]>()
+  const [visibleDropDown, setVisibleDropDown] = useState(false)
 
   const handlerSearchUser = async (query: string) => {
     setQuery(query)
@@ -62,13 +58,11 @@ const Multiselect = ({
   }
 
   const handlerClickUser = (client: ClientsProps) => {
-    const existUser = users?.find((user) => user.userId === client.id)
+    const isMember = members?.find((member) => member.user.id === client.id)
 
-    if (!existUser) {
-      setUsers((prev) => [
-        ...(prev || []),
-        { userId: client.id, user: client.user },
-      ])
+    if (!isMember) {
+      setInviteMember({ user: client.user, userId: client.id })
+      setVisibleDropDown(false)
     }
   }
 
@@ -80,6 +74,8 @@ const Multiselect = ({
         setQuery={setQuery}
         value={value}
         className={className}
+        setVisibleDropDown={setVisibleDropDown}
+        visibleDropDown={visibleDropDown}
       >
         <div className="flex max-h-[300px] flex-col items-center overflow-auto">
           <div
@@ -94,7 +90,7 @@ const Multiselect = ({
               placeholder="Pesquise aqui..."
             />
             <div className="flex items-center gap-x-3">
-              <button onClick={() => setUsers(undefined)}>
+              <button onClick={() => setInviteMember(undefined)}>
                 <X color="#fff" size={20} strokeWidth={1.5} />
               </button>
               <div className="h-6 w-[2px] bg-grey-400" />
@@ -150,8 +146,14 @@ const Multiselect = ({
                           {new Date(client.createdAt).toLocaleDateString()}
                         </span>
                       </div>
-                      {users?.find((user) => user.userId === client.id) && (
-                        <CheckCircle2 size={26} strokeWidth={1.5} />
+                      {members?.find(
+                        (member) => member.user.id === client.id,
+                      ) && (
+                        <CheckCircle2
+                          fill="#0369a1"
+                          size={26}
+                          strokeWidth={1.5}
+                        />
                       )}
                     </div>
                   </li>

@@ -5,7 +5,6 @@ import { Scrollbar, Autoplay } from 'swiper/modules'
 import CardDesk from '@/components/cardDesk'
 import { DeskProps } from '@/utils/type'
 import { useEffect, useState } from 'react'
-import EmptyAlert from '@/components/Layout/emptyAlert'
 import Skeleton from '@/components/Layout/skeleton'
 import clsx from 'clsx'
 
@@ -39,10 +38,6 @@ const Carousel = ({ category, className }: CarouselProps) => {
 
     getDesks()
   }, [])
-
-  if (desks.length === 0 && !isLoading) {
-    return <EmptyAlert message="Não existe nenhuma Desk com esta categoria." />
-  }
 
   return (
     <div className={clsx('w-full', className)}>

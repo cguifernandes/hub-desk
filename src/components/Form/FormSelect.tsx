@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
-import { Dispatch, InputHTMLAttributes, SetStateAction } from 'react'
+import { Dispatch, InputHTMLAttributes, SetStateAction, useState } from 'react'
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 import Select from '../select'
 import { FakeRDeskProps } from '@/utils/type'
@@ -30,6 +30,8 @@ const FormSelect = ({
   style,
   ...props
 }: SelectProps) => {
+  const [visibleDropDown, setVisibleDropDown] = useState(false)
+
   return (
     <div className="w-full sm:w-1/2">
       {value && <label className="text-sm text-white/50">{value}</label>}
@@ -41,6 +43,8 @@ const FormSelect = ({
         selectedDropDown={selectedDropDown}
         handlerClickSelect={handlerClickSelect}
         className={className}
+        setVisibleDropDown={setVisibleDropDown}
+        visibleDropDown={visibleDropDown}
         value={value}
       />
       {message && <span className="text-sm text-white/50">{message}</span>}

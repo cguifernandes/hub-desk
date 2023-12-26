@@ -1,3 +1,6 @@
+/* eslint-disable camelcase */
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react-hooks/exhaustive-deps */
 'use client'
 import { LogOut, UserCircle } from 'lucide-react'
 import Link from 'next/link'

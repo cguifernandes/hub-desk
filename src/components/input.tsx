@@ -50,7 +50,7 @@ const Input = ({
         <div
           className={clsx(
             'relative flex items-center justify-between rounded-md border border-transparent',
-            'bg-button-gradient text-white transition-colors focus:border-sky-700',
+            'bg-button-gradient text-white transition-colors focus:border-blue-700',
             className,
           )}
         >
@@ -75,7 +75,7 @@ const Input = ({
         })}
         className={clsx(
           'w-full rounded-md border border-transparent bg-button-gradient text-white',
-          'px-4 py-3 placeholder-white/50 transition-colors focus:border-sky-700',
+          'px-4 py-3 placeholder-white/50 transition-colors focus:border-blue-700',
           className,
         )}
         {...props}
@@ -95,7 +95,7 @@ const Input = ({
         <input
           className={clsx(
             'w-full rounded-md border border-transparent bg-button-gradient text-white',
-            'px-4 py-3 placeholder-white/50 transition-colors focus:border-sky-700',
+            'px-4 py-3 placeholder-white/50 transition-colors focus:border-blue-700',
           )}
           {...props}
         />
@@ -108,7 +108,7 @@ const Input = ({
     <input
       className={clsx(
         'w-full rounded-md border border-transparent bg-button-gradient text-white',
-        'px-4 py-3 placeholder-white/50 transition-colors focus:border-sky-700',
+        'px-4 py-3 placeholder-white/50 transition-colors focus:border-blue-700',
         className,
       )}
       {...props}

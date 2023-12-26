@@ -48,6 +48,7 @@ export async function POST(request: NextRequest) {
         error: 'Não é possível criar uma desk sem estar logado.',
       })
     }
+
     const newDesk = await prisma.desk.create({
       data: {
         category,
@@ -60,6 +61,12 @@ export async function POST(request: NextRequest) {
         visibility,
       },
     })
+
+    if (visibility === 'Privado') {
+      await prisma.member.create({
+        data: { role: 'Líder', deskId: newDesk.id, userId: authorId },
+      })
+    }
 
     return NextResponse.json({
       success: 'Desk criada com sucesso.',
