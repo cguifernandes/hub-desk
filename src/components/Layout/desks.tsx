@@ -9,7 +9,7 @@ import EmptyAlert from '@/components/Layout/emptyAlert'
 import { useEffect, useState } from 'react'
 import { DeskProps, RDeskProps } from '@/utils/type'
 
-const Desks = ({ id }: { id: string }) => {
+const Desks = ({ id, user }: { id: string; user: string }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [desks, setDesks] = useState<DeskProps[]>([])
@@ -66,7 +66,10 @@ const Desks = ({ id }: { id: string }) => {
   return (
     <>
       {desks.length === 0 && !isLoading ? (
-        <EmptyAlert message="Não há nenhuma desk ainda" />
+        <EmptyAlert
+          submessage={`${user} não possui nenhuma desk por enquanto.`}
+          message="Este perfil não tem nenhuma desk cadastrada."
+        />
       ) : (
         <div
           className={clsx(

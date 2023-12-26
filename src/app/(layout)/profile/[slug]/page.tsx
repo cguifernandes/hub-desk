@@ -96,7 +96,7 @@ export default async function Desk({ params }: { params: { slug: string } }) {
             Desks criadas por {props.client[0].user}
           </Text>
         </div>
-        <Desks id={props.client[0].id} />
+        <Desks user={props.client[0].user} id={props.client[0].id} />
       </div>
     </section>
   )
