@@ -1,4 +1,3 @@
-import Link from 'next/link'
 import Heading from '@/components/Typography/heading'
 import Text from '@/components/Typography/text'
 
