@@ -52,8 +52,8 @@ export default async function Desk({ params }: { params: { slug: string } }) {
   return (
     <section className="flex min-h-[calc(100vh_-_80px_-_64px)] flex-col items-center py-8 sm:py-14">
       <div className="w-full space-y-6 px-4">
-        <div className="mx-auto flex h-[600px] max-w-7xl rounded-md border-2 border-grey-400 bg-desk-gradient">
-          <div className="relative flex h-full flex-1 flex-col justify-between p-4 text-center">
+        <div className="mx-auto flex max-w-7xl rounded-md border-2 border-grey-400 bg-desk-gradient">
+          <div className="relative flex min-h-[600px] flex-1 flex-col justify-between p-4 text-center">
             {props.desk.data[0].image && (
               <div className="absolute left-0 top-0 h-40 w-full">
                 <img
@@ -83,7 +83,7 @@ export default async function Desk({ params }: { params: { slug: string } }) {
             />
           </div>
           <DeskSideBar
-            className="flex h-full min-w-[408px] flex-col gap-y-4 border-l-2 border-grey-400 p-4"
+            className="flex min-w-[408px] flex-col gap-y-4 border-l-2 border-grey-400 p-4"
             authorId={props.desk.data[0].authorId}
             user_session={user_session?.value}
             deskId={props.desk.data[0].id}

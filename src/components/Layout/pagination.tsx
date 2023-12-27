@@ -1,8 +1,23 @@
 import clsx from 'clsx'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Dispatch, SetStateAction } from 'react'
+import { VariantProps, tv } from 'tailwind-variants'
 
-type PaginationProps = {
+const pagination = tv({
+  base: 'flex justify-end gap-x-4',
+  variants: {
+    size: {
+      sm: 'h-8 w-8 text-xs',
+      md: 'h-10 w-10 text-sm',
+      lg: 'h-12 w-12 text-sm',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+  },
+})
+
+type PaginationProps = VariantProps<typeof pagination> & {
   totalPages: number
   setPage: Dispatch<SetStateAction<number>>
   className?: string
@@ -14,23 +29,26 @@ const Pagination = ({
   setPage,
   className,
   page,
+  size,
 }: PaginationProps) => {
   return (
     <>
       {totalPages > 1 && (
-        <div
-          className={clsx('flex justify-end gap-x-4  px-4 md:px-10', className)}
-        >
+        <div className={clsx('flex justify-end gap-x-4', className)}>
           <button
             onClick={() => setPage(page - 1)}
             disabled={page === 1}
-            className={clsx(
-              'flex h-10 w-10 items-center justify-center rounded-md shadow-md',
-              'transition-color border-2 border-grey-400 text-white',
-              page === 1 && 'disabled',
-            )}
+            className={pagination({
+              className: `flex cursor-pointer items-center justify-center rounded-md border-2 border-grey-400 text-white shadow-md`,
+              size,
+            })}
+            style={
+              page === 1
+                ? { cursor: 'not-allowed', opacity: 0.5 }
+                : { cursor: 'pointer', opacity: 1 }
+            }
           >
-            <ChevronLeft size={22} strokeWidth={1.5} />
+            <ChevronLeft size={size === 'sm' ? 18 : 20} strokeWidth={1.5} />
           </button>
           {Array.from({ length: totalPages }, (_, index) => (
             <button
@@ -38,10 +56,10 @@ const Pagination = ({
               disabled={page === index + 1}
               onClick={() => setPage(index + 1)}
               style={{ backgroundColor: page === index + 1 ? '#333' : '' }}
-              className={clsx(
-                'flex h-10 w-10 cursor-pointer items-center justify-center rounded-md shadow-md',
-                'border-2 border-grey-400 text-sm text-white',
-              )}
+              className={pagination({
+                className: `flex cursor-pointer items-center justify-center rounded-md border-2 border-grey-400 text-white shadow-md`,
+                size,
+              })}
               key={index}
             >
               {index + 1}
@@ -50,13 +68,17 @@ const Pagination = ({
           <button
             onClick={() => setPage(page + 1)}
             disabled={page === totalPages}
-            className={clsx(
-              'flex h-10 w-10 items-center justify-center rounded-md shadow-md',
-              'transition-color border-2 border-grey-400 text-white',
-              page === totalPages && 'disabled',
-            )}
+            className={pagination({
+              className: `flex cursor-pointer items-center justify-center rounded-md border-2 border-grey-400 text-white shadow-md`,
+              size,
+            })}
+            style={
+              page === totalPages
+                ? { cursor: 'not-allowed', opacity: 0.5 }
+                : { cursor: 'pointer', opacity: 1 }
+            }
           >
-            <ChevronRight size={22} strokeWidth={1.5} />
+            <ChevronRight size={size === 'sm' ? 18 : 20} strokeWidth={1.5} />
           </button>
         </div>
       )}

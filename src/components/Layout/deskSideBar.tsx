@@ -73,7 +73,6 @@ const DeskSideBar = ({
                 ? 'Convidar membros'
                 : inviteMember.user
             }
-            members={members}
           />
           {inviteMember !== undefined && (
             <Button
@@ -87,13 +86,12 @@ const DeskSideBar = ({
       )}
       <div className="flex flex-col gap-y-2">
         <Heading>Membros</Heading>
-        <div className="flex flex-col justify-between gap-y-2">
-          <Members
-            isLeader={isLeader}
-            members={members}
-            setMembers={setMembers}
-          />
-        </div>
+        <Members
+          isLeader={isLeader}
+          members={members}
+          setMembers={setMembers}
+          deskId={deskId}
+        />
       </div>
     </div>
   )

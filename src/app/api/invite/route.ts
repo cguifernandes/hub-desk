@@ -12,6 +12,19 @@ export async function POST(request: NextRequest) {
       })
     }
 
+    const userAlreadyInDesk = await prisma.member.findFirst({
+      where: {
+        userId: receiverId,
+        deskId,
+      },
+    })
+
+    if (userAlreadyInDesk) {
+      return NextResponse.json({
+        error: 'Este usuário já faz parte desta desk',
+      })
+    }
+
     const hasInvite = await prisma.invite.findFirst({
       where: {
         receiverId,
@@ -21,7 +34,7 @@ export async function POST(request: NextRequest) {
 
     if (hasInvite) {
       return NextResponse.json({
-        error: 'Esse usuário já foi convidado para essa desk.',
+        error: 'Este usuário já foi convidado para esta desk.',
       })
     } else {
       try {

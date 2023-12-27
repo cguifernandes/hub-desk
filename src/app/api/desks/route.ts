@@ -62,11 +62,9 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    if (visibility === 'Privado') {
-      await prisma.member.create({
-        data: { role: 'Líder', deskId: newDesk.id, userId: authorId },
-      })
-    }
+    await prisma.member.create({
+      data: { role: 'Líder', deskId: newDesk.id, userId: authorId },
+    })
 
     return NextResponse.json({
       success: 'Desk criada com sucesso.',

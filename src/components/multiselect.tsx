@@ -3,8 +3,8 @@
 import clsx from 'clsx'
 import { Dispatch, InputHTMLAttributes, SetStateAction, useState } from 'react'
 import Select from '../components/select'
-import { CheckCircle2, Search, X } from 'lucide-react'
-import { ClientsProps, MemberProps } from '@/utils/type'
+import { Search, X } from 'lucide-react'
+import { ClientsProps } from '@/utils/type'
 import Skeleton from '../components/Layout/skeleton'
 import Text from '../components/Typography/text'
 import Heading from '../components/Typography/heading'
@@ -20,7 +20,6 @@ type MultiselectProps = InputHTMLAttributes<HTMLInputElement> & {
       | undefined
     >
   >
-  members: MemberProps[] | undefined
 }
 
 const Multiselect = ({
@@ -28,7 +27,6 @@ const Multiselect = ({
   className,
   placeholder,
   setInviteMember,
-  members,
   ...props
 }: MultiselectProps) => {
   const [query, setQuery] = useState('')
@@ -58,12 +56,8 @@ const Multiselect = ({
   }
 
   const handlerClickUser = (client: ClientsProps) => {
-    const isMember = members?.find((member) => member.user.id === client.id)
-
-    if (!isMember) {
-      setInviteMember({ user: client.user, userId: client.id })
-      setVisibleDropDown(false)
-    }
+    setInviteMember({ user: client.user, userId: client.id })
+    setVisibleDropDown(false)
   }
 
   return (
@@ -146,15 +140,6 @@ const Multiselect = ({
                           {new Date(client.createdAt).toLocaleDateString()}
                         </span>
                       </div>
-                      {members?.find(
-                        (member) => member.user.id === client.id,
-                      ) && (
-                        <CheckCircle2
-                          fill="#0369a1"
-                          size={26}
-                          strokeWidth={1.5}
-                        />
-                      )}
                     </div>
                   </li>
                 ))
