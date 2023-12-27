@@ -11,14 +11,12 @@ import { DeskProps, RDeskProps } from '@/utils/type'
 
 const Desks = ({ id, user }: { id: string; user: string }) => {
   const [isLoading, setIsLoading] = useState(false)
-  const [mounted, setMounted] = useState(false)
   const [desks, setDesks] = useState<DeskProps[]>([])
   const [count, setCount] = useState(0)
   const [page, setPage] = useState(1)
   const totalPages = Math.ceil(count / 8)
 
   useEffect(() => {
-    setMounted(true)
     const getDesks = async () => {
       try {
         setIsLoading(true)
