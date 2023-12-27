@@ -59,8 +59,8 @@ const Comments = ({ deskId, user_session, isConnected }: CommentsProps) => {
               comments.map((comments) => (
                 <div
                   className={clsx(
-                    'flex min-h-[200px] w-full min-w-[360px] max-w-3xl flex-1 flex-col justify-between rounded-md md:min-w-[600px]',
-                    'border-2 border-grey-400 bg-desk-gradient p-4 text-white',
+                    'flex min-h-[200px] w-full min-w-[360px] max-w-3xl flex-1 flex-col rounded-md md:min-w-[600px]',
+                    'justify-between border-2 border-grey-400 bg-desk-gradient p-4 text-white',
                   )}
                   key={comments.id}
                 >
@@ -76,7 +76,7 @@ const Comments = ({ deskId, user_session, isConnected }: CommentsProps) => {
               <>
                 <div
                   className={clsx(
-                    'flex min-h-[200px] w-full min-w-[500px] flex-col rounded-md',
+                    'flex min-h-[200px] w-full min-w-[360px] max-w-3xl flex-1 flex-col rounded-md md:min-w-[600px]',
                     'justify-between border-2 border-grey-400 bg-desk-gradient p-4',
                   )}
                 >
@@ -88,7 +88,7 @@ const Comments = ({ deskId, user_session, isConnected }: CommentsProps) => {
                 </div>
                 <div
                   className={clsx(
-                    'flex min-h-[200px] w-full min-w-[500px] flex-col rounded-md',
+                    'flex min-h-[200px] w-full min-w-[360px] max-w-3xl flex-1 flex-col rounded-md md:min-w-[600px]',
                     'justify-between border-2 border-grey-400 bg-desk-gradient p-4',
                   )}
                 >
@@ -100,7 +100,7 @@ const Comments = ({ deskId, user_session, isConnected }: CommentsProps) => {
                 </div>
                 <div
                   className={clsx(
-                    'flex min-h-[200px] w-full min-w-[500px] flex-col rounded-md',
+                    'flex min-h-[200px] w-full min-w-[360px] max-w-3xl flex-1 flex-col rounded-md md:min-w-[600px]',
                     'justify-between border-2 border-grey-400 bg-desk-gradient p-4',
                   )}
                 >
@@ -112,7 +112,7 @@ const Comments = ({ deskId, user_session, isConnected }: CommentsProps) => {
                 </div>
                 <div
                   className={clsx(
-                    'flex min-h-[200px] w-full min-w-[500px] flex-col rounded-md',
+                    'flex min-h-[200px] w-full min-w-[360px] max-w-3xl flex-1 flex-col rounded-md md:min-w-[600px]',
                     'justify-between border-2 border-grey-400 bg-desk-gradient p-4',
                   )}
                 >

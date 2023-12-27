@@ -34,7 +34,7 @@ const Pagination = ({
   return (
     <>
       {totalPages > 1 && (
-        <div className={clsx('flex justify-end gap-x-4', className)}>
+        <div className={clsx('flex justify-center gap-x-4', className)}>
           <button
             onClick={() => setPage(page - 1)}
             disabled={page === 1}
