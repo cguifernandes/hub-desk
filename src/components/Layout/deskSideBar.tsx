@@ -57,6 +57,7 @@ const DeskSideBar = ({
 
   return (
     <div className={className}>
+      <Heading size="md">Informações da desk</Heading>
       {isLeader && (
         <div className="flex flex-col gap-y-1">
           <Multiselect

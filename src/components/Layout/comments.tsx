@@ -53,13 +53,13 @@ const Comments = ({ deskId, user_session, isConnected }: CommentsProps) => {
   return (
     <>
       {comments.length > 0 && (
-        <div className="mx-auto flex w-11/12 flex-col gap-y-4 py-4">
-          <div className="grid w-full grid-cols-2 items-center justify-items-center gap-4">
+        <div className="flex w-full flex-col gap-y-4 py-4 md:mx-auto md:w-11/12">
+          <div className="flex w-full grow-[1] basis-0 flex-wrap justify-center gap-4">
             {!isLoading ? (
               comments.map((comments) => (
                 <div
                   className={clsx(
-                    'flex min-h-[180px] w-full min-w-[500px] flex-col justify-between rounded-md',
+                    'flex min-h-[200px] w-full min-w-[360px] max-w-3xl flex-1 flex-col justify-between rounded-md md:min-w-[600px]',
                     'border-2 border-grey-400 bg-desk-gradient p-4 text-white',
                   )}
                   key={comments.id}
@@ -74,16 +74,61 @@ const Comments = ({ deskId, user_session, isConnected }: CommentsProps) => {
               ))
             ) : (
               <>
-                <Skeleton className="h-44 min-h-[180px] w-full min-w-[500px]" />
-                <Skeleton className="h-44 min-h-[180px] w-full min-w-[500px]" />
-                <Skeleton className="h-44 min-h-[180px] w-full min-w-[500px]" />
-                <Skeleton className="h-44 min-h-[180px] w-full min-w-[500px]" />
+                <div
+                  className={clsx(
+                    'flex min-h-[200px] w-full min-w-[500px] flex-col rounded-md',
+                    'justify-between border-2 border-grey-400 bg-desk-gradient p-4',
+                  )}
+                >
+                  <Skeleton height={24} className="w-3/4" />
+                  <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
+                    <Skeleton width={120} height={32} />
+                    <Skeleton width={210} height={32} />
+                  </div>
+                </div>
+                <div
+                  className={clsx(
+                    'flex min-h-[200px] w-full min-w-[500px] flex-col rounded-md',
+                    'justify-between border-2 border-grey-400 bg-desk-gradient p-4',
+                  )}
+                >
+                  <Skeleton height={24} className="w-3/4" />
+                  <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
+                    <Skeleton width={120} height={32} />
+                    <Skeleton width={210} height={32} />
+                  </div>
+                </div>
+                <div
+                  className={clsx(
+                    'flex min-h-[200px] w-full min-w-[500px] flex-col rounded-md',
+                    'justify-between border-2 border-grey-400 bg-desk-gradient p-4',
+                  )}
+                >
+                  <Skeleton height={24} className="w-3/4" />
+                  <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
+                    <Skeleton width={120} height={32} />
+                    <Skeleton width={210} height={32} />
+                  </div>
+                </div>
+                <div
+                  className={clsx(
+                    'flex min-h-[200px] w-full min-w-[500px] flex-col rounded-md',
+                    'justify-between border-2 border-grey-400 bg-desk-gradient p-4',
+                  )}
+                >
+                  <Skeleton height={24} className="w-3/4" />
+                  <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
+                    <Skeleton width={120} height={32} />
+                    <Skeleton width={210} height={32} />
+                  </div>
+                </div>
               </>
             )}
           </div>
           <Pagination
             page={page}
             className="w-full"
+            size="sm"
             setPage={setPage}
             totalPages={totalPages}
           />

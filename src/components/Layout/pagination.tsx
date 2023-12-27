@@ -13,7 +13,7 @@ const pagination = tv({
     },
   },
   defaultVariants: {
-    size: 'md',
+    size: 'sm',
   },
 })
 
@@ -39,7 +39,7 @@ const Pagination = ({
             onClick={() => setPage(page - 1)}
             disabled={page === 1}
             className={pagination({
-              className: `flex cursor-pointer items-center justify-center rounded-md border-2 border-grey-400 text-white shadow-md`,
+              className: `flex cursor-pointer items-center justify-center rounded-md border border-grey-400 text-white`,
               size,
             })}
             style={
@@ -57,7 +57,7 @@ const Pagination = ({
               onClick={() => setPage(index + 1)}
               style={{ backgroundColor: page === index + 1 ? '#333' : '' }}
               className={pagination({
-                className: `flex cursor-pointer items-center justify-center rounded-md border-2 border-grey-400 text-white shadow-md`,
+                className: `flex cursor-pointer items-center justify-center rounded-md border border-grey-400 text-white`,
                 size,
               })}
               key={index}
@@ -69,7 +69,7 @@ const Pagination = ({
             onClick={() => setPage(page + 1)}
             disabled={page === totalPages}
             className={pagination({
-              className: `flex cursor-pointer items-center justify-center rounded-md border-2 border-grey-400 text-white shadow-md`,
+              className: `flex cursor-pointer items-center justify-center rounded-md border border-grey-400 text-white`,
               size,
             })}
             style={

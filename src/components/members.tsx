@@ -58,39 +58,39 @@ const Members = ({ members, isLeader, setMembers, deskId }: MembersProps) => {
       <div className="flex flex-col justify-between gap-y-2">
         {isLoading ? (
           <>
-            <div className="flex h-[72px] w-full items-center gap-x-2 rounded-md border-2 border-grey-400 p-3">
+            <div className="flex h-[70px] w-full items-center gap-x-2 rounded-md border border-grey-400 p-3">
               <Skeleton isRoundedFull height={40} width={40} />
               <div className="flex flex-col gap-y-1">
-                <Skeleton height={24} width={150} />
-                <Skeleton height={20} width={50} />
+                <Skeleton height={20} width={150} />
+                <Skeleton height={16} width={50} />
               </div>
             </div>
-            <div className="flex h-[72px] w-full items-center gap-x-2 rounded-md border-2 border-grey-400 p-3">
+            <div className="flex h-[70px] w-full items-center gap-x-2 rounded-md border border-grey-400 p-3">
               <Skeleton isRoundedFull height={40} width={40} />
               <div className="flex flex-col gap-y-1">
-                <Skeleton height={24} width={150} />
-                <Skeleton height={20} width={50} />
+                <Skeleton height={20} width={150} />
+                <Skeleton height={16} width={50} />
               </div>
             </div>
-            <div className="flex h-[72px] w-full items-center gap-x-2 rounded-md border-2 border-grey-400 p-3">
+            <div className="flex h-[70px] w-full items-center gap-x-2 rounded-md border border-grey-400 p-3">
               <Skeleton isRoundedFull height={40} width={40} />
               <div className="flex flex-col gap-y-1">
-                <Skeleton height={24} width={150} />
-                <Skeleton height={20} width={50} />
+                <Skeleton height={20} width={150} />
+                <Skeleton height={16} width={50} />
               </div>
             </div>
-            <div className="flex h-[72px] w-full items-center gap-x-2 rounded-md border-2 border-grey-400 p-3">
+            <div className="flex h-[70px] w-full items-center gap-x-2 rounded-md border border-grey-400 p-3">
               <Skeleton isRoundedFull height={40} width={40} />
               <div className="flex flex-col gap-y-1">
-                <Skeleton height={24} width={150} />
-                <Skeleton height={20} width={50} />
+                <Skeleton height={20} width={150} />
+                <Skeleton height={16} width={50} />
               </div>
             </div>
           </>
         ) : (
           members?.map((member) => (
             <div
-              className="flex items-center gap-x-2 rounded-md border-2 border-grey-400 p-3 transition-colors hover:bg-grey-600"
+              className="flex h-[70px] items-center gap-x-2 rounded-md border border-grey-400 p-3 transition-colors hover:bg-grey-600"
               key={member.id}
             >
               <img
@@ -116,14 +116,12 @@ const Members = ({ members, isLeader, setMembers, deskId }: MembersProps) => {
           ))
         )}
       </div>
-      {count >= 4 && !isLoading && (
-        <Pagination
-          size="sm"
-          page={page}
-          setPage={setPage}
-          totalPages={totalPages}
-        />
-      )}
+      <Pagination
+        size="sm"
+        page={page}
+        setPage={setPage}
+        totalPages={totalPages}
+      />
     </>
   )
 }

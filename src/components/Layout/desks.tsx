@@ -99,14 +99,12 @@ const Desks = ({ id, user }: { id: string; user: string }) => {
           )}
         </div>
       )}
-      {desks.length > 0 && !isLoading && (
-        <Pagination
-          className="px-4 md:px-10"
-          page={page}
-          setPage={setPage}
-          totalPages={totalPages}
-        />
-      )}
+      <Pagination
+        className="px-4 md:px-10"
+        page={page}
+        setPage={setPage}
+        totalPages={totalPages}
+      />
     </>
   )
 }
