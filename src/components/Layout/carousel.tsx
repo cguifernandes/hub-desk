@@ -63,16 +63,56 @@ const Carousel = ({ category, className }: CarouselProps) => {
         {isLoading ? (
           <>
             <SwiperSlide>
-              <Skeleton className="w-full" height={590} />
+              <div className="relative flex h-[640px] !w-full max-w-none flex-col justify-between rounded-md border-2 border-grey-400 bg-desk-gradient p-7 shadow-md">
+                <div className="flex w-full flex-col items-center space-y-1">
+                  <Skeleton className="w-full" height={28} />
+                  <Skeleton width={60} height={24} />
+                </div>
+                <Skeleton className="w-full" height={64} />
+                <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
+                  <Skeleton width={120} height={32} />
+                  <Skeleton width={210} height={32} />
+                </div>
+              </div>
             </SwiperSlide>
             <SwiperSlide>
-              <Skeleton className="w-full" height={590} />
+              <div className="relative flex h-[640px] !w-full max-w-none flex-col justify-between rounded-md border-2 border-grey-400 bg-desk-gradient p-7 shadow-md">
+                <div className="flex w-full flex-col items-center space-y-1">
+                  <Skeleton className="w-full" height={28} />
+                  <Skeleton width={60} height={24} />
+                </div>
+                <Skeleton className="w-full" height={64} />
+                <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
+                  <Skeleton width={120} height={32} />
+                  <Skeleton width={210} height={32} />
+                </div>
+              </div>
             </SwiperSlide>
             <SwiperSlide>
-              <Skeleton className="w-full" height={590} />
+              <div className="relative flex h-[640px] !w-full max-w-none flex-col justify-between rounded-md border-2 border-grey-400 bg-desk-gradient p-7 shadow-md">
+                <div className="flex w-full flex-col items-center space-y-1">
+                  <Skeleton className="w-full" height={28} />
+                  <Skeleton width={60} height={24} />
+                </div>
+                <Skeleton className="w-full" height={64} />
+                <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
+                  <Skeleton width={120} height={32} />
+                  <Skeleton width={210} height={32} />
+                </div>
+              </div>
             </SwiperSlide>
             <SwiperSlide>
-              <Skeleton className="w-full" height={590} />
+              <div className="relative flex h-[640px] !w-full max-w-none flex-col justify-between rounded-md border-2 border-grey-400 bg-desk-gradient p-7 shadow-md">
+                <div className="flex w-full flex-col items-center space-y-1">
+                  <Skeleton className="w-full" height={28} />
+                  <Skeleton width={60} height={24} />
+                </div>
+                <Skeleton className="w-full" height={64} />
+                <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
+                  <Skeleton width={120} height={32} />
+                  <Skeleton width={210} height={32} />
+                </div>
+              </div>
             </SwiperSlide>
           </>
         ) : (

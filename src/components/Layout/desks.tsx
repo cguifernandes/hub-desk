@@ -43,26 +43,6 @@ const Desks = ({ id, user }: { id: string; user: string }) => {
     getDesks()
   }, [page])
 
-  if (!mounted) {
-    return (
-      <div
-        className={clsx(
-          'flex w-full grow-[1] basis-0 flex-wrap justify-center gap-8 px-4 py-10 md:p-10',
-        )}
-      >
-        {' '}
-        <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
-        <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
-        <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
-        <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
-        <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
-        <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
-        <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
-        <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
-      </div>
-    )
-  }
-
   return (
     <>
       {desks.length === 0 && !isLoading ? (
@@ -78,14 +58,50 @@ const Desks = ({ id, user }: { id: string; user: string }) => {
         >
           {isLoading ? (
             <>
-              <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
-              <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
-              <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
-              <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
-              <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
-              <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
-              <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
-              <Skeleton className="h-[590px] min-w-[330px] max-w-[490px] flex-1 sm:min-w-[380px]" />
+              <div className="relative flex h-[640px] min-w-[360px] max-w-[490px] flex-1 flex-col justify-between rounded-md border-2 border-grey-400 bg-desk-gradient p-7 shadow-md sm:min-w-[420px]">
+                <div className="flex w-full flex-col items-center space-y-1">
+                  <Skeleton className="w-full" height={28} />
+                  <Skeleton width={60} height={24} />
+                </div>
+                <Skeleton className="w-full" height={64} />
+                <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
+                  <Skeleton width={120} height={32} />
+                  <Skeleton width={210} height={32} />
+                </div>
+              </div>
+              <div className="relative flex h-[640px] min-w-[360px] max-w-[490px] flex-1 flex-col justify-between rounded-md border-2 border-grey-400 bg-desk-gradient p-7 shadow-md sm:min-w-[420px]">
+                <div className="flex w-full flex-col items-center space-y-1">
+                  <Skeleton className="w-full" height={28} />
+                  <Skeleton width={60} height={24} />
+                </div>
+                <Skeleton className="w-full" height={64} />
+                <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
+                  <Skeleton width={120} height={32} />
+                  <Skeleton width={210} height={32} />
+                </div>
+              </div>
+              <div className="relative flex h-[640px] min-w-[360px] max-w-[490px] flex-1 flex-col justify-between rounded-md border-2 border-grey-400 bg-desk-gradient p-7 shadow-md sm:min-w-[420px]">
+                <div className="flex w-full flex-col items-center space-y-1">
+                  <Skeleton className="w-full" height={28} />
+                  <Skeleton width={60} height={24} />
+                </div>
+                <Skeleton className="w-full" height={64} />
+                <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
+                  <Skeleton width={120} height={32} />
+                  <Skeleton width={210} height={32} />
+                </div>
+              </div>
+              <div className="relative flex h-[640px] min-w-[360px] max-w-[490px] flex-1 flex-col justify-between rounded-md border-2 border-grey-400 bg-desk-gradient p-7 shadow-md sm:min-w-[420px]">
+                <div className="flex w-full flex-col items-center space-y-1">
+                  <Skeleton className="w-full" height={28} />
+                  <Skeleton width={60} height={24} />
+                </div>
+                <Skeleton className="w-full" height={64} />
+                <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
+                  <Skeleton width={120} height={32} />
+                  <Skeleton width={210} height={32} />
+                </div>
+              </div>
             </>
           ) : (
             desks.map((desk) => (
