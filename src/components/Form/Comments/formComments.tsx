@@ -1,20 +1,29 @@
 /* eslint-disable camelcase */
-'use client'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { CommentZodProps, schemaComment } from '@/utils/Zod/comments'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Form } from '..'
-import { useEffect, useState } from 'react'
-import useClient from '@/hooks/useClient'
 import { Toast } from '@/utils/toast'
-import { ResponseProps } from '@/utils/type'
 import { api } from '@/utils/api'
+import { RCommentsProps } from '@/utils/type'
+import { Form } from '../index'
 import Skeleton from '@/components/Layout/skeleton'
 
-const FormComments = ({ deskId }: { deskId: string | undefined }) => {
-  const [isLoading, setIsLoading] = useState(false)
+type FormCommentsProps = {
+  isConnected: boolean
+  user_session: string | undefined
+  deskId: string | undefined
+  setCommentsUpdated: Dispatch<SetStateAction<boolean>>
+}
+
+const FormComments = ({
+  isConnected,
+  user_session,
+  deskId,
+  setCommentsUpdated,
+}: FormCommentsProps) => {
   const [mounted, setMounted] = useState(false)
-  const { user_session, isConnected } = useClient()
+  const [isLoading, setIsLoading] = useState(false)
   const {
     handleSubmit,
     register,
@@ -35,7 +44,7 @@ const FormComments = ({ deskId }: { deskId: string | undefined }) => {
 
       if (!deskId) return
 
-      const { data }: { data: ResponseProps } = await api.post(
+      const { data }: { data: RCommentsProps } = await api.post(
         `/comments?id=${user_session}`,
         JSON.stringify({ deskId, text }),
         { headers: { 'Content-Type': 'application/json' } },
@@ -45,6 +54,7 @@ const FormComments = ({ deskId }: { deskId: string | undefined }) => {
         Toast(data.error)
       } else {
         Toast(data.success)
+        setCommentsUpdated(true)
         reset()
       }
     } catch (err) {
@@ -56,7 +66,7 @@ const FormComments = ({ deskId }: { deskId: string | undefined }) => {
 
   return (
     <Form.Root
-      className="flex w-full flex-col items-center gap-y-4 py-4"
+      className="flex w-full flex-col items-center gap-y-4"
       handleSubmit={handleSubmit(handlerFormSubmit)}
     >
       <div className="w-full min-w-[240px] max-w-[650px] shadow-md">

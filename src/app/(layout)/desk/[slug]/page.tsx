@@ -7,7 +7,6 @@ import Text from '@/components/Typography/text'
 import { url } from '@/utils/constant'
 import { RDeskProps } from '@/utils/type'
 import { Metadata } from 'next'
-import FormComments from '@/components/Form/Comments/formComments'
 import Comments from '@/components/Layout/comments'
 import DeskWrapper from '@/components/Wrapper/deskWrapper'
 import { cookies } from 'next/headers'
@@ -89,8 +88,11 @@ export default async function Desk({ params }: { params: { slug: string } }) {
             deskId={props.desk.data[0].id}
           />
         </div>
-        <FormComments deskId={props.desk.data[0].id} />
-        <Comments deskId={params.slug} />
+        <Comments
+          isConnected={!!user_session?.value}
+          user_session={user_session?.value}
+          deskId={params.slug}
+        />
       </div>
     </section>
   )

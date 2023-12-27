@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 'use client'
@@ -8,10 +9,18 @@ import Text from '../Typography/text'
 import Pagination from './pagination'
 import clsx from 'clsx'
 import Skeleton from './skeleton'
+import FormComments from '../Form/Comments/formComments'
 
-const Comments = ({ deskId }: { deskId: string | undefined }) => {
+type CommentsProps = {
+  deskId: string | undefined
+  user_session: string | undefined
+  isConnected: boolean
+}
+
+const Comments = ({ deskId, user_session, isConnected }: CommentsProps) => {
   const [comments, setComments] = useState<CommentProps[]>([])
   const [count, setCount] = useState(0)
+  const [commentsUpdated, setCommentsUpdated] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [page, setPage] = useState(1)
   const totalPages = Math.ceil(count / 4)
@@ -30,6 +39,7 @@ const Comments = ({ deskId }: { deskId: string | undefined }) => {
 
         setComments(data.comments)
         setCount(data.count)
+        setCommentsUpdated(false)
       } catch (err) {
         console.log(err)
       } finally {
@@ -38,19 +48,18 @@ const Comments = ({ deskId }: { deskId: string | undefined }) => {
     }
 
     getComments()
-  }, [page])
+  }, [page, commentsUpdated])
 
   return (
     <>
       {comments.length > 0 && (
-        <>
-          <div className="m-auto h-[2px] w-full max-w-[700px] bg-grey-400" />
-          <div className="grid w-full grid-cols-2 items-center justify-items-center gap-4 py-4">
+        <div className="mx-auto flex w-11/12 flex-col gap-y-4 py-4">
+          <div className="grid w-full grid-cols-2 items-center justify-items-center gap-4">
             {!isLoading ? (
               comments.map((comments) => (
                 <div
                   className={clsx(
-                    'flex h-40 w-full max-w-2xl flex-col justify-between rounded-md',
+                    'flex min-h-[180px] w-full min-w-[500px] flex-col justify-between rounded-md',
                     'border-2 border-grey-400 bg-desk-gradient p-4 text-white',
                   )}
                   key={comments.id}
@@ -65,10 +74,10 @@ const Comments = ({ deskId }: { deskId: string | undefined }) => {
               ))
             ) : (
               <>
-                <Skeleton className="h-40 w-full max-w-2xl" />
-                <Skeleton className="h-40 w-full max-w-2xl" />
-                <Skeleton className="h-40 w-full max-w-2xl" />
-                <Skeleton className="h-40 w-full max-w-2xl" />
+                <Skeleton className="h-44 min-h-[180px] w-full min-w-[500px]" />
+                <Skeleton className="h-44 min-h-[180px] w-full min-w-[500px]" />
+                <Skeleton className="h-44 min-h-[180px] w-full min-w-[500px]" />
+                <Skeleton className="h-44 min-h-[180px] w-full min-w-[500px]" />
               </>
             )}
           </div>
@@ -78,8 +87,14 @@ const Comments = ({ deskId }: { deskId: string | undefined }) => {
             setPage={setPage}
             totalPages={totalPages}
           />
-        </>
+        </div>
       )}
+      <FormComments
+        setCommentsUpdated={setCommentsUpdated}
+        deskId={deskId}
+        isConnected={isConnected}
+        user_session={user_session}
+      />
     </>
   )
 }

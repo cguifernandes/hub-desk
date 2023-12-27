@@ -86,6 +86,12 @@ export type ResponseProps = {
   data: DeskProps[]
 }
 
+export type RCommentsProps = {
+  error: string
+  success: string
+  data: CommentProps[]
+}
+
 export type RSearchProps = {
   clients: ClientsProps[]
   desks: DeskProps[]
