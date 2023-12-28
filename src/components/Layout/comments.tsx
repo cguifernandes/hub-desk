@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
 'use client'
-import { CommentProps } from '@/utils/type'
+import { ClientsProps, CommentProps } from '@/utils/type'
 import { useEffect, useState } from 'react'
 import DeskWrapper from '../Wrapper/deskWrapper'
 import Text from '../Typography/text'
@@ -15,9 +15,15 @@ type CommentsProps = {
   deskId: string | undefined
   user_session: string | undefined
   isConnected: boolean
+  user: ClientsProps[]
 }
 
-const Comments = ({ deskId, user_session, isConnected }: CommentsProps) => {
+const Comments = ({
+  deskId,
+  user_session,
+  isConnected,
+  user,
+}: CommentsProps) => {
   const [comments, setComments] = useState<CommentProps[]>([])
   const [count, setCount] = useState(0)
   const [commentsUpdated, setCommentsUpdated] = useState(false)
@@ -139,6 +145,7 @@ const Comments = ({ deskId, user_session, isConnected }: CommentsProps) => {
         deskId={deskId}
         isConnected={isConnected}
         user_session={user_session}
+        user={user}
       />
     </>
   )

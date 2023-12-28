@@ -22,13 +22,14 @@ const FormInput = ({
   error,
   children,
   setFakeData,
+  value,
   placeholder,
   ...props
 }: InputProps) => {
   return (
     <div className={clsx('flex flex-col justify-start', className)}>
       {placeholder && (
-        <label className="text-sm text-white/50">{placeholder}</label>
+        <label className="text-sm text-white/50">{value || placeholder}</label>
       )}
       <Input
         {...props}

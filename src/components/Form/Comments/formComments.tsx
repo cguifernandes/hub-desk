@@ -1,19 +1,20 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable camelcase */
-import { Dispatch, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { CommentZodProps, schemaComment } from '@/utils/Zod/comments'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Toast } from '@/utils/toast'
 import { api } from '@/utils/api'
-import { RCommentsProps } from '@/utils/type'
+import { ClientsProps, RCommentsProps } from '@/utils/type'
 import { Form } from '../index'
-import Skeleton from '@/components/Layout/skeleton'
 
 type FormCommentsProps = {
   isConnected: boolean
   user_session: string | undefined
   deskId: string | undefined
   setCommentsUpdated: Dispatch<SetStateAction<boolean>>
+  user: ClientsProps[]
 }
 
 const FormComments = ({
@@ -21,8 +22,8 @@ const FormComments = ({
   user_session,
   deskId,
   setCommentsUpdated,
+  user,
 }: FormCommentsProps) => {
-  const [mounted, setMounted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const {
     handleSubmit,
@@ -33,10 +34,6 @@ const FormComments = ({
     reValidateMode: 'onSubmit',
     resolver: zodResolver(schemaComment),
   })
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
 
   const handlerFormSubmit = async ({ text }: CommentZodProps) => {
     try {
@@ -64,34 +61,37 @@ const FormComments = ({
     }
   }
 
+  if (!isConnected) return <></>
+
   return (
     <Form.Root
       className="flex w-full flex-col items-center gap-y-4"
       handleSubmit={handleSubmit(handlerFormSubmit)}
     >
-      <div className="w-full min-w-[240px] max-w-[650px] shadow-md">
-        <Form.Textarea
-          maxLength={190}
-          error={errors.text}
-          name="text"
-          register={register}
-          placeholder="Comente aqui!"
+      <div className="flex w-3/4 flex-col items-end gap-y-3">
+        <div className="relative flex w-full items-center gap-x-4">
+          <img
+            alt={user[0].user}
+            src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${user[0].pfp}`}
+            className="h-14 w-14 overflow-clip rounded-full object-cover object-center align-top"
+          />
+          <Form.Input
+            value={'Postar comentário'}
+            placeholder="Poste um comentário sobre essa desk"
+            maxLength={190}
+            register={register}
+            error={errors.text}
+            name="text"
+            className="w-full"
+          />
+        </div>
+        <Form.Button
+          type="submit"
+          loading={isLoading}
+          className="w-56"
+          text="Postar comentário"
         />
       </div>
-      {!mounted ? (
-        <Skeleton height={48} className="w-full min-w-[240px] max-w-[650px]" />
-      ) : (
-        <Form.Button
-          loading={isLoading}
-          type="submit"
-          text={
-            isConnected
-              ? 'Comentar'
-              : 'Você precisa estar logado para comentar.'
-          }
-          className="w-full min-w-[240px] max-w-[650px]"
-        />
-      )}
     </Form.Root>
   )
 }

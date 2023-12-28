@@ -78,12 +78,10 @@ export type RDeskProps = {
   count: number
 }
 
-export type ResponseProps = {
+export type RClientsProps = {
   error: string
   success: string
-  id: string
-  clients: ClientsProps[]
-  data: DeskProps[]
+  data: ClientsProps[]
 }
 
 export type RCommentsProps = {

@@ -5,7 +5,7 @@
 import Heading from '@/components/Typography/heading'
 import Text from '@/components/Typography/text'
 import { url } from '@/utils/constant'
-import { RDeskProps } from '@/utils/type'
+import { RClientsProps, RDeskProps } from '@/utils/type'
 import { Metadata } from 'next'
 import Comments from '@/components/Layout/comments'
 import DeskWrapper from '@/components/Wrapper/deskWrapper'
@@ -26,17 +26,28 @@ export async function generateMetadata({
 }
 
 async function getServerSideProps(deskId: string | undefined) {
+  const headers = cookies()
+  const user_session = headers.get('user_session')
   if (!deskId) return
 
   const responseDesk = await fetch(`${url}/api/desks/getUnique?id=${deskId}`, {
     cache: 'reload',
   })
 
+  const responseUser = await fetch(
+    `${url}/api/auth/getWithId?id=${user_session?.value}`,
+    {
+      cache: 'reload',
+    },
+  )
+
   const desk = await responseDesk.json()
+  const user = await responseUser.json()
 
   return {
     props: {
       desk,
+      user,
     },
   }
 }
@@ -45,7 +56,7 @@ export default async function Desk({ params }: { params: { slug: string } }) {
   const cookieStore = cookies()
   const user_session = cookieStore.get('user_session')
   const { props } = (await getServerSideProps(params.slug)) as {
-    props: { desk: RDeskProps }
+    props: { desk: RDeskProps; user: RClientsProps }
   }
 
   return (
@@ -93,6 +104,7 @@ export default async function Desk({ params }: { params: { slug: string } }) {
           isConnected={!!user_session?.value}
           user_session={user_session?.value}
           deskId={params.slug}
+          user={props.user.data}
         />
       </div>
     </section>

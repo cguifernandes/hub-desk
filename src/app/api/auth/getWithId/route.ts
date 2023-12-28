@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     const clients = await prisma.clients.findMany({ where: { id } })
 
     if (clients) {
-      return NextResponse.json({ success: 'Usuário encontrado', clients })
+      return NextResponse.json({ success: 'Usuário encontrado', data: clients })
     } else {
       return NextResponse.json({ error: 'Usuário não encontrado.' })
     }

@@ -1,15 +1,15 @@
 export const categories = [
   {
-    value: 'Animes',
-    id: 1,
-  },
-  {
     value: 'Desenhos',
     id: 2,
   },
   {
     value: 'Filmes',
     id: 3,
+  },
+  {
+    value: 'Geek',
+    id: 1,
   },
   { value: 'Jogos', id: 4 },
   { value: 'Outros', id: 5 },

@@ -61,7 +61,7 @@ const DeskWrapper = ({
 
         const data = await response.json()
 
-        setAuthor(data.clients[0])
+        setAuthor(data.data[0])
       } catch (err) {
         console.log(err)
       } finally {
