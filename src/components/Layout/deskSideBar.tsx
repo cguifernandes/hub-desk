@@ -12,16 +12,16 @@ import { Toast } from '@/utils/toast'
 
 type SideBarProps = {
   className?: string
-  authorId: string | undefined
   user_session: string | undefined
   deskId: string | undefined
+  isLeader: boolean
 }
 
 const DeskSideBar = ({
-  authorId,
   user_session,
   className,
   deskId,
+  isLeader,
 }: SideBarProps) => {
   const [inviteMember, setInviteMember] = useState<{
     userId: string
@@ -29,7 +29,6 @@ const DeskSideBar = ({
   }>()
   const [isLoading, setIsLoading] = useState(false)
   const [members, setMembers] = useState<MemberProps[]>()
-  const isLeader = authorId === user_session
 
   const handlerInviteMember = async () => {
     try {

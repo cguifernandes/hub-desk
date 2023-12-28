@@ -9,17 +9,19 @@ import { api } from '@/utils/api'
 import { Toast } from '@/utils/toast'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Image } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import useClient from '@/hooks/useClient'
 import { supabase } from '../../../../lib/supabase'
 import AnimationWrapper from '@/components/Wrapper/animationWrapper'
-import { FakeRDeskProps } from '@/utils/type'
+import { DeskProps as RDeskProps, FakeRDeskProps } from '@/utils/type'
 import FakeDesk from '@/components/fakeDesk'
 import { categories, visibility } from '@/utils/constant'
+import { useRouter } from 'next/navigation'
 
-const FormDesk = () => {
+const EditFormDesk = ({ desk }: { desk: RDeskProps }) => {
   const [selectedCategory, setSelectedCategory] = useState('')
+  const { push } = useRouter()
   const [selectedVisibility, setSelectedVisibility] = useState('Público')
   const [fileList, setFileList] = useState<File | undefined>(undefined)
   const [fakeData, setFakeData] = useState<FakeRDeskProps | undefined>({
@@ -43,20 +45,37 @@ const FormDesk = () => {
     resolver: zodResolver(schemaDesk),
   })
 
-  const handlerFormSubmit = async (desk: DeskProps) => {
+  useEffect(() => {
+    setFakeData({
+      category: desk.category,
+      description: desk.description,
+      src: desk.image,
+      title: desk.title,
+    })
+    setValue('title', desk.title)
+    setValue('description', desk.description)
+    setValue('category', desk.category)
+    setValue('visibility', desk.visibility)
+    setValue('repo', desk.repo)
+    setValue('website', desk.website)
+    setSelectedCategory(desk.category)
+    setSelectedVisibility(desk.visibility)
+  }, [])
+
+  const handlerFormSubmit = async (response: DeskProps) => {
     try {
       setIsLoading(true)
-      if (desk.image !== undefined) {
+      if (response.image !== undefined) {
         const timestamp = new Date().getTime()
         const storage = await supabase.storage
           .from('hub-desk')
-          .upload(`desk/${timestamp}_${desk.image.name}`, desk.image)
-        desk.image = storage.data?.path
+          .upload(`desk/${timestamp}_${response.image.name}`, response.image)
+        response.image = storage.data?.path
       } else {
-        desk.image = ''
+        response.image = ''
       }
 
-      const { data } = await api.post(`/desks?authorId=${user_session}`, desk, {
+      const { data } = await api.put(`/desks?deskId=${desk.id}`, response, {
         headers: { 'Content-Type': 'application/json' },
       })
 
@@ -65,15 +84,7 @@ const FormDesk = () => {
       } else {
         Toast(data.success)
         reset()
-        setSelectedCategory('')
-        setSelectedVisibility('Público')
-        setFileList(undefined)
-        setFakeData({
-          category: 'Selecione uma categoria',
-          description: 'Escreva uma descrição',
-          src: '',
-          title: 'Escreva um título',
-        })
+        push(`/desk/${desk.id}`)
       }
     } catch (err) {
       console.error('Erro ao processar formulário:', err)
@@ -190,7 +201,7 @@ const FormDesk = () => {
         <Form.Button
           loading={isLoading}
           type="submit"
-          text="Criar uma desk"
+          text="Editar desk"
           className="w-full"
         />
       </Form.Root>
@@ -204,4 +215,4 @@ const FormDesk = () => {
   )
 }
 
-export default FormDesk
+export default EditFormDesk

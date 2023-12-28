@@ -39,7 +39,11 @@ const FakeDesk = ({
           <img
             className="h-full w-full overflow-clip rounded-t-md object-cover object-top align-top"
             alt="Imagem da desk"
-            src={data?.src}
+            src={
+              data?.src.includes('desk/')
+                ? `https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${data.src}`
+                : data.src
+            }
           />
           <div className="absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-grey-600"></div>
         </div>

@@ -5,34 +5,69 @@ import { DeskProps } from '@/utils/type'
 
 export async function DELETE(request: NextRequest) {
   const { searchParams } = new URL(request.url)
-  const body: DeskProps = await request.json()
-  const page = searchParams.get('page')
-  const { id, authorId } = body
-  const PER_PAGE = 12
+  const deskId = searchParams.get('deskId')
 
-  if (id) {
-    const deletedDesks = await prisma.desk.delete({ where: { id } })
-    const currentPage = Math.max(Number(page || 1), 1)
-
-    if (deletedDesks) {
-      const updatedDeks = await prisma.desk.findMany({
-        take: PER_PAGE,
-        skip: (currentPage - 1) * PER_PAGE,
-        where: { authorId },
-        orderBy: {
-          createdAt: 'desc',
-        },
-      })
+  if (deskId) {
+    try {
+      await prisma.member.deleteMany({ where: { deskId } })
+      await prisma.desk.delete({ where: { id: deskId } })
 
       return NextResponse.json({
-        success: 'Desks apagada',
-        data: updatedDeks,
+        success: 'Desks apagada com sucesso.',
       })
-    } else {
+    } catch (err) {
       return NextResponse.json({
-        error: 'Nenhuma desk foi encontrada por este usuário.',
+        error: err,
       })
     }
+  } else {
+    return NextResponse.json({
+      error: 'Nenhuma desk foi encontrada por este usuário.',
+    })
+  }
+}
+
+export async function PUT(request: NextRequest) {
+  const { searchParams } = new URL(request.url)
+  const deskId = searchParams.get('deskId')
+  const body: DeskProps = await request.json()
+  const {
+    category,
+    description,
+    title,
+    repo,
+    website,
+    image,
+    visibility,
+    authorId,
+  } = body
+  try {
+    if (!deskId) {
+      return NextResponse.json({
+        error: 'Não é possível editar essa.',
+      })
+    }
+
+    const newDesk = await prisma.desk.updateMany({
+      where: { id: deskId },
+      data: {
+        category,
+        description,
+        title,
+        authorId,
+        repo,
+        website,
+        image,
+        visibility,
+      },
+    })
+
+    return NextResponse.json({
+      success: 'Os dados da desk foram editados com sucesso.',
+      data: newDesk,
+    })
+  } catch (error) {
+    throw new Error(JSON.stringify(error))
   }
 }
 

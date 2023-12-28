@@ -18,7 +18,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
   }, [])
 
   if (!mounted) {
-    if (pathname === '/desk/post') {
+    if (pathname === '/desk/post' || pathname.includes('/desk/edit')) {
       return (
         <section className="flex min-h-[calc(100vh_-_80px_-_64px)] flex-col items-center">
           <DeskLoading />

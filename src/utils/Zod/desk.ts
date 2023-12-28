@@ -3,7 +3,7 @@ import { allowedImageTypes } from '../constant'
 
 export const schemaDesk = z.object({
   category: z.enum([
-    'Animes',
+    'Geek',
     'Desenhos',
     'Filmes',
     'Jogos',

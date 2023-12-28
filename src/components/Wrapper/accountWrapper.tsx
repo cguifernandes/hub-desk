@@ -80,6 +80,8 @@ const AccountWrapper = ({ client }: { client: ClientsProps[] }) => {
               handlerDeleteAccount={handlerDeleteAccount}
               setVisibleModal={setVisibleModal}
               visibleModal={visibleModal}
+              text="Tem certeza que deseja deletar sua conta?"
+              subtitle="Ao clicar no botão &#34;Confirmar&#34; seus dados serão apagados"
             />
           </div>
         </>

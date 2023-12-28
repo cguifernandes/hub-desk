@@ -68,16 +68,16 @@ const FormComments = ({
       className="flex w-full flex-col items-center gap-y-4"
       handleSubmit={handleSubmit(handlerFormSubmit)}
     >
-      <div className="flex w-3/4 flex-col items-end gap-y-3">
+      <div className="flex w-full flex-col items-end gap-y-3 md:w-3/4">
         <div className="relative flex w-full items-center gap-x-4">
           <img
             alt={user[0].user}
             src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${user[0].pfp}`}
-            className="h-14 w-14 overflow-clip rounded-full object-cover object-center align-top"
+            className="h-12 w-12 overflow-clip rounded-full object-cover object-center align-top md:h-14 md:w-14"
           />
           <Form.Input
-            value={'Postar comentário'}
-            placeholder="Poste um comentário sobre essa desk"
+            placeholder="Postar comentário"
+            label="Poste um comentário sobre essa desk"
             maxLength={190}
             register={register}
             error={errors.text}

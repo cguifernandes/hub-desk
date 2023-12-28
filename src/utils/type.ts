@@ -43,7 +43,7 @@ export type DeskProps = {
   image: string
   visibility: 'Público' | 'Privado'
   category:
-    | 'Animes'
+    | 'Geek'
     | 'Desenhos'
     | 'Filmes'
     | 'Jogos'
@@ -62,7 +62,7 @@ export type FakeRDeskProps = {
   description?: string
   src?: string
   category?:
-    | 'Animes'
+    | 'Geek'
     | 'Desenhos'
     | 'Filmes'
     | 'Jogos'

@@ -21,7 +21,7 @@ const ModalOverlay = ({
         style={visibleModal ? { opacity: 1 } : { opacity: 0 }}
         onClick={onClick}
         className={clsx(
-          'fixed left-0 top-0 z-10 !m-0 h-screen w-screen bg-grey-900/50',
+          'fixed left-0 top-0 z-30 !m-0 h-screen w-screen bg-grey-900/50',
           className,
         )}
       >
@@ -33,7 +33,7 @@ const ModalOverlay = ({
       <div
         style={visibleModal ? { opacity: 1 } : { opacity: 0 }}
         onClick={onClick}
-        className="fixed left-0 top-0 z-10 !m-0 h-screen w-screen bg-grey-900/50"
+        className="fixed left-0 top-0 z-30 !m-0 h-screen w-screen bg-grey-900/50"
       />
     )
   }

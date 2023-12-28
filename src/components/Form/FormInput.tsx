@@ -13,6 +13,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   name?: string
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
   setFakeData?: Dispatch<SetStateAction<FakeRDeskProps | undefined>>
+  label: string
 }
 
 const FormInput = ({
@@ -23,14 +24,13 @@ const FormInput = ({
   children,
   setFakeData,
   value,
+  label,
   placeholder,
   ...props
 }: InputProps) => {
   return (
     <div className={clsx('flex flex-col justify-start', className)}>
-      {placeholder && (
-        <label className="text-sm text-white/50">{value || placeholder}</label>
-      )}
+      <label className="text-sm text-white/50">{label}</label>
       <Input
         {...props}
         name={name}
@@ -38,6 +38,7 @@ const FormInput = ({
         error={error}
         setFakeData={setFakeData}
         placeholder={placeholder}
+        value={value}
       >
         {children}
       </Input>

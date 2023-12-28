@@ -10,6 +10,7 @@ type TextareaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
   name: string
   error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
   setFakeData?: Dispatch<SetStateAction<FakeRDeskProps | undefined>>
+  label: string
 }
 
 const FormTextarea = ({
@@ -18,14 +19,13 @@ const FormTextarea = ({
   name,
   error,
   setFakeData,
+  label,
   placeholder,
   ...props
 }: TextareaProps) => {
   return (
     <div className="flex flex-col">
-      {placeholder && (
-        <label className="text-sm text-white/50">{placeholder}</label>
-      )}
+      <label className="text-sm text-white/50">{label}</label>
       <Textarea
         {...props}
         className={className}

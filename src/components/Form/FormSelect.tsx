@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 'use client'
 import { Dispatch, InputHTMLAttributes, SetStateAction, useState } from 'react'
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
@@ -11,12 +12,12 @@ type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
   handlerClickSelect: (value: any) => void
   setFakeData?: Dispatch<SetStateAction<FakeRDeskProps | undefined>>
   className?: string
-  value: string
+  label: string
+  value?: string | (readonly string[] & string)
   dropDownItems?: {
     id: number
     value: any
   }[]
-  message?: string
 }
 
 const FormSelect = ({
@@ -26,7 +27,7 @@ const FormSelect = ({
   className,
   dropDownItems,
   value,
-  message,
+  label,
   style,
   ...props
 }: SelectProps) => {
@@ -34,7 +35,7 @@ const FormSelect = ({
 
   return (
     <div className="w-full sm:w-1/2">
-      {value && <label className="text-sm text-white/50">{value}</label>}
+      <label className="text-sm text-white/50">{label}</label>
       <Select
         error={error}
         style={style}
@@ -45,9 +46,8 @@ const FormSelect = ({
         className={className}
         setVisibleDropDown={setVisibleDropDown}
         visibleDropDown={visibleDropDown}
-        value={value}
+        value={value!}
       />
-      {message && <span className="text-sm text-white/50">{message}</span>}
       {error && (
         <span className="text-sm text-red-500">
           {error.type === 'invalid_type' &&

@@ -52,7 +52,7 @@ const Select = ({
           ...style,
           ...(error ? { border: '2px solid rgb(239, 68, 68)' } : {}),
         }}
-        className="w-full cursor-pointer select-none rounded-md bg-button-gradient px-4 py-3"
+        className="w-full cursor-pointer select-none rounded-md bg-button-gradient px-4 py-3 text-white placeholder-white/50"
         value={selectedDropDown || value}
         onClick={handlerClick}
         readOnly

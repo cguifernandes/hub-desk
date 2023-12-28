@@ -39,7 +39,7 @@ const ModalBar = ({ setVisibleModal, visibleModal }: ModalBarProps) => {
         />
         <Modal.Children
           className={clsx(
-            'z-20 m-8 !mt-24 max-h-[calc(90%_-_92px)] w-[320px] overflow-y-auto md:m-10',
+            'z-50 m-8 !mt-24 max-h-[calc(90%_-_92px)] w-[320px] overflow-y-auto md:m-10',
             'rounded-md bg-modal-gradient p-8 shadow-lg backdrop-blur-md sm:w-[390px]',
           )}
         >

@@ -1,11 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { FakeRDeskProps } from '@/utils/type'
 import clsx from 'clsx'
-import { ChangeEvent, Dispatch, ReactNode, SetStateAction } from 'react'
+import {
+  ChangeEvent,
+  Dispatch,
+  InputHTMLAttributes,
+  ReactNode,
+  SetStateAction,
+} from 'react'
 import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
-type FormFileProps = {
+type FormFileProps = InputHTMLAttributes<HTMLInputElement> & {
   className?: string
   children: ReactNode
   register: any
@@ -23,6 +29,7 @@ const FormFile = ({
   fileList,
   setFileList,
   setFakeData,
+  ...props
 }: FormFileProps) => {
   const handlerChangeValues = (e: ChangeEvent<HTMLInputElement>) => {
     setFileList(e.target.files?.[0])
@@ -62,6 +69,7 @@ const FormFile = ({
             onChange: (e: ChangeEvent<HTMLInputElement>) =>
               handlerChangeValues(e),
           })}
+          {...props}
           id="image"
           type="file"
           accept="image/*"
