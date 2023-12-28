@@ -76,7 +76,7 @@ const FormComments = ({
             className="h-12 w-12 overflow-clip rounded-full object-cover object-center align-top md:h-14 md:w-14"
           />
           <Form.Input
-            placeholder="Postar comentário"
+            placeholder={`Olá ${user[0].user}, aqui você pode postar um comentário`}
             label="Poste um comentário sobre essa desk"
             maxLength={190}
             register={register}

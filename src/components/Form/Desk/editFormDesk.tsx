@@ -23,6 +23,7 @@ const EditFormDesk = ({ desk }: { desk: RDeskProps }) => {
   const [selectedCategory, setSelectedCategory] = useState('')
   const { push } = useRouter()
   const [selectedVisibility, setSelectedVisibility] = useState('Público')
+  const [imageText, setImageText] = useState('')
   const [fileList, setFileList] = useState<File | undefined>(undefined)
   const [fakeData, setFakeData] = useState<FakeRDeskProps | undefined>({
     category: 'Selecione uma categoria',
@@ -60,6 +61,7 @@ const EditFormDesk = ({ desk }: { desk: RDeskProps }) => {
     setValue('website', desk.website)
     setSelectedCategory(desk.category)
     setSelectedVisibility(desk.visibility)
+    setImageText(desk.image.split('_')[1])
   }, [])
 
   const handlerFormSubmit = async (response: DeskProps) => {
@@ -161,6 +163,7 @@ const EditFormDesk = ({ desk }: { desk: RDeskProps }) => {
           setFileList={setFileList}
           setFakeData={setFakeData}
           register={register}
+          imageText={imageText}
         >
           <Image className="absolute right-4" size={22} strokeWidth={1.5} />
         </Form.File>

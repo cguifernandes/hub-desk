@@ -19,6 +19,7 @@ type FormFileProps = InputHTMLAttributes<HTMLInputElement> & {
   setFileList: Dispatch<SetStateAction<File | undefined>>
   fileList: File | undefined
   setFakeData?: Dispatch<SetStateAction<FakeRDeskProps | undefined>>
+  imageText?: string
 }
 
 const FormFile = ({
@@ -26,6 +27,7 @@ const FormFile = ({
   className,
   error,
   register,
+  imageText,
   fileList,
   setFileList,
   setFakeData,
@@ -77,7 +79,7 @@ const FormFile = ({
         />
         <label className="w-full  px-4 py-3" htmlFor="image">
           {!fileList
-            ? 'Escolha uma imagem'
+            ? imageText || 'Escolha uma imagem'
             : fileList.name || 'Nome do arquivo indisponível'}
         </label>
         {children}

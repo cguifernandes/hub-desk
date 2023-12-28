@@ -15,7 +15,7 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <main>
       <section className="flex min-h-screen">
-        <div className="relative flex w-full max-w-[500px] flex-col justify-center bg-grey-gradient p-6 py-16">
+        <div className="relative flex w-full max-w-[700px] flex-col justify-center bg-grey-gradient p-6 py-16">
           <Back
             className="absolute left-2/4 top-16 -translate-x-2/4"
             href="/"
