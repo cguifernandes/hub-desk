@@ -10,6 +10,7 @@ import Pagination from './pagination'
 import clsx from 'clsx'
 import Skeleton from './skeleton'
 import FormComments from '../Form/Comments/formComments'
+import AnimationWrapper from '../Wrapper/animationWrapper'
 
 type CommentsProps = {
   deskId: string | undefined
@@ -63,7 +64,9 @@ const Comments = ({
           <div className="flex w-full grow-[1] basis-0 flex-wrap justify-center gap-4">
             {!isLoading ? (
               comments.map((comments) => (
-                <div
+                <AnimationWrapper
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
                   className={clsx(
                     'flex min-h-[200px] w-full min-w-[360px] max-w-3xl flex-1 flex-col rounded-md md:min-w-[600px]',
                     'justify-between border-2 border-grey-400 bg-desk-gradient p-4 text-white',
@@ -76,7 +79,7 @@ const Comments = ({
                     authorId={comments.authorId}
                     createdAt={comments.createdAt}
                   />
-                </div>
+                </AnimationWrapper>
               ))
             ) : (
               <>

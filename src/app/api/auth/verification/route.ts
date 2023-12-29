@@ -2,11 +2,16 @@ import { NextRequest, NextResponse } from 'next/server'
 import bcrypt from 'bcrypt'
 import prisma from '../../../../../lib/prisma'
 
-export async function POST(request: NextRequest) {
-  const body = await request.json()
-  const { email, password } = body
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url)
+  const email = searchParams.get('email')
+  const password = searchParams.get('password')
 
   try {
+    if (!email || !password) {
+      return NextResponse.json({ error: 'E-mail ou senha não fornecidos.' })
+    }
+
     const user = await prisma.clients.findUnique({
       where: { email },
     })

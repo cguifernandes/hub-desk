@@ -8,7 +8,6 @@ import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { api } from '@/utils/api'
 import { Toast } from '@/utils/toast'
-import { ResponseProps } from '@/utils/type'
 import { setCookie } from 'nookies'
 import useClient from '@/hooks/useClient'
 
@@ -37,14 +36,15 @@ const FormSignIn = () => {
   const handlerFormSubmit = async (user: SignInProps) => {
     try {
       setIsLoading(true)
-      const { data }: { data: ResponseProps } = await api.post(
-        '/auth/verification',
-        JSON.stringify({
-          password: user.password,
-          email: user.email,
-        }),
-        { headers: { 'Content-Type': 'application/json' } },
-      )
+      const { data }: { data: { success: string; error: string; id: string } } =
+        await api.post(
+          `/auth/verification?email=${user.email}&password=${user.password}`,
+          JSON.stringify({
+            password: user.password,
+            email: user.email,
+          }),
+          { headers: { 'Content-Type': 'application/json' } },
+        )
 
       if (data.error) {
         Toast(data.error)
@@ -85,6 +85,7 @@ const FormSignIn = () => {
         register={register}
         name="email"
         placeholder="E-mail"
+        label="E-mail"
       >
         <Mail
           className="absolute right-4"
@@ -99,6 +100,7 @@ const FormSignIn = () => {
         register={register}
         name="password"
         placeholder="Senha"
+        label="Senha"
       >
         {!visiblePassword ? (
           <Eye

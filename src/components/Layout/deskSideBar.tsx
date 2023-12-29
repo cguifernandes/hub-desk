@@ -15,6 +15,7 @@ type SideBarProps = {
   user_session: string | undefined
   deskId: string | undefined
   isLeader: boolean
+  authorId: string | undefined
 }
 
 const DeskSideBar = ({
@@ -22,6 +23,7 @@ const DeskSideBar = ({
   className,
   deskId,
   isLeader,
+  authorId,
 }: SideBarProps) => {
   const [inviteMember, setInviteMember] = useState<{
     userId: string
@@ -91,6 +93,7 @@ const DeskSideBar = ({
           members={members}
           setMembers={setMembers}
           deskId={deskId}
+          authorId={authorId}
         />
       </div>
     </div>

@@ -65,6 +65,8 @@ const FormComments = ({
 
   return (
     <Form.Root
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
       className="flex w-full flex-col items-center gap-y-4"
       handleSubmit={handleSubmit(handlerFormSubmit)}
     >

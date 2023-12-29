@@ -61,6 +61,7 @@ const ConfirmPassword = ({
           placeholder="Senha"
           className="w-full"
           onChange={(e) => setPassword(e.target.value)}
+          label="Senha"
         >
           {!visiblePassword ? (
             <Eye

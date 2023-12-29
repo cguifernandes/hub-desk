@@ -2,7 +2,6 @@
 import { Pencil, Settings, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import Heading from './Typography/heading'
 import { api } from '@/utils/api'
 import { Toast } from '@/utils/toast'
 import { useRouter } from 'next/navigation'
@@ -69,14 +68,14 @@ const DeskSettings = ({ isLeader, deskId }: DeskSettingsProps) => {
                 onClick={() => setVisibleModal(true)}
                 className="flex justify-between rounded-t-md p-3 transition-colors hover:bg-grey-600"
               >
-                <Heading>Excluir desk</Heading>
+                <span className="text-white">Excluir desk</span>
                 <Trash2 size={22} strokeWidth={1.5} color="#fff" />
               </button>
               <Link
                 href={`/desk/edit/${deskId}`}
                 className="flex justify-between rounded-b-md p-3 transition-colors hover:bg-grey-600"
               >
-                <Heading>Editar desk</Heading>
+                <span className="text-white">Editar desk</span>
                 <Pencil size={22} strokeWidth={1.5} color="#fff" />
               </Link>
             </motion.div>

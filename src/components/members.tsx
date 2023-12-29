@@ -2,7 +2,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Text from './Typography/text'
 import Skeleton from './Layout/skeleton'
-import { MoreVertical } from 'lucide-react'
 import Link from 'next/link'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { Toast } from '@/utils/toast'
@@ -10,16 +9,25 @@ import { MemberProps, RMembersProps } from '@/utils/type'
 import Heading from './Typography/heading'
 import { url } from '@/utils/constant'
 import Pagination from './Layout/pagination'
+import MemberConfig from './memberConfig'
 
 type MembersProps = {
   isLeader: boolean
   members: MemberProps[] | undefined
   setMembers: Dispatch<SetStateAction<MemberProps[] | undefined>>
   deskId: string | undefined
+  authorId: string | undefined
 }
 
-const Members = ({ members, isLeader, setMembers, deskId }: MembersProps) => {
+const Members = ({
+  members,
+  isLeader,
+  setMembers,
+  deskId,
+  authorId,
+}: MembersProps) => {
   const [isLoading, setIsLoading] = useState(false)
+  const [updateMembers, setUpdateMembers] = useState(false)
   const [count, setCount] = useState(0)
   const [page, setPage] = useState(1)
   const totalPages = Math.ceil(count / 4)
@@ -37,6 +45,7 @@ const Members = ({ members, isLeader, setMembers, deskId }: MembersProps) => {
 
         const data: RMembersProps = await response.json()
 
+        setUpdateMembers(false)
         if (data.error) {
           Toast(data.error)
         } else {
@@ -51,7 +60,7 @@ const Members = ({ members, isLeader, setMembers, deskId }: MembersProps) => {
     }
 
     getClient()
-  }, [page])
+  }, [page, updateMembers])
 
   return (
     <>
@@ -90,7 +99,7 @@ const Members = ({ members, isLeader, setMembers, deskId }: MembersProps) => {
         ) : (
           members?.map((member) => (
             <div
-              className="flex h-[70px] items-center gap-x-2 rounded-md border border-grey-400 p-3 transition-colors hover:bg-grey-600"
+              className="relative flex h-[70px] items-center gap-x-2 rounded-md border border-grey-400 p-3 transition-colors hover:bg-grey-600"
               key={member.id}
             >
               <img
@@ -106,10 +115,13 @@ const Members = ({ members, isLeader, setMembers, deskId }: MembersProps) => {
                   <Heading>{member.user.user}</Heading>
                   <Text className="text-sm text-white/50">{member.role}</Text>
                 </Link>
-                {isLeader && (
-                  <button>
-                    <MoreVertical color="#fff" size={24} strokeWidth={1.5} />
-                  </button>
+                {isLeader && member.userId !== authorId && (
+                  <MemberConfig
+                    setUpdateMembers={setUpdateMembers}
+                    userId={member.userId}
+                    deskId={deskId}
+                    role={member.role}
+                  />
                 )}
               </div>
             </div>

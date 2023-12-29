@@ -23,6 +23,7 @@ type CardDeskProps = {
 const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
   const Pattern = href ? motion(Link) : motion.div
 
+  // if (data.visibility === 'Público') {
   return (
     <motion.div
       initial={{ opacity: 0, y: -20 }}
@@ -57,9 +58,10 @@ const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
           {data.title}
         </Heading>
         <Text className="text-white/50">{data.category}</Text>
+        <p>{data.visibility}</p>
       </Pattern>
       <Text className="break-words text-center">{data.description}</Text>
-      {data.category === 'Sites' && data.repo !== '' && data.website !== '' && (
+      {data.category === 'Sites' && (
         <div className="flex flex-col gap-6">
           {data.repo !== '' && (
             <Button
@@ -85,6 +87,7 @@ const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
       <DeskWrapper authorId={data.authorId} createdAt={data.createdAt} />
     </motion.div>
   )
+  // }
 }
 
 export default CardDesk

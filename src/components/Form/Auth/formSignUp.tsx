@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation'
 import { Toast } from '@/utils/toast'
 import { SignUpProps, schemaSignUp } from '@/utils/Zod/sign-up'
 import { api } from '@/utils/api'
-import { ResponseProps } from '@/utils/type'
 import { setCookie } from 'nookies'
 import useClient from '@/hooks/useClient'
 
@@ -37,14 +36,15 @@ const FormSignUp = () => {
   const handlerFormSubmit = async (user: SignUpProps) => {
     try {
       setIsLoading(true)
-      const { data }: { data: ResponseProps } = await api.post(
-        '/auth',
-        JSON.stringify({
-          password: user.password,
-          email: user.email,
-          user: user.user,
-        }),
-      )
+      const { data }: { data: { success: string; error: string; id: string } } =
+        await api.post(
+          '/auth',
+          JSON.stringify({
+            password: user.password,
+            email: user.email,
+            user: user.user,
+          }),
+        )
 
       if (data.error) {
         Toast(data.error)
@@ -76,6 +76,7 @@ const FormSignUp = () => {
         register={register}
         name="email"
         placeholder="E-mail"
+        label="E-mail"
       >
         <Mail
           className="absolute right-4"
@@ -90,6 +91,7 @@ const FormSignUp = () => {
         name="user"
         placeholder="User"
         maxLength={18}
+        label="User"
       >
         <UserCircle
           className="absolute right-4"
@@ -104,6 +106,7 @@ const FormSignUp = () => {
         register={register}
         name="password"
         placeholder="Senha"
+        label="Senha"
       >
         {!visiblePassword ? (
           <Eye
