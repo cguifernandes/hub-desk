@@ -35,7 +35,7 @@ const Input = ({
 }: InputProps) => {
   const handlerChangeValue = (e: ChangeEvent<HTMLInputElement>) => {
     if (setFakeData) {
-      const value = e.target.value === '' ? 'Escreva um título' : e.target.value
+      const value = e.target.value === '' ? '' : e.target.value
 
       setFakeData((prevData) => ({
         ...prevData,

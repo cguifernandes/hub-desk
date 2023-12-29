@@ -61,6 +61,8 @@ export type FakeRDeskProps = {
   title?: string
   description?: string
   src?: string
+  repo?: string
+  website?: string
   category?:
     | 'Geek'
     | 'Desenhos'

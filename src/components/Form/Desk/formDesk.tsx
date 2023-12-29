@@ -27,6 +27,8 @@ const FormDesk = () => {
     description: 'Escreva uma descrição',
     src: '',
     title: 'Escreva um título',
+    repo: '',
+    website: '',
   })
   const [isLoading, setIsLoading] = useState(false)
   const { user_session } = useClient()
@@ -177,6 +179,7 @@ const FormDesk = () => {
             placeholder="Repositório"
             className="w-full sm:w-2/4"
             label="Repositório do site"
+            setFakeData={setFakeData}
           />
           <Form.Input
             error={errors.website}
@@ -185,6 +188,7 @@ const FormDesk = () => {
             placeholder="Site"
             label="Link do site"
             className="w-full sm:w-2/4"
+            setFakeData={setFakeData}
           />
         </AnimationWrapper>
         <Form.Button

@@ -61,21 +61,26 @@ const FakeDesk = ({
         <Text className="text-white/50">{data?.category}</Text>
       </div>
       <Text className="break-words text-center">{data?.description}</Text>
-      {data?.category === 'Sites' && (
-        <div className="flex flex-col gap-6">
-          <Button
-            target="_blank"
-            onClick={(e) => e.stopPropagation()}
-            fill="empty"
-            text="Repositório"
-          />
-          <Button
-            target="_blank"
-            onClick={(e) => e.stopPropagation()}
-            text="Site"
-          />
-        </div>
-      )}
+      {data?.category === 'Sites' &&
+        (data?.repo !== '' || data?.website !== '') && (
+          <div className="flex flex-col gap-6">
+            {data?.repo !== '' && (
+              <Button
+                target="_blank"
+                onClick={(e) => e.stopPropagation()}
+                fill="empty"
+                text="Repositório"
+              />
+            )}
+            {data?.website !== '' && (
+              <Button
+                target="_blank"
+                onClick={(e) => e.stopPropagation()}
+                text="Site"
+              />
+            )}
+          </div>
+        )}
       {authorId && createdAt && (
         <DeskWrapper authorId={authorId} createdAt={createdAt} />
       )}
