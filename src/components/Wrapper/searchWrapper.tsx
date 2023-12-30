@@ -5,23 +5,20 @@
 import { useEffect, useState } from 'react'
 import Skeleton from '../Layout/skeleton'
 import { ClientsProps } from '@/utils/type'
-import clsx from 'clsx'
 import { MessageSquare } from 'lucide-react'
 import Link from 'next/link'
 
-type DeskWrapperProps = {
+type SearchWrapperProps = {
   authorId: string | undefined
   createdAt: Date
-  className?: string
   comments?: number | undefined
 }
 
-const DeskWrapper = ({
+const SearchWrapper = ({
   authorId,
   createdAt,
-  className,
   comments,
-}: DeskWrapperProps) => {
+}: SearchWrapperProps) => {
   const [author, setAuthor] = useState<ClientsProps>()
   const [isLoading, setIsLoading] = useState(false)
 
@@ -73,37 +70,30 @@ const DeskWrapper = ({
   }, [])
 
   return (
-    <div
-      className={clsx(
-        'flex flex-wrap items-end justify-between gap-2 text-xs text-white',
-        className,
-      )}
-    >
+    <div className="flex items-center gap-x-6 text-xs">
       {isLoading || author === undefined ? (
-        <Skeleton width={120} height={32} />
+        <Skeleton width={300} height={20} />
       ) : (
-        <Link
-          href={`/profile/${author.user}`}
-          className="z-10 flex items-center gap-x-2 rounded-md bg-grey-500 px-3 py-2"
-        >
-          {author?.user}{' '}
-          <img
-            className="h-4 w-4 overflow-clip rounded-full object-cover object-center align-top"
-            alt="Foto de perfil do autor"
-            src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${author?.pfp}`}
-          />
-        </Link>
+        <>
+          <Link
+            href={`/profile/${author.user}`}
+            className="z-10 flex items-center gap-x-2 text-white"
+          >
+            {author?.user}
+            <img
+              className="h-5 w-5 rounded-full"
+              src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${author?.pfp}`}
+              alt={author?.user}
+            />
+          </Link>
+          <span className="flex items-center gap-x-2 text-white">
+            {comments} <MessageSquare strokeWidth={1.5} size={18} />
+          </span>
+          <span className="rounded-md text-white">{formattedDate()}</span>
+        </>
       )}
-      <div className="flex flex-col items-end gap-y-1">
-        <span className="flex items-center gap-x-2 rounded-md bg-grey-500 px-3 py-2 text-white">
-          {comments} <MessageSquare strokeWidth={1.5} size={18} />
-        </span>
-        <span className="rounded-md bg-grey-500 px-3 py-2">
-          {formattedDate()}
-        </span>
-      </div>
     </div>
   )
 }
 
-export default DeskWrapper
+export default SearchWrapper

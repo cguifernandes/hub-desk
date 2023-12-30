@@ -127,7 +127,11 @@ export default async function Desk({ params }: { params: { slug: string } }) {
                 )}
               </div>
             )}
-            <DeskWrapper authorId={desk.authorId} createdAt={desk.createdAt} />
+            <DeskWrapper
+              comments={desk._count.comments}
+              authorId={desk.authorId}
+              createdAt={desk.createdAt}
+            />
           </div>
           <DeskSideBar
             className="flex min-h-[520px] flex-col gap-y-3 border-t-2 border-grey-400 p-4 lg:min-h-0 lg:min-w-[450px] lg:border-l-2 lg:border-t-0"

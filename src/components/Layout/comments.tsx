@@ -4,13 +4,13 @@
 'use client'
 import { ClientsProps, CommentProps } from '@/utils/type'
 import { useEffect, useState } from 'react'
-import DeskWrapper from '../Wrapper/deskWrapper'
 import Text from '../Typography/text'
 import Pagination from './pagination'
 import clsx from 'clsx'
 import Skeleton from './skeleton'
 import FormComments from '../Form/Comments/formComments'
 import AnimationWrapper from '../Wrapper/animationWrapper'
+import CommentWrapper from '../Wrapper/commentWrapper'
 
 type CommentsProps = {
   deskId: string | undefined
@@ -74,7 +74,7 @@ const Comments = ({
                   key={comments.id}
                 >
                   <Text className="break-words">{comments.text}</Text>
-                  <DeskWrapper
+                  <CommentWrapper
                     className="pt-8"
                     authorId={comments.authorId}
                     createdAt={comments.createdAt}

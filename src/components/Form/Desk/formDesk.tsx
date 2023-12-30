@@ -202,6 +202,7 @@ const FormDesk = () => {
         className="relative h-[600px] w-full min-w-[320px] max-w-[500px] sm:min-w-[460px] lg:w-2/5 lg:max-w-[500px]"
         authorId={user_session}
         createdAt={currentDate}
+        comments={0}
         data={fakeData}
       />
     </div>

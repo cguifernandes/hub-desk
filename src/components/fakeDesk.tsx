@@ -14,6 +14,7 @@ type FakeDeskProps = {
   data: FakeRDeskProps | undefined
   authorId?: string | undefined
   createdAt?: Date
+  comments: number
 }
 
 const FakeDesk = ({
@@ -22,6 +23,7 @@ const FakeDesk = ({
   delay,
   authorId,
   createdAt,
+  comments,
 }: FakeDeskProps) => {
   return (
     <motion.div
@@ -82,7 +84,11 @@ const FakeDesk = ({
           </div>
         )}
       {authorId && createdAt && (
-        <DeskWrapper authorId={authorId} createdAt={createdAt} />
+        <DeskWrapper
+          comments={comments}
+          authorId={authorId}
+          createdAt={createdAt}
+        />
       )}
     </motion.div>
   )

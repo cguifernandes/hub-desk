@@ -64,20 +64,20 @@ const DeskSettings = ({ isLeader, deskId }: DeskSettingsProps) => {
               transition={{ type: 'keyframes', duration: 0.2 }}
               className="absolute right-3 top-[60px] z-20 flex w-64 flex-col rounded-md border border-grey-400 bg-grey-700"
             >
-              <button
-                onClick={() => setVisibleModal(true)}
-                className="flex justify-between rounded-t-md p-3 transition-colors hover:bg-grey-600"
-              >
-                <span className="text-white">Excluir desk</span>
-                <Trash2 size={22} strokeWidth={1.5} color="#fff" />
-              </button>
               <Link
                 href={`/desk/edit/${deskId}`}
-                className="flex justify-between rounded-b-md p-3 transition-colors hover:bg-grey-600"
+                className="flex justify-between rounded-t-md p-3 transition-colors hover:bg-grey-600"
               >
                 <span className="text-white">Editar desk</span>
                 <Pencil size={22} strokeWidth={1.5} color="#fff" />
               </Link>
+              <button
+                onClick={() => setVisibleModal(true)}
+                className="flex justify-between rounded-b-md p-3 transition-colors hover:bg-grey-600"
+              >
+                <span className="text-white">Excluir desk</span>
+                <Trash2 size={22} strokeWidth={1.5} color="#fff" />
+              </button>
             </motion.div>
           </>
         )}

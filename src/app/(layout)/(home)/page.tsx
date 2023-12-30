@@ -60,10 +60,12 @@ const Home = () => {
             delay
             className="absolute bottom-0 left-0 z-10 lg:h-[480px] lg:w-[370px] xl:h-[560px] xl:w-[450px]"
             data={fakeDataHubDesk}
+            comments={0}
           />
           <FakeDesk
             className="absolute right-0 top-0 lg:h-[480px] lg:w-[370px] xl:h-[560px] xl:w-[450px]"
             data={fakeDataNetflix}
+            comments={0}
           />
         </div>
       </section>

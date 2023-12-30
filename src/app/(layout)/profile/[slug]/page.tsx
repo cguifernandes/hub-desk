@@ -93,7 +93,7 @@ export default async function Desk({ params }: { params: { slug: string } }) {
         <div className="w-full text-center">
           <Heading size="lg">Desks</Heading>
           <Text className="text-white/50">
-            Desks criadas por {props.client[0].user}
+            Desks ARRUMAR ESSE COMPONENTE criadas por {props.client[0].user}
           </Text>
         </div>
         <Desks user={props.client[0].user} id={props.client[0].id} />

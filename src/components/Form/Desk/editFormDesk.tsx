@@ -212,6 +212,7 @@ const EditFormDesk = ({ desk }: { desk: RDeskProps }) => {
         className="relative h-[600px] w-full min-w-[320px] max-w-[500px] sm:min-w-[460px] lg:w-2/5 lg:max-w-[500px]"
         authorId={user_session}
         createdAt={currentDate}
+        comments={desk._count.comments}
         data={fakeData}
       />
     </div>

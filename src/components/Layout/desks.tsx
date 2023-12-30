@@ -108,6 +108,7 @@ const Desks = ({ id, user }: { id: string; user: string }) => {
                 href={`/desk/${desk.id}`}
                 key={desk.id}
                 data={desk}
+                comments={desk._count.comments}
               />
             ))
           )}

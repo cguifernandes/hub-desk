@@ -17,6 +17,11 @@ export async function GET(request: NextRequest) {
       orderBy: {
         createdAt: 'desc',
       },
+      include: {
+        _count: {
+          select: { comments: true },
+        },
+      },
     })
 
     const count = await prisma.desk.count({

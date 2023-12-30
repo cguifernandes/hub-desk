@@ -1,4 +1,3 @@
-'use client'
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
@@ -6,22 +5,19 @@ import { useEffect, useState } from 'react'
 import Skeleton from '../Layout/skeleton'
 import { ClientsProps } from '@/utils/type'
 import clsx from 'clsx'
-import { MessageSquare } from 'lucide-react'
 import Link from 'next/link'
 
-type DeskWrapperProps = {
+type CommentWrapperProps = {
   authorId: string | undefined
   createdAt: Date
   className?: string
-  comments?: number | undefined
 }
 
-const DeskWrapper = ({
+const CommentWrapper = ({
   authorId,
   createdAt,
   className,
-  comments,
-}: DeskWrapperProps) => {
+}: CommentWrapperProps) => {
   const [author, setAuthor] = useState<ClientsProps>()
   const [isLoading, setIsLoading] = useState(false)
 
@@ -95,9 +91,6 @@ const DeskWrapper = ({
         </Link>
       )}
       <div className="flex flex-col items-end gap-y-1">
-        <span className="flex items-center gap-x-2 rounded-md bg-grey-500 px-3 py-2 text-white">
-          {comments} <MessageSquare strokeWidth={1.5} size={18} />
-        </span>
         <span className="rounded-md bg-grey-500 px-3 py-2">
           {formattedDate()}
         </span>
@@ -106,4 +99,4 @@ const DeskWrapper = ({
   )
 }
 
-export default DeskWrapper
+export default CommentWrapper

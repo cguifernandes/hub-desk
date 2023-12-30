@@ -55,6 +55,9 @@ export type DeskProps = {
     role: string
     deskId: string
   }[]
+  _count: {
+    comments: number
+  }
 }
 
 export type InviteProps = {

@@ -11,6 +11,11 @@ export async function GET(request: NextRequest) {
       orderBy: {
         createdAt: 'desc',
       },
+      include: {
+        _count: {
+          select: { comments: true },
+        },
+      },
     })
 
     if (desks) {

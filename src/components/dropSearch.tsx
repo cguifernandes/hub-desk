@@ -1,11 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import Heading from './Typography/heading'
 import Text from './Typography/text'
-import DeskWrapper from './Wrapper/deskWrapper'
 import Link from 'next/link'
 import ClientWrapper from './Wrapper/clientWrapper'
 import Skeleton from './Layout/skeleton'
 import { RSearchProps } from '@/utils/type'
+import SearchWrapper from './Wrapper/searchWrapper'
 
 type DropSearchProps = {
   query: string
@@ -64,10 +64,10 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                             {desk.description}
                           </Text>
                         </Link>
-                        <DeskWrapper
+                        <SearchWrapper
                           authorId={desk.authorId}
                           createdAt={desk.createdAt}
-                          searchDesk
+                          comments={desk._count?.comments}
                         />
                       </div>
                     </div>

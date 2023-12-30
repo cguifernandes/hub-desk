@@ -12,6 +12,11 @@ export async function GET(request: NextRequest) {
     })
     const desks = await prisma.desk.findMany({
       where: { title: { mode: 'insensitive', contains: query } },
+      include: {
+        _count: {
+          select: { comments: true },
+        },
+      },
       orderBy: { createdAt: 'desc' },
     })
 

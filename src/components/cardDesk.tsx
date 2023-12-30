@@ -18,9 +18,16 @@ type CardDeskProps = {
   href?: string
   className?: string
   data: DeskProps
+  comments: number
 }
 
-const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
+const CardDesk = ({
+  children,
+  href,
+  data,
+  className,
+  comments,
+}: CardDeskProps) => {
   const Pattern = href ? motion(Link) : motion.div
 
   // if (data.visibility === 'Público') {
@@ -85,7 +92,11 @@ const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
             )}
           </div>
         )}
-      <DeskWrapper authorId={data.authorId} createdAt={data.createdAt} />
+      <DeskWrapper
+        comments={comments}
+        authorId={data.authorId}
+        createdAt={data.createdAt}
+      />
     </motion.div>
   )
   // }

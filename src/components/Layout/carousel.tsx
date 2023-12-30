@@ -122,6 +122,7 @@ const Carousel = ({ category, className }: CarouselProps) => {
                 className="!w-full max-w-none"
                 data={desk}
                 href={`/desk/${desk.id}`}
+                comments={desk._count?.comments}
               />
             </SwiperSlide>
           ))
