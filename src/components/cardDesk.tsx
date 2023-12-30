@@ -61,29 +61,30 @@ const CardDesk = ({ children, href, data, className }: CardDeskProps) => {
         <p>{data.visibility}</p>
       </Pattern>
       <Text className="break-words text-center">{data.description}</Text>
-      {data.category === 'Sites' && (
-        <div className="flex flex-col gap-6">
-          {data.repo !== '' && (
-            <Button
-              target="_blank"
-              onClick={(e) => e.stopPropagation()}
-              href={data.repo}
-              fill="empty"
-              text="Repositório"
-              isDeskCard
-            />
-          )}
-          {data.website !== '' && (
-            <Button
-              target="_blank"
-              onClick={(e) => e.stopPropagation()}
-              href={data.website}
-              text="Site"
-              isDeskCard
-            />
-          )}
-        </div>
-      )}
+      {data?.category === 'Sites' &&
+        (data?.repo !== '' || data?.website !== '') && (
+          <div className="flex flex-col gap-6">
+            {data.repo !== '' && (
+              <Button
+                target="_blank"
+                onClick={(e) => e.stopPropagation()}
+                href={data.repo}
+                fill="empty"
+                text="Repositório"
+                isDeskCard
+              />
+            )}
+            {data.website !== '' && (
+              <Button
+                target="_blank"
+                onClick={(e) => e.stopPropagation()}
+                href={data.website}
+                text="Site"
+                isDeskCard
+              />
+            )}
+          </div>
+        )}
       <DeskWrapper authorId={data.authorId} createdAt={data.createdAt} />
     </motion.div>
   )

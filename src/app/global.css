@@ -14,10 +14,15 @@ input, textarea {
   outline: 0 none;
 }
 
-
 a {
   text-decoration: none;
   color: inherit;
+}
+
+@-moz-document url-prefix() {
+  input:focus {
+    outline: 0 none;
+  }
 }
 
 #checkbox:checked ~ .check {

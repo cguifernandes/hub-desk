@@ -135,6 +135,7 @@ export default async function Desk({ params }: { params: { slug: string } }) {
             deskId={desk.id}
             isLeader={isLeader}
             authorId={desk.authorId}
+            visibility={desk.visibility}
           />
         </AnimationWrapper>
         <Comments

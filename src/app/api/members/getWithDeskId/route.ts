@@ -6,17 +6,11 @@ type Role = 'Líder' | 'Co-líder' | 'Membro'
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const deskId = searchParams.get('id')
-  const page = searchParams.get('page')
-  const PER_PAGE = 4
 
   if (deskId) {
-    const currentPage = Math.max(Number(page || 1), 1)
-
     const members = await prisma.member.findMany({
       where: { deskId },
       include: { user: true },
-      take: PER_PAGE,
-      skip: (currentPage - 1) * PER_PAGE,
     })
 
     const rolesOrder: Record<Role, number> = {
@@ -31,15 +25,10 @@ export async function GET(request: NextRequest) {
       return rolesOrder[roleA] - rolesOrder[roleB]
     })
 
-    const count = await prisma.member.count({
-      where: { deskId },
-    })
-
     if (members) {
       return NextResponse.json({
         success: 'Membros encontrados',
         data: members,
-        count,
       })
     } else {
       return NextResponse.json({

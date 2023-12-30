@@ -16,6 +16,7 @@ type SideBarProps = {
   deskId: string | undefined
   isLeader: boolean
   authorId: string | undefined
+  visibility: 'Público' | 'Privado'
 }
 
 const DeskSideBar = ({
@@ -24,6 +25,7 @@ const DeskSideBar = ({
   deskId,
   isLeader,
   authorId,
+  visibility,
 }: SideBarProps) => {
   const [inviteMember, setInviteMember] = useState<{
     userId: string
@@ -59,7 +61,7 @@ const DeskSideBar = ({
   return (
     <div className={className}>
       <Heading size="md">Informações da desk</Heading>
-      {isLeader && (
+      {isLeader && visibility === 'Privado' && (
         <div className="flex flex-col gap-y-1">
           <Multiselect
             setInviteMember={setInviteMember}

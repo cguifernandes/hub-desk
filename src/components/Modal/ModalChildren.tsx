@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 type ModalChildren = {
   children: ReactNode
-  className: string
+  className?: string
 }
 
 const ModalChildren = ({ children, className }: ModalChildren) => {

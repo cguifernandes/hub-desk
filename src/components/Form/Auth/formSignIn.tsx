@@ -37,12 +37,8 @@ const FormSignIn = () => {
     try {
       setIsLoading(true)
       const { data }: { data: { success: string; error: string; id: string } } =
-        await api.post(
+        await api.get(
           `/auth/verification?email=${user.email}&password=${user.password}`,
-          JSON.stringify({
-            password: user.password,
-            email: user.email,
-          }),
           { headers: { 'Content-Type': 'application/json' } },
         )
 

@@ -60,3 +60,37 @@ export async function POST(request: NextRequest) {
     throw new Error(JSON.stringify(error))
   }
 }
+
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url)
+  const receiverId = searchParams.get('id')
+
+  if (receiverId) {
+    try {
+      const desks = await prisma.invite.findMany({
+        where: { receiverId },
+        orderBy: {
+          createdAt: 'desc',
+        },
+        include: {
+          desk: true,
+          receiver: true,
+          sender: true,
+        },
+      })
+
+      if (desks) {
+        return NextResponse.json({
+          success: 'Desks encontrado',
+          data: desks,
+        })
+      } else {
+        return NextResponse.json({
+          error: 'Nenhuma desk foi encontrada por este usuário.',
+        })
+      }
+    } catch (err) {
+      return NextResponse.json({ error: err })
+    }
+  }
+}

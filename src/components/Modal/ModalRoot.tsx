@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { AnimatePresence, motion } from 'framer-motion'
 import { ReactNode } from 'react'
 
 type ModalRootProps = {
@@ -9,18 +10,22 @@ type ModalRootProps = {
 
 const ModalRoot = ({ children, visibleModal, className }: ModalRootProps) => {
   return (
-    <>
+    <AnimatePresence>
       {visibleModal && (
-        <div
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ type: 'keyframes', duration: 0.1 }}
           className={clsx(
             'fixed left-0 top-0 z-20 !m-0 flex h-screen w-screen',
             className,
           )}
         >
           {children}
-        </div>
+        </motion.div>
       )}
-    </>
+    </AnimatePresence>
   )
 }
 

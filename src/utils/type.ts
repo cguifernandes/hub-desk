@@ -57,6 +57,23 @@ export type DeskProps = {
   }[]
 }
 
+export type InviteProps = {
+  id: string
+  receiverId: string
+  senderId: string
+  deskId: string
+  createdAt: Date
+  desk?: DeskProps
+  receiver?: ClientsProps
+  sender?: ClientsProps
+}
+
+export type RInviteProps = {
+  success: string
+  error: string
+  data: InviteProps[]
+}
+
 export type FakeRDeskProps = {
   title?: string
   description?: string
