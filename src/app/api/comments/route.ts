@@ -7,6 +7,8 @@ export async function POST(request: NextRequest) {
   const authorId = searchParams.get('id')
   const body: CommentProps = await request.json()
   const { deskId, text } = body
+  const page = searchParams.get('page')
+  const PER_PAGE = 4
 
   try {
     if (!authorId) {
@@ -16,12 +18,24 @@ export async function POST(request: NextRequest) {
     }
 
     try {
+      const currentPage = Math.max(Number(page || 1), 1)
+
       await prisma.comment.create({
         data: { deskId, text, authorId },
       })
 
+      const updatedComment = await prisma.comment.findMany({
+        take: PER_PAGE,
+        skip: (currentPage - 1) * PER_PAGE,
+        where: { deskId },
+        orderBy: {
+          createdAt: 'desc',
+        },
+      })
+
       return NextResponse.json({
         success: 'Seu comentário foi postado.',
+        updatedComment,
       })
     } catch (error) {
       throw new Error(JSON.stringify(error))

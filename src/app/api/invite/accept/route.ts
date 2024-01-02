@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
   try {
     if (!deskId || !userId) {
       return NextResponse.json({
-        error: 'Não é possível editar essa.',
+        error: 'Algo deu errado.',
       })
     }
 
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     })
 
     return NextResponse.json({
-      success: 'Os dados da desk foram editados com sucesso.',
+      success: 'Convite aceito com sucesso.',
       data: newDesk,
     })
   } catch (error) {

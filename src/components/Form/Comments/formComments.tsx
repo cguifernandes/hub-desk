@@ -6,23 +6,27 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Toast } from '@/utils/toast'
 import { api } from '@/utils/api'
-import { ClientsProps, RCommentsProps } from '@/utils/type'
+import { ClientsProps, CommentProps } from '@/utils/type'
 import { Form } from '../index'
 
 type FormCommentsProps = {
   isConnected: boolean
   user_session: string | undefined
   deskId: string | undefined
-  setCommentsUpdated: Dispatch<SetStateAction<boolean>>
   user: ClientsProps[]
+  setPage: Dispatch<SetStateAction<number>>
+  page: number
+  setComments: Dispatch<SetStateAction<CommentProps[]>>
 }
 
 const FormComments = ({
   isConnected,
   user_session,
   deskId,
-  setCommentsUpdated,
   user,
+  setPage,
+  setComments,
+  page,
 }: FormCommentsProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const {
@@ -41,8 +45,8 @@ const FormComments = ({
 
       if (!deskId) return
 
-      const { data }: { data: RCommentsProps } = await api.post(
-        `/comments?id=${user_session}`,
+      const { data } = await api.post(
+        `/comments?id=${user_session}&page=${page}`,
         JSON.stringify({ deskId, text }),
         { headers: { 'Content-Type': 'application/json' } },
       )
@@ -51,7 +55,8 @@ const FormComments = ({
         Toast(data.error)
       } else {
         Toast(data.success)
-        setCommentsUpdated(true)
+        setComments(data.updatedComment)
+        setPage(1)
         reset()
       }
     } catch (err) {

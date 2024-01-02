@@ -34,15 +34,27 @@ export async function DELETE(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const userId = searchParams.get('id')
   const deskId = searchParams.get('deskId')
+  const page = searchParams.get('page')
+  const PER_PAGE = 4
 
   if (!userId || !deskId) {
     return NextResponse.json({ error: 'O ID do usuário não foi encontrado.' })
   } else {
     try {
+      const currentPage = Math.max(Number(page || 1), 1)
+
       await prisma.member.deleteMany({ where: { deskId, userId } })
+
+      const updatedMembers = await prisma.member.findMany({
+        where: { deskId },
+        include: { user: true },
+        take: PER_PAGE,
+        skip: (currentPage - 1) * PER_PAGE,
+      })
 
       return NextResponse.json({
         success: 'Membro removido da desk.',
+        updatedMembers,
       })
     } catch (err) {
       return NextResponse.json({

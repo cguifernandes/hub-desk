@@ -27,6 +27,103 @@ import { api } from '@/utils/api'
 import useConnection from '@/hooks/useConnection'
 import Link from 'next/link'
 import { Toast } from '@/utils/toast'
+import Loading from '@/utils/utils'
+
+const AcceptInvite = ({
+  setVisibleModal,
+  invite,
+}: {
+  setVisibleModal: Dispatch<SetStateAction<boolean>>
+  invite: InviteProps
+}) => {
+  const [isLoading, setIsLoading] = useState(false)
+  const { push } = useRouter()
+
+  const handlerAcceptInvite = async (deskId: string | undefined) => {
+    try {
+      setIsLoading(true)
+
+      const { data } = await api.post(
+        `/invite/accept?deskId=${deskId}&id=${invite.receiver?.id}`,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        },
+      )
+
+      if (data.error) {
+        Toast(data.error)
+      } else {
+        Toast(data.success)
+        setVisibleModal(false)
+        push(`/desk/${deskId}`)
+      }
+    } catch (err) {
+      console.error('Erro ao processar formulário:', err)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return (
+    <button
+      onClick={() => handlerAcceptInvite(invite.desk?.id)}
+      className="flex h-9 w-9 items-center justify-center rounded-md bg-sky-gradient"
+    >
+      {isLoading ? (
+        <Loading className="h-5 w-5" />
+      ) : (
+        <Check size={22} strokeWidth={1.5} />
+      )}
+    </button>
+  )
+}
+
+const DeclineInvite = ({
+  invite,
+  setInvites,
+}: {
+  invite: InviteProps
+  setInvites: Dispatch<SetStateAction<InviteProps[] | undefined>>
+}) => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handlerDeleteInvite = async (deskId: string | undefined) => {
+    try {
+      setIsLoading(true)
+
+      const { data } = await api.delete(
+        `/invite?deskId=${deskId}&id=${invite.receiver?.id}`,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        },
+      )
+
+      if (data.error) {
+        Toast(data.error)
+      } else {
+        Toast(data.success)
+        setInvites(data.updateInvites)
+      }
+    } catch (err) {
+      console.error('Erro ao processar formulário:', err)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  return (
+    <button
+      onClick={() => handlerDeleteInvite(invite.desk?.id)}
+      className="flex h-9 w-9 items-center justify-center rounded-md border border-grey-400 bg-desk-gradient"
+    >
+      {isLoading ? (
+        <Loading className="h-5 w-5" />
+      ) : (
+        <X size={22} strokeWidth={1.5} />
+      )}
+    </button>
+  )
+}
 
 const Invites = ({
   handlerModalContent,
@@ -37,7 +134,6 @@ const Invites = ({
 }) => {
   const [invites, setInvites] = useState<InviteProps[]>()
   const [isLoading, setIsLoading] = useState(false)
-  const { push } = useRouter()
   const { user_session } = useClient()
 
   useEffect(() => {
@@ -81,53 +177,6 @@ const Invites = ({
       return `Convite enviado há ${minutes} minuto${minutes > 1 ? 's' : ''}`
     } else {
       return 'Convite enviado agora'
-    }
-  }
-
-  const handlerDeleteInvite = async (deskId: string | undefined) => {
-    try {
-      setIsLoading(true)
-
-      const { data } = await api.delete(
-        `/invite?deskId=${deskId}&id=${user_session}`,
-        {
-          headers: { 'Content-Type': 'application/json' },
-        },
-      )
-
-      if (data.error) {
-        Toast(data.error)
-      } else {
-        setInvites(data.updateInvites)
-      }
-    } catch (err) {
-      console.error('Erro ao processar formulário:', err)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  const handlerAcceptInvite = async (deskId: string | undefined) => {
-    try {
-      setIsLoading(true)
-
-      const { data } = await api.post(
-        `/invite/accept?deskId=${deskId}&id=${user_session}`,
-        {
-          headers: { 'Content-Type': 'application/json' },
-        },
-      )
-
-      if (data.error) {
-        Toast(data.error)
-      } else {
-        push(`/desk/${deskId}`)
-        setVisibleModal(false)
-      }
-    } catch (err) {
-      console.error('Erro ao processar formulário:', err)
-    } finally {
-      setIsLoading(false)
     }
   }
 
@@ -222,18 +271,12 @@ const Invites = ({
                   </span>
                 </div>
                 <div className="flex gap-x-2 text-white">
-                  <button
-                    onClick={() => handlerDeleteInvite(invite.desk?.id)}
-                    className="flex h-9 w-9 items-center justify-center rounded-md border border-grey-400 bg-desk-gradient"
-                  >
-                    <X size={22} strokeWidth={1.5} />
-                  </button>
-                  <button
-                    onClick={() => handlerAcceptInvite(invite.desk?.id)}
-                    className="flex h-9 w-9 items-center justify-center rounded-md bg-sky-gradient"
-                  >
-                    <Check size={22} strokeWidth={1.5} />
-                  </button>
+                  <DeclineInvite invite={invite} setInvites={setInvites} />
+
+                  <AcceptInvite
+                    invite={invite}
+                    setVisibleModal={setVisibleModal}
+                  />
                 </div>
               </div>
             ))

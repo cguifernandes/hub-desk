@@ -27,7 +27,6 @@ const Members = ({
   authorId,
 }: MembersProps) => {
   const [isLoading, setIsLoading] = useState(false)
-  const [updateMembers, setUpdateMembers] = useState(false)
   const [count, setCount] = useState(0)
   const [page, setPage] = useState(1)
   const totalPages = Math.ceil(count / 4)
@@ -45,7 +44,6 @@ const Members = ({
 
         const data: RMembersProps = await response.json()
 
-        setUpdateMembers(false)
         if (data.error) {
           Toast(data.error)
         } else {
@@ -60,7 +58,7 @@ const Members = ({
     }
 
     getClient()
-  }, [page, updateMembers])
+  }, [page])
 
   return (
     <>
@@ -117,10 +115,12 @@ const Members = ({
                 </Link>
                 {isLeader && member.userId !== authorId && (
                   <MemberConfig
-                    setUpdateMembers={setUpdateMembers}
                     userId={member.userId}
                     deskId={deskId}
+                    setMembers={setMembers}
                     role={member.role}
+                    page={page}
+                    setPage={setPage}
                   />
                 )}
               </div>

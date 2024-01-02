@@ -119,7 +119,7 @@ export async function DELETE(request: NextRequest) {
       })
 
       return NextResponse.json({
-        success: 'Convite apagado com sucesso.',
+        success: 'O convite foi negado.',
         updateInvites,
       })
     } catch (err) {

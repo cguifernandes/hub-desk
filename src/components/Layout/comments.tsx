@@ -27,7 +27,6 @@ const Comments = ({
 }: CommentsProps) => {
   const [comments, setComments] = useState<CommentProps[]>([])
   const [count, setCount] = useState(0)
-  const [commentsUpdated, setCommentsUpdated] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [page, setPage] = useState(1)
   const totalPages = Math.ceil(count / 4)
@@ -46,7 +45,6 @@ const Comments = ({
 
         setComments(data.comments)
         setCount(data.count)
-        setCommentsUpdated(false)
       } catch (err) {
         console.log(err)
       } finally {
@@ -55,7 +53,7 @@ const Comments = ({
     }
 
     getComments()
-  }, [page, commentsUpdated])
+  }, [page])
 
   return (
     <>
@@ -144,7 +142,9 @@ const Comments = ({
         </div>
       )}
       <FormComments
-        setCommentsUpdated={setCommentsUpdated}
+        page={page}
+        setPage={setPage}
+        setComments={setComments}
         deskId={deskId}
         isConnected={isConnected}
         user_session={user_session}
