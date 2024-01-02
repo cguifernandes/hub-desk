@@ -95,9 +95,14 @@ const DeskWrapper = ({
         </Link>
       )}
       <div className="flex flex-col items-end gap-y-1">
-        <span className="flex items-center gap-x-2 rounded-md bg-grey-500 px-3 py-2 text-white">
-          {comments} <MessageSquare strokeWidth={1.5} size={18} />
-        </span>
+        {comments
+          ? comments > 0 && (
+              <span className="flex items-center gap-x-2 rounded-md bg-grey-500 px-3 py-2 text-white">
+                {comments}
+                <MessageSquare strokeWidth={1.5} size={18} />
+              </span>
+            )
+          : undefined}
         <span className="rounded-md bg-grey-500 px-3 py-2">
           {formattedDate()}
         </span>

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable camelcase */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
@@ -24,6 +25,8 @@ import Text from '../Typography/text'
 import { InviteProps } from '@/utils/type'
 import { api } from '@/utils/api'
 import useConnection from '@/hooks/useConnection'
+import Link from 'next/link'
+import { Toast } from '@/utils/toast'
 
 const Invites = ({
   handlerModalContent,
@@ -34,6 +37,7 @@ const Invites = ({
 }) => {
   const [invites, setInvites] = useState<InviteProps[]>()
   const [isLoading, setIsLoading] = useState(false)
+  const { push } = useRouter()
   const { user_session } = useClient()
 
   useEffect(() => {
@@ -63,22 +67,67 @@ const Invites = ({
 
     if (minutes > 60 * 24 * 30 * 12) {
       const years = Math.floor(minutes / (60 * 24 * 30 * 12))
-      return `Convite enviado há ${years} ano${years > 1 ? 's' : ''} atrás`
+      return `Convite enviado há ${years} ano${years > 1 ? 's' : ''}`
     } else if (minutes > 60 * 24 * 30) {
       const months = Math.floor(minutes / (60 * 24 * 30))
-      return `Convite enviado há ${months} mês${months > 1 ? 'es' : ''} atrás`
+      return `Convite enviado há ${months} mês${months > 1 ? 'es' : ''}`
     } else if (minutes > 60 * 24) {
       const days = Math.floor(minutes / (60 * 24))
-      return `Convite enviado há ${days} dia${days > 1 ? 's' : ''} atrás`
+      return `Convite enviado há ${days} dia${days > 1 ? 's' : ''}`
     } else if (minutes > 60) {
       const hours = Math.floor(minutes / 60)
-      return `Convite enviado há ${hours} hora${hours > 1 ? 's' : ''} atrás`
+      return `Convite enviado há ${hours} hora${hours > 1 ? 's' : ''}`
     } else if (minutes >= 1) {
-      return `Convite enviado há ${minutes} minuto${
-        minutes > 1 ? 's' : ''
-      } atrás`
+      return `Convite enviado há ${minutes} minuto${minutes > 1 ? 's' : ''}`
     } else {
       return 'Convite enviado agora'
+    }
+  }
+
+  const handlerDeleteInvite = async (deskId: string | undefined) => {
+    try {
+      setIsLoading(true)
+
+      const { data } = await api.delete(
+        `/invite?deskId=${deskId}&id=${user_session}`,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        },
+      )
+
+      if (data.error) {
+        Toast(data.error)
+      } else {
+        setInvites(data.updateInvites)
+      }
+    } catch (err) {
+      console.error('Erro ao processar formulário:', err)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handlerAcceptInvite = async (deskId: string | undefined) => {
+    try {
+      setIsLoading(true)
+
+      const { data } = await api.post(
+        `/invite/accept?deskId=${deskId}&id=${user_session}`,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        },
+      )
+
+      if (data.error) {
+        Toast(data.error)
+      } else {
+        push(`/desk/${deskId}`)
+        setVisibleModal(false)
+      }
+    } catch (err) {
+      console.error('Erro ao processar formulário:', err)
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -112,7 +161,7 @@ const Invites = ({
             </div>
           ) : isLoading ? (
             <>
-              <div className="flex w-[480px] items-center gap-x-4 px-2">
+              <div className="flex w-[480px] items-center gap-x-4 px-3">
                 <div className="flex w-[368px] flex-col gap-y-1">
                   <Skeleton height={24} width={240} />
                   <Skeleton height={60} className="w-full" />
@@ -123,7 +172,7 @@ const Invites = ({
                   <Skeleton height={36} width={36} />
                 </div>
               </div>
-              <div className="flex w-[480px] items-center gap-x-4 px-2">
+              <div className="flex w-[480px] items-center gap-x-4 px-3">
                 <div className="flex w-[368px] flex-col gap-y-1">
                   <Skeleton height={24} width={240} />
                   <Skeleton height={60} className="w-full" />
@@ -134,7 +183,7 @@ const Invites = ({
                   <Skeleton height={36} width={36} />
                 </div>
               </div>
-              <div className="flex w-[480px] items-center gap-x-4 px-2">
+              <div className="flex w-[480px] items-center gap-x-4 px-3">
                 <div className="flex w-[368px] flex-col gap-y-1">
                   <Skeleton height={24} width={240} />
                   <Skeleton height={60} className="w-full" />
@@ -148,23 +197,41 @@ const Invites = ({
             </>
           ) : (
             invites?.map((invite) => (
-              <div key={invite.id} className="flex items-center gap-x-4 px-2">
+              <div key={invite.id} className="flex items-center gap-x-4 px-3">
                 <div className="flex flex-col">
-                  <Heading>{invite.desk?.title}</Heading>
+                  <Link
+                    className="text-white"
+                    href={`/desk/${invite.desk?.id}`}
+                  >
+                    {invite.desk?.title}
+                  </Link>
                   <Text className="text-sm text-white/50">
-                    {invite.sender?.user} te convidou para fazer parte de &#34;
-                    {invite.desk?.title}&#34;, caso rejeite o convite o mesmo
-                    será excluído.
+                    <span className="inline-flex items-baseline gap-x-1 text-white">
+                      <img
+                        className="my-auto h-4 w-4 overflow-clip rounded-full object-cover object-center align-top"
+                        src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${invite.sender?.pfp}`}
+                      />
+                      {invite.sender?.user}
+                    </span>
+                    &nbsp;te convidou para fazer parte de &#34;
+                    <span className="text-white">{invite.desk?.title}</span>
+                    &#34;, caso rejeite o convite o mesmo será excluído.
                   </Text>
                   <span className="mt-2 w-fit rounded-md bg-grey-500 px-3 py-2 text-xs text-white">
                     {formattedDate(invite.createdAt)}
                   </span>
                 </div>
                 <div className="flex gap-x-2 text-white">
-                  <button className="flex h-9 w-9 items-center justify-center rounded-md border border-grey-400 bg-desk-gradient">
+                  <button
+                    onClick={() => handlerDeleteInvite(invite.desk?.id)}
+                    className="flex h-9 w-9 items-center justify-center rounded-md border border-grey-400 bg-desk-gradient"
+                  >
                     <X size={22} strokeWidth={1.5} />
                   </button>
-                  <button className="flex h-9 w-9 items-center justify-center rounded-md bg-sky-gradient">
+                  <button
+                    onClick={() => handlerAcceptInvite(invite.desk?.id)}
+                    className="flex h-9 w-9 items-center justify-center rounded-md bg-sky-gradient"
+                  >
                     <Check size={22} strokeWidth={1.5} />
                   </button>
                 </div>

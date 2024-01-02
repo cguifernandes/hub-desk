@@ -94,3 +94,42 @@ export async function GET(request: NextRequest) {
     }
   }
 }
+
+export async function DELETE(request: NextRequest) {
+  const { searchParams } = new URL(request.url)
+  const deskId = searchParams.get('deskId')
+  const receiverId = searchParams.get('id')
+
+  if (deskId && receiverId) {
+    try {
+      await prisma.invite.deleteMany({
+        where: { receiverId, deskId },
+      })
+
+      const updateInvites = await prisma.invite.findMany({
+        where: { receiverId },
+        orderBy: {
+          createdAt: 'desc',
+        },
+        include: {
+          desk: true,
+          receiver: true,
+          sender: true,
+        },
+      })
+
+      return NextResponse.json({
+        success: 'Convite apagado com sucesso.',
+        updateInvites,
+      })
+    } catch (err) {
+      return NextResponse.json({
+        error: err,
+      })
+    }
+  } else {
+    return NextResponse.json({
+      error: 'Nenhum convite encontrado por este usuário.',
+    })
+  }
+}

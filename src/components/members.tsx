@@ -9,6 +9,7 @@ import { MemberProps, RMembersProps } from '@/utils/type'
 import Heading from './Typography/heading'
 import { url } from '@/utils/constant'
 import MemberConfig from './memberConfig'
+import Pagination from './Layout/pagination'
 
 type MembersProps = {
   isLeader: boolean
@@ -27,13 +28,16 @@ const Members = ({
 }: MembersProps) => {
   const [isLoading, setIsLoading] = useState(false)
   const [updateMembers, setUpdateMembers] = useState(false)
+  const [count, setCount] = useState(0)
+  const [page, setPage] = useState(1)
+  const totalPages = Math.ceil(count / 4)
 
   useEffect(() => {
     const getClient = async () => {
       try {
         setIsLoading(true)
         const response = await fetch(
-          `${url}/api/members/getWithDeskId?id=${deskId}`,
+          `${url}/api/members/getWithDeskId?id=${deskId}&page=${page}`,
           {
             cache: 'no-cache',
           },
@@ -46,6 +50,7 @@ const Members = ({
           Toast(data.error)
         } else {
           setMembers(data.data)
+          setCount(data.count)
         }
       } catch (err) {
         console.log(err)
@@ -55,11 +60,11 @@ const Members = ({
     }
 
     getClient()
-  }, [updateMembers])
+  }, [page, updateMembers])
 
   return (
     <>
-      <div className="flex max-h-[304px] flex-col justify-between gap-y-2 overflow-y-auto">
+      <div className="flex flex-col justify-between gap-y-2">
         {isLoading ? (
           <>
             <div className="flex h-[70px] w-full items-center gap-x-2 rounded-md border border-grey-400 p-3">
@@ -123,6 +128,12 @@ const Members = ({
           ))
         )}
       </div>
+      <Pagination
+        size="sm"
+        page={page}
+        setPage={setPage}
+        totalPages={totalPages}
+      />
     </>
   )
 }
