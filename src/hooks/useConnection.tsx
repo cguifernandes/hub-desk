@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable camelcase */
-import { ClientsProps, ResponseProps } from '@/utils/type'
+import { ClientsProps } from '@/utils/type'
 import { useEffect, useState } from 'react'
 import useClient from './useClient'
 
@@ -19,7 +19,7 @@ const useConnection = () => {
             cache: 'no-cache',
           })
 
-          const data: ResponseProps = await response.json()
+          const data = await response.json()
           setClient(data.clients)
         } catch (err) {
           console.log(err)

@@ -10,23 +10,25 @@ import Link from 'next/link'
 
 type DeskSettingsProps = {
   isLeader: boolean
+  image?: string
   deskId?: string | undefined
 }
 
-const DeskSettings = ({ isLeader, deskId }: DeskSettingsProps) => {
+const DeskSettings = ({ isLeader, deskId, image }: DeskSettingsProps) => {
   const [visibleSettings, setVisibleSettings] = useState(false)
   const [visibleModal, setVisibleModal] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const { push } = useRouter()
 
-  if (!isLeader) return <></>
-
   const handlerDeleteAccount = async () => {
     try {
       setIsLoading(true)
-      const { data } = await api.delete(`/desks?deskId=${deskId}`, {
-        headers: { 'Content-Type': 'application/json' },
-      })
+      const { data } = await api.delete(
+        `/desks?deskId=${deskId}&image=${image}`,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        },
+      )
 
       if (data.error) {
         Toast(data.error)
@@ -41,6 +43,8 @@ const DeskSettings = ({ isLeader, deskId }: DeskSettingsProps) => {
       setVisibleModal(false)
     }
   }
+
+  if (!isLeader) return <></>
 
   return (
     <>

@@ -116,13 +116,27 @@ export async function DELETE(request: NextRequest) {
 
     if (existingClient) {
       await prisma.member.deleteMany({ where: { userId: id } })
-      await prisma.comment.deleteMany({ where: { authorId: id } })
+      const clientDesks = await prisma.desk.findMany({
+        where: { authorId: id },
+        include: { members: true },
+      })
+      for (const desk of clientDesks) {
+        await prisma.member.deleteMany({ where: { deskId: desk.id } })
+      }
       await prisma.desk.deleteMany({ where: { authorId: id } })
+      await prisma.comment.deleteMany({ where: { authorId: id } })
+      await prisma.invite.deleteMany({
+        where: {
+          OR: [{ senderId: id }, { receiverId: id }],
+        },
+      })
       await prisma.clients.delete({ where: { id } })
+
       const { data: list } = await supabase.storage
         .from('hub-desk')
         .list(`profile/${user}`)
       const filesToRemove = list?.map((x) => `profile/${user}/${x.name}`)
+
       if (filesToRemove) {
         await supabase.storage.from('hub-desk').remove(filesToRemove)
       }

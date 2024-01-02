@@ -73,8 +73,8 @@ export default async function Desk({ params }: { params: { slug: string } }) {
   const { props } = (await getServerSideProps(params.slug)) as {
     props: { desk: RDeskProps; user: RClientsProps }
   }
-  const isLeader = props.desk.data[0].authorId === user_session?.value
   const desk = props.desk.data[0]
+  const isLeader = desk.authorId === user_session?.value
 
   return (
     <section className="flex min-h-[calc(100vh_-_80px_-_64px)] flex-col items-center py-8 sm:py-14">
@@ -85,7 +85,11 @@ export default async function Desk({ params }: { params: { slug: string } }) {
           className="mx-auto flex max-w-7xl flex-col rounded-md border-2 border-grey-400 bg-desk-gradient lg:flex-row"
         >
           <div className="relative flex min-h-[600px] flex-1 flex-col justify-between p-4 text-center">
-            <DeskSettings deskId={desk.id} isLeader={isLeader} />
+            <DeskSettings
+              image={desk.image}
+              deskId={desk.id}
+              isLeader={isLeader}
+            />
             {desk.image && (
               <div className="absolute left-0 top-0 h-40 w-full">
                 <img

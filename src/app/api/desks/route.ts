@@ -2,15 +2,20 @@
 import { NextRequest, NextResponse } from 'next/server'
 import prisma from '../../../../lib/prisma'
 import { DeskProps } from '@/utils/type'
+import { supabase } from '../../../../lib/supabase'
 
 export async function DELETE(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const deskId = searchParams.get('deskId')
+  const image = searchParams.get('image')
 
   if (deskId) {
     try {
       await prisma.member.deleteMany({ where: { deskId } })
       await prisma.desk.delete({ where: { id: deskId } })
+      if (image && image !== '') {
+        await supabase.storage.from('hub-desk').remove([image])
+      }
 
       return NextResponse.json({
         success: 'Desks apagada com sucesso.',

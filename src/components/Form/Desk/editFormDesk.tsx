@@ -67,14 +67,16 @@ const EditFormDesk = ({ desk }: { desk: RDeskProps }) => {
   const handlerFormSubmit = async (response: DeskProps) => {
     try {
       setIsLoading(true)
+      const timestamp = new Date().getTime()
+
       if (response.image !== undefined) {
-        const timestamp = new Date().getTime()
-        const storage = await supabase.storage
+        await supabase.storage.from('hub-desk').remove([desk.image])
+        await supabase.storage
           .from('hub-desk')
           .upload(`desk/${timestamp}_${response.image.name}`, response.image)
-        response.image = storage.data?.path
-      } else {
-        response.image = ''
+          .then((res) => {
+            response.image = res.data?.path
+          })
       }
 
       const { data } = await api.put(`/desks?deskId=${desk.id}`, response, {

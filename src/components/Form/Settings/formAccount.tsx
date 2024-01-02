@@ -90,7 +90,7 @@ const FormAccount = ({ client, user_session }: FormAccountProps) => {
       handleSubmit={handleSubmit(handlerUpdateAccount)}
     >
       <div className="relative flex items-center justify-center rounded-full">
-        {loading ? (
+        {loading && user[0].pfp === undefined ? (
           <Skeleton className="h-52 w-52 md:h-60 md:w-60" isRoundedFull />
         ) : (
           <img
@@ -137,6 +137,7 @@ const FormAccount = ({ client, user_session }: FormAccountProps) => {
         register={register}
         placeholder="Email"
         name="email"
+        label="E-mail"
       />
       <Form.Input
         maxLength={18}
@@ -144,6 +145,7 @@ const FormAccount = ({ client, user_session }: FormAccountProps) => {
         register={register}
         name="user"
         placeholder="User"
+        label="User"
       />
       <Form.Button
         loading={isLoading}

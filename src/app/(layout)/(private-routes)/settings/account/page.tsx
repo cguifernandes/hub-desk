@@ -21,15 +21,15 @@ async function getServerSideProps() {
     `${url}/api/auth/getWithId?id=${user_session?.value}`,
     {
       headers: { 'Content-Type': 'application/json' },
-      cache: 'reload',
+      cache: 'no-store',
     },
   )
 
-  const { clients } = await response.json()
+  const { data } = await response.json()
 
   return {
     props: {
-      client: clients as ClientsProps[],
+      client: data as ClientsProps[],
     },
   }
 }
