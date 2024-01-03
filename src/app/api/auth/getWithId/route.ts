@@ -6,7 +6,10 @@ export async function GET(request: NextRequest) {
   const id = searchParams.get('id')
 
   if (id) {
-    const clients = await prisma.clients.findMany({ where: { id } })
+    const clients = await prisma.clients.findMany({
+      where: { id },
+      include: { members: true },
+    })
 
     if (clients) {
       return NextResponse.json({ success: 'Usuário encontrado', data: clients })

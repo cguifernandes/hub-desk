@@ -79,10 +79,15 @@ export async function GET(request: NextRequest) {
         },
       })
 
+      const count = await prisma.invite.count({
+        where: { receiverId },
+      })
+
       if (desks) {
         return NextResponse.json({
           success: 'Desks encontrado',
           data: desks,
+          count,
         })
       } else {
         return NextResponse.json({

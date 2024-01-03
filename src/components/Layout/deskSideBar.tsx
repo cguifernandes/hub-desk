@@ -55,6 +55,7 @@ const DeskSideBar = ({
       console.log(err)
     } finally {
       setIsLoading(false)
+      setInviteMember(undefined)
     }
   }
 

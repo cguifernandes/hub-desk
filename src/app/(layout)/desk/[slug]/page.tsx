@@ -74,8 +74,13 @@ export default async function Desk({ params }: { params: { slug: string } }) {
     props: { desk: RDeskProps; user: RClientsProps }
   }
   const desk = props.desk.data[0]
-  const isLeader = desk.authorId === user_session?.value
-  console.log(props.desk.data[0].members)
+  const isLeader = desk?.authorId === user_session?.value
+  const isCoLeader = props.user.data[0]?.members.some(
+    (member) => member.role === 'Co-líder',
+  )
+  const isMember = props.user.data[0]?.members.some(
+    (member) => member.userId === user_session?.value,
+  )
 
   return (
     <section className="flex min-h-[calc(100vh_-_80px_-_64px)] flex-col items-center py-8 sm:py-14">
@@ -86,50 +91,51 @@ export default async function Desk({ params }: { params: { slug: string } }) {
           className="mx-auto flex max-w-7xl flex-col rounded-md border-2 border-grey-400 bg-desk-gradient lg:flex-row"
         >
           <div className="relative flex min-h-[600px] min-w-0 flex-1 flex-col justify-between p-4 text-center">
-            {user_session?.value && (
+            {user_session?.value && isMember && (
               <DeskSettings
-                image={desk.image}
-                deskId={desk.id}
+                image={desk?.image}
+                deskId={desk?.id}
                 user_session={user_session?.value}
                 isLeader={isLeader}
+                isCoLeader={isCoLeader}
+                isMember={isMember}
               />
             )}
-
-            {desk.image && (
+            {desk?.image && (
               <div className="absolute left-0 top-0 h-40 w-full">
                 <img
-                  src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${desk.image}`}
-                  alt={desk.description}
+                  src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${desk?.image}`}
+                  alt={desk?.description}
                   className="h-full w-full overflow-clip rounded-tl-md object-cover object-center align-top"
                 />
                 <div className="absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-grey-600"></div>
               </div>
             )}
             <div
-              style={{ marginTop: desk.image ? 120 : 0 }}
+              style={{ marginTop: desk?.image ? 120 : 0 }}
               className="z-10 flex flex-col gap-y-1"
             >
               <Heading size="md" className="break-words text-white">
-                {desk.title}
+                {desk?.title}
               </Heading>
-              <Text className="text-white/50">{desk.category}</Text>
+              <Text className="text-white/50">{desk?.category}</Text>
             </div>
-            <Text className="break-all">{desk.description}</Text>
-            {desk.category === 'Sites' && (
+            <Text className="break-all">{desk?.description}</Text>
+            {desk?.category === 'Sites' && (
               <div className="mx-auto flex w-4/5 flex-col gap-6 md:w-2/4">
-                {desk.repo !== '' && (
+                {desk?.repo !== '' && (
                   <Button
                     target="_blank"
-                    href={desk.repo}
+                    href={desk?.repo}
                     fill="empty"
                     text="Repositório"
                     isDeskCard
                   />
                 )}
-                {desk.website !== '' && (
+                {desk?.website !== '' && (
                   <Button
                     target="_blank"
-                    href={desk.website}
+                    href={desk?.website}
                     text="Site"
                     isDeskCard
                   />
@@ -137,18 +143,18 @@ export default async function Desk({ params }: { params: { slug: string } }) {
               </div>
             )}
             <DeskWrapper
-              comments={desk._count.comments}
-              author={desk.author}
-              createdAt={desk.createdAt}
+              comments={desk?._count.comments}
+              author={desk?.author}
+              createdAt={desk?.createdAt}
             />
           </div>
           <DeskSideBar
             className="flex min-h-[520px] flex-col gap-y-3 border-t-2 border-grey-400 p-4 lg:min-h-0 lg:min-w-[360px] lg:border-l-2 lg:border-t-0 xl:min-w-[380px]"
             user_session={user_session?.value}
-            deskId={desk.id}
+            deskId={desk?.id}
             isLeader={isLeader}
-            authorId={desk.authorId}
-            visibility={desk.visibility}
+            authorId={desk?.authorId}
+            visibility={desk?.visibility}
           />
         </AnimationWrapper>
         <Comments

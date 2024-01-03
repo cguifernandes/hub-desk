@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable camelcase */
 import EditFormDesk from '@/components/Form/Desk/editFormDesk'
 import ErrorAlert from '@/components/Layout/errorAlert'
@@ -33,9 +34,14 @@ async function getServerSideProps(deskId: string | undefined) {
     cache: 'no-store',
   })
 
-  const desk = await response.json()
+  const desk = (await response.json()) as RDeskProps
 
-  if (user_session?.value !== desk.data[0].authorId) {
+  if (
+    desk.data[0].members.find(
+      (member) =>
+        member.userId !== user_session?.value && member.role === 'Membro',
+    )
+  ) {
     return {
       props: {
         desk: { data: [] },
@@ -82,7 +88,10 @@ const EditDesk = async ({ params }: { params: { slug: string } }) => {
               Campos com “*” são obrigatórios
             </Text>
           </div>
-          <EditFormDesk desk={props.desk.data[0]} />
+          <EditFormDesk
+            author={props.desk.data[0].author!}
+            desk={props.desk.data[0]}
+          />
         </>
       )}
     </section>

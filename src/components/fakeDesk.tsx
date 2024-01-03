@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
-import { FakeRDeskProps } from '@/utils/type'
+import { ClientsProps, FakeRDeskProps } from '@/utils/type'
 import Heading from '../components/Typography/heading'
 import Text from '../components/Typography/text'
 import Button from '../components/button'
@@ -15,6 +15,7 @@ type FakeDeskProps = {
   authorId?: string | undefined
   createdAt?: Date
   comments: number
+  author: ClientsProps
 }
 
 const FakeDesk = ({
@@ -23,6 +24,7 @@ const FakeDesk = ({
   delay,
   authorId,
   createdAt,
+  author,
   comments,
 }: FakeDeskProps) => {
   return (
@@ -86,8 +88,8 @@ const FakeDesk = ({
       {authorId && createdAt && (
         <DeskWrapper
           comments={comments}
-          authorId={authorId}
           createdAt={createdAt}
+          author={author}
         />
       )}
     </motion.div>

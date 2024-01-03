@@ -14,12 +14,22 @@ import { useForm } from 'react-hook-form'
 import useClient from '@/hooks/useClient'
 import { supabase } from '../../../../lib/supabase'
 import AnimationWrapper from '@/components/Wrapper/animationWrapper'
-import { DeskProps as RDeskProps, FakeRDeskProps } from '@/utils/type'
+import {
+  DeskProps as RDeskProps,
+  FakeRDeskProps,
+  ClientsProps,
+} from '@/utils/type'
 import FakeDesk from '@/components/fakeDesk'
 import { categories, visibility } from '@/utils/constant'
 import { useRouter } from 'next/navigation'
 
-const EditFormDesk = ({ desk }: { desk: RDeskProps }) => {
+const EditFormDesk = ({
+  desk,
+  author,
+}: {
+  desk: RDeskProps
+  author: ClientsProps
+}) => {
   const [selectedCategory, setSelectedCategory] = useState('')
   const { push } = useRouter()
   const [selectedVisibility, setSelectedVisibility] = useState('Público')
@@ -214,6 +224,7 @@ const EditFormDesk = ({ desk }: { desk: RDeskProps }) => {
         className="relative h-[600px] w-full min-w-[320px] max-w-[500px] sm:min-w-[460px] lg:w-2/5 lg:max-w-[500px]"
         authorId={user_session}
         createdAt={currentDate}
+        author={author}
         comments={desk._count.comments}
         data={fakeData}
       />

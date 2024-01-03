@@ -14,6 +14,8 @@ type DeskSettingsProps = {
   image?: string
   deskId?: string | undefined
   user_session: string
+  isCoLeader: boolean
+  isMember: boolean
 }
 
 const LeaveDesk = ({
@@ -76,7 +78,9 @@ const DeskSettings = ({
   isLeader,
   deskId,
   image,
+  isCoLeader,
   user_session,
+  isMember,
 }: DeskSettingsProps) => {
   const [visibleSettings, setVisibleSettings] = useState(false)
   const [visibleModal, setVisibleModal] = useState(false)
@@ -122,7 +126,6 @@ const DeskSettings = ({
               className="fixed left-0 top-0 z-20 h-screen w-screen"
               onClick={() => setVisibleSettings(false)}
             />
-
             <motion.div
               initial={{ translateY: -10, opacity: 0 }}
               animate={{ translateY: 0, opacity: 1 }}
@@ -130,7 +133,7 @@ const DeskSettings = ({
               transition={{ type: 'keyframes', duration: 0.2 }}
               className="absolute right-3 top-[60px] z-20 flex w-64 flex-col rounded-md border border-grey-400 bg-grey-700"
             >
-              {isLeader ? (
+              {isLeader && (
                 <>
                   <Link
                     href={`/desk/edit/${deskId}`}
@@ -147,7 +150,20 @@ const DeskSettings = ({
                     <Trash2 size={22} strokeWidth={1.5} color="#fff" />
                   </button>
                 </>
-              ) : (
+              )}
+              {isMember && isCoLeader && !isLeader && (
+                <>
+                  <Link
+                    href={`/desk/edit/${deskId}`}
+                    className="flex justify-between rounded-t-md p-3 transition-colors hover:bg-grey-600"
+                  >
+                    <span className="text-white">Editar desk</span>
+                    <Pencil size={22} strokeWidth={1.5} color="#fff" />
+                  </Link>
+                  <LeaveDesk user_session={user_session} deskId={deskId} />
+                </>
+              )}
+              {!isLeader && !isCoLeader && (
                 <LeaveDesk user_session={user_session} deskId={deskId} />
               )}
             </motion.div>

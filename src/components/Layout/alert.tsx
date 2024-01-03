@@ -11,9 +11,9 @@ const Alert = () => {
         </Heading>
         <Text className="text-white/50">
           Para acessar essa página, você precisa estar logado em uma conta
-          válida{' '}
-          <Link className="gradient-text" href="/auth/login">
-            Clique aqui
+          válida,
+          <Link className="gradient-text" href="/auth/sign-in">
+            clique aqui
           </Link>{' '}
           para fazer o login
         </Text>

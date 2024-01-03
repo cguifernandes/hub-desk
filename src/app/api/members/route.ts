@@ -17,8 +17,15 @@ export async function PUT(request: NextRequest) {
         },
       })
 
+      const updatedMembers = await prisma.member.findMany({
+        include: {
+          user: true,
+        },
+      })
+
       return NextResponse.json({
         success: 'Cargo atualizado com sucesso.',
+        updatedMembers,
       })
     } catch (err) {
       return NextResponse.json({

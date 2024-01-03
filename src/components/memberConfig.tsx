@@ -13,6 +13,7 @@ type EditRoleProps = {
   deskId: string | undefined
   userId: string
   setVisibleModal: Dispatch<SetStateAction<boolean>>
+  setMembers: Dispatch<SetStateAction<MemberProps[] | undefined>>
 }
 
 type MenuProps = {
@@ -35,7 +36,13 @@ type MemberConfigProps = {
   page: number
 }
 
-const EditRole = ({ role, deskId, userId, setVisibleModal }: EditRoleProps) => {
+const EditRole = ({
+  role,
+  deskId,
+  userId,
+  setVisibleModal,
+  setMembers,
+}: EditRoleProps) => {
   const [checkCoLeader, setCheckCoLeader] = useState(role === 'Co-líder')
   const [checkMember, setCheckMember] = useState(role === 'Membro')
   const [isLoading, setIsLoading] = useState(false)
@@ -56,6 +63,7 @@ const EditRole = ({ role, deskId, userId, setVisibleModal }: EditRoleProps) => {
         Toast(data.error)
       } else {
         Toast(data.success)
+        setMembers(data.updatedMembers)
       }
     } catch (error) {
       console.log(error)
@@ -130,18 +138,18 @@ const EditRole = ({ role, deskId, userId, setVisibleModal }: EditRoleProps) => {
             Pode excluir a desk, editar a desk, comentar, apagar comentários,
             remover membros e editar cargos. (Somente o criador da desk pode ser
             designado como líder, não sendo possível atribuir esse papel a
-            outros membros.)
+            outros membros)
           </span>
         </Text>
         <Text className="text-sm">
           Co-líder:{' '}
           <span className="text-white/50">
-            Pode comentar na desk, editar desk e apagar comentários.
+            Pode comentar na desk, editar desk e apagar comentários
           </span>
         </Text>
         <Text className="text-sm">
           Membro:{' '}
-          <span className="text-white/50">Apenas pode comentar nas mesas.</span>
+          <span className="text-white/50">Apenas pode comentar nas mesas</span>
         </Text>
       </div>
       <Button
@@ -200,6 +208,7 @@ const Menu = ({
               setVisibleModal={setVisibleModal}
               userId={userId}
               deskId={deskId}
+              setMembers={setMembers}
               role={role}
             />,
           )

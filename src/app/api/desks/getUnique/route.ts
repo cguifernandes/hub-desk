@@ -16,6 +16,12 @@ export async function GET(request: NextRequest) {
           select: { comments: true },
         },
         author: true,
+        members: {
+          select: {
+            userId: true,
+            role: true,
+          },
+        },
       },
     })
 

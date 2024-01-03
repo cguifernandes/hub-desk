@@ -9,7 +9,11 @@ export async function GET(request: NextRequest) {
     const desks = await prisma.member.findMany({
       where: { userId: authorId },
       include: {
-        desk: true,
+        desk: {
+          include: {
+            author: true,
+          },
+        },
         user: true,
       },
     })

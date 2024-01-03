@@ -81,7 +81,7 @@ const Desks = ({
           <span>Voltar para menu principal</span>
         </button>
       </Modal.Header>
-      <div className="flex max-w-[430px] flex-col gap-y-3 pt-4">
+      <div className="flex min-w-[390px] max-w-[430px] flex-col gap-y-3 pt-4">
         <div className="h-[2px] w-full bg-grey-400" />
         {desks && desks.length === 0 ? (
           <div className="flex flex-col">
@@ -92,17 +92,6 @@ const Desks = ({
           </div>
         ) : isLoading ? (
           <>
-            <div className="flex max-h-[140px] min-h-[130px] w-[430px] rounded-md px-3 py-2 transition-all hover:bg-grey-500">
-              <Skeleton height={114} className="mr-3 w-20" />
-              <div className="flex flex-col justify-between gap-y-3 py-2">
-                <Skeleton width={220} height={28} />
-                <Skeleton width={290} height={20} />
-                <div className="flex items-center gap-x-6">
-                  <Skeleton width={90} height={20} />
-                  <Skeleton width={150} height={20} />
-                </div>
-              </div>
-            </div>
             <div className="flex max-h-[140px] min-h-[130px] max-w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500">
               <Skeleton height={114} className="mr-3 w-20" />
               <div className="flex flex-col justify-between gap-y-3 py-2">
@@ -116,6 +105,16 @@ const Desks = ({
             </div>
             <div className="flex max-h-[140px] min-h-[130px] max-w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500">
               <Skeleton height={114} className="mr-3 w-20" />
+              <div className="flex flex-col justify-between gap-y-3 py-2">
+                <Skeleton width={220} height={28} />
+                <Skeleton width={290} height={20} />
+                <div className="flex items-center gap-x-6">
+                  <Skeleton width={90} height={20} />
+                  <Skeleton width={150} height={20} />
+                </div>
+              </div>
+            </div>
+            <div className="flex max-h-[140px] min-h-[130px] max-w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500">
               <div className="flex flex-col justify-between gap-y-3 py-2">
                 <Skeleton width={220} height={28} />
                 <Skeleton width={290} height={20} />
@@ -130,7 +129,7 @@ const Desks = ({
           desks?.map((desk, index) => (
             <div
               key={index}
-              className="flex max-h-[140px] min-h-[130px] max-w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500"
+              className="flex max-h-[140px] min-h-[130px] max-w-full rounded-md px-3 py-1 transition-all hover:bg-grey-500"
             >
               {desk.desk && desk.desk.image && (
                 <img
@@ -141,7 +140,7 @@ const Desks = ({
               )}
               <div className="flex flex-col justify-between gap-y-3 py-2">
                 <Link
-                  href={`/desk/${desk?.id}`}
+                  href={`/desk/${desk.desk?.id}`}
                   style={{ maxWidth: desk.desk?.image ? 314 : 400 }}
                   className="space-y-px"
                 >
@@ -153,8 +152,8 @@ const Desks = ({
                   </Text>
                 </Link>
                 <SearchWrapper
-                  author={desk.user}
-                  createdAt={desk?.createdAt}
+                  author={desk.desk?.author}
+                  createdAt={desk?.desk?.createdAt}
                   comments={desk?.desk?._count?.comments}
                 />
               </div>
@@ -169,9 +168,11 @@ const Desks = ({
 const AcceptInvite = ({
   setVisibleModal,
   invite,
+  handlerModalContent,
 }: {
   setVisibleModal: Dispatch<SetStateAction<boolean>>
   invite: InviteProps
+  handlerModalContent: (content: JSX.Element) => void
 }) => {
   const [isLoading, setIsLoading] = useState(false)
   const { push } = useRouter()
@@ -191,13 +192,19 @@ const AcceptInvite = ({
         Toast(data.error)
       } else {
         Toast(data.success)
-        setVisibleModal(false)
-        push(`/desk/${deskId}`)
       }
     } catch (err) {
       console.error('Erro ao processar formulário:', err)
     } finally {
       setIsLoading(false)
+      setVisibleModal(false)
+      handlerModalContent(
+        <ClientModal
+          handlerModalContent={handlerModalContent}
+          setVisibleModal={setVisibleModal}
+        />,
+      )
+      push(`/desk/${deskId}`)
     }
   }
 
@@ -218,9 +225,13 @@ const AcceptInvite = ({
 const DeclineInvite = ({
   invite,
   setInvites,
+  handlerModalContent,
+  setVisibleModal,
 }: {
   invite: InviteProps
   setInvites: Dispatch<SetStateAction<InviteProps[] | undefined>>
+  handlerModalContent: (content: JSX.Element) => void
+  setVisibleModal: Dispatch<SetStateAction<boolean>>
 }) => {
   const [isLoading, setIsLoading] = useState(false)
 
@@ -245,6 +256,13 @@ const DeclineInvite = ({
       console.error('Erro ao processar formulário:', err)
     } finally {
       setIsLoading(false)
+      setVisibleModal(false)
+      handlerModalContent(
+        <ClientModal
+          handlerModalContent={handlerModalContent}
+          setVisibleModal={setVisibleModal}
+        />,
+      )
     }
   }
 
@@ -411,8 +429,14 @@ const Invites = ({
                   </span>
                 </div>
                 <div className="flex gap-x-2 text-white">
-                  <DeclineInvite invite={invite} setInvites={setInvites} />
+                  <DeclineInvite
+                    setVisibleModal={setVisibleModal}
+                    handlerModalContent={handlerModalContent}
+                    invite={invite}
+                    setInvites={setInvites}
+                  />
                   <AcceptInvite
+                    handlerModalContent={handlerModalContent}
                     invite={invite}
                     setVisibleModal={setVisibleModal}
                   />
@@ -437,7 +461,7 @@ const ClientModal = ({
   const { client, isLoading } = useConnection()
   const { isConnected } = useClient()
 
-  const handlerLogout = () => {
+  const handlerLogout = async () => {
     destroyCookie(null, 'user_session')
     push('/auth/redirect?m=A saída foi um sucesso!')
   }

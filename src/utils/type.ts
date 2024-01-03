@@ -1,4 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+export type CommentProps = {
+  id: string
+  text: string
+  createdAt: Date
+  authorId: string
+  deskId: string
+}
+
 export type ClientsProps = {
   id: string
   email: string
@@ -9,14 +18,12 @@ export type ClientsProps = {
   _count?: {
     desks: number
   }
-}
-
-export type CommentProps = {
-  id: string
-  text: string
-  createdAt: Date
-  authorId: string
-  deskId: string
+  members: {
+    id: string
+    deskId: string
+    role: 'Líder' | 'Co-líder' | 'Membro'
+    userId: string
+  }[]
 }
 
 export type MemberProps = {
@@ -55,7 +62,7 @@ export type DeskProps = {
     | 'Sites'
   members: {
     userId: string
-    role: string
+    role: 'Líder' | 'Co-líder' | 'Membro'
     deskId: string
   }[]
   _count: {

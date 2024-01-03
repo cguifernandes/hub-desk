@@ -14,11 +14,11 @@ import { useForm } from 'react-hook-form'
 import useClient from '@/hooks/useClient'
 import { supabase } from '../../../../lib/supabase'
 import AnimationWrapper from '@/components/Wrapper/animationWrapper'
-import { FakeRDeskProps } from '@/utils/type'
+import { ClientsProps, FakeRDeskProps } from '@/utils/type'
 import FakeDesk from '@/components/fakeDesk'
 import { categories, visibility } from '@/utils/constant'
 
-const FormDesk = () => {
+const FormDesk = ({ author }: { author: ClientsProps }) => {
   const [selectedCategory, setSelectedCategory] = useState('')
   const [selectedVisibility, setSelectedVisibility] = useState('Público')
   const [fileList, setFileList] = useState<File | undefined>(undefined)
@@ -204,6 +204,7 @@ const FormDesk = () => {
         createdAt={currentDate}
         comments={0}
         data={fakeData}
+        author={author}
       />
     </div>
   )
