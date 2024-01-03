@@ -28,6 +28,143 @@ import useConnection from '@/hooks/useConnection'
 import Link from 'next/link'
 import { Toast } from '@/utils/toast'
 import Loading from '@/utils/utils'
+import SearchWrapper from '../Wrapper/searchWrapper'
+
+const Desks = ({
+  handlerModalContent,
+  setVisibleModal,
+}: {
+  handlerModalContent: (content: JSX.Element) => void
+  setVisibleModal: Dispatch<SetStateAction<boolean>>
+}) => {
+  const [desks, setDesks] = useState<InviteProps[]>()
+  const [isLoading, setIsLoading] = useState(false)
+  const { user_session } = useClient()
+
+  useEffect(() => {
+    const getDesks = async () => {
+      try {
+        setIsLoading(true)
+        const { data } = await api.get(
+          `/desks/getDesksParticipate?id=${user_session}`,
+          {
+            headers: { 'Content-Type': 'application/json' },
+          },
+        )
+
+        setDesks(data.data)
+      } catch (err) {
+        console.log(err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    getDesks()
+  }, [])
+
+  return (
+    <>
+      <Modal.Header>
+        <button
+          onClick={() =>
+            handlerModalContent(
+              <ClientModal
+                handlerModalContent={handlerModalContent}
+                setVisibleModal={setVisibleModal}
+              />,
+            )
+          }
+          className="flex items-center gap-x-2 text-white"
+        >
+          <ArrowLeft size={22} strokeWidth={1.5} />
+          <span>Voltar para menu principal</span>
+        </button>
+      </Modal.Header>
+      <div className="flex max-w-[430px] flex-col gap-y-3 pt-4">
+        <div className="h-[2px] w-full bg-grey-400" />
+        {desks && desks.length === 0 ? (
+          <div className="flex flex-col">
+            <Heading>Sem nenhuma desk</Heading>
+            <Text className="text-sm text-white/50">
+              Por enquanto, você não participa de nenhuma desk.
+            </Text>
+          </div>
+        ) : isLoading ? (
+          <>
+            <div className="flex max-h-[140px] min-h-[130px] w-[430px] rounded-md px-3 py-2 transition-all hover:bg-grey-500">
+              <Skeleton height={114} className="mr-3 w-20" />
+              <div className="flex flex-col justify-between gap-y-3 py-2">
+                <Skeleton width={220} height={28} />
+                <Skeleton width={290} height={20} />
+                <div className="flex items-center gap-x-6">
+                  <Skeleton width={90} height={20} />
+                  <Skeleton width={150} height={20} />
+                </div>
+              </div>
+            </div>
+            <div className="flex max-h-[140px] min-h-[130px] max-w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500">
+              <Skeleton height={114} className="mr-3 w-20" />
+              <div className="flex flex-col justify-between gap-y-3 py-2">
+                <Skeleton width={220} height={28} />
+                <Skeleton width={290} height={20} />
+                <div className="flex items-center gap-x-6">
+                  <Skeleton width={90} height={20} />
+                  <Skeleton width={150} height={20} />
+                </div>
+              </div>
+            </div>
+            <div className="flex max-h-[140px] min-h-[130px] max-w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500">
+              <Skeleton height={114} className="mr-3 w-20" />
+              <div className="flex flex-col justify-between gap-y-3 py-2">
+                <Skeleton width={220} height={28} />
+                <Skeleton width={290} height={20} />
+                <div className="flex items-center gap-x-6">
+                  <Skeleton width={90} height={20} />
+                  <Skeleton width={150} height={20} />
+                </div>
+              </div>
+            </div>
+          </>
+        ) : (
+          desks?.map((desk, index) => (
+            <div
+              key={index}
+              className="flex max-h-[140px] min-h-[130px] max-w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500"
+            >
+              {desk.desk && desk.desk.image && (
+                <img
+                  className="mr-3 w-20 rounded-md object-cover"
+                  src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${desk.desk.image}`}
+                  alt={desk.desk.title}
+                />
+              )}
+              <div className="flex flex-col justify-between gap-y-3 py-2">
+                <Link
+                  href={`/desk/${desk?.id}`}
+                  style={{ maxWidth: desk.desk?.image ? 314 : 400 }}
+                  className="space-y-px"
+                >
+                  <Heading className="truncate text-lg">
+                    {desk?.desk?.title}
+                  </Heading>
+                  <Text size="sm" className="truncate text-white/50">
+                    {desk.desk?.description}
+                  </Text>
+                </Link>
+                <SearchWrapper
+                  author={desk.user}
+                  createdAt={desk?.createdAt}
+                  comments={desk?.desk?._count?.comments}
+                />
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    </>
+  )
+}
 
 const AcceptInvite = ({
   setVisibleModal,
@@ -200,7 +337,7 @@ const Invites = ({
       </Modal.Header>
       <div className="flex flex-col gap-y-3 pt-4">
         <div className="h-[2px] w-full bg-grey-400" />
-        <div className="flex max-h-[404px] w-[480px] flex-col gap-y-4 overflow-y-auto">
+        <div className="flex max-h-[404px] max-w-[480px] flex-col gap-y-4 overflow-y-auto">
           {invites?.length === 0 ? (
             <div className="flex flex-col">
               <Heading>Sem convites</Heading>
@@ -210,7 +347,7 @@ const Invites = ({
             </div>
           ) : isLoading ? (
             <>
-              <div className="flex w-[480px] items-center gap-x-4 px-3">
+              <div className="flex max-w-[480px] items-center gap-x-4 px-3">
                 <div className="flex w-[368px] flex-col gap-y-1">
                   <Skeleton height={24} width={240} />
                   <Skeleton height={60} className="w-full" />
@@ -232,7 +369,7 @@ const Invites = ({
                   <Skeleton height={36} width={36} />
                 </div>
               </div>
-              <div className="flex w-[480px] items-center gap-x-4 px-3">
+              <div className="flex items-center gap-x-4 px-3">
                 <div className="flex w-[368px] flex-col gap-y-1">
                   <Skeleton height={24} width={240} />
                   <Skeleton height={60} className="w-full" />
@@ -246,15 +383,18 @@ const Invites = ({
             </>
           ) : (
             invites?.map((invite) => (
-              <div key={invite.id} className="flex items-center gap-x-4 px-3">
-                <div className="flex flex-col">
+              <div
+                key={invite.id}
+                className="flex max-w-[480px] items-center justify-between gap-x-4 px-3"
+              >
+                <div className="flex w-full max-w-[360px] flex-col">
                   <Link
-                    className="text-white"
+                    className="truncate text-white"
                     href={`/desk/${invite.desk?.id}`}
                   >
                     {invite.desk?.title}
                   </Link>
-                  <Text className="text-sm text-white/50">
+                  <Text className="break-words text-sm text-white/50">
                     <span className="inline-flex items-baseline gap-x-1 text-white">
                       <img
                         className="my-auto h-4 w-4 overflow-clip rounded-full object-cover object-center align-top"
@@ -272,7 +412,6 @@ const Invites = ({
                 </div>
                 <div className="flex gap-x-2 text-white">
                   <DeclineInvite invite={invite} setInvites={setInvites} />
-
                   <AcceptInvite
                     invite={invite}
                     setVisibleModal={setVisibleModal}
@@ -347,6 +486,7 @@ const ClientModal = ({
                 <Skeleton className="w-full" height={50} />
                 <Skeleton className="w-full" height={50} />
                 <Skeleton className="w-full" height={50} />
+                <Skeleton className="w-full" height={50} />
               </>
             ) : (
               <>
@@ -359,6 +499,19 @@ const ClientModal = ({
                 >
                   <UserCircle strokeWidth={1.5} size={22} />
                 </Button>
+                <Button
+                  onClick={() =>
+                    handlerModalContent(
+                      <Desks
+                        handlerModalContent={handlerModalContent}
+                        setVisibleModal={setVisibleModal}
+                      />,
+                    )
+                  }
+                  text="Desks em que participo"
+                  fill="empty"
+                  isModalButton
+                />
                 <Button
                   onClick={() =>
                     handlerModalContent(
@@ -437,7 +590,7 @@ const Navigation = ({
         />
         <Modal.Children
           className={clsx(
-            'z-50 m-8 !mt-24 max-h-[calc(90%_-_92px)] overflow-y-auto md:m-10',
+            'z-50 m-8 !mt-24 max-h-[calc(75%_-_92px)] overflow-y-auto md:m-10',
             'rounded-md bg-modal-gradient p-4 shadow-lg backdrop-blur-md',
           )}
         >

@@ -21,6 +21,10 @@ export async function POST(request: NextRequest) {
       },
     })
 
+    await prisma.invite.deleteMany({
+      where: { receiverId: userId, deskId },
+    })
+
     return NextResponse.json({
       success: 'Convite aceito com sucesso.',
       data: newDesk,

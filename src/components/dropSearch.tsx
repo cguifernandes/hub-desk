@@ -65,7 +65,7 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                           </Text>
                         </Link>
                         <SearchWrapper
-                          authorId={desk.authorId}
+                          author={desk.author}
                           createdAt={desk.createdAt}
                           comments={desk._count?.comments}
                         />
@@ -95,7 +95,7 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                       <div className="flex flex-col justify-center gap-y-1">
                         <Heading className="text-lg">{client.user}</Heading>
                         <ClientWrapper
-                          authorId={client.id}
+                          count={client._count?.desks}
                           createdAt={client.createdAt}
                         />
                       </div>

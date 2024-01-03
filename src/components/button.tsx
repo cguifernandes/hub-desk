@@ -65,22 +65,39 @@ const Button = ({
   }
 
   if (isModalButton) {
-    return (
-      <button
-        className={button({
-          fill,
-          className: `flex w-full items-center justify-between px-4 py-3`,
-        })}
-        {...props}
-      >
-        <div className="flex items-center gap-x-3">
-          {children}
-          <div className="h-[24px] w-[2px] bg-grey-400" />
-          <span>{text}</span>
-        </div>
-        <ChevronRight color="#fff" />
-      </button>
-    )
+    if (children) {
+      return (
+        <button
+          className={button({
+            fill,
+            className: `flex w-full items-center justify-between px-4 py-3`,
+          })}
+          {...props}
+        >
+          <div className="flex items-center gap-x-3">
+            {children}
+            <div className="h-[24px] w-[2px] bg-grey-400" />
+            <span>{text}</span>
+          </div>
+          <ChevronRight color="#fff" />
+        </button>
+      )
+    } else {
+      return (
+        <button
+          className={button({
+            fill,
+            className: `flex w-full items-center justify-between px-4 py-3`,
+          })}
+          {...props}
+        >
+          <div className="flex items-center gap-x-3">
+            <span>{text}</span>
+          </div>
+          <ChevronRight color="#fff" />
+        </button>
+      )
+    }
   }
 
   if (children && href) {
@@ -126,7 +143,7 @@ const Button = ({
           className: `${className} flex cursor-not-allowed items-center justify-center`,
         })}
       >
-        <Loading className="mr-2 h-8 w-8" />
+        <Loading className="h-8 w-8" />
       </button>
     )
   }

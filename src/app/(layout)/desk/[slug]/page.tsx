@@ -75,6 +75,7 @@ export default async function Desk({ params }: { params: { slug: string } }) {
   }
   const desk = props.desk.data[0]
   const isLeader = desk.authorId === user_session?.value
+  console.log(props.desk.data[0].members)
 
   return (
     <section className="flex min-h-[calc(100vh_-_80px_-_64px)] flex-col items-center py-8 sm:py-14">
@@ -84,12 +85,16 @@ export default async function Desk({ params }: { params: { slug: string } }) {
           animate={{ opacity: 1, y: 0 }}
           className="mx-auto flex max-w-7xl flex-col rounded-md border-2 border-grey-400 bg-desk-gradient lg:flex-row"
         >
-          <div className="relative flex min-h-[600px] flex-1 flex-col justify-between p-4 text-center">
-            <DeskSettings
-              image={desk.image}
-              deskId={desk.id}
-              isLeader={isLeader}
-            />
+          <div className="relative flex min-h-[600px] min-w-0 flex-1 flex-col justify-between p-4 text-center">
+            {user_session?.value && (
+              <DeskSettings
+                image={desk.image}
+                deskId={desk.id}
+                user_session={user_session?.value}
+                isLeader={isLeader}
+              />
+            )}
+
             {desk.image && (
               <div className="absolute left-0 top-0 h-40 w-full">
                 <img
@@ -109,7 +114,7 @@ export default async function Desk({ params }: { params: { slug: string } }) {
               </Heading>
               <Text className="text-white/50">{desk.category}</Text>
             </div>
-            <Text className="break-words">{desk.description}</Text>
+            <Text className="break-all">{desk.description}</Text>
             {desk.category === 'Sites' && (
               <div className="mx-auto flex w-4/5 flex-col gap-6 md:w-2/4">
                 {desk.repo !== '' && (
@@ -133,12 +138,12 @@ export default async function Desk({ params }: { params: { slug: string } }) {
             )}
             <DeskWrapper
               comments={desk._count.comments}
-              authorId={desk.authorId}
+              author={desk.author}
               createdAt={desk.createdAt}
             />
           </div>
           <DeskSideBar
-            className="flex min-h-[520px] flex-col gap-y-3 border-t-2 border-grey-400 p-4 lg:min-h-0 lg:min-w-[450px] lg:border-l-2 lg:border-t-0"
+            className="flex min-h-[520px] flex-col gap-y-3 border-t-2 border-grey-400 p-4 lg:min-h-0 lg:min-w-[360px] lg:border-l-2 lg:border-t-0 xl:min-w-[380px]"
             user_session={user_session?.value}
             deskId={desk.id}
             isLeader={isLeader}

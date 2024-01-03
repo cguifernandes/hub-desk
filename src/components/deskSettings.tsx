@@ -1,5 +1,6 @@
+/* eslint-disable camelcase */
 'use client'
-import { Pencil, Settings, Trash2 } from 'lucide-react'
+import { LogOut, Pencil, Settings, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { api } from '@/utils/api'
@@ -12,9 +13,71 @@ type DeskSettingsProps = {
   isLeader: boolean
   image?: string
   deskId?: string | undefined
+  user_session: string
 }
 
-const DeskSettings = ({ isLeader, deskId, image }: DeskSettingsProps) => {
+const LeaveDesk = ({
+  deskId,
+  user_session,
+}: {
+  deskId?: string | undefined
+  user_session: string
+}) => {
+  const [visibleModal, setVisibleModal] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const { push } = useRouter()
+
+  const handlerLeaveDesk = async () => {
+    try {
+      setIsLoading(true)
+      const { data } = await api.delete(
+        `/members/leave?id=${user_session}&deskId=${deskId}`,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        },
+      )
+
+      if (data.error) {
+        Toast(data.error)
+      } else {
+        Toast(data.success)
+        push('/')
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setIsLoading(false)
+      setVisibleModal(false)
+    }
+  }
+
+  return (
+    <>
+      <button
+        onClick={() => setVisibleModal(true)}
+        className="flex justify-between rounded-b-md p-3 transition-colors hover:bg-grey-600"
+      >
+        <span className="text-white">Sair da desk</span>
+        <LogOut size={22} strokeWidth={1.5} color="#fff" />
+      </button>
+      <DeleteModal
+        loading={isLoading}
+        handlerDeleteAccount={handlerLeaveDesk}
+        setVisibleModal={setVisibleModal}
+        visibleModal={visibleModal}
+        text="Tem certeza que deseja sair da desk?"
+        subtitle="Ao clicar no botão 'Confirmar', você não fará mais parte da desk, logo, terá que ser convidado novamente caso deseje participar outra vez"
+      />
+    </>
+  )
+}
+
+const DeskSettings = ({
+  isLeader,
+  deskId,
+  image,
+  user_session,
+}: DeskSettingsProps) => {
   const [visibleSettings, setVisibleSettings] = useState(false)
   const [visibleModal, setVisibleModal] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -44,8 +107,6 @@ const DeskSettings = ({ isLeader, deskId, image }: DeskSettingsProps) => {
     }
   }
 
-  if (!isLeader) return <></>
-
   return (
     <>
       <button
@@ -61,6 +122,7 @@ const DeskSettings = ({ isLeader, deskId, image }: DeskSettingsProps) => {
               className="fixed left-0 top-0 z-20 h-screen w-screen"
               onClick={() => setVisibleSettings(false)}
             />
+
             <motion.div
               initial={{ translateY: -10, opacity: 0 }}
               animate={{ translateY: 0, opacity: 1 }}
@@ -68,20 +130,26 @@ const DeskSettings = ({ isLeader, deskId, image }: DeskSettingsProps) => {
               transition={{ type: 'keyframes', duration: 0.2 }}
               className="absolute right-3 top-[60px] z-20 flex w-64 flex-col rounded-md border border-grey-400 bg-grey-700"
             >
-              <Link
-                href={`/desk/edit/${deskId}`}
-                className="flex justify-between rounded-t-md p-3 transition-colors hover:bg-grey-600"
-              >
-                <span className="text-white">Editar desk</span>
-                <Pencil size={22} strokeWidth={1.5} color="#fff" />
-              </Link>
-              <button
-                onClick={() => setVisibleModal(true)}
-                className="flex justify-between rounded-b-md p-3 transition-colors hover:bg-grey-600"
-              >
-                <span className="text-white">Excluir desk</span>
-                <Trash2 size={22} strokeWidth={1.5} color="#fff" />
-              </button>
+              {isLeader ? (
+                <>
+                  <Link
+                    href={`/desk/edit/${deskId}`}
+                    className="flex justify-between rounded-t-md p-3 transition-colors hover:bg-grey-600"
+                  >
+                    <span className="text-white">Editar desk</span>
+                    <Pencil size={22} strokeWidth={1.5} color="#fff" />
+                  </Link>
+                  <button
+                    onClick={() => setVisibleModal(true)}
+                    className="flex justify-between rounded-b-md p-3 transition-colors hover:bg-grey-600"
+                  >
+                    <span className="text-white">Excluir desk</span>
+                    <Trash2 size={22} strokeWidth={1.5} color="#fff" />
+                  </button>
+                </>
+              ) : (
+                <LeaveDesk user_session={user_session} deskId={deskId} />
+              )}
             </motion.div>
           </>
         )}

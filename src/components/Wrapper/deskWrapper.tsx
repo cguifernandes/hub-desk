@@ -1,8 +1,5 @@
 'use client'
-/* eslint-disable react-hooks/rules-of-hooks */
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from 'react'
 import Skeleton from '../Layout/skeleton'
 import { ClientsProps } from '@/utils/type'
 import clsx from 'clsx'
@@ -10,21 +7,18 @@ import { MessageSquare } from 'lucide-react'
 import Link from 'next/link'
 
 type DeskWrapperProps = {
-  authorId: string | undefined
+  author: ClientsProps | undefined
   createdAt: Date
   className?: string
   comments?: number | undefined
 }
 
 const DeskWrapper = ({
-  authorId,
+  author,
   createdAt,
   className,
   comments,
 }: DeskWrapperProps) => {
-  const [author, setAuthor] = useState<ClientsProps>()
-  const [isLoading, setIsLoading] = useState(false)
-
   const formattedDate = () => {
     const time = new Date(createdAt).getTime()
     const currentDate = new Date().getTime()
@@ -50,28 +44,6 @@ const DeskWrapper = ({
     }
   }
 
-  useEffect(() => {
-    const getClient = async () => {
-      try {
-        setIsLoading(true)
-        const response = await fetch(`/api/auth/getWithId?id=${authorId}`, {
-          cache: 'no-cache',
-          method: 'GET',
-        })
-
-        const data = await response.json()
-
-        setAuthor(data.data[0])
-      } catch (err) {
-        console.log(err)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    getClient()
-  }, [])
-
   return (
     <div
       className={clsx(
@@ -79,7 +51,7 @@ const DeskWrapper = ({
         className,
       )}
     >
-      {isLoading || author === undefined ? (
+      {author === undefined ? (
         <Skeleton width={120} height={32} />
       ) : (
         <Link

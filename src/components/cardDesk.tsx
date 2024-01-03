@@ -94,7 +94,7 @@ const CardDesk = ({
         )}
       <DeskWrapper
         comments={comments}
-        authorId={data.authorId}
+        author={data.author}
         createdAt={data.createdAt}
       />
     </motion.div>

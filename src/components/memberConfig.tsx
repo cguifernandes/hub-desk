@@ -266,7 +266,7 @@ const MemberConfig = ({
               animate={{ translateY: 0, opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ type: 'keyframes', duration: 0.2 }}
-              className="absolute right-1 top-[55px] z-20 flex w-full max-w-[390px] flex-col rounded-md border border-grey-400 bg-grey-700"
+              className="absolute right-1 top-[55px] z-20 flex w-full max-w-[320px] flex-col rounded-md border border-grey-400 bg-grey-700"
             >
               {modalContent}
             </motion.div>

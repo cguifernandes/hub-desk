@@ -9,13 +9,22 @@ export async function GET(request: NextRequest) {
     const clients = await prisma.clients.findMany({
       where: { user: { mode: 'insensitive', contains: query } },
       orderBy: { createdAt: 'desc' },
+      include: {
+        _count: {
+          select: {
+            desks: true,
+          },
+        },
+      },
     })
+
     const desks = await prisma.desk.findMany({
       where: { title: { mode: 'insensitive', contains: query } },
       include: {
         _count: {
           select: { comments: true },
         },
+        author: true,
       },
       orderBy: { createdAt: 'desc' },
     })

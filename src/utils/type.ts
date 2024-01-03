@@ -6,6 +6,9 @@ export type ClientsProps = {
   user: string
   pfp: string
   createdAt: Date
+  _count?: {
+    desks: number
+  }
 }
 
 export type CommentProps = {
@@ -58,6 +61,7 @@ export type DeskProps = {
   _count: {
     comments: number
   }
+  author?: ClientsProps
 }
 
 export type InviteProps = {
@@ -69,6 +73,7 @@ export type InviteProps = {
   desk?: DeskProps
   receiver?: ClientsProps
   sender?: ClientsProps
+  user?: ClientsProps
 }
 
 export type RInviteProps = {
