@@ -78,10 +78,10 @@ const Carousel = ({ category, className }: CarouselProps) => {
             <SwiperSlide>
               <div className="relative flex h-[640px] !w-full max-w-none flex-col justify-between rounded-md border-2 border-grey-400 bg-desk-gradient p-7 shadow-md">
                 <div className="flex w-full flex-col items-center space-y-1">
-                  <Skeleton className="w-full" height={28} />
+                  <Skeleton className="w-4/5" height={28} />
                   <Skeleton width={60} height={24} />
                 </div>
-                <Skeleton className="w-full" height={64} />
+                <Skeleton className="w-full" height={90} />
                 <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
                   <Skeleton width={120} height={32} />
                   <Skeleton width={210} height={32} />
@@ -94,7 +94,7 @@ const Carousel = ({ category, className }: CarouselProps) => {
                   <Skeleton className="w-full" height={28} />
                   <Skeleton width={60} height={24} />
                 </div>
-                <Skeleton className="w-full" height={64} />
+                <Skeleton className="w-full" height={32} />
                 <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
                   <Skeleton width={120} height={32} />
                   <Skeleton width={210} height={32} />
@@ -104,10 +104,10 @@ const Carousel = ({ category, className }: CarouselProps) => {
             <SwiperSlide>
               <div className="relative flex h-[640px] !w-full max-w-none flex-col justify-between rounded-md border-2 border-grey-400 bg-desk-gradient p-7 shadow-md">
                 <div className="flex w-full flex-col items-center space-y-1">
-                  <Skeleton className="w-full" height={28} />
+                  <Skeleton className="w-3/4" height={28} />
                   <Skeleton width={60} height={24} />
                 </div>
-                <Skeleton className="w-full" height={64} />
+                <Skeleton className="w-full" height={120} />
                 <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
                   <Skeleton width={120} height={32} />
                   <Skeleton width={210} height={32} />

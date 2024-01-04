@@ -80,10 +80,12 @@ export default async function Desk({ params }: { params: { slug: string } }) {
     const desk = props.desk.data[0]
     const isLeader = desk?.authorId === user_session?.value
     const isCoLeader = props.user.data[0]?.members.some(
-      (member) => member.role === 'Co-líder',
+      (member) =>
+        member.userId === user_session?.value && member.role === 'Co-líder',
     )
     const isMember = props.user.data[0]?.members.some(
-      (member) => member.userId === user_session?.value,
+      (member) =>
+        member.userId === user_session?.value && member.role === 'Membro',
     )
 
     return (
@@ -120,7 +122,10 @@ export default async function Desk({ params }: { params: { slug: string } }) {
                 className="z-10 flex flex-col gap-y-1"
               >
                 <Heading size="md" className="break-words text-white">
-                  {desk?.title}
+                  {desk?.title}{' '}
+                  <span className="text-sm text-white/50">
+                    ({desk?.visibility})
+                  </span>
                 </Heading>
                 <Text className="text-white/50">{desk?.category}</Text>
               </div>
@@ -162,6 +167,8 @@ export default async function Desk({ params }: { params: { slug: string } }) {
             />
           </AnimationWrapper>
           <Comments
+            isLeader={isLeader}
+            isCoLeader={isCoLeader}
             isConnected={!!user_session?.value}
             user_session={user_session?.value}
             deskId={params.slug}

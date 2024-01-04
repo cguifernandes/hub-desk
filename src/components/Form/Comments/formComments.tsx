@@ -17,6 +17,7 @@ type FormCommentsProps = {
   setPage: Dispatch<SetStateAction<number>>
   page: number
   setComments: Dispatch<SetStateAction<CommentProps[]>>
+  setCount: Dispatch<SetStateAction<number>>
 }
 
 const FormComments = ({
@@ -24,6 +25,7 @@ const FormComments = ({
   user_session,
   deskId,
   user,
+  setCount,
   setPage,
   setComments,
   page,
@@ -56,12 +58,13 @@ const FormComments = ({
       } else {
         Toast(data.success)
         setComments(data.updatedComment)
-        setPage(1)
-        reset()
+        setCount(data.count)
       }
     } catch (err) {
       console.error('Erro ao processar formulário:', err)
     } finally {
+      reset()
+      setPage(1)
       setIsLoading(false)
     }
   }

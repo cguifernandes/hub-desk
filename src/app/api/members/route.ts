@@ -2,14 +2,20 @@ import { MemberProps } from '@/utils/type'
 import { NextRequest, NextResponse } from 'next/server'
 import prisma from '../../../../lib/prisma'
 
+type Role = 'Líder' | 'Co-líder' | 'Membro'
+
 export async function PUT(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const userId = searchParams.get('id')
+  const page = searchParams.get('page')
   const body: MemberProps = await request.json()
   const { deskId, role } = body
+  const PER_PAGE = 4
 
   if (userId) {
     try {
+      const currentPage = Math.max(Number(page || 1), 1)
+
       await prisma.member.updateMany({
         where: { userId, deskId },
         data: {
@@ -18,14 +24,37 @@ export async function PUT(request: NextRequest) {
       })
 
       const updatedMembers = await prisma.member.findMany({
+        where: { deskId },
+        orderBy: {
+          role: 'asc',
+        },
         include: {
           user: true,
         },
+        take: PER_PAGE,
+        skip: (currentPage - 1) * PER_PAGE,
+      })
+
+      const rolesOrder: Record<Role, number> = {
+        Líder: 1,
+        'Co-líder': 2,
+        Membro: 3,
+      }
+
+      updatedMembers.sort((a, b) => {
+        const roleA = a.role as Role
+        const roleB = b.role as Role
+        return rolesOrder[roleA] - rolesOrder[roleB]
+      })
+
+      const count = await prisma.member.count({
+        where: { deskId },
       })
 
       return NextResponse.json({
         success: 'Cargo atualizado com sucesso.',
         updatedMembers,
+        count,
       })
     } catch (err) {
       return NextResponse.json({

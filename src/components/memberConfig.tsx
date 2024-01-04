@@ -14,6 +14,7 @@ type EditRoleProps = {
   userId: string
   setVisibleModal: Dispatch<SetStateAction<boolean>>
   setMembers: Dispatch<SetStateAction<MemberProps[] | undefined>>
+  page: number
 }
 
 type MenuProps = {
@@ -42,6 +43,7 @@ const EditRole = ({
   userId,
   setVisibleModal,
   setMembers,
+  page,
 }: EditRoleProps) => {
   const [checkCoLeader, setCheckCoLeader] = useState(role === 'Co-líder')
   const [checkMember, setCheckMember] = useState(role === 'Membro')
@@ -52,7 +54,7 @@ const EditRole = ({
     try {
       setIsLoading(true)
       const { data } = await api.put(
-        `/members?id=${userId}`,
+        `/members?id=${userId}&page=${page}`,
         { deskId, role: newRole },
         {
           headers: { 'Content-Type': 'application/json' },
@@ -188,12 +190,12 @@ const Menu = ({
         Toast(data.error)
       } else {
         Toast(data.success)
-        setPage(1)
         setMembers(data.updatedMembers)
       }
     } catch (error) {
       console.log(error)
     } finally {
+      setPage(1)
       setIsLoading(false)
       setVisibleModal(false)
     }
@@ -208,6 +210,7 @@ const Menu = ({
               setVisibleModal={setVisibleModal}
               userId={userId}
               deskId={deskId}
+              page={page}
               setMembers={setMembers}
               role={role}
             />,

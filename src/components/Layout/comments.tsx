@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 'use client'
 import { ClientsProps, CommentProps } from '@/utils/type'
-import { useEffect, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import Text from '../Typography/text'
 import Pagination from './pagination'
 import clsx from 'clsx'
@@ -11,17 +11,79 @@ import Skeleton from './skeleton'
 import FormComments from '../Form/Comments/formComments'
 import AnimationWrapper from '../Wrapper/animationWrapper'
 import CommentWrapper from '../Wrapper/commentWrapper'
+import { Trash2 } from 'lucide-react'
+import { api } from '@/utils/api'
+import { Toast } from '@/utils/toast'
+import Loading from '@/utils/utils'
 
 type CommentsProps = {
   deskId: string | undefined
   user_session: string | undefined
   isConnected: boolean
   user: ClientsProps[]
+  isLeader: boolean
+  isCoLeader: boolean
+}
+
+const DeleteComment = ({
+  deskId,
+  page,
+  setComments,
+  setPage,
+  id,
+}: {
+  deskId: string | undefined
+  page: number
+  setPage: Dispatch<SetStateAction<number>>
+  setComments: Dispatch<SetStateAction<CommentProps[]>>
+  id: string | undefined
+}) => {
+  const [isLoading, setIsLoading] = useState(false)
+
+  const handlerDeleteComment = async () => {
+    try {
+      setIsLoading(true)
+      const { data } = await api.delete(
+        `/comments?id=${id}&deskId=${deskId}&page=${page}`,
+        {
+          headers: { 'Content-Type': 'application/json' },
+        },
+      )
+
+      if (data.error) {
+        Toast(data.error)
+      } else {
+        Toast(data.success)
+        setComments(data.updatedComment)
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setPage(1)
+      setIsLoading(false)
+    }
+  }
+
+  return (
+    <button
+      disabled={isLoading}
+      onClick={handlerDeleteComment}
+      className="pl-7"
+    >
+      {isLoading ? (
+        <Loading className="h-5 w-5" />
+      ) : (
+        <Trash2 size={22} strokeWidth={1.5} />
+      )}
+    </button>
+  )
 }
 
 const Comments = ({
   deskId,
   user_session,
+  isCoLeader,
+  isLeader,
   isConnected,
   user,
 }: CommentsProps) => {
@@ -68,7 +130,10 @@ const Comments = ({
                     'justify-between border-2 border-grey-400 bg-desk-gradient p-4',
                   )}
                 >
-                  <Skeleton height={24} className="w-3/4" />
+                  <div className="flex w-full items-start justify-between">
+                    <Skeleton height={24} className="w-3/4" />
+                    <Skeleton width={22} height={22} className="ml-7" />
+                  </div>
                   <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
                     <Skeleton width={120} height={32} />
                     <Skeleton width={210} height={32} />
@@ -80,7 +145,10 @@ const Comments = ({
                     'justify-between border-2 border-grey-400 bg-desk-gradient p-4',
                   )}
                 >
-                  <Skeleton height={24} className="w-3/4" />
+                  <div className="flex w-full items-start justify-between">
+                    <Skeleton height={68} className="w-3/4" />
+                    <Skeleton width={22} height={22} className="ml-7" />
+                  </div>
                   <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
                     <Skeleton width={120} height={32} />
                     <Skeleton width={210} height={32} />
@@ -92,7 +160,10 @@ const Comments = ({
                     'justify-between border-2 border-grey-400 bg-desk-gradient p-4',
                   )}
                 >
-                  <Skeleton height={24} className="w-3/4" />
+                  <div className="flex w-full items-start justify-between">
+                    <Skeleton height={80} className="w-3/4" />
+                    <Skeleton width={22} height={22} className="ml-7" />
+                  </div>
                   <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
                     <Skeleton width={120} height={32} />
                     <Skeleton width={210} height={32} />
@@ -104,7 +175,10 @@ const Comments = ({
                     'justify-between border-2 border-grey-400 bg-desk-gradient p-4',
                   )}
                 >
-                  <Skeleton height={24} className="w-3/4" />
+                  <div className="flex w-full items-start justify-between">
+                    <Skeleton height={24} className="w-3/4" />
+                    <Skeleton width={22} height={22} className="ml-7" />
+                  </div>
                   <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
                     <Skeleton width={120} height={32} />
                     <Skeleton width={210} height={32} />
@@ -122,7 +196,20 @@ const Comments = ({
                   )}
                   key={comments.id}
                 >
-                  <Text className="break-words">{comments.text}</Text>
+                  <div className="flex w-full items-start justify-between">
+                    <Text className="break-words">{comments.text}</Text>
+                    {(isLeader ||
+                      isCoLeader ||
+                      user_session === comments.author?.id) && (
+                      <DeleteComment
+                        id={comments.id}
+                        deskId={deskId}
+                        page={page}
+                        setPage={setPage}
+                        setComments={setComments}
+                      />
+                    )}
+                  </div>
                   <CommentWrapper
                     className="pt-8"
                     author={comments.author}
@@ -149,6 +236,7 @@ const Comments = ({
         isConnected={isConnected}
         user_session={user_session}
         user={user}
+        setCount={setCount}
       />
     </>
   )

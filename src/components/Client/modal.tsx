@@ -142,6 +142,15 @@ const Desks = ({
                 <Link
                   href={`/desk/${desk.desk?.id}`}
                   style={{ maxWidth: desk.desk?.image ? 314 : 400 }}
+                  onClick={() => {
+                    handlerModalContent(
+                      <ClientModal
+                        handlerModalContent={handlerModalContent}
+                        setVisibleModal={setVisibleModal}
+                      />,
+                    )
+                    setVisibleModal(false)
+                  }}
                   className="space-y-px"
                 >
                   <Heading className="truncate text-lg">
