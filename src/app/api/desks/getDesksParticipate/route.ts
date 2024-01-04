@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
     if (desks) {
       return NextResponse.json({
         success: 'Desks encontrado',
-        data: desks.filter((desk) => desk.desk.authorId !== authorId),
+        data: desks,
       })
     } else {
       return NextResponse.json({

@@ -7,7 +7,6 @@ const Header = () => {
       <div className="mx-6 flex w-full max-w-[1820px] items-center justify-between ">
         <Back href="/" isHeader className="w-[200px]" />
         <Nav />
-        MUDAR HEADER
       </div>
     </header>
   )

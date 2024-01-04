@@ -21,6 +21,7 @@ export async function GET(request: NextRequest) {
         _count: {
           select: { comments: true },
         },
+        author: true,
       },
     })
 

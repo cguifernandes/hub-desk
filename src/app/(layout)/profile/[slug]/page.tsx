@@ -2,7 +2,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable camelcase */
 import Heading from '@/components/Typography/heading'
-import Text from '@/components/Typography/text'
 import Desks from '@/components/Layout/desks'
 import { url } from '@/utils/constant'
 import { ClientsProps, RDeskProps } from '@/utils/type'
@@ -90,12 +89,6 @@ export default async function Desk({ params }: { params: { slug: string } }) {
         </div>
       </div>
       <div className="my-16 flex h-full w-full flex-col">
-        <div className="w-full text-center">
-          <Heading size="lg">Desks</Heading>
-          <Text className="text-white/50">
-            Desks ARRUMAR ESSE COMPONENTE criadas por {props.client[0].user}
-          </Text>
-        </div>
         <Desks user={props.client[0].user} id={props.client[0].id} />
       </div>
     </section>

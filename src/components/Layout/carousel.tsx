@@ -116,29 +116,18 @@ const Carousel = ({ category, className }: CarouselProps) => {
             </SwiperSlide>
           </>
         ) : (
-          desks?.map((desk) => (
-            <SwiperSlide key={desk.id}>
-              <CardDesk
-                className="!w-full max-w-none"
-                data={desk}
-                href={`/desk/${desk.id}`}
-                comments={desk._count?.comments}
-              />
-            </SwiperSlide>
-          ))
-          // <>
-          //   {desks
-          //     .filter((desk) => desk.visibility === 'Público')
-          //     .map((desk) => (
-          //       <SwiperSlide key={desk.id}>
-          //         <CardDesk
-          //           className="!w-full max-w-none"
-          //           data={desk}
-          //           href={`/desk/${desk.id}`}
-          //         />
-          //       </SwiperSlide>
-          //     ))}
-          // </>
+          desks
+            .filter((desk) => desk.visibility === 'Público')
+            .map((desk) => (
+              <SwiperSlide key={desk.id}>
+                <CardDesk
+                  className="!w-full max-w-none"
+                  data={desk}
+                  href={`/desk/${desk.id}`}
+                  comments={desk._count?.comments}
+                />
+              </SwiperSlide>
+            ))
         )}
       </Swiper>
     </div>

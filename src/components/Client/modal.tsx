@@ -145,7 +145,10 @@ const Desks = ({
                   className="space-y-px"
                 >
                   <Heading className="truncate text-lg">
-                    {desk?.desk?.title}
+                    {desk?.desk?.title}{' '}
+                    <span className="text-sm text-white/50">
+                      ({desk.desk?.visibility})
+                    </span>
                   </Heading>
                   <Text size="sm" className="truncate text-white/50">
                     {desk.desk?.description}
