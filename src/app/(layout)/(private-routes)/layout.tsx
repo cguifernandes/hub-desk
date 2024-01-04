@@ -7,6 +7,9 @@ import { ReactNode, useEffect, useState } from 'react'
 import DeskLoading from './desk/post/loading'
 import SettingsLoading from './settings/account/loading'
 import Skeleton from '@/components/Layout/skeleton'
+import Heading from '@/components/Typography/heading'
+import Text from '@/components/Typography/text'
+import Link from 'next/link'
 
 const Layout = ({ children }: { children: ReactNode }) => {
   const { isConnected } = useClient()
@@ -46,7 +49,27 @@ const Layout = ({ children }: { children: ReactNode }) => {
     }
   }
 
-  return <>{!isConnected ? <Alert /> : children}</>
+  return (
+    <>
+      {!isConnected ? (
+        <Alert>
+          <Heading size="md" align="center">
+            Parece que você não está logado
+          </Heading>
+          <Text className="text-white/50">
+            Para acessar essa página, você precisa estar logado em uma conta
+            válida,{' '}
+            <Link className="gradient-text" href="/auth/sign-in">
+              clique aqui
+            </Link>{' '}
+            para fazer o login
+          </Text>
+        </Alert>
+      ) : (
+        children
+      )}
+    </>
+  )
 }
 
 export default Layout

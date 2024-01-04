@@ -6,31 +6,36 @@ export async function GET(request: NextRequest) {
   const id = searchParams.get('id')
 
   if (id) {
-    const desks = await prisma.desk.findMany({
-      where: { id },
-      orderBy: {
-        createdAt: 'desc',
-      },
-      include: {
-        _count: {
-          select: { comments: true },
+    try {
+      const desks = await prisma.desk.findMany({
+        where: { id },
+        orderBy: {
+          createdAt: 'desc',
         },
-        author: true,
-        members: {
-          select: {
-            userId: true,
-            role: true,
+        include: {
+          _count: {
+            select: { comments: true },
+          },
+          author: true,
+          members: {
+            select: {
+              userId: true,
+              role: true,
+            },
           },
         },
-      },
-    })
-
-    if (desks) {
-      return NextResponse.json({ success: 'Desks encontrado', data: desks })
-    } else {
-      return NextResponse.json({
-        error: 'Nenhuma desk foi encontrada por este usuário.',
       })
+
+      if (desks) {
+        return NextResponse.json({ success: 'Desks encontrado', data: desks })
+      } else {
+        return NextResponse.json({
+          error: 'Nenhuma desk foi encontrada por este usuário.',
+        })
+      }
+    } catch (error) {
+      console.log(error)
+      return NextResponse.json({ error: 'O ID da desk não foi encontrado' })
     }
   }
 }

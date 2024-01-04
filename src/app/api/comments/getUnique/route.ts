@@ -17,6 +17,9 @@ export async function GET(request: NextRequest) {
       orderBy: {
         createdAt: 'desc',
       },
+      include: {
+        author: true,
+      },
     })
 
     const count = await prisma.comment.count({

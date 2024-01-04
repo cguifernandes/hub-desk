@@ -1,13 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-export type CommentProps = {
-  id: string
-  text: string
-  createdAt: Date
-  authorId: string
-  deskId: string
-}
-
 export type ClientsProps = {
   id: string
   email: string
@@ -24,6 +15,15 @@ export type ClientsProps = {
     role: 'Líder' | 'Co-líder' | 'Membro'
     userId: string
   }[]
+}
+
+export type CommentProps = {
+  id: string
+  text: string
+  createdAt: Date
+  authorId: string
+  deskId: string
+  author?: ClientsProps
 }
 
 export type MemberProps = {
@@ -107,7 +107,7 @@ export type FakeRDeskProps = {
 }
 
 export type RDeskProps = {
-  sucess: string
+  success: string
   data: DeskProps[]
   count: number
 }

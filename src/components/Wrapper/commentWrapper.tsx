@@ -1,26 +1,22 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from 'react'
 import Skeleton from '../Layout/skeleton'
 import { ClientsProps } from '@/utils/type'
 import clsx from 'clsx'
 import Link from 'next/link'
 
 type CommentWrapperProps = {
-  authorId: string | undefined
+  author: ClientsProps | undefined
   createdAt: Date
   className?: string
 }
 
 const CommentWrapper = ({
-  authorId,
   createdAt,
   className,
+  author,
 }: CommentWrapperProps) => {
-  const [author, setAuthor] = useState<ClientsProps>()
-  const [isLoading, setIsLoading] = useState(false)
-
   const formattedDate = () => {
     const time = new Date(createdAt).getTime()
     const currentDate = new Date().getTime()
@@ -46,28 +42,6 @@ const CommentWrapper = ({
     }
   }
 
-  useEffect(() => {
-    const getClient = async () => {
-      try {
-        setIsLoading(true)
-        const response = await fetch(`/api/auth/getWithId?id=${authorId}`, {
-          cache: 'no-cache',
-          method: 'GET',
-        })
-
-        const data = await response.json()
-
-        setAuthor(data.data[0])
-      } catch (err) {
-        console.log(err)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    getClient()
-  }, [])
-
   return (
     <div
       className={clsx(
@@ -75,11 +49,11 @@ const CommentWrapper = ({
         className,
       )}
     >
-      {isLoading || author === undefined ? (
+      {author === undefined ? (
         <Skeleton width={120} height={32} />
       ) : (
         <Link
-          href={`/profile/${author.user}`}
+          href={`/profile/${author?.user}`}
           className="z-10 flex items-center gap-x-2 rounded-md bg-grey-500 px-3 py-2"
         >
           {author?.user}{' '}

@@ -60,26 +60,7 @@ const Comments = ({
       {comments.length > 0 && (
         <div className="flex w-full flex-col gap-y-4 py-4 md:mx-auto md:w-11/12">
           <div className="flex w-full grow-[1] basis-0 flex-wrap justify-center gap-4">
-            {!isLoading ? (
-              comments.map((comments) => (
-                <AnimationWrapper
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={clsx(
-                    'flex min-h-[200px] w-full min-w-[360px] max-w-3xl flex-1 flex-col rounded-md md:min-w-[600px]',
-                    'justify-between border-2 border-grey-400 bg-desk-gradient p-4 text-white',
-                  )}
-                  key={comments.id}
-                >
-                  <Text className="break-words">{comments.text}</Text>
-                  <CommentWrapper
-                    className="pt-8"
-                    authorId={comments.authorId}
-                    createdAt={comments.createdAt}
-                  />
-                </AnimationWrapper>
-              ))
-            ) : (
+            {isLoading ? (
               <>
                 <div
                   className={clsx(
@@ -130,6 +111,25 @@ const Comments = ({
                   </div>
                 </div>
               </>
+            ) : (
+              comments.map((comments) => (
+                <AnimationWrapper
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className={clsx(
+                    'flex min-h-[200px] w-full min-w-[360px] max-w-3xl flex-1 flex-col rounded-md md:min-w-[600px]',
+                    'justify-between border-2 border-grey-400 bg-desk-gradient p-4 text-white',
+                  )}
+                  key={comments.id}
+                >
+                  <Text className="break-words">{comments.text}</Text>
+                  <CommentWrapper
+                    className="pt-8"
+                    author={comments.author}
+                    createdAt={comments.createdAt}
+                  />
+                </AnimationWrapper>
+              ))
             )}
           </div>
           <Pagination

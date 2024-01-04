@@ -11,6 +11,7 @@ export async function GET(request: NextRequest) {
       include: {
         desk: {
           include: {
+            _count: true,
             author: true,
           },
         },
