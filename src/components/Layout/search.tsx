@@ -63,7 +63,7 @@ const Search = () => {
       <motion.div
         variants={{
           visible: {
-            width: isLarge ? (isXL ? 420 : 300) : '98%',
+            width: isLarge ? (isXL ? 420 : 300) : '100%',
             left: isLarge ? 0 : '50%',
             marginLeft: 0,
           },

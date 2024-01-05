@@ -82,7 +82,7 @@ const Desks = ({
           <span>Voltar para menu principal</span>
         </button>
       </Modal.Header>
-      <div className="flex min-w-[390px] max-w-[430px] flex-col gap-y-3 pt-4">
+      <div className="flex flex-col gap-y-3 pt-4">
         <div className="h-[2px] w-full bg-grey-400" />
         {desks && desks.length === 0 ? (
           <div className="flex flex-col">
@@ -93,18 +93,26 @@ const Desks = ({
           </div>
         ) : isLoading ? (
           <>
-            {Array.from({ length: 3 }).map((_, index) => (
+            {Array.from({ length: 4 }).map((_, index) => (
               <div
                 key={index}
-                className="flex max-h-[140px] min-h-[130px] max-w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500"
+                className="flex h-[130px] max-w-full rounded-md px-3 py-2"
               >
-                <Skeleton height={114} className="mr-3 w-20" />
-                <div className="flex flex-col justify-between gap-y-3 py-2">
-                  <Skeleton width={220} height={28} />
-                  <Skeleton width={290} height={20} />
-                  <div className="flex items-center gap-x-6">
-                    <Skeleton width={90} height={20} />
-                    <Skeleton width={150} height={20} />
+                {index === 2 && (
+                  <Skeleton className="mr-3 min-h-full min-w-[80px]" />
+                )}
+                <div className="flex w-[289px] flex-col justify-between gap-y-3 py-2">
+                  <div className="space-y-px">
+                    <Skeleton
+                      style={{ width: index === 2 ? 170 : 250 }}
+                      className="max-w-full"
+                      height={28}
+                    />
+                    <Skeleton className="w-[190px] max-w-full" height={20} />
+                  </div>
+                  <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+                    <Skeleton className="w-[90px] max-w-full" height={20} />
+                    <Skeleton className="w-[150px] max-w-full" height={20} />
                   </div>
                 </div>
               </div>
@@ -114,7 +122,7 @@ const Desks = ({
           desks?.map((desk, index) => (
             <div
               key={index}
-              className="flex max-h-[140px] min-h-[130px] max-w-full rounded-md px-3 py-1 transition-all hover:bg-grey-500"
+              className="flex min-h-[130px] max-w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500"
             >
               {desk.desk && desk.desk.image && (
                 <img
@@ -123,10 +131,9 @@ const Desks = ({
                   alt={desk.desk.title}
                 />
               )}
-              <div className="flex flex-col justify-between gap-y-3 py-2">
+              <div className="flex max-w-full flex-col justify-between gap-y-3 py-2">
                 <Link
                   href={`/desk/${desk.desk?.id}`}
-                  style={{ maxWidth: desk.desk?.image ? 314 : 400 }}
                   onClick={() => {
                     handlerModalContent(
                       <ClientModal
@@ -138,13 +145,13 @@ const Desks = ({
                   }}
                   className="space-y-px"
                 >
-                  <div className="flex items-center">
-                    <Heading className="truncate text-lg">
+                  <div className="flex items-center break-all">
+                    <Heading className="line-clamp-1 text-lg">
                       {desk?.desk?.title}{' '}
+                      <span className="text-sm text-white/50">
+                        ({desk.desk?.visibility})
+                      </span>
                     </Heading>
-                    <span className="ml-1 text-sm text-white/50">
-                      ({desk.desk?.visibility})
-                    </span>
                   </div>
                   <Text size="sm" className="line-clamp-2 text-white/50">
                     {desk.desk?.description}
@@ -364,19 +371,24 @@ const Invites = ({
             </div>
           ) : isLoading ? (
             <>
-              {Array.from({ length: 3 }).map((_, index) => (
+              {Array.from({ length: 4 }).map((_, index) => (
                 <div
                   key={index}
                   className={`flex max-w-[480px] items-center gap-x-4 px-3 ${
                     index > 0 ? 'mt-4' : ''
                   }`}
                 >
-                  <div className="flex w-[368px] flex-col gap-y-1">
-                    <Skeleton height={24} width={240} />
-                    <Skeleton height={60} className="w-full" />
+                  <div className="flex w-[360px] flex-col gap-y-1 space-y-3">
+                    <div className="space-y-px">
+                      <Skeleton height={24} className="w-full max-w-[240px]" />
+                      <Skeleton
+                        height={index !== 1 ? 30 : 60}
+                        className="w-full"
+                      />
+                    </div>
                     <Skeleton height={32} width={180} />
                   </div>
-                  <div className="flex gap-x-2 text-white">
+                  <div className="flex flex-col gap-2 text-white sm:flex-row">
                     <Skeleton height={36} width={36} />
                     <Skeleton height={36} width={36} />
                   </div>
@@ -387,32 +399,34 @@ const Invites = ({
             invites?.map((invite) => (
               <div
                 key={invite.id}
-                className="flex max-w-[480px] items-center justify-between gap-x-4 px-3"
+                className="flex max-w-[480px] items-center justify-between gap-x-4 px-3 sm:flex-row"
               >
-                <div className="flex w-full max-w-[360px] flex-col">
-                  <Link
-                    className="truncate text-white"
-                    href={`/desk/${invite.desk?.id}`}
-                  >
-                    {invite.desk?.title}
-                  </Link>
-                  <Text className="break-words text-sm text-white/50">
-                    <span className="inline-flex items-baseline gap-x-1 text-white">
-                      <img
-                        className="my-auto h-4 w-4 overflow-clip rounded-full object-cover object-center align-top"
-                        src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${invite.sender?.pfp}`}
-                      />
-                      {invite.sender?.user}
-                    </span>
-                    &nbsp;te convidou para fazer parte de &#34;
-                    <span className="text-white">{invite.desk?.title}</span>
-                    &#34;, caso rejeite o convite o mesmo será excluído.
-                  </Text>
-                  <span className="mt-2 w-fit rounded-md bg-grey-500 px-3 py-2 text-xs text-white">
+                <div className="flex w-full max-w-[360px] flex-col space-y-3">
+                  <div className="space-y-px">
+                    <Link
+                      className="truncate text-lg text-white"
+                      href={`/desk/${invite.desk?.id}`}
+                    >
+                      {invite.desk?.title}
+                    </Link>
+                    <Text className="break-words text-sm text-white/50">
+                      <span className="inline-flex items-baseline gap-x-1 text-white">
+                        <img
+                          className="my-auto h-4 w-4 overflow-clip rounded-full object-cover object-center align-top"
+                          src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${invite.sender?.pfp}`}
+                        />
+                        {invite.sender?.user}
+                      </span>
+                      &nbsp;te convidou para fazer parte de &#34;
+                      <span className="text-white">{invite.desk?.title}</span>
+                      &#34;, caso rejeite o convite o mesmo será excluído.
+                    </Text>
+                  </div>
+                  <span className="w-fit rounded-md bg-grey-500 px-3 py-2 text-xs text-white">
                     {formattedDate(invite.createdAt)}
                   </span>
                 </div>
-                <div className="flex gap-x-2 text-white">
+                <div className="flex flex-col gap-2 text-white sm:flex-row">
                   <DeclineInvite
                     setVisibleModal={setVisibleModal}
                     handlerModalContent={handlerModalContent}

@@ -71,7 +71,7 @@ const Desks = ({
           >
             {isLoading ? (
               <>
-                {Array.from({ length: 4 }).map((_, index) => (
+                {Array.from({ length: 8 }).map((_, index) => (
                   <div
                     key={index}
                     className="relative flex h-[640px] min-w-[360px] max-w-[490px] flex-1 flex-col justify-between rounded-md border-2 border-grey-400 bg-desk-gradient p-7 shadow-md sm:min-w-[420px]"

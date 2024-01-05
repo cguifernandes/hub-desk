@@ -8,7 +8,7 @@ const ClientWrapper = ({
   const formattedDate = new Date(createdAt).toLocaleDateString()
 
   return (
-    <div className="flex items-center gap-x-6 text-xs">
+    <div className="flex flex-wrap items-center gap-x-6 gap-y-px text-xs">
       <span className="flex items-center gap-x-2 text-white/50">
         {count} Desks criadas
       </span>

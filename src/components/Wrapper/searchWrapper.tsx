@@ -40,7 +40,7 @@ const SearchWrapper = ({ createdAt, comments, author }: SearchWrapperProps) => {
   }
 
   return (
-    <div className="flex items-center gap-x-6 text-xs">
+    <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs">
       {author?.pfp === undefined ? (
         <Skeleton width={300} height={20} />
       ) : (

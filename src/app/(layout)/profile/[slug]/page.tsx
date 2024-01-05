@@ -64,7 +64,7 @@ export default async function Desk({ params }: { params: { slug: string } }) {
       <div className="relative h-[calc(240px_+_252px_-_80px)] w-full md:h-[calc(240px_+_192px_-_96px)]">
         <div className="absolute left-0 top-0 h-60 w-full">
           <img
-            className="h-full w-full overflow-clip rounded-md object-cover object-center align-top"
+            className="h-full w-full overflow-clip object-cover object-center align-top"
             src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${props.client[0]?.bg}`}
             alt={props.client[0]?.user}
           />

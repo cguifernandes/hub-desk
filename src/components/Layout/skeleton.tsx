@@ -1,4 +1,5 @@
 import clsx from 'clsx'
+import { CSSProperties } from 'react'
 
 type SkeletonProps = {
   width?: string | number
@@ -6,6 +7,7 @@ type SkeletonProps = {
   className?: string
   margin?: string | number
   isRoundedFull?: boolean
+  style?: CSSProperties
 }
 
 const Skeleton = ({
@@ -13,13 +15,18 @@ const Skeleton = ({
   width,
   className,
   margin,
+  style,
   isRoundedFull,
 }: SkeletonProps) => {
+  const mergedStyles: CSSProperties = {
+    width,
+    height,
+    margin,
+    ...style,
+  }
+
   return (
-    <div
-      style={{ width, height, margin }}
-      className={clsx('animate-pulse', className)}
-    >
+    <div style={mergedStyles} className={clsx('animate-pulse', className)}>
       <div
         style={
           isRoundedFull ? { borderRadius: '9999px' } : { borderRadius: '6px' }
