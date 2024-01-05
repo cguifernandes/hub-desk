@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 const Layout = ({ children }: { children: ReactNode }) => {
   return (
-    <section className="flex min-h-[calc(100vh_-_80px_-_64px)] flex-col items-center">
+    <section className="flex min-h-[calc(100vh_-_80px_-_100px)] flex-col items-center md:min-h-[calc(100vh_-_80px_-_64px)]">
       <>
         <div className="flex flex-col items-center justify-center px-10 pt-8 sm:pt-14">
           <Heading size="lg" align="center" className="pb-6">

@@ -38,7 +38,7 @@ const Desk = async () => {
   }
 
   return (
-    <section className="flex min-h-[calc(100vh_-_80px_-_64px)] flex-col items-center py-8 lg:py-10">
+    <section className="flex min-h-[calc(100vh_-_80px_-_100px)] flex-col items-center py-8 md:min-h-[calc(100vh_-_80px_-_64px)] lg:py-10">
       <div className="w-full px-8 pb-4 text-center lg:px-10 lg:pb-6">
         <Heading className="text-xl">
           Crie uma desk para que você possa discutir sua opinião com a

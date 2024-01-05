@@ -78,7 +78,7 @@ const Home = () => {
             <AnimationWrapper
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
-              className="w-full space-y-4 px-10 py-6"
+              className="w-full space-y-4 px-4 py-6"
               key={index}
             >
               <Heading className="font-medium" size="md">

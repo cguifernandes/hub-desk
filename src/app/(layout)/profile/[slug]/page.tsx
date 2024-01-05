@@ -60,7 +60,7 @@ export default async function Desk({ params }: { params: { slug: string } }) {
   const formattedDate = new Date(props.client[0].createdAt).toLocaleDateString()
 
   return (
-    <section className="flex min-h-[calc(100vh_-_80px_-_64px)] flex-col items-center">
+    <section className="flex min-h-[calc(100vh_-_80px_-_100px)] flex-col items-center md:min-h-[calc(100vh_-_80px_-_64px)]">
       <div className="relative h-[calc(240px_+_252px_-_80px)] w-full md:h-[calc(240px_+_192px_-_96px)]">
         <div className="absolute left-0 top-0 h-60 w-full">
           <img

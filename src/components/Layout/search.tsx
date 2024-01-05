@@ -97,7 +97,12 @@ const Search = () => {
           onChange={(e) => handlerSearch(e.target.value)}
           value={query}
         />
-        <SearchIcon size={20} color="#fff" strokeWidth={1.5} />
+        <SearchIcon
+          className="cursor-pointer"
+          size={20}
+          color="#fff"
+          strokeWidth={1.5}
+        />
         {isVisibleSearch && (
           <motion.div
             initial={{ opacity: 0, translateY: -10 }}

@@ -496,7 +496,7 @@ const ClientModal = ({
           <div className="flex w-full min-w-[320px] flex-col gap-y-5">
             {isLoading ? (
               <>
-                {Array.from({ length: 3 }).map((_, index) => (
+                {Array.from({ length: 5 }).map((_, index) => (
                   <Skeleton key={index} className="w-full" height={50} />
                 ))}
               </>

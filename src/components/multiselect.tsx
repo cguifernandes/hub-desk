@@ -98,7 +98,7 @@ const Multiselect = ({
                   {Array.from({ length: 4 }).map((_, index) => (
                     <div
                       key={index}
-                      className="flex h-[70px] w-full items-center gap-x-2 rounded-md border border-grey-400 p-3"
+                      className="flex h-[70px] w-full items-center gap-x-2 rounded-md p-3"
                     >
                       <Skeleton isRoundedFull height={40} width={40} />
                       <div className="flex flex-col gap-y-1">

@@ -89,7 +89,7 @@ export default async function Desk({ params }: { params: { slug: string } }) {
     )
 
     return (
-      <section className="flex min-h-[calc(100vh_-_80px_-_64px)] flex-col items-center py-8 sm:py-14">
+      <section className="flex min-h-[calc(100vh_-_80px_-_100px)] flex-col items-center py-8 sm:py-14 md:min-h-[calc(100vh_-_80px_-_64px)]">
         <div className="w-full space-y-6 px-4">
           <AnimationWrapper
             initial={{ opacity: 0, y: -20 }}
@@ -131,7 +131,6 @@ export default async function Desk({ params }: { params: { slug: string } }) {
                   />
                 )}
               </div>
-
               <Text className="break-all">{desk?.description}</Text>
               {desk?.category === 'Sites' && (
                 <div className="mx-auto flex w-4/5 flex-col gap-6 md:w-2/4">
@@ -186,7 +185,7 @@ export default async function Desk({ params }: { params: { slug: string } }) {
         <Heading size="md" align="center">
           Essa desk não foi encontrada
         </Heading>
-        <Text className="text-white/50">
+        <Text className="text-center text-white/50">
           Parece que você acessou uma página que não existe,{' '}
           <Link className="gradient-text" href="/">
             clique aqui

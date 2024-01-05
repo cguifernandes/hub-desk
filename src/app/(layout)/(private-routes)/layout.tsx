@@ -22,20 +22,16 @@ const Layout = ({ children }: { children: ReactNode }) => {
 
   if (!mounted) {
     if (pathname === '/desk/post' || pathname.includes('/desk/edit')) {
-      return (
-        <section className="flex min-h-[calc(100vh_-_80px_-_64px)] flex-col items-center">
-          <DeskLoading />
-        </section>
-      )
+      return <DeskLoading />
     } else if (pathname === '/settings/account') {
       return (
-        <section className="flex min-h-[calc(100vh_-_80px_-_64px)] flex-col items-center">
+        <section className="flex min-h-[calc(100vh_-_80px_-_100px)] flex-col items-center md:min-h-[calc(100vh_-_80px_-_64px)]">
           <>
             <div className="flex flex-col items-center justify-center px-10 pt-8 sm:pt-14">
-              <Skeleton className="mb-4" width={150} height={32} />
+              <Skeleton className="mb-6" width={170} height={32} />
             </div>
             <div className="flex w-11/12 flex-col gap-x-6 gap-y-8 border-t-2 border-grey-400 py-8 lg:flex-row xl:px-6">
-              <div className="w-56 space-y-8">
+              <div className="flex w-full flex-row flex-wrap gap-6 md:flex-nowrap lg:w-3/12 lg:min-w-[280px] lg:flex-col">
                 <Skeleton className="w-full" height={58} />
                 <Skeleton className="w-full" height={58} />
               </div>
@@ -56,7 +52,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
           <Heading size="md" align="center">
             Parece que você não está logado
           </Heading>
-          <Text className="text-white/50">
+          <Text className="text-center text-white/50">
             Para acessar essa página, você precisa estar logado em uma conta
             válida,{' '}
             <Link className="gradient-text" href="/auth/sign-in">
