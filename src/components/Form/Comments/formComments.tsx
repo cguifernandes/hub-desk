@@ -1,18 +1,36 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable camelcase */
-'use client'
+import { Dispatch, SetStateAction, useState } from 'react'
 import { CommentZodProps, schemaComment } from '@/utils/Zod/comments'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Form } from '..'
-import { useState } from 'react'
-import useClient from '@/hooks/useClient'
-import { ErrorToast, SuccessToast } from '@/utils/toast'
-import { ResponseProps } from '@/utils/type'
+import { Toast } from '@/utils/toast'
 import { api } from '@/utils/api'
+import { ClientsProps, CommentProps } from '@/utils/type'
+import { Form } from '../index'
 
-const FormComments = ({ deskId }: { deskId: string | undefined }) => {
+type FormCommentsProps = {
+  isConnected: boolean
+  user_session: string | undefined
+  deskId: string | undefined
+  user: ClientsProps[]
+  setPage: Dispatch<SetStateAction<number>>
+  page: number
+  setComments: Dispatch<SetStateAction<CommentProps[]>>
+  setCount: Dispatch<SetStateAction<number>>
+}
+
+const FormComments = ({
+  isConnected,
+  user_session,
+  deskId,
+  user,
+  setCount,
+  setPage,
+  setComments,
+  page,
+}: FormCommentsProps) => {
   const [isLoading, setIsLoading] = useState(false)
-  const { user_session, isConnected } = useClient()
   const {
     handleSubmit,
     register,
@@ -29,55 +47,61 @@ const FormComments = ({ deskId }: { deskId: string | undefined }) => {
 
       if (!deskId) return
 
-      const { data }: { data: ResponseProps } = await api.post(
-        `/comments?id=${user_session}`,
+      const { data } = await api.post(
+        `/comments?id=${user_session}&page=${page}`,
         JSON.stringify({ deskId, text }),
         { headers: { 'Content-Type': 'application/json' } },
       )
 
       if (data.error) {
-        ErrorToast(data.error)
+        Toast(data.error)
       } else {
-        SuccessToast(data.success)
-        reset()
+        Toast(data.success)
+        setComments(data.updatedComment)
+        setCount(data.count)
       }
     } catch (err) {
       console.error('Erro ao processar formulário:', err)
     } finally {
+      reset()
+      setPage(1)
       setIsLoading(false)
     }
-    reset()
   }
+
+  if (!isConnected) return <></>
 
   return (
     <Form.Root
-      className="flex w-full flex-col items-center gap-y-4 py-4"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="flex w-full flex-col items-center gap-y-4"
       handleSubmit={handleSubmit(handlerFormSubmit)}
     >
-      <div className="w-full min-w-[240px] max-w-[650px] shadow-md">
-        <Form.Textarea
-          maxLength={190}
-          error={errors.text}
-          name="text"
-          register={register}
-          placeholder="Comente aqui!"
+      <div className="flex w-full flex-col items-end gap-y-3 md:w-3/4">
+        <div className="relative flex w-full items-center gap-x-4">
+          <img
+            alt={user[0].user}
+            src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${user[0].pfp}`}
+            className="h-12 w-12 overflow-clip rounded-full object-cover object-center align-top md:h-14 md:w-14"
+          />
+          <Form.Input
+            placeholder={`Olá ${user[0].user}, aqui você pode postar um comentário`}
+            label="Poste um comentário sobre essa desk"
+            maxLength={190}
+            register={register}
+            error={errors.text}
+            name="text"
+            className="w-full"
+          />
+        </div>
+        <Form.Button
+          type="submit"
+          loading={isLoading}
+          className="w-56"
+          text="Postar comentário"
         />
       </div>
-      {!isConnected ? (
-        <Form.Button
-          type="submit"
-          text="Você precisa estar logado para comentar."
-          className="w-full min-w-[240px] max-w-[650px]"
-          disabled
-        />
-      ) : (
-        <Form.Button
-          loading={isLoading}
-          type="submit"
-          text="Comentar"
-          className="w-full min-w-[240px] max-w-[650px]"
-        />
-      )}
     </Form.Root>
   )
 }

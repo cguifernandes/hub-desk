@@ -13,32 +13,61 @@ generator client {
 model Clients { 
   id          String      @id @default(auto()) @map("_id") @db.ObjectId 
   email       String      @unique
+  createdAt   DateTime    @default(now())
   password    String
-  name        String
+  user        String      @unique
   pfp         String
+  bg          String
   desks       Desk[]
   comments    Comment[]
+  members     Member[]
+  receiver    Invite[]    @relation("receiver")
+  sender      Invite[]    @relation("sender")
 }
 
 model Desk {
   id          String      @id @default(auto()) @map("_id") @db.ObjectId 
   createdAt   DateTime    @default(now())
   author      Clients     @relation(fields: [authorId], references: [id])
-  authorId    String      @db.ObjectId 
+  authorId    String      @db.ObjectId
   category    String
   title       String
   description String?
+  image       String?     
   repo        String?
   website     String?
+  visibility  String
   comments    Comment[]
+  members     Member[]
+  invites     Invite[]
 }
 
 model Comment {
   id          String      @id @default(auto()) @map("_id") @db.ObjectId
   text        String
   createdAt   DateTime    @default(now())
-  author      Clients     @relation(fields: [authorId], references: [id])
+  author      Clients     @relation(fields: [authorId], references: [id]) 
   authorId    String      @db.ObjectId
   desk        Desk        @relation(fields: [deskId], references: [id])
   deskId      String      @db.ObjectId
+}
+
+model Member {
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
+  user        Clients     @relation(fields: [userId], references: [id])
+  userId      String      @db.ObjectId
+  role        String      
+  desk        Desk        @relation(fields: [deskId], references: [id])
+  deskId      String      @db.ObjectId
+}
+
+model Invite {
+  id            String      @id @default(auto()) @map("_id") @db.ObjectId
+  receiver      Clients     @relation("receiver", fields: [receiverId], references: [id])
+  receiverId    String      @db.ObjectId
+  sender        Clients     @relation("sender", fields: [senderId], references: [id])
+  senderId      String      @db.ObjectId
+  desk          Desk        @relation(fields: [deskId], references: [id])
+  deskId        String      @db.ObjectId
+  createdAt     DateTime    @default(now())
 }

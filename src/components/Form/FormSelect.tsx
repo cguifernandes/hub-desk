@@ -1,63 +1,60 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 'use client'
-import { ChevronDown } from 'lucide-react'
-import { Dispatch, InputHTMLAttributes, ReactNode, SetStateAction } from 'react'
-import {
-  FieldError,
-  FieldErrorsImpl,
-  Merge,
-  UseFormSetValue,
-} from 'react-hook-form'
+import { Dispatch, InputHTMLAttributes, SetStateAction, useState } from 'react'
+import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
 import Select from '../select'
-import { categories } from '@/utils/constant'
+import { FakeRDeskProps } from '@/utils/type'
 
 type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
-  className?: string
-  children?: ReactNode
   selectedDropDown: string
-  setSelectedDropDown: Dispatch<SetStateAction<string>>
-  setValue: UseFormSetValue<{
-    title: string
-    category:
-      | 'Animes'
-      | 'Desenhos'
-      | 'Filmes'
-      | 'Jogos'
-      | 'Outros'
-      | 'Séries'
-      | 'Sites'
-    description: string
-    repo: string
-    website: string
-  }>
   error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
+  handlerClickSelect: (value: any) => void
+  setFakeData?: Dispatch<SetStateAction<FakeRDeskProps | undefined>>
+  className?: string
+  label: string
+  value?: string | (readonly string[] & string)
+  dropDownItems?: {
+    id: number
+    value: any
+  }[]
 }
 
 const FormSelect = ({
-  setValue,
-  setSelectedDropDown,
   selectedDropDown,
   error,
+  handlerClickSelect,
+  className,
+  dropDownItems,
+  value,
+  label,
+  style,
+  ...props
 }: SelectProps) => {
+  const [visibleDropDown, setVisibleDropDown] = useState(false)
+
   return (
-    <>
+    <div className="w-full sm:w-1/2">
+      <label className="text-sm text-white/50">{label}</label>
       <Select
         error={error}
-        dropDownItems={categories}
+        style={style}
+        {...props}
+        dropDownItems={dropDownItems}
         selectedDropDown={selectedDropDown}
-        setSelectedDropDown={setSelectedDropDown}
-        value={'Categoria*'}
-        setValue={setValue}
-      >
-        <ChevronDown color="#fff" strokeWidth={1.5} size={30} />
-      </Select>
+        handlerClickSelect={handlerClickSelect}
+        className={className}
+        setVisibleDropDown={setVisibleDropDown}
+        visibleDropDown={visibleDropDown}
+        value={value!}
+      />
       {error && (
-        <span className="text-red-500">
+        <span className="text-sm text-red-500">
           {error.type === 'invalid_type' &&
             'O campo "Categoria" é obrigatório.'}
         </span>
       )}
-    </>
+    </div>
   )
 }
 

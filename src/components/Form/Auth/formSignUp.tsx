@@ -1,16 +1,14 @@
 'use client'
 import { Form } from '@/components/Form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Eye, EyeOffIcon, Mail, UserCircle2 } from 'lucide-react'
+import { Eye, EyeOffIcon, Mail, UserCircle } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
-import { ErrorToast } from '@/utils/toast'
+import { Toast } from '@/utils/toast'
 import { SignUpProps, schemaSignUp } from '@/utils/Zod/sign-up'
 import { api } from '@/utils/api'
-import { ResponseProps } from '@/utils/type'
 import { setCookie } from 'nookies'
-import { ROUTES } from '@/utils/constant'
 import useClient from '@/hooks/useClient'
 
 const FormSignUp = () => {
@@ -21,7 +19,7 @@ const FormSignUp = () => {
 
   useEffect(() => {
     if (isConnected) {
-      push(ROUTES.public.redirect)
+      push('/auth/redirect')
     }
   }, [isConnected, push])
 
@@ -38,20 +36,22 @@ const FormSignUp = () => {
   const handlerFormSubmit = async (user: SignUpProps) => {
     try {
       setIsLoading(true)
-      const { data }: { data: ResponseProps } = await api.post(
-        '/auth',
-        JSON.stringify({
-          password: user.password,
-          email: user.email,
-          name: user.name,
-        }),
-      )
+      const { data }: { data: { success: string; error: string; id: string } } =
+        await api.post(
+          '/auth',
+          JSON.stringify({
+            password: user.password,
+            email: user.email,
+            user: user.user,
+          }),
+        )
 
       if (data.error) {
-        ErrorToast(data.error)
+        Toast(data.error)
       } else {
         reset()
-        push(ROUTES.public.home)
+        Toast(data.success)
+        push('/')
         setCookie(null, 'user_session', data.id, {
           path: '/',
           maxAge: undefined,
@@ -69,23 +69,36 @@ const FormSignUp = () => {
   return (
     <Form.Root
       handleSubmit={handleSubmit(handlerFormSubmit)}
-      className="space-y-8 pt-12"
+      className="space-y-8"
     >
       <Form.Input
         error={errors.email}
         register={register}
         name="email"
         placeholder="E-mail"
+        label="E-mail"
       >
-        <Mail color="#fff" strokeWidth={1.5} size={30} />
+        <Mail
+          className="absolute right-4"
+          color="#fff"
+          strokeWidth={1.5}
+          size={26}
+        />
       </Form.Input>
       <Form.Input
-        error={errors.name}
+        error={errors.user}
         register={register}
-        name="name"
-        placeholder="Nome"
+        name="user"
+        placeholder="User"
+        maxLength={18}
+        label="User"
       >
-        <UserCircle2 color="#fff" strokeWidth={1.5} size={30} />
+        <UserCircle
+          className="absolute right-4"
+          color="#fff"
+          strokeWidth={1.5}
+          size={26}
+        />
       </Form.Input>
       <Form.Input
         type={visiblePassword ? 'text' : 'password'}
@@ -93,22 +106,23 @@ const FormSignUp = () => {
         register={register}
         name="password"
         placeholder="Senha"
+        label="Senha"
       >
         {!visiblePassword ? (
           <Eye
             onClick={() => setVisiblePassword(true)}
             color="#fff"
             strokeWidth={1.5}
-            size={30}
-            className="z-40 cursor-pointer"
+            size={26}
+            className="absolute right-4 z-40 cursor-pointer"
           />
         ) : (
           <EyeOffIcon
             onClick={() => setVisiblePassword(false)}
             color="#fff"
             strokeWidth={1.5}
-            size={30}
-            className="z-40 cursor-pointer"
+            size={26}
+            className="absolute right-4 z-40 cursor-pointer"
           />
         )}
       </Form.Input>

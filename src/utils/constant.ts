@@ -1,37 +1,42 @@
 export const categories = [
   {
-    name: 'Animes',
-    path: '/topics/animes',
+    value: 'Desenhos',
+    id: 2,
   },
   {
-    name: 'Desenhos',
-    path: '/topics/designs',
+    value: 'Filmes',
+    id: 3,
   },
   {
-    name: 'Filmes',
-    path: '/topics/movies',
+    value: 'Geek',
+    id: 1,
   },
-  { name: 'Jogos', path: '/topics/games' },
-  { name: 'Outros', path: '/topics/others' },
+  { value: 'Jogos', id: 4 },
+  { value: 'Outros', id: 5 },
   {
-    name: 'Séries',
-    path: '/topics/series',
+    value: 'Séries',
+    id: 6,
   },
-  { name: 'Sites', path: '/topics/websites' },
+  { value: 'Sites', id: 7 },
 ]
 
-export const ROUTES = {
-  private: {
-    desk: '/desk',
-    dashboard: '/dashboard',
+export const visibility = [
+  {
+    value: 'Público',
+    id: 1,
   },
-  public: {
-    home: '/',
-    signIn: '/auth/sign-in',
-    signUp: '/auth/sign-up',
-    redirect: '/auth/redirect',
+  {
+    value: 'Privado',
+    id: 2,
   },
-}
+]
+
+export const PRIVATE_ROUTES = [
+  { path: '/desk/post' },
+  { path: 'settings/account' },
+]
+
+export const allowedImageTypes = ['image/jpeg', 'image/png', 'image/gif']
 
 export const url =
   process?.env.NODE_ENV === 'development'

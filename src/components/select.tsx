@@ -1,117 +1,108 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import {
-  Dispatch,
-  InputHTMLAttributes,
-  ReactNode,
-  SetStateAction,
-  useState,
-} from 'react'
-import InputWrapper from './inputWrapper'
+import { Dispatch, InputHTMLAttributes, ReactNode, SetStateAction } from 'react'
 import clsx from 'clsx'
-import { motion } from 'framer-motion'
-import {
-  FieldError,
-  FieldErrorsImpl,
-  Merge,
-  UseFormSetValue,
-} from 'react-hook-form'
+import { FieldError, FieldErrorsImpl, Merge } from 'react-hook-form'
+import { ChevronDown } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
 
 type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
-  children: ReactNode
   value: string
   className?: string
-  dropDownItems: { name: string; path: string }[]
-  selectedDropDown: string
-  setSelectedDropDown: Dispatch<SetStateAction<string>>
-  setValue?: UseFormSetValue<{
-    title: string
-    category:
-      | 'Animes'
-      | 'Desenhos'
-      | 'Filmes'
-      | 'Jogos'
-      | 'Outros'
-      | 'Séries'
-      | 'Sites'
-    description: string
-    repo: string
-    website: string
-  }>
-  error: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
+  dropDownItems?: { id: number; value: any }[]
+  selectedDropDown?: string | number | undefined
+  error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
+  handlerClickSelect?: (value: any) => void
+  children?: ReactNode
+  setQuery?: Dispatch<SetStateAction<string>>
+  setVisibleDropDown: Dispatch<SetStateAction<boolean>>
+  visibleDropDown: boolean
 }
 
 const Select = ({
-  children,
   value,
   className,
   dropDownItems,
-  setSelectedDropDown,
-  setValue,
   selectedDropDown,
   error,
+  style,
+  setQuery,
+  handlerClickSelect,
+  setVisibleDropDown,
+  visibleDropDown,
+  children,
+  ...props
 }: SelectProps) => {
-  const [visibleDropDown, setVisibleDropDown] = useState(false)
-
-  const handlerClickSelect = (categories: { name: string; path: string }) => {
-    setSelectedDropDown(categories.name)
-
-    if (setValue) {
-      setValue(
-        'category',
-        categories.name as
-          | 'Animes'
-          | 'Filmes'
-          | 'Séries'
-          | 'Desenhos'
-          | 'Sites'
-          | 'Outros'
-          | 'Jogos',
-      )
+  const handlerClick = () => {
+    if (children && setQuery) {
+      setQuery('')
+      setVisibleDropDown(!visibleDropDown)
     }
-  }
-
-  const customStyle = {
-    color: selectedDropDown ? 'white' : 'rgba(255, 255, 255, 0.5)',
-    ...(error && { border: '2px solid rgb(239, 68, 68)' }),
   }
 
   return (
     <div
-      onClick={() => setVisibleDropDown(!visibleDropDown)}
-      className={clsx('relative flex justify-between shadow-md', className)}
+      onClick={
+        children ? undefined : () => setVisibleDropDown(!visibleDropDown)
+      }
+      className={clsx('relative flex items-center', className)}
     >
+      {visibleDropDown && (
+        <div
+          onClick={() => setVisibleDropDown(false)}
+          className="fixed left-0 top-0 z-20 h-screen w-screen bg-grey-900/40 lg:bg-transparent"
+        />
+      )}
       <input
-        style={customStyle}
-        className={clsx(
-          'w-[calc(100%_-_60px)] rounded-l-md border-y-2 !border-r-0 border-l-2 border-transparent',
-          'cursor-pointer select-none bg-grey-550 p-4',
-        )}
+        {...props}
+        style={{
+          ...style,
+          ...(error ? { border: '2px solid rgb(239, 68, 68)' } : {}),
+        }}
+        className="w-full cursor-pointer select-none rounded-md bg-button-gradient px-4 py-3 text-white placeholder-white/50"
         value={selectedDropDown || value}
+        onClick={handlerClick}
         readOnly
       />
-      <InputWrapper className="cursor-pointer">{children}</InputWrapper>
-      {visibleDropDown && (
-        <motion.div
-          initial={{ translateY: -10, opacity: 0 }}
-          animate={{ translateY: 0, opacity: 1 }}
-          transition={{ type: 'keyframes', duration: 0.3 }}
-          className="absolute top-20 z-20 w-full select-none rounded-md border-2 border-sky-700 bg-grey-650 shadow-md"
-        >
-          {dropDownItems.map((item) => (
-            <ul key={item.name} className="group flex flex-col text-white">
-              <li
-                onClick={() => handlerClickSelect(item)}
-                className={clsx(
-                  'w-full cursor-pointer group-last:rounded-b-md',
-                  'ease-ou p-4 duration-200 hover:bg-grey-400 group-first:rounded-t-md',
-                )}
-              >
-                {item.name}
-              </li>
-            </ul>
-          ))}
-        </motion.div>
-      )}
+      <ChevronDown
+        style={{
+          transform: visibleDropDown ? 'rotate(0deg)' : 'rotate(-90deg)',
+        }}
+        className="absolute right-4 z-20 rotate-3 duration-200 ease-out"
+        color="#fff"
+        strokeWidth={1.5}
+        size={22}
+      />
+      <AnimatePresence>
+        {visibleDropDown && (
+          <motion.div
+            initial={{ translateY: -10, opacity: 0 }}
+            animate={{ translateY: 0, opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ type: 'keyframes', duration: 0.2 }}
+            style={style}
+            className="absolute top-14 z-30 w-full select-none rounded-md border border-grey-400 bg-modal-gradient shadow-md backdrop-blur-md"
+          >
+            {children || (
+              <ul className="group flex flex-col text-white">
+                {dropDownItems?.map((item) => (
+                  <li
+                    key={item.id}
+                    onClick={() =>
+                      handlerClickSelect && handlerClickSelect(item.value)
+                    }
+                    className={clsx(
+                      'w-full cursor-pointer py-3 ease-out group-last:rounded-b-md',
+                      'px-4 duration-200 hover:bg-grey-500 group-first:rounded-t-md',
+                    )}
+                  >
+                    {item.value}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

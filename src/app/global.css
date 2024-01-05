@@ -7,16 +7,22 @@ button {
 }
 
 html {
-  background-color: #333;
+  background-color: #232323;
 }
 
 input, textarea {
-  outline: 0;
+  outline: 0 none;
 }
 
 a {
   text-decoration: none;
   color: inherit;
+}
+
+@-moz-document url-prefix() {
+  input:focus {
+    outline: 0 none;
+  }
 }
 
 #checkbox:checked ~ .check {
@@ -30,12 +36,35 @@ a {
   font-family: var(--font-poppins);
   scroll-behavior: smooth;
   scroll-padding-top: 96px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.7) rgba(92, 92, 92, 1);
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgb(51, 51, 51);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color:rgba(211, 211, 211, 0.8);
+  border-radius: 20px;
+  border: 2px solid rgb(51, 51, 51);
+}
+
+.gradient-text {
+  background-image: linear-gradient(91deg, #0369A1 0%, #0369A1 0.01%, #024B72 100%); 
+  -webkit-background-clip: text; 
+  background-clip: text;
+  color: transparent; 
 }
 
 .swiper-scrollbar {
-  background-color: rgba(92, 92, 92, 1) !important;
+  background-color: rgb(51, 51, 51) !important;
 }
 
 .swiper-scrollbar-drag {
-  background-color: rgba(255, 255, 255, 0.7) !important;
+  background-color: rgba(211, 211, 211, 0.8) !important;
 }

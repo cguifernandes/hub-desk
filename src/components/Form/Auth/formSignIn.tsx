@@ -7,10 +7,8 @@ import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/navigation'
 import { api } from '@/utils/api'
-import { ErrorToast } from '@/utils/toast'
-import { ResponseProps } from '@/utils/type'
+import { Toast } from '@/utils/toast'
 import { setCookie } from 'nookies'
-import { ROUTES } from '@/utils/constant'
 import useClient from '@/hooks/useClient'
 
 const FormSignIn = () => {
@@ -21,7 +19,7 @@ const FormSignIn = () => {
 
   useEffect(() => {
     if (isConnected) {
-      push(ROUTES.public.redirect)
+      push('/auth/redirect')
     }
   }, [isConnected, push])
 
@@ -38,20 +36,17 @@ const FormSignIn = () => {
   const handlerFormSubmit = async (user: SignInProps) => {
     try {
       setIsLoading(true)
-      const { data }: { data: ResponseProps } = await api.post(
-        '/auth/verification',
-        JSON.stringify({
-          password: user.password,
-          email: user.email,
-        }),
-        { headers: { 'Content-Type': 'application/json' } },
-      )
+      const { data }: { data: { success: string; error: string; id: string } } =
+        await api.get(
+          `/auth/verification?email=${user.email}&password=${user.password}`,
+          { headers: { 'Content-Type': 'application/json' } },
+        )
 
       if (data.error) {
-        ErrorToast(data.error)
+        Toast(data.error)
       } else {
         reset()
-        push(ROUTES.public.home)
+        push('/')
 
         if (user.rememberUser) {
           setCookie(null, 'user_session', data.id, {
@@ -79,15 +74,21 @@ const FormSignIn = () => {
   return (
     <Form.Root
       handleSubmit={handleSubmit(handlerFormSubmit)}
-      className="space-y-8 pt-12"
+      className="space-y-8"
     >
       <Form.Input
         error={errors.email}
         register={register}
         name="email"
         placeholder="E-mail"
+        label="E-mail"
       >
-        <Mail color="#fff" strokeWidth={1.5} size={30} />
+        <Mail
+          className="absolute right-4"
+          color="#fff"
+          strokeWidth={1.5}
+          size={26}
+        />
       </Form.Input>
       <Form.Input
         type={visiblePassword ? 'text' : 'password'}
@@ -95,22 +96,23 @@ const FormSignIn = () => {
         register={register}
         name="password"
         placeholder="Senha"
+        label="Senha"
       >
         {!visiblePassword ? (
           <Eye
             onClick={() => setVisiblePassword(true)}
             color="#fff"
             strokeWidth={1.5}
-            size={30}
-            className="z-40 cursor-pointer"
+            size={26}
+            className="absolute right-4 z-40 cursor-pointer"
           />
         ) : (
           <EyeOffIcon
             onClick={() => setVisiblePassword(false)}
             color="#fff"
             strokeWidth={1.5}
-            size={30}
-            className="z-40 cursor-pointer"
+            size={26}
+            className="absolute right-4 z-40 cursor-pointer"
           />
         )}
       </Form.Input>

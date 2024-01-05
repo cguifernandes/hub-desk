@@ -5,7 +5,7 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const deskId = searchParams.get('id')
   const page = searchParams.get('page')
-  const PER_PAGE = 2
+  const PER_PAGE = 4
 
   if (deskId) {
     const currentPage = Math.max(Number(page || 1), 1)
@@ -16,6 +16,9 @@ export async function GET(request: NextRequest) {
       where: { deskId },
       orderBy: {
         createdAt: 'desc',
+      },
+      include: {
+        author: true,
       },
     })
 

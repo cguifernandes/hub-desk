@@ -1,16 +1,19 @@
+/* eslint-disable camelcase */
+'use client'
 import { ReactNode } from 'react'
 import Footer from '@/components/Layout/footer'
 import Header from '@/components/Layout/header'
+import { Metadata } from 'next'
 
-type LayoutProps = {
-  children: ReactNode
+export const metadata: Metadata = {
+  title: 'Configurações | Hub Desk',
 }
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children }: { children: ReactNode }) => {
   return (
     <>
       <Header />
-      <main className="mt-24">{children}</main>
+      <main className="mt-20">{children}</main>
       <Footer />
     </>
   )

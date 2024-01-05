@@ -1,26 +1,30 @@
 import { z } from 'zod'
 
 export const schemaSignUp = z.object({
-  name: z
+  user: z
     .string()
-    .max(24, 'O nome deve conter no máximo 18 caracteres')
-    .nonempty('O campo "Nome" é obrigatório.'),
+    .min(5, 'Este campo precisa conter pelo menos 5 caracteres.')
+    .nonempty('Este campo é obrigatório.')
+    .refine(
+      (password) => !/\s/.test(password),
+      'Este campo não pode conter espações vazios',
+    ),
   email: z
     .string()
     .email('O e-mail precisa ser válido.')
-    .nonempty('O campo "E-mail" é obrigatório.'),
+    .nonempty('Este campo é obrigatório.'),
   password: z
     .string()
     .min(6, 'A senha precisa conter pelo menos 6 caracteres.')
     .max(12, 'A senha deve conter no máximo 12 caracteres.')
-    .nonempty('O campo "Senha" é obrigatório.')
+    .nonempty('Este campo é obrigatório.')
     .refine(
       (password) => /[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]/.test(password),
       'A senha deve incluir pelo menos um caractere especial.',
     )
     .refine(
       (password) => !/\s/.test(password),
-      'O campo "Senha" não pode conter espações vazios',
+      'Este campo não pode conter espações vazios',
     ),
 })
 

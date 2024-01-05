@@ -20,26 +20,26 @@ const Back = ({ isHeader = false, className, href }: BackProps) => {
   }, [])
 
   if (!mounted) {
-    return <Skeleton margin={isHeader ? 0 : 'auto'} height={58} width={290} />
+    return <Skeleton className={className} height={36} width={210} />
   }
 
   if (href) {
     return (
-      <Link href={href}>
-        <Image
-          className={clsx(isHeader ? 'm-0' : 'm-auto', className)}
-          width={290}
-          alt="Logo"
-          src={Logo}
-        />
+      <Link
+        className={clsx(isHeader ? 'm-0' : 'm-auto', className)}
+        href={href}
+      >
+        <Image quality={100} height={36} width={210} alt="Logo" src={Logo} />
       </Link>
     )
   }
 
   return (
     <Image
+      quality={100}
       className={clsx(isHeader ? 'm-0' : 'm-auto', className)}
-      width={290}
+      height={36}
+      width={210}
       alt="Logo"
       src={Logo}
     />
