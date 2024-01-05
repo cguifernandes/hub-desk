@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { CSSProperties, ReactNode } from 'react'
 import { tv, VariantProps } from 'tailwind-variants'
 
 const text = tv({
@@ -27,6 +27,7 @@ type TextProps = VariantProps<typeof text> & {
   size?: 'sm' | 'md' | 'lg' | 'xlg' | 'base'
   className?: string
   align?: 'left' | 'center' | 'right'
+  style?: CSSProperties | undefined
 }
 
 const Text = ({ children, size, className, align, ...props }: TextProps) => {

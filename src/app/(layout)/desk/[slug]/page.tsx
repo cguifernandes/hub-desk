@@ -107,18 +107,20 @@ export default async function Desk({ params }: { params: { slug: string } }) {
                   <div className="absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-grey-600"></div>
                 </div>
               )}
-              <div className="flex items-center justify-between pl-11">
-                <div
-                  style={{ marginTop: desk?.image ? 120 : 0 }}
-                  className="z-10 mx-auto flex flex-col gap-y-1"
-                >
-                  <Heading size="md" className="break-words text-white">
-                    {desk?.title}{' '}
-                    <span className="text-sm text-white/50">
-                      ({desk?.visibility})
-                    </span>
-                  </Heading>
-                  <Text className="text-white/50">{desk?.category}</Text>
+              <div className="flex items-start justify-between pl-11">
+                <div className="relative z-10 mx-auto flex-1">
+                  <div
+                    style={{ top: desk.image ? 120 : 0 }}
+                    className="absolute flex w-full flex-col gap-y-1 "
+                  >
+                    <Heading size="md" className="break-words text-white">
+                      {desk?.title}{' '}
+                      <span className="text-sm text-white/50">
+                        ({desk?.visibility})
+                      </span>
+                    </Heading>
+                    <Text className="text-white/50">{desk?.category}</Text>
+                  </div>
                 </div>
                 {user_session?.value && (
                   <DeskSettings
@@ -131,7 +133,12 @@ export default async function Desk({ params }: { params: { slug: string } }) {
                   />
                 )}
               </div>
-              <Text className="break-all">{desk?.description}</Text>
+              <Text
+                style={{ paddingTop: desk.image ? 120 : 0 }}
+                className="break-all"
+              >
+                {desk?.description}
+              </Text>
               {desk?.category === 'Sites' && (
                 <div className="mx-auto flex w-4/5 flex-col gap-6 md:w-2/4">
                   {desk?.repo !== '' && (
