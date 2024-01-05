@@ -82,7 +82,7 @@ const Desks = ({
           <span>Voltar para menu principal</span>
         </button>
       </Modal.Header>
-      <div className="flex flex-col gap-y-3 pt-4">
+      <div className="flex max-w-[420px] flex-col gap-y-3 pt-4">
         <div className="h-[2px] w-full bg-grey-400" />
         {desks && desks.length === 0 ? (
           <div className="flex flex-col">
@@ -153,7 +153,10 @@ const Desks = ({
                       </span>
                     </Heading>
                   </div>
-                  <Text size="sm" className="line-clamp-2 text-white/50">
+                  <Text
+                    size="sm"
+                    className="line-clamp-2 break-words text-white/50"
+                  >
                     {desk.desk?.description}
                   </Text>
                 </Link>

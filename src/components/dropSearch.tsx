@@ -95,7 +95,7 @@ const DropSearch = ({
                           </div>
                           <Text
                             size="sm"
-                            className="line-clamp-2 text-white/50"
+                            className="line-clamp-2 break-words text-white/50"
                           >
                             {desk.description}
                           </Text>
