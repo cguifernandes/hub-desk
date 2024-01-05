@@ -17,6 +17,7 @@ import AnimationWrapper from '@/components/Wrapper/animationWrapper'
 import { ClientsProps, FakeRDeskProps } from '@/utils/type'
 import FakeDesk from '@/components/fakeDesk'
 import { categories, visibility } from '@/utils/constant'
+import { useRouter } from 'next/navigation'
 
 const FormDesk = ({ author }: { author: ClientsProps }) => {
   const [selectedCategory, setSelectedCategory] = useState('')
@@ -33,6 +34,7 @@ const FormDesk = ({ author }: { author: ClientsProps }) => {
   const [isLoading, setIsLoading] = useState(false)
   const { user_session } = useClient()
   const currentDate = new Date()
+  const { push } = useRouter()
   const isVisibleRepoWebsite = selectedCategory === 'Sites'
   const {
     handleSubmit,
@@ -66,21 +68,22 @@ const FormDesk = ({ author }: { author: ClientsProps }) => {
         Toast(data.error)
       } else {
         Toast(data.success)
-        reset()
-        setSelectedCategory('')
-        setSelectedVisibility('Público')
-        setFileList(undefined)
-        setFakeData({
-          category: 'Selecione uma categoria',
-          description: 'Escreva uma descrição',
-          src: '',
-          title: 'Escreva um título',
-        })
+        push(`/desk/${data.data.id}`)
       }
     } catch (err) {
       console.error('Erro ao processar formulário:', err)
     } finally {
       setIsLoading(false)
+      reset()
+      setSelectedCategory('')
+      setSelectedVisibility('Público')
+      setFileList(undefined)
+      setFakeData({
+        category: 'Selecione uma categoria',
+        description: 'Escreva uma descrição',
+        src: '',
+        title: 'Escreva um título',
+      })
     }
   }
 
@@ -133,9 +136,6 @@ const FormDesk = ({ author }: { author: ClientsProps }) => {
             handlerClickSelect={handlerClickCategory}
             label="Escolha uma categoria"
             placeholder="Categoria*"
-            style={{
-              zIndex: 20,
-            }}
           />
           <Form.Select
             error={errors.visibility}

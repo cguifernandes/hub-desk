@@ -11,7 +11,15 @@ import { DeskProps, RDeskProps } from '@/utils/type'
 import Heading from '../Typography/heading'
 import Text from '../Typography/text'
 
-const Desks = ({ id, user }: { id: string; user: string }) => {
+const Desks = ({
+  id,
+  user,
+  deskCount,
+}: {
+  id: string
+  user: string
+  deskCount: number
+}) => {
   const [isLoading, setIsLoading] = useState(false)
   const [desks, setDesks] = useState<DeskProps[]>([])
   const [count, setCount] = useState(0)
@@ -45,18 +53,16 @@ const Desks = ({ id, user }: { id: string; user: string }) => {
 
   return (
     <>
-      {desks.length === 0 && !isLoading ? (
+      {deskCount === 0 ? (
         <EmptyAlert
-          submessage={`${user} não possui nenhuma desk por enquanto.`}
-          message="Este perfil não tem nenhuma desk cadastrada."
+          submessage={`Por enquanto, ${user} não possui nenhuma desk`}
+          message="Este perfil não tem nenhuma desk cadastrada"
         />
       ) : (
         <>
           <div className="w-full text-center">
             <Heading size="lg">Desks</Heading>
-            <Text className="text-white/50">
-              Desks ARRUMAR ESSE COMPONENTE criadas por {user}
-            </Text>
+            <Text className="text-white/50">Desks criadas por {user}</Text>
           </div>
           <div
             className={clsx(
@@ -65,50 +71,22 @@ const Desks = ({ id, user }: { id: string; user: string }) => {
           >
             {isLoading ? (
               <>
-                <div className="relative flex h-[640px] min-w-[360px] max-w-[490px] flex-1 flex-col justify-between rounded-md border-2 border-grey-400 bg-desk-gradient p-7 shadow-md sm:min-w-[420px]">
-                  <div className="flex w-full flex-col items-center space-y-1">
-                    <Skeleton className="w-full" height={28} />
-                    <Skeleton width={60} height={24} />
+                {Array.from({ length: 4 }).map((_, index) => (
+                  <div
+                    key={index}
+                    className="relative flex h-[640px] min-w-[360px] max-w-[490px] flex-1 flex-col justify-between rounded-md border-2 border-grey-400 bg-desk-gradient p-7 shadow-md sm:min-w-[420px]"
+                  >
+                    <div className="flex w-full flex-col items-center space-y-1">
+                      <Skeleton className="w-full" height={28} />
+                      <Skeleton width={60} height={24} />
+                    </div>
+                    <Skeleton className="w-full" height={64} />
+                    <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
+                      <Skeleton width={120} height={32} />
+                      <Skeleton width={210} height={32} />
+                    </div>
                   </div>
-                  <Skeleton className="w-full" height={64} />
-                  <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
-                    <Skeleton width={120} height={32} />
-                    <Skeleton width={210} height={32} />
-                  </div>
-                </div>
-                <div className="relative flex h-[640px] min-w-[360px] max-w-[490px] flex-1 flex-col justify-between rounded-md border-2 border-grey-400 bg-desk-gradient p-7 shadow-md sm:min-w-[420px]">
-                  <div className="flex w-full flex-col items-center space-y-1">
-                    <Skeleton className="w-full" height={28} />
-                    <Skeleton width={60} height={24} />
-                  </div>
-                  <Skeleton className="w-full" height={64} />
-                  <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
-                    <Skeleton width={120} height={32} />
-                    <Skeleton width={210} height={32} />
-                  </div>
-                </div>
-                <div className="relative flex h-[640px] min-w-[360px] max-w-[490px] flex-1 flex-col justify-between rounded-md border-2 border-grey-400 bg-desk-gradient p-7 shadow-md sm:min-w-[420px]">
-                  <div className="flex w-full flex-col items-center space-y-1">
-                    <Skeleton className="w-full" height={28} />
-                    <Skeleton width={60} height={24} />
-                  </div>
-                  <Skeleton className="w-full" height={64} />
-                  <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
-                    <Skeleton width={120} height={32} />
-                    <Skeleton width={210} height={32} />
-                  </div>
-                </div>
-                <div className="relative flex h-[640px] min-w-[360px] max-w-[490px] flex-1 flex-col justify-between rounded-md border-2 border-grey-400 bg-desk-gradient p-7 shadow-md sm:min-w-[420px]">
-                  <div className="flex w-full flex-col items-center space-y-1">
-                    <Skeleton className="w-full" height={28} />
-                    <Skeleton width={60} height={24} />
-                  </div>
-                  <Skeleton className="w-full" height={64} />
-                  <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
-                    <Skeleton width={120} height={32} />
-                    <Skeleton width={210} height={32} />
-                  </div>
-                </div>
+                ))}
               </>
             ) : (
               desks.map((desk) => (

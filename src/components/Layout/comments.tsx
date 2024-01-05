@@ -124,66 +124,27 @@ const Comments = ({
           <div className="flex w-full grow-[1] basis-0 flex-wrap justify-center gap-4">
             {isLoading ? (
               <>
-                <div
-                  className={clsx(
-                    'flex min-h-[200px] w-full min-w-[360px] max-w-3xl flex-1 flex-col rounded-md md:min-w-[600px]',
-                    'justify-between border-2 border-grey-400 bg-desk-gradient p-4',
-                  )}
-                >
-                  <div className="flex w-full items-start justify-between">
-                    <Skeleton height={24} className="w-3/4" />
-                    <Skeleton width={22} height={22} className="ml-7" />
+                {Array.from({ length: 4 }).map((_, index) => (
+                  <div
+                    key={index}
+                    className={clsx(
+                      'flex min-h-[200px] w-full min-w-[360px] max-w-3xl flex-1 flex-col rounded-md md:min-w-[600px]',
+                      'justify-between border-2 border-grey-400 bg-desk-gradient p-4',
+                    )}
+                  >
+                    <div className="flex w-full items-start justify-between">
+                      <Skeleton
+                        height={index === 2 ? 68 : index === 3 ? 80 : 24}
+                        className="w-3/4"
+                      />
+                      <Skeleton width={22} height={22} className="ml-7" />
+                    </div>
+                    <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
+                      <Skeleton width={120} height={32} />
+                      <Skeleton width={210} height={32} />
+                    </div>
                   </div>
-                  <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
-                    <Skeleton width={120} height={32} />
-                    <Skeleton width={210} height={32} />
-                  </div>
-                </div>
-                <div
-                  className={clsx(
-                    'flex min-h-[200px] w-full min-w-[360px] max-w-3xl flex-1 flex-col rounded-md md:min-w-[600px]',
-                    'justify-between border-2 border-grey-400 bg-desk-gradient p-4',
-                  )}
-                >
-                  <div className="flex w-full items-start justify-between">
-                    <Skeleton height={68} className="w-3/4" />
-                    <Skeleton width={22} height={22} className="ml-7" />
-                  </div>
-                  <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
-                    <Skeleton width={120} height={32} />
-                    <Skeleton width={210} height={32} />
-                  </div>
-                </div>
-                <div
-                  className={clsx(
-                    'flex min-h-[200px] w-full min-w-[360px] max-w-3xl flex-1 flex-col rounded-md md:min-w-[600px]',
-                    'justify-between border-2 border-grey-400 bg-desk-gradient p-4',
-                  )}
-                >
-                  <div className="flex w-full items-start justify-between">
-                    <Skeleton height={80} className="w-3/4" />
-                    <Skeleton width={22} height={22} className="ml-7" />
-                  </div>
-                  <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
-                    <Skeleton width={120} height={32} />
-                    <Skeleton width={210} height={32} />
-                  </div>
-                </div>
-                <div
-                  className={clsx(
-                    'flex min-h-[200px] w-full min-w-[360px] max-w-3xl flex-1 flex-col rounded-md md:min-w-[600px]',
-                    'justify-between border-2 border-grey-400 bg-desk-gradient p-4',
-                  )}
-                >
-                  <div className="flex w-full items-start justify-between">
-                    <Skeleton height={24} className="w-3/4" />
-                    <Skeleton width={22} height={22} className="ml-7" />
-                  </div>
-                  <div className="flex flex-wrap justify-between gap-2 pt-8 text-xs text-white">
-                    <Skeleton width={120} height={32} />
-                    <Skeleton width={210} height={32} />
-                  </div>
-                </div>
+                ))}
               </>
             ) : (
               comments.map((comments) => (

@@ -4,6 +4,7 @@ import prisma from '../../../../lib/prisma'
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const query = searchParams.get('q')
+  const id = searchParams.get('id')
 
   if (query) {
     const clients = await prisma.clients.findMany({
@@ -18,8 +19,35 @@ export async function GET(request: NextRequest) {
       },
     })
 
+    if (id === undefined) {
+      const desks = await prisma.desk.findMany({
+        where: {
+          OR: [
+            {
+              title: { mode: 'insensitive', contains: query },
+              visibility: 'Público',
+            },
+            { visibility: 'Privado', members: { some: { userId: id } } },
+          ],
+        },
+        include: {
+          _count: { select: { comments: true } },
+          author: true,
+        },
+        orderBy: { createdAt: 'desc' },
+      })
+
+      return NextResponse.json({
+        desks,
+        clients,
+      })
+    }
+
     const desks = await prisma.desk.findMany({
-      where: { title: { mode: 'insensitive', contains: query } },
+      where: {
+        title: { mode: 'insensitive', contains: query },
+        visibility: 'Público',
+      },
       include: {
         _count: {
           select: { comments: true },
@@ -29,6 +57,9 @@ export async function GET(request: NextRequest) {
       orderBy: { createdAt: 'desc' },
     })
 
-    return NextResponse.json({ desks, clients })
+    return NextResponse.json({
+      desks,
+      clients,
+    })
   }
 }

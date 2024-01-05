@@ -36,13 +36,13 @@ const AccountWrapper = ({ client }: { client: ClientsProps[] }) => {
         Toast(data.error)
       } else {
         Toast(data.success)
-        destroyCookie(null, 'user_session')
-        push('/auth/redirect?m=Conta excluída, foi um prazer :)')
       }
     } catch (error) {
       console.log(error)
     } finally {
       setIsLoading(false)
+      destroyCookie(null, 'user_session')
+      push('/auth/redirect?m=Conta excluída, foi um prazer :)')
       setVisibleModal(false)
     }
   }

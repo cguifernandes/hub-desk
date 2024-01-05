@@ -95,27 +95,18 @@ const Multiselect = ({
             <ul className="group flex w-full flex-col">
               {isLoading ? (
                 <>
-                  <div className="flex h-[72px] w-full items-center gap-x-2 px-4 py-3">
-                    <Skeleton isRoundedFull className="h-12 w-12" />
-                    <div className="flex flex-col gap-y-1">
-                      <Skeleton width={48} height={24} />
-                      <Skeleton width={180} height={20} />
+                  {Array.from({ length: 4 }).map((_, index) => (
+                    <div
+                      key={index}
+                      className="flex h-[70px] w-full items-center gap-x-2 rounded-md border border-grey-400 p-3"
+                    >
+                      <Skeleton isRoundedFull height={40} width={40} />
+                      <div className="flex flex-col gap-y-1">
+                        <Skeleton height={20} width={150} />
+                        <Skeleton height={16} width={50} />
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex h-[72px] w-full items-center gap-x-2 px-4 py-3">
-                    <Skeleton isRoundedFull className="h-12 w-12" />
-                    <div className="flex flex-col gap-y-1">
-                      <Skeleton width={48} height={24} />
-                      <Skeleton width={180} height={20} />
-                    </div>
-                  </div>
-                  <div className="flex h-[72px] w-full items-center gap-x-2 px-4 py-3">
-                    <Skeleton isRoundedFull className="h-12 w-12" />
-                    <div className="flex flex-col gap-y-1">
-                      <Skeleton width={48} height={24} />
-                      <Skeleton width={180} height={20} />
-                    </div>
-                  </div>
+                  ))}
                 </>
               ) : response && response.length > 0 ? (
                 response?.map((client) => (

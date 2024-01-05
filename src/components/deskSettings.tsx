@@ -115,7 +115,7 @@ const DeskSettings = ({
     <>
       <button
         onClick={() => setVisibleSettings(!visibleSettings)}
-        className="absolute right-2 top-2 z-20 rounded-full bg-grey-600 p-3"
+        className="z-20 flex items-center justify-center rounded-full bg-grey-600 p-3"
       >
         <Settings size={22} strokeWidth={1.5} color="#fff" />
       </button>
@@ -131,7 +131,7 @@ const DeskSettings = ({
               animate={{ translateY: 0, opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ type: 'keyframes', duration: 0.2 }}
-              className="absolute right-3 top-[60px] z-20 flex w-64 flex-col rounded-md border border-grey-400 bg-grey-700"
+              className="absolute right-[18px] top-[75px] z-20 flex w-64 flex-col rounded-md border border-grey-400 bg-grey-700"
             >
               {isLeader && (
                 <>

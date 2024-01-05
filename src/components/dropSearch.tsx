@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+'use client'
 import Heading from './Typography/heading'
 import Text from './Typography/text'
 import Link from 'next/link'
@@ -11,25 +12,28 @@ type DropSearchProps = {
   query: string
   isLoading: boolean
   response: RSearchProps | undefined
+  handlerClickOverlay: () => void
 }
 
-const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
+const DropSearch = ({
+  isLoading,
+  query,
+  response,
+  handlerClickOverlay,
+}: DropSearchProps) => {
   return (
     <>
       {query !== '' ? (
         <div className="space-y-4">
           {isLoading ? (
             <>
-              <Skeleton width={140} height={28} />
-              <Skeleton className="w-full" height={128} />
-              <Skeleton className="w-full" height={128} />
-              <Skeleton className="w-full" height={128} />
-              <Skeleton className="w-full" height={128} />
-              <Skeleton className="w-full" height={128} />
-              <Skeleton width={140} height={28} />
-              <Skeleton className="w-full" height={80} />
-              <Skeleton className="w-full" height={80} />
-              <Skeleton className="w-full" height={80} />
+              {Array.from({ length: 4 }).map((_, index) => (
+                <Skeleton
+                  key={index}
+                  width={index === 0 ? 140 : '100%'}
+                  height={index === 0 ? 28 : 80}
+                />
+              ))}
             </>
           ) : (
             <>
@@ -40,6 +44,7 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                     <div
                       key={desk.id}
                       className="flex max-h-[140px] min-h-[130px] max-w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500"
+                      onClick={handlerClickOverlay}
                     >
                       {desk.image && (
                         <img
@@ -48,18 +53,23 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                           alt={desk.title}
                         />
                       )}
-                      <div className="flex flex-col justify-between gap-y-3 py-2">
+                      <div className="flex max-w-full flex-col justify-between gap-y-3 py-2">
                         <Link
                           href={`/desk/${desk.id}`}
                           style={{ maxWidth: desk.image ? 439 : 531 }}
                           className="space-y-px"
                         >
-                          <Heading className="line-clamp-1 text-lg">
-                            {desk.title}
-                          </Heading>
+                          <div className="flex items-center">
+                            <Heading className="truncate text-lg">
+                              {desk?.title}{' '}
+                            </Heading>
+                            <span className="ml-1 text-sm text-white/50">
+                              ({desk.visibility})
+                            </span>
+                          </div>
                           <Text
                             size="sm"
-                            className="truncate whitespace-nowrap text-white/50"
+                            className="line-clamp-2 text-white/50"
                           >
                             {desk.description}
                           </Text>
@@ -73,7 +83,7 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                     </div>
                   ))
                 ) : (
-                  <Text className="text-white/50">
+                  <Text className="!mt-0 text-white/50">
                     Não há nenhuma desk com esse título
                   </Text>
                 )}
@@ -84,6 +94,7 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                   response?.clients.map((client) => (
                     <Link
                       href={`/profile/${client.user}`}
+                      onClick={handlerClickOverlay}
                       key={client.id}
                       className="flex h-20 w-full items-center rounded-md px-3 py-2 transition-all hover:bg-grey-500"
                     >
@@ -102,7 +113,7 @@ const DropSearch = ({ isLoading, query, response }: DropSearchProps) => {
                     </Link>
                   ))
                 ) : (
-                  <Heading className="text-white/50">
+                  <Heading className="!mt-0 text-white/50">
                     Não há nenhuma usuário com esse nome
                   </Heading>
                 )}

@@ -15,7 +15,7 @@ type FakeDeskProps = {
   authorId?: string | undefined
   createdAt?: Date
   comments: number
-  author: ClientsProps
+  author?: ClientsProps
 }
 
 const FakeDesk = ({

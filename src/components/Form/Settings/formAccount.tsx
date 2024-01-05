@@ -21,9 +21,11 @@ type FormAccountProps = {
 }
 
 const FormAccount = ({ client, user_session }: FormAccountProps) => {
-  const [visibleEdit, setVisibleEdit] = useState(false)
+  const [visibleEditPfp, setVisibleEditPfp] = useState(false)
+  const [visibleEditBg, setVisibleEditBg] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-  const [imageSrc, setImageSrc] = useState('')
+  const [pfp, setPfp] = useState('')
+  const [bg, setBg] = useState('')
   const { client: user, isLoading: loading } = useConnection()
   const { push } = useRouter()
 
@@ -51,6 +53,17 @@ const FormAccount = ({ client, user_session }: FormAccountProps) => {
         account.pfp = storage.data?.path
       }
 
+      if (account.bg !== undefined) {
+        const timestamp = new Date().getTime()
+        const storage = await supabase.storage
+          .from('hub-desk')
+          .upload(
+            `profile/${client[0]?.user}/bg/${timestamp}_${account.bg.name}`,
+            account.bg,
+          )
+        account.bg = storage.data?.path
+      }
+
       const { data } = await api.put(`/auth/?id=${user_session}`, account, {
         headers: { 'Content-Type': 'application/json' },
       })
@@ -59,7 +72,7 @@ const FormAccount = ({ client, user_session }: FormAccountProps) => {
         Toast(data.error)
       } else {
         Toast(data.success)
-        push('/auth/redirect?m=Dados da conta foram alterados!')
+        push('/auth/redirect?m=Os dados da conta foram alterados!')
       }
     } catch (err) {
       console.error('Erro ao processar formulário:', err)
@@ -68,7 +81,13 @@ const FormAccount = ({ client, user_session }: FormAccountProps) => {
     }
   }
 
-  const handleFileInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFileInputChange = ({
+    e,
+    type,
+  }: {
+    e: ChangeEvent<HTMLInputElement>
+    type: 'bg' | 'pfp'
+  }) => {
     const file = e.target.files?.[0]
 
     if (file) {
@@ -76,7 +95,11 @@ const FormAccount = ({ client, user_session }: FormAccountProps) => {
       reader.onload = () => {
         const fileContent = reader.result
         if (typeof fileContent === 'string') {
-          setImageSrc(fileContent)
+          if (type === 'bg') {
+            setBg(fileContent)
+          } else {
+            setPfp(fileContent)
+          }
         }
       }
 
@@ -89,43 +112,97 @@ const FormAccount = ({ client, user_session }: FormAccountProps) => {
       className="w-11/12 space-y-6 md:w-4/5"
       handleSubmit={handleSubmit(handlerUpdateAccount)}
     >
-      <div className="relative flex items-center justify-center rounded-full">
-        {loading && user[0].pfp === undefined ? (
-          <Skeleton className="h-52 w-52 md:h-60 md:w-60" isRoundedFull />
+      <div className="relative flex h-[255px] items-center justify-center">
+        {loading || user[0]?.pfp === undefined || user[0].bg === undefined ? (
+          <>
+            <div className="absolute left-0 top-0 h-2/3 w-full">
+              <Skeleton className="w-full" height={170} />
+            </div>
+            <div className="relative top-6 z-20 rounded-full">
+              <Skeleton className="h-48 w-48 md:h-52 md:w-52" isRoundedFull />
+            </div>
+          </>
         ) : (
-          <img
-            onMouseEnter={() => setVisibleEdit(true)}
-            onMouseLeave={() => setVisibleEdit(false)}
-            style={{
-              opacity: visibleEdit ? 0.5 : 1,
-              border: errors.pfp
-                ? '1px rgb(239, 68, 68) solid'
-                : '1px solid transparent',
-            }}
-            className="h-52 w-52 rounded-full object-cover duration-200 ease-out md:h-60 md:w-60"
-            src={
-              imageSrc ||
-              `https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${user[0]?.pfp}`
-            }
-            alt={user[0]?.user}
-          />
+          <>
+            <div
+              onMouseEnter={() => setVisibleEditBg(true)}
+              onMouseLeave={() => setVisibleEditBg(false)}
+              className="absolute left-0 top-0 h-2/3 w-full"
+            >
+              <input
+                {...register('bg', {
+                  onChange: (e) => handleFileInputChange({ e, type: 'bg' }),
+                })}
+                id="bg"
+                type="file"
+                accept="image/*"
+                className="hidden"
+              />
+              <label
+                onMouseEnter={() => setVisibleEditBg(true)}
+                onMouseLeave={() => setVisibleEditBg(false)}
+                htmlFor="bg"
+                style={{ opacity: visibleEditBg ? 1 : 0 }}
+                className="absolute right-3 top-3 z-30 cursor-pointer rounded-full bg-grey-600 p-2 duration-200 ease-out"
+              >
+                <Pencil color="#fff" size={18} strokeWidth={1.5} />
+              </label>
+              <img
+                className="h-full w-full rounded-md object-cover"
+                src={
+                  bg ||
+                  `https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${user[0]?.bg}`
+                }
+                alt={user[0]?.user}
+              />
+              <div className="absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-grey-700" />
+            </div>
+            <div
+              onMouseEnter={() => setVisibleEditPfp(true)}
+              onMouseLeave={() => setVisibleEditPfp(false)}
+              className="relative top-6 z-20 rounded-full"
+            >
+              <img
+                style={{
+                  border: errors.pfp
+                    ? '1px rgb(239, 68, 68) solid'
+                    : '1px solid transparent',
+                }}
+                className="h-48 w-48 rounded-full object-cover duration-200 ease-out md:h-52 md:w-52"
+                src={
+                  pfp ||
+                  `https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${user[0]?.pfp}`
+                }
+                alt={user[0]?.user}
+              />
+              <input
+                {...register('pfp', {
+                  onChange: (e) => handleFileInputChange({ e, type: 'pfp' }),
+                })}
+                id="pfp"
+                type="file"
+                accept="image/*"
+                className="hidden"
+              />
+              <label
+                onMouseEnter={() => setVisibleEditPfp(true)}
+                onMouseLeave={() => setVisibleEditPfp(false)}
+                htmlFor="pfp"
+                style={{ opacity: visibleEditPfp ? 1 : 0 }}
+                className="absolute left-1/2 top-1/2 z-30 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full bg-grey-600 p-3 duration-200 ease-out"
+              >
+                <Pencil color="#fff" size={22} strokeWidth={1.5} />
+              </label>
+              <div
+                className="absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2 rounded-full bg-grey-700/50 duration-200 ease-out"
+                style={{
+                  mixBlendMode: 'multiply',
+                  opacity: visibleEditPfp ? 1 : 0,
+                }}
+              />
+            </div>
+          </>
         )}
-        <input
-          {...register('pfp', { onChange: (e) => handleFileInputChange(e) })}
-          id="pfp"
-          type="file"
-          accept="image/*"
-          className="hidden"
-        />
-        <label
-          onMouseEnter={() => setVisibleEdit(true)}
-          onMouseLeave={() => setVisibleEdit(false)}
-          htmlFor="pfp"
-          style={{ opacity: visibleEdit ? 1 : 0 }}
-          className="absolute z-20 cursor-pointer rounded-full bg-grey-600 p-4 duration-200 ease-out"
-        >
-          <Pencil color="#fff" size={28} strokeWidth={1.5} />
-        </label>
       </div>
       {errors.pfp && (
         <span className="!mt-0 block text-center text-sm text-red-500">

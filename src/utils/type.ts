@@ -5,6 +5,7 @@ export type ClientsProps = {
   password: string
   user: string
   pfp: string
+  bg: string
   createdAt: Date
   _count?: {
     desks: number

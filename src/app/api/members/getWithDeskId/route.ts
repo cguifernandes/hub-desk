@@ -10,17 +10,9 @@ export async function GET(request: NextRequest) {
   const PER_PAGE = 4
 
   if (deskId) {
-    const currentPage = Math.max(Number(page || 1), 1)
-
-    const members = await prisma.member.findMany({
+    const allMembers = await prisma.member.findMany({
       where: { deskId },
       include: { user: true },
-      take: PER_PAGE,
-      skip: (currentPage - 1) * PER_PAGE,
-    })
-
-    const count = await prisma.member.count({
-      where: { deskId },
     })
 
     const rolesOrder: Record<Role, number> = {
@@ -29,10 +21,19 @@ export async function GET(request: NextRequest) {
       Membro: 3,
     }
 
-    members.sort((a, b) => {
+    allMembers.sort((a, b) => {
       const roleA = a.role as Role
       const roleB = b.role as Role
       return rolesOrder[roleA] - rolesOrder[roleB]
+    })
+
+    const currentPage = Math.max(Number(page || 1), 1)
+    const startIndex = (currentPage - 1) * PER_PAGE
+    const endIndex = startIndex + PER_PAGE
+    const members = allMembers.slice(startIndex, endIndex)
+
+    const count = await prisma.member.count({
+      where: { deskId },
     })
 
     if (members) {

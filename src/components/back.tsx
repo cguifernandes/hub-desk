@@ -25,20 +25,18 @@ const Back = ({ isHeader = false, className, href }: BackProps) => {
 
   if (href) {
     return (
-      <Link href={href}>
-        <Image
-          className={clsx(isHeader ? 'm-0' : 'm-auto', className)}
-          height={36}
-          width={210}
-          alt="Logo"
-          src={Logo}
-        />
+      <Link
+        className={clsx(isHeader ? 'm-0' : 'm-auto', className)}
+        href={href}
+      >
+        <Image quality={100} height={36} width={210} alt="Logo" src={Logo} />
       </Link>
     )
   }
 
   return (
     <Image
+      quality={100}
       className={clsx(isHeader ? 'm-0' : 'm-auto', className)}
       height={36}
       width={210}

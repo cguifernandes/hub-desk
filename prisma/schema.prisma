@@ -17,6 +17,7 @@ model Clients {
   password    String
   user        String      @unique
   pfp         String
+  bg          String
   desks       Desk[]
   comments    Comment[]
   members     Member[]

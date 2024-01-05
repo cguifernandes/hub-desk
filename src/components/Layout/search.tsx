@@ -1,23 +1,29 @@
+/* eslint-disable camelcase */
 /* eslint-disable @next/next/no-img-element */
 'use client'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { Search as SearchIcon } from 'lucide-react'
-import { useState } from 'react'
-import AnimationWrapper from '../Wrapper/animationWrapper'
-import { useIsLarge, useIsMedium } from '@/hooks/useMediaQuery'
+import { useEffect, useState } from 'react'
+import { useIsLarge, useIsXL } from '@/hooks/useMediaQuery'
 import { RSearchProps } from '@/utils/type'
 import DropSearch from '../dropSearch'
 import clsx from 'clsx'
 import useClient from '@/hooks/useClient'
+import Skeleton from './skeleton'
 
 const Search = () => {
   const [isVisibleSearch, setIsVisibleSearch] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [response, setResponse] = useState<RSearchProps>()
-  const { isConnected } = useClient()
+  const { user_session } = useClient()
   const [query, setQuery] = useState('')
   const isLarge = useIsLarge()
-  const isMedium = useIsMedium()
+  const isXL = useIsXL()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handlerSearch = async (query: string) => {
     setQuery(query)
@@ -25,10 +31,13 @@ const Search = () => {
     if (query !== '') {
       try {
         setIsLoading(true)
-        const response = await fetch(`/api/search?q=${query}`, {
-          cache: 'no-cache',
-          method: 'GET',
-        })
+        const response = await fetch(
+          `/api/search?q=${query}&id=${user_session}`,
+          {
+            cache: 'no-cache',
+            method: 'GET',
+          },
+        )
 
         const data = await response.json()
         setResponse(data)
@@ -45,60 +54,66 @@ const Search = () => {
     setQuery('')
   }
 
-  if (!isConnected) {
-    return <></>
+  if (!mounted) {
+    return <Skeleton width={52} height={40} />
   }
 
   return (
     <>
       <motion.div
-        onClick={() => setIsVisibleSearch(true)}
-        animate={isVisibleSearch ? 'visible' : 'hidden'}
         variants={{
           visible: {
-            width: isLarge ? 600 : '95%',
-            right: isLarge ? 0 : '50%',
-            transform: isLarge ? 'translate(0px)' : 'translate(50%, 0%)',
-            marginRight: isLarge ? 0 : 0,
+            width: isLarge ? (isXL ? 420 : 300) : '98%',
+            left: isLarge ? 0 : '50%',
+            marginLeft: 0,
           },
           hidden: {
-            width: isLarge ? 380 : isMedium ? '30%' : '0%',
-            marginRight: isLarge ? 0 : 92,
+            width: isLarge ? 52 : '0%',
+            left: isLarge ? 0 : '0%',
+            marginLeft: isLarge ? 0 : 24,
           },
         }}
+        onClick={() => setIsVisibleSearch(true)}
+        transition={{ duration: 0.3, ease: 'easeOut' }}
+        animate={isVisibleSearch ? 'visible' : 'hidden'}
         className={clsx(
-          'absolute right-0 z-20 flex h-[38px] min-w-[42px] items-center justify-between rounded-md',
-          'bg-grey-500 px-4 py-2 md:h-auto md:min-w-[240px] lg:relative lg:m-0',
+          'absolute z-20 flex h-10 min-w-[52px] -translate-x-1/2 lg:relative lg:left-0 lg:translate-x-0',
+          'items-center justify-between rounded-md bg-grey-500 px-4 py-3',
         )}
       >
-        <input
+        <motion.input
           type="text"
           placeholder="Pesquise aqui..."
-          className="absolute h-full w-[calc(100%_-_36px)] bg-transparent text-white placeholder-white/50 md:static"
+          variants={{
+            visible: {
+              opacity: 1,
+            },
+            hidden: {
+              opacity: 0,
+            },
+          }}
+          transition={{ type: 'keyframes', duration: 0.1 }}
+          className="w-[calc(100%_-_36px)] bg-transparent text-white placeholder-white/50"
           onChange={(e) => handlerSearch(e.target.value)}
           value={query}
         />
-        <SearchIcon
-          className="absolute right-[11px] z-[5] w-5 bg-grey-500 md:right-4"
-          color="#fff"
-          strokeWidth={1.5}
-        />
-        <AnimatePresence>
-          {isVisibleSearch && (
-            <AnimationWrapper
-              initial={{ opacity: 0, translateY: -10 }}
-              animate={{ opacity: 1, translateY: 0 }}
-              exit={{ opacity: 0, translateY: -10 }}
-              className="absolute left-0 top-14 h-96 w-full overflow-y-auto rounded-md bg-modal-gradient p-4 backdrop-blur-md"
-            >
-              <DropSearch
-                isLoading={isLoading}
-                query={query}
-                response={response}
-              />
-            </AnimationWrapper>
-          )}
-        </AnimatePresence>
+        <SearchIcon size={20} color="#fff" strokeWidth={1.5} />
+        {isVisibleSearch && (
+          <motion.div
+            initial={{ opacity: 0, translateY: -10 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            exit={{ opacity: 0, translateY: -10 }}
+            transition={{ type: 'keyframes', duration: 0.3, delay: 0.25 }}
+            className="absolute left-0 top-14 h-96 w-full overflow-y-auto rounded-md bg-modal-gradient p-4 backdrop-blur-md lg:w-[490px]"
+          >
+            <DropSearch
+              isLoading={isLoading}
+              query={query}
+              response={response}
+              handlerClickOverlay={handlerClickOverlay}
+            />
+          </motion.div>
+        )}
       </motion.div>
       {isVisibleSearch && (
         <div

@@ -97,16 +97,6 @@ export default async function Desk({ params }: { params: { slug: string } }) {
             className="mx-auto flex max-w-7xl flex-col rounded-md border-2 border-grey-400 bg-desk-gradient lg:flex-row"
           >
             <div className="relative flex min-h-[600px] min-w-0 flex-1 flex-col justify-between p-4 text-center">
-              {user_session?.value && isMember && (
-                <DeskSettings
-                  image={desk?.image}
-                  deskId={desk?.id}
-                  user_session={user_session?.value}
-                  isLeader={isLeader}
-                  isCoLeader={isCoLeader}
-                  isMember={isMember}
-                />
-              )}
               {desk?.image && (
                 <div className="absolute left-0 top-0 h-40 w-full">
                   <img
@@ -117,18 +107,31 @@ export default async function Desk({ params }: { params: { slug: string } }) {
                   <div className="absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-grey-600"></div>
                 </div>
               )}
-              <div
-                style={{ marginTop: desk?.image ? 120 : 0 }}
-                className="z-10 flex flex-col gap-y-1"
-              >
-                <Heading size="md" className="break-words text-white">
-                  {desk?.title}{' '}
-                  <span className="text-sm text-white/50">
-                    ({desk?.visibility})
-                  </span>
-                </Heading>
-                <Text className="text-white/50">{desk?.category}</Text>
+              <div className="flex items-center justify-between pl-11">
+                <div
+                  style={{ marginTop: desk?.image ? 120 : 0 }}
+                  className="z-10 mx-auto flex flex-col gap-y-1"
+                >
+                  <Heading size="md" className="break-words text-white">
+                    {desk?.title}{' '}
+                    <span className="text-sm text-white/50">
+                      ({desk?.visibility})
+                    </span>
+                  </Heading>
+                  <Text className="text-white/50">{desk?.category}</Text>
+                </div>
+                {user_session?.value && (
+                  <DeskSettings
+                    image={desk?.image}
+                    deskId={desk?.id}
+                    user_session={user_session?.value}
+                    isLeader={isLeader}
+                    isCoLeader={isCoLeader}
+                    isMember={isMember}
+                  />
+                )}
               </div>
+
               <Text className="break-all">{desk?.description}</Text>
               {desk?.category === 'Sites' && (
                 <div className="mx-auto flex w-4/5 flex-col gap-6 md:w-2/4">

@@ -52,6 +52,7 @@ export async function POST(request: NextRequest) {
           email,
           user,
           password: hash,
+          bg: 'profile/bg.png',
         },
       })
 
@@ -69,7 +70,7 @@ export async function PUT(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const id = searchParams.get('id')
   const body: ClientsProps = await request.json()
-  const { email, user, pfp } = body
+  const { email, user, pfp, bg } = body
 
   try {
     if (!email || !user || !id) {
@@ -84,6 +85,7 @@ export async function PUT(request: NextRequest) {
         email,
         user,
         pfp,
+        bg,
       },
     })
 
@@ -114,37 +116,51 @@ export async function DELETE(request: NextRequest) {
 
     const existingClient = await prisma.clients.findUnique({ where: { id } })
 
-    if (existingClient) {
-      await prisma.member.deleteMany({ where: { userId: id } })
-      const clientDesks = await prisma.desk.findMany({
-        where: { authorId: id },
-        include: { members: true },
-      })
-      for (const desk of clientDesks) {
-        await prisma.member.deleteMany({ where: { deskId: desk.id } })
-      }
-      await prisma.desk.deleteMany({ where: { authorId: id } })
-      await prisma.comment.deleteMany({ where: { authorId: id } })
-      await prisma.invite.deleteMany({
-        where: {
-          OR: [{ senderId: id }, { receiverId: id }],
-        },
-      })
-      await prisma.clients.delete({ where: { id } })
-
-      const { data: list } = await supabase.storage
-        .from('hub-desk')
-        .list(`profile/${user}`)
-      const filesToRemove = list?.map((x) => `profile/${user}/${x.name}`)
-
-      if (filesToRemove) {
-        await supabase.storage.from('hub-desk').remove(filesToRemove)
-      }
-
-      return NextResponse.json({ success: 'Conta excluída com sucesso.' })
-    } else {
+    if (!existingClient) {
       return NextResponse.json({ error: 'Usuário não encontrado.' })
     }
+
+    const clientDesks = await prisma.desk.findMany({
+      where: { authorId: id },
+      include: { members: true, comments: true },
+    })
+    for (const desk of clientDesks) {
+      await prisma.member.deleteMany({ where: { deskId: desk.id } })
+      await prisma.comment.deleteMany({ where: { deskId: desk.id } })
+      await prisma.desk.delete({ where: { id: desk.id } })
+    }
+    await prisma.invite.deleteMany({
+      where: {
+        OR: [{ senderId: id }, { receiverId: id }],
+      },
+    })
+    await prisma.clients.delete({ where: { id } })
+
+    const { data: listBg } = await supabase.storage
+      .from('hub-desk')
+      .list(`profile/${user}/bg`)
+    const filesBg =
+      listBg?.map((file) => `profile/${user}/bg/${file.name}`) || []
+
+    const { data: listUser } = await supabase.storage
+      .from('hub-desk')
+      .list(`profile/${user}`)
+    const filesUser =
+      listUser?.map((file) => `profile/${user}/${file.name}`) || []
+
+    if (filesBg.length > 0) {
+      await supabase.storage.from('hub-desk').remove(filesBg)
+    }
+
+    if (filesUser.length > 0) {
+      await supabase.storage.from('hub-desk').remove(filesUser)
+    }
+
+    await supabase.storage
+      .from('hub-desk')
+      .remove([`profile/${user}/bg`, `profile/${user}`])
+
+    return NextResponse.json({ success: 'Conta excluída com sucesso.' })
   } catch (error) {
     console.error('Erro durante a autenticação:', error)
     return NextResponse.json('Ocorreu um erro durante a autenticação.', {

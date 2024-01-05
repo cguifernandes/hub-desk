@@ -9,7 +9,7 @@ type SelectProps = InputHTMLAttributes<HTMLInputElement> & {
   value: string
   className?: string
   dropDownItems?: { id: number; value: any }[]
-  selectedDropDown?: string | number
+  selectedDropDown?: string | number | undefined
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
   handlerClickSelect?: (value: any) => void
   children?: ReactNode
@@ -46,6 +46,12 @@ const Select = ({
       }
       className={clsx('relative flex items-center', className)}
     >
+      {visibleDropDown && (
+        <div
+          onClick={() => setVisibleDropDown(false)}
+          className="fixed left-0 top-0 z-20 h-screen w-screen bg-grey-900/40 lg:bg-transparent"
+        />
+      )}
       <input
         {...props}
         style={{
@@ -74,7 +80,7 @@ const Select = ({
             exit={{ opacity: 0 }}
             transition={{ type: 'keyframes', duration: 0.2 }}
             style={style}
-            className="absolute top-14 z-10 w-full select-none rounded-md border border-grey-400 bg-modal-gradient shadow-md backdrop-blur-md"
+            className="absolute top-14 z-30 w-full select-none rounded-md border border-grey-400 bg-modal-gradient shadow-md backdrop-blur-md"
           >
             {children || (
               <ul className="group flex flex-col text-white">

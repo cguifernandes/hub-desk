@@ -10,6 +10,7 @@ import Button from '../button'
 import {
   ArrowLeft,
   Check,
+  ExternalLink,
   LogOut,
   Mail,
   Settings,
@@ -92,38 +93,22 @@ const Desks = ({
           </div>
         ) : isLoading ? (
           <>
-            <div className="flex max-h-[140px] min-h-[130px] max-w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500">
-              <Skeleton height={114} className="mr-3 w-20" />
-              <div className="flex flex-col justify-between gap-y-3 py-2">
-                <Skeleton width={220} height={28} />
-                <Skeleton width={290} height={20} />
-                <div className="flex items-center gap-x-6">
-                  <Skeleton width={90} height={20} />
-                  <Skeleton width={150} height={20} />
+            {Array.from({ length: 3 }).map((_, index) => (
+              <div
+                key={index}
+                className="flex max-h-[140px] min-h-[130px] max-w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500"
+              >
+                <Skeleton height={114} className="mr-3 w-20" />
+                <div className="flex flex-col justify-between gap-y-3 py-2">
+                  <Skeleton width={220} height={28} />
+                  <Skeleton width={290} height={20} />
+                  <div className="flex items-center gap-x-6">
+                    <Skeleton width={90} height={20} />
+                    <Skeleton width={150} height={20} />
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="flex max-h-[140px] min-h-[130px] max-w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500">
-              <Skeleton height={114} className="mr-3 w-20" />
-              <div className="flex flex-col justify-between gap-y-3 py-2">
-                <Skeleton width={220} height={28} />
-                <Skeleton width={290} height={20} />
-                <div className="flex items-center gap-x-6">
-                  <Skeleton width={90} height={20} />
-                  <Skeleton width={150} height={20} />
-                </div>
-              </div>
-            </div>
-            <div className="flex max-h-[140px] min-h-[130px] max-w-full rounded-md px-3 py-2 transition-all hover:bg-grey-500">
-              <div className="flex flex-col justify-between gap-y-3 py-2">
-                <Skeleton width={220} height={28} />
-                <Skeleton width={290} height={20} />
-                <div className="flex items-center gap-x-6">
-                  <Skeleton width={90} height={20} />
-                  <Skeleton width={150} height={20} />
-                </div>
-              </div>
-            </div>
+            ))}
           </>
         ) : (
           desks?.map((desk, index) => (
@@ -153,13 +138,15 @@ const Desks = ({
                   }}
                   className="space-y-px"
                 >
-                  <Heading className="truncate text-lg">
-                    {desk?.desk?.title}{' '}
-                    <span className="text-sm text-white/50">
+                  <div className="flex items-center">
+                    <Heading className="truncate text-lg">
+                      {desk?.desk?.title}{' '}
+                    </Heading>
+                    <span className="ml-1 text-sm text-white/50">
                       ({desk.desk?.visibility})
                     </span>
-                  </Heading>
-                  <Text size="sm" className="truncate text-white/50">
+                  </div>
+                  <Text size="sm" className="line-clamp-2 text-white/50">
                     {desk.desk?.description}
                   </Text>
                 </Link>
@@ -377,39 +364,24 @@ const Invites = ({
             </div>
           ) : isLoading ? (
             <>
-              <div className="flex max-w-[480px] items-center gap-x-4 px-3">
-                <div className="flex w-[368px] flex-col gap-y-1">
-                  <Skeleton height={24} width={240} />
-                  <Skeleton height={60} className="w-full" />
-                  <Skeleton height={32} width={180} />
+              {Array.from({ length: 3 }).map((_, index) => (
+                <div
+                  key={index}
+                  className={`flex max-w-[480px] items-center gap-x-4 px-3 ${
+                    index > 0 ? 'mt-4' : ''
+                  }`}
+                >
+                  <div className="flex w-[368px] flex-col gap-y-1">
+                    <Skeleton height={24} width={240} />
+                    <Skeleton height={60} className="w-full" />
+                    <Skeleton height={32} width={180} />
+                  </div>
+                  <div className="flex gap-x-2 text-white">
+                    <Skeleton height={36} width={36} />
+                    <Skeleton height={36} width={36} />
+                  </div>
                 </div>
-                <div className="flex gap-x-2 text-white">
-                  <Skeleton height={36} width={36} />
-                  <Skeleton height={36} width={36} />
-                </div>
-              </div>
-              <div className="flex w-[480px] items-center gap-x-4 px-3">
-                <div className="flex w-[368px] flex-col gap-y-1">
-                  <Skeleton height={24} width={240} />
-                  <Skeleton height={60} className="w-full" />
-                  <Skeleton height={32} width={180} />
-                </div>
-                <div className="flex gap-x-2 text-white">
-                  <Skeleton height={36} width={36} />
-                  <Skeleton height={36} width={36} />
-                </div>
-              </div>
-              <div className="flex items-center gap-x-4 px-3">
-                <div className="flex w-[368px] flex-col gap-y-1">
-                  <Skeleton height={24} width={240} />
-                  <Skeleton height={60} className="w-full" />
-                  <Skeleton height={32} width={180} />
-                </div>
-                <div className="flex gap-x-2 text-white">
-                  <Skeleton height={36} width={36} />
-                  <Skeleton height={36} width={36} />
-                </div>
-              </div>
+              ))}
             </>
           ) : (
             invites?.map((invite) => (
@@ -501,28 +473,32 @@ const ClientModal = ({
             </div>
           )
         ) : (
-          <nav className="flex flex-col gap-y-5">
+          <div className="max-w-sm space-y-4">
+            <div className="flex flex-col">
+              <Heading size="md">Crie uma desk</Heading>
+              <Text className="text-sm text-white/50">
+                Discuta opiniões com uma comunidade gigante, o Hub Desk.
+              </Text>
+            </div>
             <Button
-              href="/auth/sign-in"
-              fill="empty"
-              text="Login"
-              className="w-full"
-            />
-            <Button href="/auth/sign-up" text="Registrar" className="w-full" />
-          </nav>
+              href="/desk/post"
+              text="Criar uma desk"
+              className="flex w-full items-center justify-between"
+            >
+              <ExternalLink strokeWidth={1.5} size={22} className="ml-2" />
+            </Button>
+          </div>
         )}
       </Modal.Header>
-      {isConnected && (
+      {isConnected ? (
         <>
-          <div className="my-8 h-[2px] w-full bg-grey-400" />
+          <div className="my-4 h-[2px] w-full bg-grey-400" />
           <div className="flex w-full min-w-[320px] flex-col gap-y-5">
             {isLoading ? (
               <>
-                <Skeleton className="w-full" height={50} />
-                <Skeleton className="w-full" height={50} />
-                <Skeleton className="w-full" height={50} />
-                <Skeleton className="w-full" height={50} />
-                <Skeleton className="w-full" height={50} />
+                {Array.from({ length: 3 }).map((_, index) => (
+                  <Skeleton key={index} className="w-full" height={50} />
+                ))}
               </>
             ) : (
               <>
@@ -582,6 +558,32 @@ const ClientModal = ({
                 </Button>
               </>
             )}
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="my-6 h-[2px] w-full bg-grey-400" />
+          <div className="max-w-sm space-y-4">
+            <div className="flex flex-col">
+              <Heading size="md">Ainda não tem uma conta?</Heading>
+              <Text className="text-sm text-white/50">
+                Não deixe essa oportunidade escapar, crie sua conta agora e
+                comece a aproveitar!
+              </Text>
+            </div>
+            <nav className="flex flex-col gap-y-3">
+              <Button
+                href="/auth/sign-in"
+                fill="empty"
+                text="Login"
+                className="w-full"
+              />
+              <Button
+                href="/auth/sign-up"
+                text="Registrar"
+                className="w-full"
+              />
+            </nav>
           </div>
         </>
       )}

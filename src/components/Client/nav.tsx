@@ -1,9 +1,6 @@
 'use client'
-/* eslint-disable camelcase */
 /* eslint-disable @next/next/no-img-element */
-/* eslint-disable react-hooks/exhaustive-deps */
 import Button from '../button'
-import Search from '../Layout/search'
 import useConnection from '@/hooks/useConnection'
 import useClient from '@/hooks/useClient'
 import { useEffect, useState } from 'react'
@@ -21,15 +18,11 @@ const Nav = () => {
   }, [])
 
   return (
-    <div className="flex items-center gap-x-6">
+    <div className="absolute right-0 flex items-center gap-x-6">
       {isLoading || !mounted ? (
-        <>
-          <Skeleton height={48} width={144} />
-          <Skeleton height={48} width={144} />
-        </>
+        <Skeleton isRoundedFull height={44} width={44} />
       ) : (
         <>
-          <Search />
           {isConnected ? (
             <>
               <button
@@ -46,17 +39,17 @@ const Nav = () => {
             </>
           ) : (
             <>
-              <nav className="hidden gap-x-5 md:flex">
+              <nav className="hidden gap-x-3 md:flex">
                 <Button
                   fill="empty"
                   text="Login"
                   href="/auth/sign-in"
-                  className="w-36"
+                  className="md:w-24 lg:w-36"
                 />
                 <Button
                   href="/auth/sign-up"
                   text="Registrar"
-                  className="w-36"
+                  className="md:w-24 lg:w-36"
                 />
               </nav>
               <button

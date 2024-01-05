@@ -31,5 +31,5 @@ export function useMediaQuery(query: string) {
   return matches
 }
 
+export const useIsXL = () => useMediaQuery('(min-width: 1280px)')
 export const useIsLarge = () => useMediaQuery('(min-width: 1024px)')
-export const useIsMedium = () => useMediaQuery('(min-width: 768px)')

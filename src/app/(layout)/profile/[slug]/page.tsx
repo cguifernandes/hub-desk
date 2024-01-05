@@ -62,11 +62,14 @@ export default async function Desk({ params }: { params: { slug: string } }) {
   return (
     <section className="flex min-h-[calc(100vh_-_80px_-_64px)] flex-col items-center">
       <div className="relative h-[calc(240px_+_252px_-_80px)] w-full md:h-[calc(240px_+_192px_-_96px)]">
-        <img
-          className="h-60 w-full object-cover"
-          src="https://cdn.awsli.com.br/600x450/549/549871/produto/29108664/35ddc56731.jpg"
-          alt="Foto de fundo"
-        />
+        <div className="absolute left-0 top-0 h-60 w-full">
+          <img
+            className="h-full w-full overflow-clip rounded-md object-cover object-center align-top"
+            src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${props.client[0]?.bg}`}
+            alt={props.client[0]?.user}
+          />
+          <div className="absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-grey-700" />
+        </div>
         <div className="absolute bottom-0 flex w-full flex-col items-center justify-center px-6 md:flex-row md:items-end md:justify-between md:px-10">
           <img
             className="mb-3 h-40 w-40 overflow-clip rounded-full object-cover object-center shadow-md md:mb-0 md:h-48 md:w-48"
@@ -89,7 +92,11 @@ export default async function Desk({ params }: { params: { slug: string } }) {
         </div>
       </div>
       <div className="my-16 flex h-full w-full flex-col">
-        <Desks user={props.client[0].user} id={props.client[0].id} />
+        <Desks
+          deskCount={props.desk.count}
+          user={props.client[0].user}
+          id={props.client[0].id}
+        />
       </div>
     </section>
   )

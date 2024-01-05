@@ -47,7 +47,7 @@ const DeskWrapper = ({
   return (
     <div
       className={clsx(
-        'flex flex-wrap items-end justify-between gap-2 text-xs text-white',
+        'flex flex-col flex-wrap items-start justify-between gap-2 text-xs text-white sm:flex-row sm:items-end',
         className,
       )}
     >
@@ -66,7 +66,7 @@ const DeskWrapper = ({
           />
         </Link>
       )}
-      <div className="flex flex-col items-end gap-y-1">
+      <div className="flex flex-col items-start gap-y-2 sm:items-end">
         {comments
           ? comments > 0 && (
               <span className="flex items-center gap-x-2 rounded-md bg-grey-500 px-3 py-2 text-white">

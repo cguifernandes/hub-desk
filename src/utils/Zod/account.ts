@@ -29,6 +29,17 @@ export const schemaAccount = z.object({
       (file) => file === undefined || allowedImageTypes.includes(file?.type),
       'O tipo do arquivo não é válido.',
     ),
+  bg: z
+    .any()
+    .transform((file) => file[0])
+    .refine(
+      (file) => file === undefined || file?.size <= 5 * 1024 * 1024,
+      'A imagem deve ter no máximo 5Mb.',
+    )
+    .refine(
+      (file) => file === undefined || allowedImageTypes.includes(file?.type),
+      'O tipo do arquivo não é válido.',
+    ),
 })
 
 export type AccountProps = z.infer<typeof schemaAccount>
