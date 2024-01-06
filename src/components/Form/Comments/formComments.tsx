@@ -83,16 +83,17 @@ const FormComments = ({
           <img
             alt={user[0].user}
             src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${user[0].pfp}`}
-            className="h-12 w-12 overflow-clip rounded-full object-cover object-center align-top md:h-14 md:w-14"
+            className="hidden h-12 w-12 overflow-clip rounded-full object-cover object-center align-top sm:inline md:h-14 md:w-14"
           />
           <Form.Input
-            placeholder={`Olá ${user[0].user}, aqui você pode postar um comentário`}
+            placeholder={`Poste um comentário aqui`}
             label="Poste um comentário sobre essa desk"
             maxLength={190}
             register={register}
             error={errors.text}
             name="text"
             className="w-full"
+            image={user[0].pfp}
           />
         </div>
         <Form.Button
