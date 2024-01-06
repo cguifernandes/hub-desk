@@ -26,7 +26,9 @@ export async function generateMetadata({
   const data = await response.json()
 
   return {
-    title: `Desk | ${data?.success ? data.data[0].title : 'Não encontrado'}`,
+    title: `Desk | ${
+      data?.success ? data.data[0].title : 'Desk não encontrada'
+    }`,
   }
 }
 

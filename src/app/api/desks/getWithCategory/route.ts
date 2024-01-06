@@ -7,7 +7,7 @@ export async function GET(request: NextRequest) {
 
   if (category) {
     const desks = await prisma.desk.findMany({
-      where: { category },
+      where: { category, visibility: 'Público' },
       orderBy: {
         createdAt: 'desc',
       },

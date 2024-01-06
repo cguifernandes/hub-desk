@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
       },
     })
 
-    if (id === undefined) {
+    if (id === 'undefined') {
       const desks = await prisma.desk.findMany({
         where: {
           title: { mode: 'insensitive', contains: query },

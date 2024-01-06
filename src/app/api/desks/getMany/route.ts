@@ -13,7 +13,7 @@ export async function GET(request: NextRequest) {
     const desks = await prisma.desk.findMany({
       take: PER_PAGE,
       skip: (currentPage - 1) * PER_PAGE,
-      where: { authorId: id },
+      where: { authorId: id, visibility: 'Público' },
       orderBy: {
         createdAt: 'desc',
       },
@@ -26,7 +26,7 @@ export async function GET(request: NextRequest) {
     })
 
     const count = await prisma.desk.count({
-      where: { authorId: id },
+      where: { authorId: id, visibility: 'Público' },
     })
 
     if (desks) {
