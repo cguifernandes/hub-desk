@@ -72,7 +72,7 @@ const AccountWrapper = ({ client }: { client: ClientsProps[] }) => {
             </div>
             <Button
               onClick={() => setVisibleModal(true)}
-              className="w-3/4 !h-auto"
+              className="!h-auto w-3/4"
               text="Excluir conta permanentemente"
             />
             <DeleteModal
