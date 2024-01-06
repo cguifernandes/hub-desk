@@ -52,7 +52,6 @@ const CardDesk = ({
           <div className="absolute top-0 h-full w-full bg-gradient-to-b from-transparent to-grey-600"></div>
         </div>
       )}
-      {data.visibility}
       <Pattern
         href={href!}
         style={{ marginTop: data.image ? 120 : 0 }}
