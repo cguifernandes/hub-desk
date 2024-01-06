@@ -1,7 +1,7 @@
 <h1 align="center">Hub Desk</h1>
 
 <div align="center">
-    <img src="https://github.com/cguifernandes/hub-desk/assets/88489337/cbbd292a-6b95-488b-b6ae-f55e6566ae15" width="850px"/>
+    <img src="https://github.com/cguifernandes/hub-desk/assets/88489337/d9700a5e-96e1-45e7-9982-e72a1642954f" width="850px"/>
 </div>
 
 ## Sobre o Projeto
