@@ -26,6 +26,7 @@ type MenuProps = {
   setMembers: Dispatch<SetStateAction<MemberProps[] | undefined>>
   setPage: Dispatch<SetStateAction<number>>
   page: number
+  setCount: Dispatch<SetStateAction<number>>
 }
 
 type MemberConfigProps = {
@@ -35,6 +36,7 @@ type MemberConfigProps = {
   setMembers: Dispatch<SetStateAction<MemberProps[] | undefined>>
   setPage: Dispatch<SetStateAction<number>>
   page: number
+  setCount: Dispatch<SetStateAction<number>>
 }
 
 const EditRole = ({
@@ -172,6 +174,7 @@ const Menu = ({
   setVisibleModal,
   setMembers,
   setPage,
+  setCount,
   page,
 }: MenuProps) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -191,6 +194,7 @@ const Menu = ({
       } else {
         Toast(data.success)
         setMembers(data.updatedMembers)
+        setCount(data.count)
       }
     } catch (error) {
       console.log(error)
@@ -239,6 +243,7 @@ const MemberConfig = ({
   deskId,
   userId,
   setMembers,
+  setCount,
   page,
   setPage,
 }: MemberConfigProps) => {
@@ -249,6 +254,7 @@ const MemberConfig = ({
     setVisibleModal(true)
     setModalContent(
       <Menu
+        setCount={setCount}
         setVisibleModal={setVisibleModal}
         userId={userId}
         deskId={deskId}

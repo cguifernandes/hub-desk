@@ -125,7 +125,7 @@ const FormDesk = ({ author }: { author: ClientsProps }) => {
           placeholder="Título*"
           maxLength={50}
           className="!w-full !rounded-md"
-          label="Escrava um título"
+          label="Escreva um título"
           setFakeData={setFakeData}
         />
         <div className="flex flex-col justify-between gap-8 sm:flex-row">

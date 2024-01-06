@@ -99,6 +99,7 @@ const Members = ({
                 </Link>
                 {isLeader && member.userId !== authorId && (
                   <MemberConfig
+                    setCount={setCount}
                     userId={member.userId}
                     deskId={deskId}
                     setMembers={setMembers}

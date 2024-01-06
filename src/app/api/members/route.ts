@@ -88,9 +88,14 @@ export async function DELETE(request: NextRequest) {
         skip: (currentPage - 1) * PER_PAGE,
       })
 
+      const count = await prisma.member.count({
+        where: { deskId },
+      })
+
       return NextResponse.json({
         success: 'Membro removido da desk.',
         updatedMembers,
+        count,
       })
     } catch (err) {
       return NextResponse.json({
