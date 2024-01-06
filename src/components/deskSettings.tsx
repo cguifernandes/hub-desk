@@ -91,7 +91,7 @@ const DeskSettings = ({
     try {
       setIsLoading(true)
       const { data } = await api.delete(
-        `/desks?deskId=${deskId}&image=${image}`,
+        `/desks?deskId=${deskId}&image=${image === '' && undefined}`,
         {
           headers: { 'Content-Type': 'application/json' },
         },
@@ -101,12 +101,12 @@ const DeskSettings = ({
         Toast(data.error)
       } else {
         Toast(data.success)
-        push('/')
       }
     } catch (error) {
       console.log(error)
     } finally {
       setIsLoading(false)
+      push('/')
       setVisibleModal(false)
     }
   }

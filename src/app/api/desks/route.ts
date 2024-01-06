@@ -12,8 +12,9 @@ export async function DELETE(request: NextRequest) {
   if (deskId) {
     try {
       await prisma.member.deleteMany({ where: { deskId } })
+      await prisma.comment.deleteMany({ where: { deskId } })
       await prisma.desk.delete({ where: { id: deskId } })
-      if (image && image !== '') {
+      if (image !== 'undefined' && image) {
         await supabase.storage.from('hub-desk').remove([image])
       }
 
