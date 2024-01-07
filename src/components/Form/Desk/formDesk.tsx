@@ -69,15 +69,15 @@ const FormDesk = ({ author }: { author: ClientsProps }) => {
       } else {
         Toast(data.success)
         push(`/desk/${data.data.id}`)
+        setSelectedCategory('')
+        setSelectedVisibility('Público')
+        setFileList(undefined)
+        reset()
       }
     } catch (err) {
       console.error('Erro ao processar formulário:', err)
     } finally {
       setIsLoading(false)
-      reset()
-      setSelectedCategory('')
-      setSelectedVisibility('Público')
-      setFileList(undefined)
       setFakeData({
         category: 'Selecione uma categoria',
         description: 'Escreva uma descrição',

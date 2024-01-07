@@ -19,24 +19,22 @@ const Nav = () => {
 
   return (
     <div className="absolute right-0 flex items-center gap-x-6">
-      {isLoading || !mounted ? (
+      {isLoading || !mounted || client[0] === undefined ? (
         <Skeleton isRoundedFull height={44} width={44} />
       ) : (
         <>
           {isConnected ? (
-            <>
-              <button
-                onClick={() => setVisibleModal(!visibleModal)}
-                className="h-11 w-11"
-              >
-                <img
-                  key={client[0]?.password}
-                  alt={client[0]?.user}
-                  src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${client[0]?.pfp}`}
-                  className="h-11 w-11 overflow-clip rounded-full object-cover object-center align-top"
-                />
-              </button>
-            </>
+            <button
+              onClick={() => setVisibleModal(!visibleModal)}
+              className="h-11 w-11"
+            >
+              <img
+                key={client[0]?.password}
+                alt={client[0]?.user}
+                src={`https://kyrsnctgzdsrzsievslh.supabase.co/storage/v1/object/public/hub-desk/${client[0]?.pfp}`}
+                className="h-11 w-11 overflow-clip rounded-full object-cover object-center align-top"
+              />
+            </button>
           ) : (
             <>
               <nav className="hidden gap-x-3 md:flex">
