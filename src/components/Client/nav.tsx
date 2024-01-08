@@ -19,7 +19,7 @@ const Nav = () => {
 
   return (
     <div className="absolute right-0 flex items-center gap-x-6">
-      {isLoading || !mounted || client[0] === undefined ? (
+      {isLoading || !mounted ? (
         <Skeleton isRoundedFull height={44} width={44} />
       ) : (
         <>
