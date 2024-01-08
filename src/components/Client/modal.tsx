@@ -471,7 +471,7 @@ const ClientModal = ({
     <>
       <Modal.Header>
         {isConnected ? (
-          isLoading || client[0] === undefined ? (
+          isLoading ? (
             <Skeleton className="w-full" height={156} />
           ) : (
             <div className="flex flex-col items-center justify-between gap-y-4">
