@@ -18,7 +18,11 @@ import { FakeRDeskProps } from '@/utils/type'
 type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   className?: string
   children?: ReactNode
-  register?: UseFormRegister<{ email: string; password: string; title: string }>
+  register?: UseFormRegister<{
+    email: string
+    password: string
+    title: string
+  }>
   name?: string
   error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | undefined
   setFakeData?: Dispatch<SetStateAction<FakeRDeskProps | undefined>>

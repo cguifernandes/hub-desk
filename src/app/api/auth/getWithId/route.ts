@@ -12,7 +12,10 @@ export async function GET(request: NextRequest) {
     })
 
     if (clients) {
-      return NextResponse.json({ success: 'Usuário encontrado', data: clients })
+      return NextResponse.json({
+        success: 'Usuário encontrado',
+        data: clients,
+      })
     } else {
       return NextResponse.json({ error: 'Usuário não encontrado.' })
     }

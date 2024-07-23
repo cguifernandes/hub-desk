@@ -10,7 +10,8 @@ html {
   background-color: #232323;
 }
 
-input, textarea {
+input,
+textarea {
   outline: 0 none;
 }
 
@@ -49,16 +50,21 @@ a {
 }
 
 *::-webkit-scrollbar-thumb {
-  background-color:rgba(211, 211, 211, 0.8);
+  background-color: rgba(211, 211, 211, 0.8);
   border-radius: 20px;
   border: 2px solid rgb(51, 51, 51);
 }
 
 .gradient-text {
-  background-image: linear-gradient(91deg, #0369A1 0%, #0369A1 0.01%, #024B72 100%); 
-  -webkit-background-clip: text; 
+  background-image: linear-gradient(
+    91deg,
+    #0369a1 0%,
+    #0369a1 0.01%,
+    #024b72 100%
+  );
+  -webkit-background-clip: text;
   background-clip: text;
-  color: transparent; 
+  color: transparent;
 }
 
 .swiper-scrollbar {

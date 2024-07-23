@@ -10,19 +10,19 @@ Esse projeto tem como objetivo inicial conectar as pessoas às "Desks". Essas "m
 
 ## Tecnologias Utilizadas
 
--  [TailwindCSS](https://tailwindcss.com/)
+- [TailwindCSS](https://tailwindcss.com/)
 
--  [Next.JS](https://nextjs.org/)
+- [Next.JS](https://nextjs.org/)
 
--  [TypeScript](https://www.typescriptlang.org/)
+- [TypeScript](https://www.typescriptlang.org/)
 
--  [Framer Motion](https://www.framer.com/motion/)
+- [Framer Motion](https://www.framer.com/motion/)
 
--  [Swiper](https://swiperjs.com/)
+- [Swiper](https://swiperjs.com/)
 
--  [Prisma](https://www.prisma.io/)
+- [Prisma](https://www.prisma.io/)
 
--  [MongoDB](https://www.mongodb.com/pt-br)
+- [MongoDB](https://www.mongodb.com/pt-br)
 
 ## Instruções de Uso
 
@@ -33,6 +33,7 @@ Esse projeto tem como objetivo inicial conectar as pessoas às "Desks". Essas "m
 3. Após a instalação das dependências, execute o comando <strong>npm run dev</strong> ou <strong>yarn dev</strong> no terminal dentro do diretório do projeto. Isso iniciará o servidor de desenvolvimento do Next.js e você poderá acessar o projeto no navegador através do endereço http://localhost:3000 (a menos que especificado de outra forma).
 
 ## Autor
+
 <table>
   <tr>
     <td align="center">
